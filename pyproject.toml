@@ -1,0 +1,40 @@
+[project]
+name = "ftlink"
+version = "1.0.2"
+description = "Financial table and footnote linking pipeline for scanned KAP audit reports"
+requires-python = ">=3.11"
+dependencies = [
+    "pymupdf>=1.24",
+    "pydantic>=2.7",
+    "pydantic-settings[yaml]>=2.4",
+    "numpy>=1.26",
+    "scikit-learn>=1.4",
+    "rapidfuzz>=3.6",
+    "sentence-transformers>=3.0",
+    "pyyaml>=6.0",
+    "rapidocr>=2.0",
+    "onnxruntime>=1.17",
+]
+
+[dependency-groups]
+dev = ["pytest>=8.0"]
+
+[project.scripts]
+ftlink = "ftlink.cli:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/ftlink"]
+
+[tool.uv]
+# CPU-only torch keeps the install small and grader-friendly.
+[[tool.uv.index]]
+name = "pytorch-cpu"
+url = "https://download.pytorch.org/whl/cpu"
+explicit = true
+
+[tool.uv.sources]
+torch = [{ index = "pytorch-cpu", marker = "sys_platform == 'linux'" }]

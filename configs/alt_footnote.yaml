@@ -1,0 +1,30 @@
+# Proof that the pipeline is config-driven: targets footnote 12 (Maddi Duran Varliklar)
+# over the same document. Run: uv run ftlink run --config configs/alt_footnote.yaml
+document:
+  pdf_path: data/ozak_gyo_2012.pdf
+  summary_pages: [5, 7]
+  footnote_no: 12
+  company: "ÖZAK GAYRİMENKUL YATIRIM ORTAKLIĞI A.Ş. VE BAĞLI ORTAKLIKLARI"
+  period_end: "2012-12-31"
+  currency: TL
+
+ocr:
+  dpi: 300
+  psm: 4
+  lang: tur
+
+candidates:
+  rrf_k: 10
+  anchor_weight: 3.0
+  top_k: 8
+
+linking:
+  cross_encoder_model: cross-encoder/mmarco-mMiniLMv2-L12-H384-v1
+  accept_threshold: 0.5
+
+confidence:
+  low_confidence_flag: 0.5
+
+output:
+  dir: outputs_footnote12
+  emit_report_html: true

@@ -1,0 +1,50 @@
+# All document-specific targets come from config, never from code (case requirement 4).
+document:
+  pdf_path: data/ozak_gyo_2012.pdf
+  # Pages holding the summary financial tables, inclusive PDF page numbers (1-based).
+  summary_pages: [5, 7]
+  # The footnote to locate and link against.
+  footnote_no: 11
+  # Document metadata (echoed into the output; data, never code).
+  company: "ÖZAK GAYRİMENKUL YATIRIM ORTAKLIĞI A.Ş. VE BAĞLI ORTAKLIKLARI"
+  period_end: "2012-12-31"
+  currency: TL
+
+ocr:
+  dpi: 300            # locked by measurement: 400 dpi degrades digit fidelity on this scan
+  psm: 4
+  lang: tur
+  percent_rescue: true  # rate rows re-read per cell by the second engine (% glyph)
+
+candidates:
+  rrf_k: 10
+  anchor_weight: 3.0
+  top_k: 8
+  dense_model: intfloat/multilingual-e5-small
+  dense_model_revision: 614241f622f53c4eeff9890bdc4f31cfecc418b3
+
+linking:
+  # Approaches to run. "lexical" is the deliberately-insufficient baseline (C1/C2),
+  # "cross_encoder" is approach A. Both always run so the comparison stage has data.
+  cross_encoder_model: cross-encoder/mmarco-mMiniLMv2-L12-H384-v1
+  # HF snapshot hash: the uv lockfile pins packages, not weights; this pins weights
+  cross_encoder_revision: 1427fd652930e4ba29e8149678df786c240d8825
+  accept_threshold: 0.5
+  # rank-1 candidates are admitted above this coarse floor (rank ordering, not the
+  # absolute sigmoid scale, is the validated signal; see README section 5)
+  rank1_min_score: 0.2
+  # approach C (lexical baseline) acceptance bar; kept high on purpose, the
+  # baseline exists to demonstrate insufficiency (README section 5)
+  lexical_threshold: 0.75
+
+confidence:
+  # Confidence never equals a raw model similarity (case requirement 7).
+  # Control samples are derived from the document itself at run time.
+  low_confidence_flag: 0.5
+  # The cash-flow statement also references the configured footnote; its rows are
+  # used as additional calibration controls only (never emitted as relations).
+  extra_control_pages: [9, 10]
+
+output:
+  dir: outputs
+  emit_report_html: true
