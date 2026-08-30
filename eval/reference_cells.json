@@ -1,0 +1,2391 @@
+{
+  "document": {
+    "company": "Özak Gayrimenkul Yatırım Ortaklığı A.Ş. ve Bağlı Ortaklıkları",
+    "period_end": "2012-12-31",
+    "currency": "TL",
+    "source_file": "case-info/Özak GYO 31122012 Bağımsız Denetim Raporu.pdf",
+    "pdf_page_offset": 4,
+    "audit_status": "Bağımsız Denetimden Geçmiş"
+  },
+  "tables": [
+    {
+      "id": "bilanco_varlik",
+      "pdf_page": 5,
+      "printed_page": 1,
+      "title_raw": "BAĞIMSIZ DENETİMDEN GEÇMİŞ 31 ARALIK 2012 TARİHLİ KONSOLİDE BİLANÇO",
+      "statement_type": "balance_sheet_assets",
+      "periods": [
+        {
+          "id": "p2012",
+          "label": "31 Aralık 2012",
+          "end": "2012-12-31"
+        },
+        {
+          "id": "p2011",
+          "label": "31 Aralık 2011",
+          "end": "2011-12-31"
+        }
+      ],
+      "columns": [
+        "dipnot_ref",
+        "p2012",
+        "p2011"
+      ],
+      "rows": [
+        {
+          "row_id": "varliklar",
+          "label_raw": "VARLIKLAR",
+          "indent_level": 0,
+          "row_type": "group_header",
+          "parent_row_id": null,
+          "dipnot_refs": [],
+          "asterisk_marks": [],
+          "values": {
+            "p2012": {
+              "state": "empty"
+            },
+            "p2011": {
+              "state": "empty"
+            }
+          }
+        },
+        {
+          "row_id": "donen_varliklar",
+          "label_raw": "Dönen Varlıklar",
+          "indent_level": 0,
+          "row_type": "total",
+          "parent_row_id": "varliklar",
+          "dipnot_refs": [],
+          "asterisk_marks": [],
+          "values": {
+            "p2012": {
+              "state": "number",
+              "value_raw": "134.557.729",
+              "value": 134557729
+            },
+            "p2011": {
+              "state": "number",
+              "value_raw": "21.380.946",
+              "value": 21380946
+            }
+          }
+        },
+        {
+          "row_id": "nakit",
+          "label_raw": "Nakit ve Nakit Benzerleri",
+          "indent_level": 1,
+          "row_type": "item",
+          "parent_row_id": "donen_varliklar",
+          "dipnot_refs": [
+            4
+          ],
+          "asterisk_marks": [],
+          "values": {
+            "p2012": {
+              "state": "number",
+              "value_raw": "41.854.579",
+              "value": 41854579
+            },
+            "p2011": {
+              "state": "number",
+              "value_raw": "7.726.696",
+              "value": 7726696
+            }
+          }
+        },
+        {
+          "row_id": "ticari_alacaklar",
+          "label_raw": "Ticari Alacaklar",
+          "indent_level": 1,
+          "row_type": "item",
+          "parent_row_id": "donen_varliklar",
+          "dipnot_refs": [
+            8
+          ],
+          "asterisk_marks": [],
+          "values": {
+            "p2012": {
+              "state": "number",
+              "value_raw": "6.281.458",
+              "value": 6281458
+            },
+            "p2011": {
+              "state": "number",
+              "value_raw": "7.801.336",
+              "value": 7801336
+            }
+          }
+        },
+        {
+          "row_id": "iliskili_ticari_alacaklar",
+          "label_raw": "-İlişkili Taraflardan Ticari Alacaklar",
+          "indent_level": 2,
+          "row_type": "subitem",
+          "parent_row_id": "ticari_alacaklar",
+          "dipnot_refs": [
+            28
+          ],
+          "asterisk_marks": [],
+          "values": {
+            "p2012": {
+              "state": "number",
+              "value_raw": "170.966",
+              "value": 170966
+            },
+            "p2011": {
+              "state": "number",
+              "value_raw": "2.082.986",
+              "value": 2082986
+            }
+          }
+        },
+        {
+          "row_id": "diger_ticari_alacaklar",
+          "label_raw": "-Diğer Ticari Alacaklar",
+          "indent_level": 2,
+          "row_type": "subitem",
+          "parent_row_id": "ticari_alacaklar",
+          "dipnot_refs": [],
+          "asterisk_marks": [],
+          "values": {
+            "p2012": {
+              "state": "number",
+              "value_raw": "6.110.492",
+              "value": 6110492
+            },
+            "p2011": {
+              "state": "number",
+              "value_raw": "5.718.350",
+              "value": 5718350
+            }
+          }
+        },
+        {
+          "row_id": "diger_alacaklar",
+          "label_raw": "Diğer Alacaklar",
+          "indent_level": 1,
+          "row_type": "item",
+          "parent_row_id": "donen_varliklar",
+          "dipnot_refs": [
+            9
+          ],
+          "asterisk_marks": [],
+          "values": {
+            "p2012": {
+              "state": "number",
+              "value_raw": "3.993",
+              "value": 3993
+            },
+            "p2011": {
+              "state": "number",
+              "value_raw": "56.956",
+              "value": 56956
+            }
+          }
+        },
+        {
+          "row_id": "stoklar",
+          "label_raw": "Stoklar",
+          "indent_level": 1,
+          "row_type": "item",
+          "parent_row_id": "donen_varliklar",
+          "dipnot_refs": [
+            10
+          ],
+          "asterisk_marks": [],
+          "values": {
+            "p2012": {
+              "state": "number",
+              "value_raw": "77.543.097",
+              "value": 77543097
+            },
+            "p2011": {
+              "state": "number",
+              "value_raw": "1.083.886",
+              "value": 1083886
+            }
+          }
+        },
+        {
+          "row_id": "diger_donen_varliklar",
+          "label_raw": "Diğer Dönen Varlıklar",
+          "indent_level": 1,
+          "row_type": "item",
+          "parent_row_id": "donen_varliklar",
+          "dipnot_refs": [
+            18
+          ],
+          "asterisk_marks": [],
+          "values": {
+            "p2012": {
+              "state": "number",
+              "value_raw": "8.874.602",
+              "value": 8874602
+            },
+            "p2011": {
+              "state": "number",
+              "value_raw": "4.712.072",
+              "value": 4712072
+            }
+          }
+        },
+        {
+          "row_id": "duran_varliklar",
+          "label_raw": "Duran Varlıklar",
+          "indent_level": 0,
+          "row_type": "total",
+          "parent_row_id": "varliklar",
+          "dipnot_refs": [],
+          "asterisk_marks": [],
+          "values": {
+            "p2012": {
+              "state": "number",
+              "value_raw": "717.592.075",
+              "value": 717592075
+            },
+            "p2011": {
+              "state": "number",
+              "value_raw": "760.027.331",
+              "value": 760027331
+            }
+          }
+        },
+        {
+          "row_id": "finansal_yatirimlar",
+          "label_raw": "Finansal Yatırımlar",
+          "indent_level": 1,
+          "row_type": "item",
+          "parent_row_id": "duran_varliklar",
+          "dipnot_refs": [
+            5
+          ],
+          "asterisk_marks": [],
+          "values": {
+            "p2012": {
+              "state": "number",
+              "value_raw": "4.224",
+              "value": 4224
+            },
+            "p2011": {
+              "state": "number",
+              "value_raw": "4.224",
+              "value": 4224
+            }
+          }
+        },
+        {
+          "row_id": "ozkaynak_yontemi_yatirimlar",
+          "label_raw": "Özkaynak Yöntemiyle Değerlenen Yatırımlar",
+          "indent_level": 1,
+          "row_type": "item",
+          "parent_row_id": "duran_varliklar",
+          "dipnot_refs": [
+            6
+          ],
+          "asterisk_marks": [],
+          "values": {
+            "p2012": {
+              "state": "number",
+              "value_raw": "28.785.840",
+              "value": 28785840
+            },
+            "p2011": {
+              "state": "dash",
+              "value_raw": "-"
+            }
+          }
+        },
+        {
+          "row_id": "yatirim_amacli_gayrimenkuller",
+          "label_raw": "Yatırım Amaçlı Gayrimenkuller",
+          "indent_level": 1,
+          "row_type": "item",
+          "parent_row_id": "duran_varliklar",
+          "dipnot_refs": [
+            11
+          ],
+          "asterisk_marks": [],
+          "values": {
+            "p2012": {
+              "state": "number",
+              "value_raw": "373.992.222",
+              "value": 373992222
+            },
+            "p2011": {
+              "state": "number",
+              "value_raw": "423.580.000",
+              "value": 423580000
+            }
+          }
+        },
+        {
+          "row_id": "maddi_duran",
+          "label_raw": "Maddi Duran Varlıklar",
+          "indent_level": 1,
+          "row_type": "item",
+          "parent_row_id": "duran_varliklar",
+          "dipnot_refs": [
+            12
+          ],
+          "asterisk_marks": [],
+          "values": {
+            "p2012": {
+              "state": "number",
+              "value_raw": "285.161.777",
+              "value": 285161777
+            },
+            "p2011": {
+              "state": "number",
+              "value_raw": "313.618.867",
+              "value": 313618867
+            }
+          }
+        },
+        {
+          "row_id": "maddi_olmayan",
+          "label_raw": "Maddi Olmayan Duran Varlıklar",
+          "indent_level": 1,
+          "row_type": "item",
+          "parent_row_id": "duran_varliklar",
+          "dipnot_refs": [
+            13
+          ],
+          "asterisk_marks": [],
+          "values": {
+            "p2012": {
+              "state": "number",
+              "value_raw": "14.557.878",
+              "value": 14557878
+            },
+            "p2011": {
+              "state": "number",
+              "value_raw": "14.526.075",
+              "value": 14526075
+            }
+          }
+        },
+        {
+          "row_id": "ertelenen_vergi_varligi",
+          "label_raw": "Ertelenen Vergi Varlığı",
+          "indent_level": 1,
+          "row_type": "item",
+          "parent_row_id": "duran_varliklar",
+          "dipnot_refs": [
+            26
+          ],
+          "asterisk_marks": [],
+          "values": {
+            "p2012": {
+              "state": "number",
+              "value_raw": "4.065.781",
+              "value": 4065781
+            },
+            "p2011": {
+              "state": "number",
+              "value_raw": "8.262.684",
+              "value": 8262684
+            }
+          }
+        },
+        {
+          "row_id": "diger_duran_varliklar",
+          "label_raw": "Diğer Duran Varlıklar",
+          "indent_level": 1,
+          "row_type": "item",
+          "parent_row_id": "duran_varliklar",
+          "dipnot_refs": [
+            18
+          ],
+          "asterisk_marks": [],
+          "values": {
+            "p2012": {
+              "state": "number",
+              "value_raw": "11.024.353",
+              "value": 11024353
+            },
+            "p2011": {
+              "state": "number",
+              "value_raw": "35.481",
+              "value": 35481
+            }
+          }
+        },
+        {
+          "row_id": "toplam_varliklar",
+          "label_raw": "TOPLAM VARLIKLAR",
+          "indent_level": 0,
+          "row_type": "total",
+          "parent_row_id": null,
+          "dipnot_refs": [],
+          "asterisk_marks": [],
+          "values": {
+            "p2012": {
+              "state": "number",
+              "value_raw": "852.149.804",
+              "value": 852149804
+            },
+            "p2011": {
+              "state": "number",
+              "value_raw": "781.408.277",
+              "value": 781408277
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "bilanco_kaynak",
+      "pdf_page": 6,
+      "printed_page": 2,
+      "title_raw": "BAĞIMSIZ DENETİMDEN GEÇMİŞ 31 ARALIK 2012 TARİHLİ KONSOLİDE BİLANÇO",
+      "statement_type": "balance_sheet_liabilities_equity",
+      "periods": [
+        {
+          "id": "p2012",
+          "label": "31 Aralık 2012",
+          "end": "2012-12-31"
+        },
+        {
+          "id": "p2011",
+          "label": "31 Aralık 2011",
+          "end": "2011-12-31"
+        }
+      ],
+      "columns": [
+        "dipnot_ref",
+        "p2012",
+        "p2011"
+      ],
+      "rows": [
+        {
+          "row_id": "kaynaklar",
+          "label_raw": "KAYNAKLAR",
+          "indent_level": 0,
+          "row_type": "group_header",
+          "parent_row_id": null,
+          "dipnot_refs": [],
+          "asterisk_marks": [],
+          "values": {
+            "p2012": {
+              "state": "empty"
+            },
+            "p2011": {
+              "state": "empty"
+            }
+          }
+        },
+        {
+          "row_id": "kisa_vadeli_yuk",
+          "label_raw": "Kısa Vadeli Yükümlülükler",
+          "indent_level": 0,
+          "row_type": "total",
+          "parent_row_id": "kaynaklar",
+          "dipnot_refs": [],
+          "asterisk_marks": [],
+          "values": {
+            "p2012": {
+              "state": "number",
+              "value_raw": "63.553.798",
+              "value": 63553798
+            },
+            "p2011": {
+              "state": "number",
+              "value_raw": "107.356.816",
+              "value": 107356816
+            }
+          }
+        },
+        {
+          "row_id": "kv_finansal_borclar",
+          "label_raw": "Finansal Borçlar",
+          "indent_level": 1,
+          "row_type": "item",
+          "parent_row_id": "kisa_vadeli_yuk",
+          "dipnot_refs": [
+            7
+          ],
+          "asterisk_marks": [],
+          "values": {
+            "p2012": {
+              "state": "number",
+              "value_raw": "38.216.987",
+              "value": 38216987
+            },
+            "p2011": {
+              "state": "number",
+              "value_raw": "93.250.501",
+              "value": 93250501
+            }
+          }
+        },
+        {
+          "row_id": "ticari_borclar",
+          "label_raw": "Ticari Borçlar",
+          "indent_level": 1,
+          "row_type": "item",
+          "parent_row_id": "kisa_vadeli_yuk",
+          "dipnot_refs": [
+            8
+          ],
+          "asterisk_marks": [],
+          "values": {
+            "p2012": {
+              "state": "number",
+              "value_raw": "7.932.336",
+              "value": 7932336
+            },
+            "p2011": {
+              "state": "number",
+              "value_raw": "4.232.740",
+              "value": 4232740
+            }
+          }
+        },
+        {
+          "row_id": "iliskili_ticari_borclar",
+          "label_raw": "-İlişkili Taraflara Ticari Borçlar",
+          "indent_level": 2,
+          "row_type": "subitem",
+          "parent_row_id": "ticari_borclar",
+          "dipnot_refs": [
+            28
+          ],
+          "asterisk_marks": [],
+          "values": {
+            "p2012": {
+              "state": "number",
+              "value_raw": "4.993.230",
+              "value": 4993230
+            },
+            "p2011": {
+              "state": "dash",
+              "value_raw": "-"
+            }
+          }
+        },
+        {
+          "row_id": "diger_ticari_borclar",
+          "label_raw": "-Diğer Ticari Borçlar",
+          "indent_level": 2,
+          "row_type": "subitem",
+          "parent_row_id": "ticari_borclar",
+          "dipnot_refs": [],
+          "asterisk_marks": [],
+          "values": {
+            "p2012": {
+              "state": "number",
+              "value_raw": "2.939.106",
+              "value": 2939106
+            },
+            "p2011": {
+              "state": "number",
+              "value_raw": "4.232.740",
+              "value": 4232740
+            }
+          }
+        },
+        {
+          "row_id": "diger_borclar",
+          "label_raw": "Diğer Borçlar",
+          "indent_level": 1,
+          "row_type": "item",
+          "parent_row_id": "kisa_vadeli_yuk",
+          "dipnot_refs": [
+            9
+          ],
+          "asterisk_marks": [],
+          "values": {
+            "p2012": {
+              "state": "number",
+              "value_raw": "2.784.832",
+              "value": 2784832
+            },
+            "p2011": {
+              "state": "number",
+              "value_raw": "3.244.930",
+              "value": 3244930
+            }
+          }
+        },
+        {
+          "row_id": "iliskili_diger_borclar",
+          "label_raw": "-İlişkili Taraflara Diğer Borçlar",
+          "indent_level": 2,
+          "row_type": "subitem",
+          "parent_row_id": "diger_borclar",
+          "dipnot_refs": [
+            28
+          ],
+          "asterisk_marks": [],
+          "values": {
+            "p2012": {
+              "state": "number",
+              "value_raw": "1.500.000",
+              "value": 1500000
+            },
+            "p2011": {
+              "state": "number",
+              "value_raw": "1.887.911",
+              "value": 1887911
+            }
+          }
+        },
+        {
+          "row_id": "diger_diger_borclar",
+          "label_raw": "-Diğer Borçlar",
+          "indent_level": 2,
+          "row_type": "subitem",
+          "parent_row_id": "diger_borclar",
+          "dipnot_refs": [],
+          "asterisk_marks": [],
+          "values": {
+            "p2012": {
+              "state": "number",
+              "value_raw": "1.284.832",
+              "value": 1284832
+            },
+            "p2011": {
+              "state": "number",
+              "value_raw": "1.357.019",
+              "value": 1357019
+            }
+          }
+        },
+        {
+          "row_id": "donem_kari_vergi_yuk",
+          "label_raw": "Dönem Karı Vergi Yükümlülüğü",
+          "indent_level": 1,
+          "row_type": "item",
+          "parent_row_id": "kisa_vadeli_yuk",
+          "dipnot_refs": [
+            26
+          ],
+          "asterisk_marks": [],
+          "values": {
+            "p2012": {
+              "state": "dash",
+              "value_raw": "-"
+            },
+            "p2011": {
+              "state": "number",
+              "value_raw": "776.915",
+              "value": 776915
+            }
+          }
+        },
+        {
+          "row_id": "borc_karsiliklari",
+          "label_raw": "Borç Karşılıkları",
+          "indent_level": 1,
+          "row_type": "item",
+          "parent_row_id": "kisa_vadeli_yuk",
+          "dipnot_refs": [
+            15
+          ],
+          "asterisk_marks": [],
+          "values": {
+            "p2012": {
+              "state": "number",
+              "value_raw": "504.851",
+              "value": 504851
+            },
+            "p2011": {
+              "state": "dash",
+              "value_raw": "-"
+            }
+          }
+        },
+        {
+          "row_id": "kv_calisan_faydalari",
+          "label_raw": "Çalışanlara Sağlanan Faydalara İlişkin Karşılıklar",
+          "indent_level": 1,
+          "row_type": "item",
+          "parent_row_id": "kisa_vadeli_yuk",
+          "dipnot_refs": [
+            17
+          ],
+          "asterisk_marks": [],
+          "values": {
+            "p2012": {
+              "state": "number",
+              "value_raw": "1.016.352",
+              "value": 1016352
+            },
+            "p2011": {
+              "state": "number",
+              "value_raw": "628.306",
+              "value": 628306
+            }
+          }
+        },
+        {
+          "row_id": "diger_kv_yuk",
+          "label_raw": "Diğer Kısa Vadeli Yükümlülükler",
+          "indent_level": 1,
+          "row_type": "item",
+          "parent_row_id": "kisa_vadeli_yuk",
+          "dipnot_refs": [
+            18
+          ],
+          "asterisk_marks": [],
+          "values": {
+            "p2012": {
+              "state": "number",
+              "value_raw": "13.098.440",
+              "value": 13098440
+            },
+            "p2011": {
+              "state": "number",
+              "value_raw": "5.223.424",
+              "value": 5223424
+            }
+          }
+        },
+        {
+          "row_id": "uzun_vadeli_yuk",
+          "label_raw": "Uzun Vadeli Yükümlülükler",
+          "indent_level": 0,
+          "row_type": "total",
+          "parent_row_id": "kaynaklar",
+          "dipnot_refs": [],
+          "asterisk_marks": [],
+          "values": {
+            "p2012": {
+              "state": "number",
+              "value_raw": "136.150.924",
+              "value": 136150924
+            },
+            "p2011": {
+              "state": "number",
+              "value_raw": "54.471.741",
+              "value": 54471741
+            }
+          }
+        },
+        {
+          "row_id": "uv_finansal_borclar",
+          "label_raw": "Finansal Borçlar",
+          "indent_level": 1,
+          "row_type": "item",
+          "parent_row_id": "uzun_vadeli_yuk",
+          "dipnot_refs": [
+            7
+          ],
+          "asterisk_marks": [],
+          "values": {
+            "p2012": {
+              "state": "number",
+              "value_raw": "71.554.357",
+              "value": 71554357
+            },
+            "p2011": {
+              "state": "number",
+              "value_raw": "1.180.562",
+              "value": 1180562
+            }
+          }
+        },
+        {
+          "row_id": "diger_uv_yuk",
+          "label_raw": "Diğer Uzun Vadeli Yükümlülükler",
+          "indent_level": 1,
+          "row_type": "item",
+          "parent_row_id": "uzun_vadeli_yuk",
+          "dipnot_refs": [
+            18
+          ],
+          "asterisk_marks": [],
+          "values": {
+            "p2012": {
+              "state": "number",
+              "value_raw": "20.384.859",
+              "value": 20384859
+            },
+            "p2011": {
+              "state": "dash",
+              "value_raw": "-"
+            }
+          }
+        },
+        {
+          "row_id": "uv_calisan_faydalari",
+          "label_raw": "Çalışanlara Sağlanan Faydalara İlişkin Karşılıklar",
+          "indent_level": 1,
+          "row_type": "item",
+          "parent_row_id": "uzun_vadeli_yuk",
+          "dipnot_refs": [
+            17
+          ],
+          "asterisk_marks": [],
+          "values": {
+            "p2012": {
+              "state": "number",
+              "value_raw": "100.330",
+              "value": 100330
+            },
+            "p2011": {
+              "state": "number",
+              "value_raw": "122.730",
+              "value": 122730
+            }
+          }
+        },
+        {
+          "row_id": "ertelenmis_vergi_yuk",
+          "label_raw": "Ertelenmiş Vergi Yükümlülüğü",
+          "indent_level": 1,
+          "row_type": "item",
+          "parent_row_id": "uzun_vadeli_yuk",
+          "dipnot_refs": [
+            26
+          ],
+          "asterisk_marks": [],
+          "values": {
+            "p2012": {
+              "state": "number",
+              "value_raw": "44.111.378",
+              "value": 44111378
+            },
+            "p2011": {
+              "state": "number",
+              "value_raw": "53.168.449",
+              "value": 53168449
+            }
+          }
+        },
+        {
+          "row_id": "ozkaynaklar",
+          "label_raw": "ÖZKAYNAKLAR",
+          "indent_level": 0,
+          "row_type": "total",
+          "parent_row_id": "kaynaklar",
+          "dipnot_refs": [],
+          "asterisk_marks": [],
+          "values": {
+            "p2012": {
+              "state": "number",
+              "value_raw": "652.445.082",
+              "value": 652445082
+            },
+            "p2011": {
+              "state": "number",
+              "value_raw": "619.579.720",
+              "value": 619579720
+            }
+          }
+        },
+        {
+          "row_id": "ana_ortaklik_ozkaynaklari",
+          "label_raw": "Ana Ortaklığa Ait Özkaynaklar",
+          "indent_level": 0,
+          "row_type": "total",
+          "parent_row_id": "ozkaynaklar",
+          "dipnot_refs": [],
+          "asterisk_marks": [],
+          "values": {
+            "p2012": {
+              "state": "number",
+              "value_raw": "527.217.933",
+              "value": 527217933
+            },
+            "p2011": {
+              "state": "number",
+              "value_raw": "492.663.853",
+              "value": 492663853
+            }
+          }
+        },
+        {
+          "row_id": "cikarilmis_sermaye",
+          "label_raw": "Çıkarılmış Sermaye",
+          "indent_level": 1,
+          "row_type": "item",
+          "parent_row_id": "ana_ortaklik_ozkaynaklari",
+          "dipnot_refs": [
+            19
+          ],
+          "asterisk_marks": [],
+          "values": {
+            "p2012": {
+              "state": "number",
+              "value_raw": "157.000.000",
+              "value": 157000000
+            },
+            "p2011": {
+              "state": "number",
+              "value_raw": "141.483.500",
+              "value": 141483500
+            }
+          }
+        },
+        {
+          "row_id": "hisse_senedi_ihrac_primleri",
+          "label_raw": "Hisse Senedi İhraç Primleri",
+          "indent_level": 1,
+          "row_type": "item",
+          "parent_row_id": "ana_ortaklik_ozkaynaklari",
+          "dipnot_refs": [],
+          "asterisk_marks": [],
+          "values": {
+            "p2012": {
+              "state": "number",
+              "value_raw": "22.322.361",
+              "value": 22322361
+            },
+            "p2011": {
+              "state": "dash",
+              "value_raw": "-"
+            }
+          }
+        },
+        {
+          "row_id": "sermaye_rezervleri",
+          "label_raw": "Sermaye Rezervleri",
+          "indent_level": 1,
+          "row_type": "item",
+          "parent_row_id": "ana_ortaklik_ozkaynaklari",
+          "dipnot_refs": [],
+          "asterisk_marks": [],
+          "values": {
+            "p2012": {
+              "state": "number",
+              "value_raw": "124.390.608",
+              "value": 124390608
+            },
+            "p2011": {
+              "state": "number",
+              "value_raw": "124.390.608",
+              "value": 124390608
+            }
+          }
+        },
+        {
+          "row_id": "mdv_yeniden_degerleme_fonu",
+          "label_raw": "Maddi Duran Varlık Yeniden Değerleme Fonu",
+          "indent_level": 1,
+          "row_type": "item",
+          "parent_row_id": "ana_ortaklik_ozkaynaklari",
+          "dipnot_refs": [],
+          "asterisk_marks": [],
+          "values": {
+            "p2012": {
+              "state": "number",
+              "value_raw": "100.574.161",
+              "value": 100574161
+            },
+            "p2011": {
+              "state": "number",
+              "value_raw": "111.878.913",
+              "value": 111878913
+            }
+          }
+        },
+        {
+          "row_id": "kisitlanmis_yedekler",
+          "label_raw": "Kardan Ayrılan Kısıtlanmış Yedekler",
+          "indent_level": 1,
+          "row_type": "item",
+          "parent_row_id": "ana_ortaklik_ozkaynaklari",
+          "dipnot_refs": [],
+          "asterisk_marks": [],
+          "values": {
+            "p2012": {
+              "state": "number",
+              "value_raw": "2.569.141",
+              "value": 2569141
+            },
+            "p2011": {
+              "state": "number",
+              "value_raw": "53.036",
+              "value": 53036
+            }
+          }
+        },
+        {
+          "row_id": "gecmis_yillar_karlari",
+          "label_raw": "Geçmiş Yıllar Karları / (Zararları)",
+          "indent_level": 1,
+          "row_type": "item",
+          "parent_row_id": "ana_ortaklik_ozkaynaklari",
+          "dipnot_refs": [],
+          "asterisk_marks": [],
+          "values": {
+            "p2012": {
+              "state": "number",
+              "value_raw": "111.301.075",
+              "value": 111301075
+            },
+            "p2011": {
+              "state": "number",
+              "value_raw": "(46.784.714)",
+              "value": -46784714
+            }
+          }
+        },
+        {
+          "row_id": "net_donem_kari",
+          "label_raw": "Net Dönem Karı",
+          "indent_level": 1,
+          "row_type": "item",
+          "parent_row_id": "ana_ortaklik_ozkaynaklari",
+          "dipnot_refs": [],
+          "asterisk_marks": [],
+          "values": {
+            "p2012": {
+              "state": "number",
+              "value_raw": "9.060.587",
+              "value": 9060587
+            },
+            "p2011": {
+              "state": "number",
+              "value_raw": "161.642.510",
+              "value": 161642510
+            }
+          }
+        },
+        {
+          "row_id": "kontrol_gucu_olmayan_paylar",
+          "label_raw": "Kontrol Gücü Olmayan Paylar",
+          "indent_level": 0,
+          "row_type": "item",
+          "parent_row_id": "ozkaynaklar",
+          "dipnot_refs": [],
+          "asterisk_marks": [],
+          "values": {
+            "p2012": {
+              "state": "number",
+              "value_raw": "125.227.149",
+              "value": 125227149
+            },
+            "p2011": {
+              "state": "number",
+              "value_raw": "126.915.867",
+              "value": 126915867
+            }
+          }
+        },
+        {
+          "row_id": "toplam_kaynaklar",
+          "label_raw": "TOPLAM KAYNAKLAR",
+          "indent_level": 0,
+          "row_type": "total",
+          "parent_row_id": null,
+          "dipnot_refs": [],
+          "asterisk_marks": [],
+          "values": {
+            "p2012": {
+              "state": "number",
+              "value_raw": "852.149.804",
+              "value": 852149804
+            },
+            "p2011": {
+              "state": "number",
+              "value_raw": "781.408.277",
+              "value": 781408277
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "gelir",
+      "pdf_page": 7,
+      "printed_page": 3,
+      "title_raw": "BAĞIMSIZ DENETİMDEN GEÇMİŞ 31 ARALIK 2012 TARİHİNDE SONA EREN YILA AİT KONSOLİDE KAPSAMLI GELİR TABLOSU",
+      "statement_type": "comprehensive_income",
+      "periods": [
+        {
+          "id": "p2012",
+          "label": "1 Ocak-31 Aralık 2012",
+          "start": "2012-01-01",
+          "end": "2012-12-31"
+        },
+        {
+          "id": "p2011",
+          "label": "1 Ocak-31 Aralık 2011",
+          "start": "2011-01-01",
+          "end": "2011-12-31"
+        }
+      ],
+      "columns": [
+        "dipnot_ref",
+        "p2012",
+        "p2011"
+      ],
+      "rows": [
+        {
+          "row_id": "satis_gelirleri",
+          "label_raw": "Satış Gelirleri",
+          "indent_level": 0,
+          "row_type": "item",
+          "parent_row_id": null,
+          "dipnot_refs": [
+            20
+          ],
+          "asterisk_marks": [],
+          "values": {
+            "p2012": {
+              "state": "number",
+              "value_raw": "77.043.573",
+              "value": 77043573
+            },
+            "p2011": {
+              "state": "number",
+              "value_raw": "76.431.595",
+              "value": 76431595
+            }
+          }
+        },
+        {
+          "row_id": "satislarin_maliyeti",
+          "label_raw": "Satışların Maliyeti (-)",
+          "indent_level": 0,
+          "row_type": "item",
+          "parent_row_id": null,
+          "dipnot_refs": [
+            20
+          ],
+          "asterisk_marks": [],
+          "values": {
+            "p2012": {
+              "state": "number",
+              "value_raw": "(49.167.330)",
+              "value": -49167330
+            },
+            "p2011": {
+              "state": "number",
+              "value_raw": "(44.411.839)",
+              "value": -44411839
+            }
+          }
+        },
+        {
+          "row_id": "brut_kar",
+          "label_raw": "BRÜT KAR",
+          "indent_level": 0,
+          "row_type": "derived",
+          "parent_row_id": null,
+          "dipnot_refs": [],
+          "asterisk_marks": [],
+          "values": {
+            "p2012": {
+              "state": "number",
+              "value_raw": "27.876.243",
+              "value": 27876243
+            },
+            "p2011": {
+              "state": "number",
+              "value_raw": "32.019.756",
+              "value": 32019756
+            }
+          }
+        },
+        {
+          "row_id": "pazarlama_giderleri",
+          "label_raw": "Pazarlama, Satış ve Dağıtım Giderleri (-)",
+          "indent_level": 0,
+          "row_type": "item",
+          "parent_row_id": null,
+          "dipnot_refs": [
+            21
+          ],
+          "asterisk_marks": [],
+          "values": {
+            "p2012": {
+              "state": "number",
+              "value_raw": "(10.043.970)",
+              "value": -10043970
+            },
+            "p2011": {
+              "state": "number",
+              "value_raw": "(9.733.892)",
+              "value": -9733892
+            }
+          }
+        },
+        {
+          "row_id": "genel_yonetim_giderleri",
+          "label_raw": "Genel Yönetim Giderleri (-)",
+          "indent_level": 0,
+          "row_type": "item",
+          "parent_row_id": null,
+          "dipnot_refs": [
+            21
+          ],
+          "asterisk_marks": [],
+          "values": {
+            "p2012": {
+              "state": "number",
+              "value_raw": "(13.500.342)",
+              "value": -13500342
+            },
+            "p2011": {
+              "state": "number",
+              "value_raw": "(2.680.177)",
+              "value": -2680177
+            }
+          }
+        },
+        {
+          "row_id": "yatirim_amacli_degerleme_farklari",
+          "label_raw": "Yatırım Amaçlı Gayrimenkul Değerleme Farkları",
+          "indent_level": 0,
+          "row_type": "item",
+          "parent_row_id": null,
+          "dipnot_refs": [
+            11
+          ],
+          "asterisk_marks": [],
+          "values": {
+            "p2012": {
+              "state": "number",
+              "value_raw": "3.896.434",
+              "value": 3896434
+            },
+            "p2011": {
+              "state": "number",
+              "value_raw": "151.350.000",
+              "value": 151350000
+            }
+          }
+        },
+        {
+          "row_id": "diger_faaliyet_gelirleri",
+          "label_raw": "Diğer Faaliyet Gelirleri",
+          "indent_level": 0,
+          "row_type": "item",
+          "parent_row_id": null,
+          "dipnot_refs": [
+            23
+          ],
+          "asterisk_marks": [],
+          "values": {
+            "p2012": {
+              "state": "number",
+              "value_raw": "105.590",
+              "value": 105590
+            },
+            "p2011": {
+              "state": "number",
+              "value_raw": "5.030.355",
+              "value": 5030355
+            }
+          }
+        },
+        {
+          "row_id": "diger_faaliyet_giderleri",
+          "label_raw": "Diğer Faaliyet Giderleri (-)",
+          "indent_level": 0,
+          "row_type": "item",
+          "parent_row_id": null,
+          "dipnot_refs": [
+            23
+          ],
+          "asterisk_marks": [],
+          "values": {
+            "p2012": {
+              "state": "number",
+              "value_raw": "(346.564)",
+              "value": -346564
+            },
+            "p2011": {
+              "state": "number",
+              "value_raw": "(561.989)",
+              "value": -561989
+            }
+          }
+        },
+        {
+          "row_id": "faaliyet_kari",
+          "label_raw": "FAALİYET KARI",
+          "indent_level": 0,
+          "row_type": "derived",
+          "parent_row_id": null,
+          "dipnot_refs": [],
+          "asterisk_marks": [],
+          "values": {
+            "p2012": {
+              "state": "number",
+              "value_raw": "7.987.391",
+              "value": 7987391
+            },
+            "p2011": {
+              "state": "number",
+              "value_raw": "175.424.053",
+              "value": 175424053
+            }
+          }
+        },
+        {
+          "row_id": "ozkaynak_yontemi_pay",
+          "label_raw": "Özkaynak Yöntemiyle Değerlenen Yatırımların Kar/Zararlarındaki Paylar",
+          "indent_level": 0,
+          "row_type": "item",
+          "parent_row_id": null,
+          "dipnot_refs": [
+            6
+          ],
+          "asterisk_marks": [],
+          "values": {
+            "p2012": {
+              "state": "number",
+              "value_raw": "71.896",
+              "value": 71896
+            },
+            "p2011": {
+              "state": "dash",
+              "value_raw": "-"
+            }
+          }
+        },
+        {
+          "row_id": "finansal_gelirler",
+          "label_raw": "(Esas Faaliyet Dışı) Finansal Gelirler",
+          "indent_level": 0,
+          "row_type": "item",
+          "parent_row_id": null,
+          "dipnot_refs": [
+            24
+          ],
+          "asterisk_marks": [],
+          "values": {
+            "p2012": {
+              "state": "number",
+              "value_raw": "19.727.437",
+              "value": 19727437
+            },
+            "p2011": {
+              "state": "number",
+              "value_raw": "13.834.817",
+              "value": 13834817
+            }
+          }
+        },
+        {
+          "row_id": "finansal_giderler",
+          "label_raw": "(Esas Faaliyet Dışı) Finansal Giderler (-)",
+          "indent_level": 0,
+          "row_type": "item",
+          "parent_row_id": null,
+          "dipnot_refs": [
+            25
+          ],
+          "asterisk_marks": [],
+          "values": {
+            "p2012": {
+              "state": "number",
+              "value_raw": "(16.289.551)",
+              "value": -16289551
+            },
+            "p2011": {
+              "state": "number",
+              "value_raw": "(24.329.214)",
+              "value": -24329214
+            }
+          }
+        },
+        {
+          "row_id": "vergi_oncesi_kar",
+          "label_raw": "VERGİ ÖNCESİ KAR",
+          "indent_level": 0,
+          "row_type": "derived",
+          "parent_row_id": null,
+          "dipnot_refs": [],
+          "asterisk_marks": [],
+          "values": {
+            "p2012": {
+              "state": "number",
+              "value_raw": "11.497.173",
+              "value": 11497173
+            },
+            "p2011": {
+              "state": "number",
+              "value_raw": "164.929.656",
+              "value": 164929656
+            }
+          }
+        },
+        {
+          "row_id": "vergi_gelir_gideri",
+          "label_raw": "Vergi Gelir / (Gideri)",
+          "indent_level": 0,
+          "row_type": "total",
+          "parent_row_id": null,
+          "dipnot_refs": [],
+          "asterisk_marks": [],
+          "values": {
+            "p2012": {
+              "state": "number",
+              "value_raw": "(778.217)",
+              "value": -778217
+            },
+            "p2011": {
+              "state": "number",
+              "value_raw": "(3.015.405)",
+              "value": -3015405
+            }
+          }
+        },
+        {
+          "row_id": "donem_vergi_gideri",
+          "label_raw": "Dönem Vergi Gideri",
+          "indent_level": 1,
+          "row_type": "item",
+          "parent_row_id": "vergi_gelir_gideri",
+          "dipnot_refs": [
+            26
+          ],
+          "asterisk_marks": [],
+          "values": {
+            "p2012": {
+              "state": "number",
+              "value_raw": "(676.668)",
+              "value": -676668
+            },
+            "p2011": {
+              "state": "number",
+              "value_raw": "(3.742.633)",
+              "value": -3742633
+            }
+          }
+        },
+        {
+          "row_id": "ertelenmis_vergi_geliri",
+          "label_raw": "Ertelenmiş Vergi Geliri",
+          "indent_level": 1,
+          "row_type": "item",
+          "parent_row_id": "vergi_gelir_gideri",
+          "dipnot_refs": [
+            26
+          ],
+          "asterisk_marks": [],
+          "values": {
+            "p2012": {
+              "state": "number",
+              "value_raw": "(101.549)",
+              "value": -101549
+            },
+            "p2011": {
+              "state": "number",
+              "value_raw": "727.228",
+              "value": 727228
+            }
+          }
+        },
+        {
+          "row_id": "donem_kari",
+          "label_raw": "DÖNEM KARI",
+          "indent_level": 0,
+          "row_type": "derived",
+          "parent_row_id": null,
+          "dipnot_refs": [],
+          "asterisk_marks": [],
+          "values": {
+            "p2012": {
+              "state": "number",
+              "value_raw": "10.718.956",
+              "value": 10718956
+            },
+            "p2011": {
+              "state": "number",
+              "value_raw": "161.914.251",
+              "value": 161914251
+            }
+          }
+        },
+        {
+          "row_id": "donem_kari_dagilimi",
+          "label_raw": "Dönem Karı Dağılımı",
+          "indent_level": 0,
+          "row_type": "group_header",
+          "parent_row_id": null,
+          "dipnot_refs": [],
+          "asterisk_marks": [],
+          "values": {
+            "p2012": {
+              "state": "empty"
+            },
+            "p2011": {
+              "state": "empty"
+            }
+          }
+        },
+        {
+          "row_id": "dkd_kontrol_gucu",
+          "label_raw": "Kontrol Gücü Olmayan Paylar",
+          "indent_level": 0,
+          "row_type": "item",
+          "parent_row_id": "donem_kari_dagilimi",
+          "dipnot_refs": [],
+          "asterisk_marks": [],
+          "values": {
+            "p2012": {
+              "state": "number",
+              "value_raw": "1.658.369",
+              "value": 1658369
+            },
+            "p2011": {
+              "state": "number",
+              "value_raw": "271.741",
+              "value": 271741
+            }
+          }
+        },
+        {
+          "row_id": "dkd_ana_ortaklik",
+          "label_raw": "Ana Ortaklık Payları",
+          "indent_level": 0,
+          "row_type": "item",
+          "parent_row_id": "donem_kari_dagilimi",
+          "dipnot_refs": [],
+          "asterisk_marks": [],
+          "values": {
+            "p2012": {
+              "state": "number",
+              "value_raw": "9.060.587",
+              "value": 9060587
+            },
+            "p2011": {
+              "state": "number",
+              "value_raw": "161.642.510",
+              "value": 161642510
+            }
+          }
+        },
+        {
+          "row_id": "dkd_toplam",
+          "label_raw": "",
+          "indent_level": 0,
+          "row_type": "total",
+          "parent_row_id": "donem_kari_dagilimi",
+          "dipnot_refs": [],
+          "asterisk_marks": [],
+          "values": {
+            "p2012": {
+              "state": "number",
+              "value_raw": "10.718.956",
+              "value": 10718956
+            },
+            "p2011": {
+              "state": "number",
+              "value_raw": "161.914.251",
+              "value": 161914251
+            }
+          }
+        },
+        {
+          "row_id": "hisse_basina_kazanc",
+          "label_raw": "Hisse başına kazanç",
+          "indent_level": 0,
+          "row_type": "item",
+          "parent_row_id": null,
+          "dipnot_refs": [
+            27
+          ],
+          "asterisk_marks": [],
+          "values": {
+            "p2012": {
+              "state": "number",
+              "value_raw": "0,058",
+              "value": 0.058,
+              "value_kind": "decimal"
+            },
+            "p2011": {
+              "state": "number",
+              "value_raw": "1,191",
+              "value": 1.191,
+              "value_kind": "decimal"
+            }
+          }
+        },
+        {
+          "row_id": "diger_kapsamli",
+          "label_raw": "Diğer Kapsamlı (Gider) / Gelir",
+          "indent_level": 0,
+          "row_type": "total",
+          "parent_row_id": null,
+          "dipnot_refs": [],
+          "asterisk_marks": [],
+          "values": {
+            "p2012": {
+              "state": "number",
+              "value_raw": "(19.846.865)",
+              "value": -19846865
+            },
+            "p2011": {
+              "state": "number",
+              "value_raw": "196.292.383",
+              "value": 196292383
+            }
+          }
+        },
+        {
+          "row_id": "duran_varlik_deger_artis",
+          "label_raw": "Duran Varlıklar Değer Artış Fonundaki Değişim",
+          "indent_level": 0,
+          "row_type": "item",
+          "parent_row_id": "diger_kapsamli",
+          "dipnot_refs": [],
+          "asterisk_marks": [],
+          "values": {
+            "p2012": {
+              "state": "number",
+              "value_raw": "(19.846.865)",
+              "value": -19846865
+            },
+            "p2011": {
+              "state": "number",
+              "value_raw": "196.292.383",
+              "value": 196292383
+            }
+          }
+        },
+        {
+          "row_id": "toplam_kapsamli",
+          "label_raw": "TOPLAM KAPSAMLI (GİDER) / GELİR",
+          "indent_level": 0,
+          "row_type": "derived",
+          "parent_row_id": null,
+          "dipnot_refs": [],
+          "asterisk_marks": [],
+          "values": {
+            "p2012": {
+              "state": "number",
+              "value_raw": "(9.127.909)",
+              "value": -9127909
+            },
+            "p2011": {
+              "state": "number",
+              "value_raw": "358.206.634",
+              "value": 358206634
+            }
+          }
+        },
+        {
+          "row_id": "tk_dagilimi",
+          "label_raw": "Toplam Kapsamlı (Giderin) / Gelirin Dağılımı",
+          "indent_level": 0,
+          "row_type": "group_header",
+          "parent_row_id": null,
+          "dipnot_refs": [],
+          "asterisk_marks": [],
+          "values": {
+            "p2012": {
+              "state": "empty"
+            },
+            "p2011": {
+              "state": "empty"
+            }
+          }
+        },
+        {
+          "row_id": "tkd_kontrol_gucu",
+          "label_raw": "Kontrol Gücü Olmayan Paylar",
+          "indent_level": 0,
+          "row_type": "item",
+          "parent_row_id": "tk_dagilimi",
+          "dipnot_refs": [],
+          "asterisk_marks": [],
+          "values": {
+            "p2012": {
+              "state": "number",
+              "value_raw": "(6.883.744)",
+              "value": -6883744
+            },
+            "p2011": {
+              "state": "number",
+              "value_raw": "84.685.211",
+              "value": 84685211
+            }
+          }
+        },
+        {
+          "row_id": "tkd_ana_ortaklik",
+          "label_raw": "Ana Ortaklık Payları",
+          "indent_level": 0,
+          "row_type": "item",
+          "parent_row_id": "tk_dagilimi",
+          "dipnot_refs": [],
+          "asterisk_marks": [],
+          "values": {
+            "p2012": {
+              "state": "number",
+              "value_raw": "(2.244.165)",
+              "value": -2244165
+            },
+            "p2011": {
+              "state": "number",
+              "value_raw": "273.521.423",
+              "value": 273521423
+            }
+          }
+        },
+        {
+          "row_id": "tkd_toplam",
+          "label_raw": "",
+          "indent_level": 0,
+          "row_type": "total",
+          "parent_row_id": "tk_dagilimi",
+          "dipnot_refs": [],
+          "asterisk_marks": [],
+          "values": {
+            "p2012": {
+              "state": "number",
+              "value_raw": "(9.127.909)",
+              "value": -9127909
+            },
+            "p2011": {
+              "state": "number",
+              "value_raw": "358.206.634",
+              "value": 358206634
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "dipnot11_t1",
+      "pdf_page": 53,
+      "printed_page": 49,
+      "title_raw": "11. YATIRIM AMAÇLI GAYRİMENKULLER",
+      "statement_type": "footnote_movement",
+      "periods": [
+        {
+          "id": "p2012",
+          "label": "1 Ocak-31 Aralık 2012",
+          "start": "2012-01-01",
+          "end": "2012-12-31"
+        }
+      ],
+      "columns": [
+        "arazi_arsalar",
+        "binalar",
+        "toplam"
+      ],
+      "column_labels": {
+        "arazi_arsalar": "Arazi ve Arsalar",
+        "binalar": "Binalar",
+        "toplam": "Toplam"
+      },
+      "rows": [
+        {
+          "row_id": "acilis",
+          "label_raw": "1 Ocak 2012 itibari ile açılış bakiyesi",
+          "indent_level": 0,
+          "row_type": "item",
+          "parent_row_id": null,
+          "dipnot_refs": [],
+          "asterisk_marks": [],
+          "values": {
+            "arazi_arsalar": {
+              "state": "number",
+              "value_raw": "227.317.822",
+              "value": 227317822
+            },
+            "binalar": {
+              "state": "number",
+              "value_raw": "196.262.178",
+              "value": 196262178
+            },
+            "toplam": {
+              "state": "number",
+              "value_raw": "423.580.000",
+              "value": 423580000
+            }
+          }
+        },
+        {
+          "row_id": "alim_sonrasi_harcamalar",
+          "label_raw": "Alım sonrası yapılan harcamalar",
+          "indent_level": 0,
+          "row_type": "item",
+          "parent_row_id": null,
+          "dipnot_refs": [],
+          "asterisk_marks": [],
+          "values": {
+            "arazi_arsalar": {
+              "state": "number",
+              "value_raw": "19.197.311",
+              "value": 19197311
+            },
+            "binalar": {
+              "state": "dash",
+              "value_raw": "-"
+            },
+            "toplam": {
+              "state": "number",
+              "value_raw": "19.197.311",
+              "value": 19197311
+            }
+          }
+        },
+        {
+          "row_id": "makul_deger_kazanc",
+          "label_raw": "Makul değer değişikliğinden kaynaklanan kazanç",
+          "indent_level": 0,
+          "row_type": "item",
+          "parent_row_id": null,
+          "dipnot_refs": [],
+          "asterisk_marks": [],
+          "values": {
+            "arazi_arsalar": {
+              "state": "number",
+              "value_raw": "3.896.434",
+              "value": 3896434
+            },
+            "binalar": {
+              "state": "dash",
+              "value_raw": "-"
+            },
+            "toplam": {
+              "state": "number",
+              "value_raw": "3.896.434",
+              "value": 3896434
+            }
+          }
+        },
+        {
+          "row_id": "stoklara_transferler",
+          "label_raw": "Stoklara transferler (*)",
+          "indent_level": 0,
+          "row_type": "item",
+          "parent_row_id": null,
+          "dipnot_refs": [],
+          "asterisk_marks": [
+            "*"
+          ],
+          "values": {
+            "arazi_arsalar": {
+              "state": "number",
+              "value_raw": "(72.681.523)",
+              "value": -72681523
+            },
+            "binalar": {
+              "state": "dash",
+              "value_raw": "-"
+            },
+            "toplam": {
+              "state": "number",
+              "value_raw": "(72.681.523)",
+              "value": -72681523
+            }
+          }
+        },
+        {
+          "row_id": "kapanis",
+          "label_raw": "31 Aralık 2012 itibari ile kapanış bakiyesi",
+          "indent_level": 0,
+          "row_type": "total",
+          "parent_row_id": null,
+          "dipnot_refs": [],
+          "asterisk_marks": [],
+          "values": {
+            "arazi_arsalar": {
+              "state": "number",
+              "value_raw": "177.730.044",
+              "value": 177730044
+            },
+            "binalar": {
+              "state": "number",
+              "value_raw": "196.262.178",
+              "value": 196262178
+            },
+            "toplam": {
+              "state": "number",
+              "value_raw": "373.992.222",
+              "value": 373992222
+            }
+          }
+        },
+        {
+          "row_id": "net_defter_degeri",
+          "label_raw": "31 Aralık 2012 itibari ile net defter değeri",
+          "indent_level": 0,
+          "row_type": "total",
+          "parent_row_id": null,
+          "dipnot_refs": [],
+          "asterisk_marks": [],
+          "values": {
+            "arazi_arsalar": {
+              "state": "number",
+              "value_raw": "177.730.044",
+              "value": 177730044
+            },
+            "binalar": {
+              "state": "number",
+              "value_raw": "196.262.178",
+              "value": 196262178
+            },
+            "toplam": {
+              "state": "number",
+              "value_raw": "373.992.222",
+              "value": 373992222
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "dipnot11_t2",
+      "pdf_page": 53,
+      "printed_page": 49,
+      "title_raw": "11. YATIRIM AMAÇLI GAYRİMENKULLER",
+      "statement_type": "footnote_movement",
+      "periods": [
+        {
+          "id": "p2011",
+          "label": "1 Ocak-31 Aralık 2011",
+          "start": "2011-01-01",
+          "end": "2011-12-31"
+        }
+      ],
+      "columns": [
+        "arazi_arsalar",
+        "binalar",
+        "toplam"
+      ],
+      "column_labels": {
+        "arazi_arsalar": "Arazi ve Arsalar",
+        "binalar": "Binalar",
+        "toplam": "Toplam"
+      },
+      "rows": [
+        {
+          "row_id": "acilis",
+          "label_raw": "1 Ocak 2011 itibari ile açılış bakiyesi (Yeniden Düzenlenmiş)",
+          "indent_level": 0,
+          "row_type": "item",
+          "parent_row_id": null,
+          "dipnot_refs": [],
+          "asterisk_marks": [],
+          "values": {
+            "arazi_arsalar": {
+              "state": "number",
+              "value_raw": "82.097.790",
+              "value": 82097790
+            },
+            "binalar": {
+              "state": "number",
+              "value_raw": "122.937.178",
+              "value": 122937178
+            },
+            "toplam": {
+              "state": "number",
+              "value_raw": "205.034.968",
+              "value": 205034968
+            }
+          }
+        },
+        {
+          "row_id": "alimlar",
+          "label_raw": "Alımlar (*)",
+          "indent_level": 0,
+          "row_type": "item",
+          "parent_row_id": null,
+          "dipnot_refs": [],
+          "asterisk_marks": [
+            "*"
+          ],
+          "values": {
+            "arazi_arsalar": {
+              "state": "number",
+              "value_raw": "64.046.943",
+              "value": 64046943
+            },
+            "binalar": {
+              "state": "number",
+              "value_raw": "13.598.089",
+              "value": 13598089
+            },
+            "toplam": {
+              "state": "number",
+              "value_raw": "77.645.032",
+              "value": 77645032
+            }
+          }
+        },
+        {
+          "row_id": "cikislar",
+          "label_raw": "Çıkışlar (**)",
+          "indent_level": 0,
+          "row_type": "item",
+          "parent_row_id": null,
+          "dipnot_refs": [],
+          "asterisk_marks": [
+            "**"
+          ],
+          "values": {
+            "arazi_arsalar": {
+              "state": "dash",
+              "value_raw": "-"
+            },
+            "binalar": {
+              "state": "number",
+              "value_raw": "(10.450.000)",
+              "value": -10450000
+            },
+            "toplam": {
+              "state": "number",
+              "value_raw": "(10.450.000)",
+              "value": -10450000
+            }
+          }
+        },
+        {
+          "row_id": "makul_deger_kazanc",
+          "label_raw": "Makul değer değişikliğinden kaynaklanan kazanç",
+          "indent_level": 0,
+          "row_type": "item",
+          "parent_row_id": null,
+          "dipnot_refs": [],
+          "asterisk_marks": [],
+          "values": {
+            "arazi_arsalar": {
+              "state": "number",
+              "value_raw": "81.173.089",
+              "value": 81173089
+            },
+            "binalar": {
+              "state": "number",
+              "value_raw": "70.176.911",
+              "value": 70176911
+            },
+            "toplam": {
+              "state": "number",
+              "value_raw": "151.350.000",
+              "value": 151350000
+            }
+          }
+        },
+        {
+          "row_id": "kapanis",
+          "label_raw": "31 Aralık 2011 itibari ile kapanış bakiyesi",
+          "indent_level": 0,
+          "row_type": "total",
+          "parent_row_id": null,
+          "dipnot_refs": [],
+          "asterisk_marks": [],
+          "values": {
+            "arazi_arsalar": {
+              "state": "number",
+              "value_raw": "227.317.822",
+              "value": 227317822
+            },
+            "binalar": {
+              "state": "number",
+              "value_raw": "196.262.178",
+              "value": 196262178
+            },
+            "toplam": {
+              "state": "number",
+              "value_raw": "423.580.000",
+              "value": 423580000
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "dipnot11_t3",
+      "pdf_page": 54,
+      "printed_page": 50,
+      "title_raw": "11. YATIRIM AMAÇLI GAYRİMENKULLER (devamı)",
+      "statement_type": "footnote_valuation_assumptions",
+      "periods": [
+        {
+          "id": "p2012",
+          "label": "31 Aralık 2012",
+          "end": "2012-12-31"
+        },
+        {
+          "id": "p2011",
+          "label": "31 Aralık 2011",
+          "end": "2011-12-31"
+        }
+      ],
+      "columns": [
+        "p2012",
+        "p2011"
+      ],
+      "rows": [
+        {
+          "row_id": "iskonto_orani",
+          "label_raw": "İskonto oranı (%)",
+          "indent_level": 0,
+          "row_type": "item",
+          "parent_row_id": null,
+          "dipnot_refs": [],
+          "asterisk_marks": [],
+          "values": {
+            "p2012": {
+              "state": "number",
+              "value_raw": "%9",
+              "value": 9.0,
+              "value_kind": "percent"
+            },
+            "p2011": {
+              "state": "number",
+              "value_raw": "%10,5",
+              "value": 10.5,
+              "value_kind": "percent"
+            }
+          }
+        },
+        {
+          "row_id": "doluluk_orani",
+          "label_raw": "Doluluk oranı (%)(*)",
+          "indent_level": 0,
+          "row_type": "item",
+          "parent_row_id": null,
+          "dipnot_refs": [],
+          "asterisk_marks": [
+            "*"
+          ],
+          "values": {
+            "p2012": {
+              "state": "number",
+              "value_raw": "%86,6",
+              "value": 86.6,
+              "value_kind": "percent"
+            },
+            "p2011": {
+              "state": "number",
+              "value_raw": "%80,8",
+              "value": 80.8,
+              "value_kind": "percent"
+            }
+          }
+        },
+        {
+          "row_id": "kira_artis_orani",
+          "label_raw": "Kira artış oranı (%)",
+          "indent_level": 0,
+          "row_type": "item",
+          "parent_row_id": null,
+          "dipnot_refs": [],
+          "asterisk_marks": [],
+          "values": {
+            "p2012": {
+              "state": "number",
+              "value_raw": "%3",
+              "value": 3.0,
+              "value_kind": "percent"
+            },
+            "p2011": {
+              "state": "number",
+              "value_raw": "%2-%4",
+              "value_kind": "percent_range",
+              "value_low": 2.0,
+              "value_high": 4.0
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "dipnot11_t4",
+      "pdf_page": 54,
+      "printed_page": 50,
+      "title_raw": "11. YATIRIM AMAÇLI GAYRİMENKULLER (devamı)",
+      "statement_type": "footnote_fair_values",
+      "context_line": "Grup'un yatırım amaçlı gayrimenkullerinin gerçeğe uygun değerleri aşağıdaki gibidir:",
+      "periods": [
+        {
+          "id": "p2012",
+          "label": "31 Aralık 2012",
+          "end": "2012-12-31"
+        },
+        {
+          "id": "p2011",
+          "label": "31 Aralık 2011",
+          "end": "2011-12-31"
+        }
+      ],
+      "columns": [
+        "p2012",
+        "p2011"
+      ],
+      "column_labels": {
+        "p2012": "31 Aralık 2012 Gerçeğe Uygun Değeri",
+        "p2011": "31 Aralık 2011 Gerçeğe Uygun Değeri"
+      },
+      "artifacts": [
+        "stray unlabeled dash in p2011 column between 'İkitelli Bina' row and the total rule; sums complete without it; excluded from gold rows"
+      ],
+      "rows": [
+        {
+          "row_id": "bagcilar_arsa",
+          "label_raw": "Bağcılar Arsa",
+          "indent_level": 0,
+          "row_type": "item",
+          "parent_row_id": null,
+          "dipnot_refs": [],
+          "asterisk_marks": [],
+          "values": {
+            "p2012": {
+              "state": "number",
+              "value_raw": "22.719.446",
+              "value": 22719446
+            },
+            "p2011": {
+              "state": "number",
+              "value_raw": "21.717.000",
+              "value": 21717000
+            }
+          }
+        },
+        {
+          "row_id": "bayrampasa_arsa",
+          "label_raw": "Bayrampaşa Arsa (*)",
+          "indent_level": 0,
+          "row_type": "item",
+          "parent_row_id": null,
+          "dipnot_refs": [],
+          "asterisk_marks": [
+            "*"
+          ],
+          "values": {
+            "p2012": {
+              "state": "number",
+              "value_raw": "81.026.895",
+              "value": 81026895
+            },
+            "p2011": {
+              "state": "number",
+              "value_raw": "138.538.000",
+              "value": 138538000
+            }
+          }
+        },
+        {
+          "row_id": "gunesli_bina",
+          "label_raw": "Güneşli Bina",
+          "indent_level": 0,
+          "row_type": "item",
+          "parent_row_id": null,
+          "dipnot_refs": [],
+          "asterisk_marks": [],
+          "values": {
+            "p2012": {
+              "state": "number",
+              "value_raw": "83.586.353",
+              "value": 83586353
+            },
+            "p2011": {
+              "state": "number",
+              "value_raw": "81.890.000",
+              "value": 81890000
+            }
+          }
+        },
+        {
+          "row_id": "ikitelli_bina",
+          "label_raw": "İkitelli Bina",
+          "indent_level": 0,
+          "row_type": "item",
+          "parent_row_id": null,
+          "dipnot_refs": [],
+          "asterisk_marks": [],
+          "values": {
+            "p2012": {
+              "state": "number",
+              "value_raw": "186.659.528",
+              "value": 186659528
+            },
+            "p2011": {
+              "state": "number",
+              "value_raw": "181.435.000",
+              "value": 181435000
+            }
+          }
+        },
+        {
+          "row_id": "toplam",
+          "label_raw": "",
+          "indent_level": 0,
+          "row_type": "total",
+          "parent_row_id": null,
+          "dipnot_refs": [],
+          "asterisk_marks": [],
+          "values": {
+            "p2012": {
+              "state": "number",
+              "value_raw": "373.992.222",
+              "value": 373992222
+            },
+            "p2011": {
+              "state": "number",
+              "value_raw": "423.580.000",
+              "value": 423580000
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "relations": [
+    {
+      "summary_table": "bilanco_varlik",
+      "summary_row_id": "yatirim_amacli_gayrimenkuller",
+      "footnote_table": "dipnot11_t1",
+      "footnote_row_id": "kapanis",
+      "relation_type": "balance_reconciliation",
+      "evidence": "bilanço 2012 carrying amount 373.992.222 == T1 closing balance Toplam",
+      "period_scope": "p2012"
+    },
+    {
+      "summary_table": "bilanco_varlik",
+      "summary_row_id": "yatirim_amacli_gayrimenkuller",
+      "footnote_table": "dipnot11_t1",
+      "footnote_row_id": "net_defter_degeri",
+      "relation_type": "balance_reconciliation",
+      "evidence": "bilanço 2012 carrying amount == T1 net book value Toplam (semantically the most direct restatement of the balance-sheet line)",
+      "period_scope": "p2012"
+    },
+    {
+      "summary_table": "bilanco_varlik",
+      "summary_row_id": "yatirim_amacli_gayrimenkuller",
+      "footnote_table": "dipnot11_t4",
+      "footnote_row_id": "toplam",
+      "relation_type": "balance_reconciliation",
+      "evidence": "bilanço 2012 373.992.222 == T4 fair-value total 2012 (and 2011: 423.580.000)",
+      "period_scope": "p2012+p2011"
+    },
+    {
+      "summary_table": "bilanco_varlik",
+      "summary_row_id": "yatirim_amacli_gayrimenkuller",
+      "footnote_table": "dipnot11_t1",
+      "footnote_row_id": "acilis",
+      "relation_type": "balance_reconciliation",
+      "evidence": "bilanço 2011 comparative 423.580.000 == T1 opening balance Toplam",
+      "period_scope": "p2011"
+    },
+    {
+      "summary_table": "bilanco_varlik",
+      "summary_row_id": "yatirim_amacli_gayrimenkuller",
+      "footnote_table": "dipnot11_t2",
+      "footnote_row_id": "kapanis",
+      "relation_type": "balance_reconciliation",
+      "evidence": "bilanço 2011 comparative 423.580.000 == T2 closing balance Toplam",
+      "period_scope": "p2011"
+    },
+    {
+      "summary_table": "gelir",
+      "summary_row_id": "yatirim_amacli_degerleme_farklari",
+      "footnote_table": "dipnot11_t1",
+      "footnote_row_id": "makul_deger_kazanc",
+      "relation_type": "flow_reconciliation",
+      "evidence": "gelir 2012 'Değerleme Farkları' 3.896.434 == T1 'Makul değer değişikliğinden kaynaklanan kazanç' Toplam: NEAR-ZERO lexical overlap, value+semantics carry it",
+      "period_scope": "p2012"
+    },
+    {
+      "summary_table": "gelir",
+      "summary_row_id": "yatirim_amacli_degerleme_farklari",
+      "footnote_table": "dipnot11_t2",
+      "footnote_row_id": "makul_deger_kazanc",
+      "relation_type": "flow_reconciliation",
+      "evidence": "gelir 2011 151.350.000 == T2 'Makul değer değişikliğinden kaynaklanan kazanç' Toplam",
+      "period_scope": "p2011"
+    }
+  ]
+}
