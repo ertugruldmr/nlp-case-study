@@ -15,6 +15,15 @@ The graded contract lives in [`v0/README.md`](v0/README.md). Read that for the f
 implementation account. This page is the map, the live-demo guide and the architecture
 summary.
 
+### How to read this
+
+| If you have | Do this |
+|---|---|
+| 5 minutes | Section 1 below, then scroll through the screenshots in section 4. Nothing to install. |
+| 20 minutes | Add section 2 (where each case requirement is answered) and section 5 (architecture). Open [`v0/outputs/report.html`](v0/outputs/report.html), which is the pipeline's own report of the shipped run. |
+| An hour, hands on | Section 3, two commands, then drive the live demo yourself: click a value in the debugger and watch it resolve to the pixels it came from, then upload a different filing and run the unchanged pipeline on it. |
+| Depth | [The paper](presentation-edition-v1/docs/paper/ftlink-paper.pdf) for the protocol and threats to validity, [the decision matrix](presentation-edition-v1/docs/decisions/decision-matrix.md) for what was rejected and why. |
+
 ---
 
 ## 1. The 90-second version
@@ -55,7 +64,29 @@ hand-authored reference and these document-derived controls, not population perf
 
 ---
 
-## 2. Run the live demo
+## 2. Where each case requirement is answered
+
+The assignment sets specific requirements. This table is the shortest path from each one to
+the code, the output field or the document that answers it.
+
+| Requirement | Where it is answered |
+|---|---|
+| Summary tables on the configured pages, with title, headers, footnote references, periods, values and main-item / sub-item / total hierarchy | `v0/src/ftlink/table_structure.py` and `normalize.py`; visible per row in the debugger's Extracted view; in the output as `tables[]` (title, page, periods), `rows[]` (`role`, `indent_level`, `parent_row_id`, `dipnot_refs`) and `cells[]` (`period_id`, `value`) |
+| Number grammar: parentheses mean negative, dot is the thousands separator, and dash, empty and zero are three distinct states | `v0/src/ftlink/normalize.py`; guarded by `FMT_THREE_STATE` at type level and by `v0/tests/test_normalize.py` |
+| Find the items that reference the configured footnote, locate that footnote's page automatically, parse its tables | `v0/src/ftlink/locate.py`: table-of-contents parse, printed-to-PDF folio offset, heading verification, bounded scan fallback. One footnote serving items from several summary tables is the normal case here, not a special one |
+| Page range and footnote number must come from configuration, never from code | `v0/configs/default.yaml`. Proven three ways: `configs/alt_footnote.yaml` retargets footnote 12 with no code change, the scenario lab ships `footnote-10`, `footnote-12` and `footnote-13` runs, and the debugger's Configure / upload / run accepts a different PDF with its own page range |
+| An NLP or ML component must do inference in the linking stage; exact string matching alone is insufficient by design | S6 dense retrieval with `multilingual-e5-small` and S7 reranking with `mmarco-mMiniLMv2`, both pretrained, both inference only, no training. The lexical baseline is shipped alongside precisely so its insufficiency is measured rather than asserted |
+| Whole document into a single LLM call is rejected; the solution must be staged | Eleven named stages, S0 to S10, each with its own failure mode and its own evidence in the output. See the architecture table in section 5. The optional LLM tier is one call per summary item over an already-narrowed candidate set, and it is off by default |
+| Confidence between 0 and 1 at table, row, cell and relation level; not constant, not random, and not the raw model score | `v0/src/ftlink/confidence.py`. Composed from OCR, parse, engine agreement, channel and reconciliation signals, then Platt-calibrated at run time on controls derived from the document itself, with a Venn-ABERS interval alongside |
+| A validation stage with at least three check groups, and low-confidence records flagged in the output | `v0/src/ftlink/validation.py`: structural, format and financial groups, plus `not_evaluable` as an explicit fourth status. 113 checks on the shipped run (58 financial, 30 format, 23 structural, 2 coverage); every relation carries a `low_confidence` boolean |
+| Output as JSON or JSONL with a candidate-designed schema, justified in the README | `v0/outputs/result.json`, `relations.jsonl` and `report.html`; the schema rationale is `v0/README.md` section 10 |
+| At least two linking approaches compared, including where they diverge | Three approaches run on every candidate, plus an optional fourth. Every relation records per-approach scores and an agreement class. The divergence is analysed in section 5 below and in `v0/README.md` section 9 |
+| At least three low-confidence or failure cases analysed: expected against produced, failing stage, cause, fix | Six cases in `v0/README.md` section 8. Two of them are reproducible in the live demo as one-click shortcuts |
+| Re-runnability | `v0/eval/determinism.py`: two runs on the same input are byte-identical outside the run block. Package versions are pinned by the uv lockfile and model weights by explicit Hugging Face snapshot revisions |
+
+---
+
+## 3. Run the live demo
 
 Two commands, two terminals. This is the path used in the walkthrough.
 
@@ -122,9 +153,9 @@ It is the pipeline's own self-contained visual report of the shipped run.
 
 ---
 
-## 3. What the demo shows
+## 4. What the demo shows
 
-### 3.1 The presentation cockpit
+### 4.1 The presentation cockpit
 
 Seven views over the same evidence: the thesis, the research contract, the system, the
 proof, the product, the roadmap and a chronological walkthrough. Every number on it is
@@ -151,7 +182,7 @@ Other views: [problem and research](presentation-edition-v1/screenshots/02-cockp
 [roadmap](presentation-edition-v1/screenshots/07-cockpit-live-flow.png),
 [resource hub](presentation-edition-v1/screenshots/08-cockpit-resources.png).
 
-### 3.2 The PDF visual debugger
+### 4.2 The PDF visual debugger
 
 The part worth spending time on. A two-panel document-analysis desk: the rendered PDF page
 on the left with provenance overlays, the extracted result on the right, bound in both
@@ -196,7 +227,7 @@ Also available: [JSON view](presentation-edition-v1/screenshots/26-debugger-json
 [separator-corruption case](presentation-edition-v1/screenshots/22-debugger-separator-defect.png),
 [case guide](presentation-edition-v1/screenshots/28-debugger-case-guide.png).
 
-### 3.3 The scenario lab
+### 4.3 The scenario lab
 
 Eighteen scenarios, each a configuration diff over the shipped `configs/default.yaml`. No
 code changes anywhere. The point is that the alternatives are not described, they are
@@ -240,7 +271,7 @@ still queued, per stage.
 
 ---
 
-## 4. Architecture
+## 5. Architecture
 
 Single-call whole-document conversion is rejected by design and by the task. The stages,
 with the technology that implements each:
@@ -319,7 +350,7 @@ N is reproduced on the 33 controls here. Leave-one-out Brier is 0.0085.
 
 ---
 
-## 5. Documents
+## 6. Documents
 
 Everything below is in the repository, no external links required.
 
@@ -349,7 +380,7 @@ sibling files. Regenerate with `python3 presentation-edition-v1/render-docs.py`.
 
 ---
 
-## 6. Repository map
+## 7. Repository map
 
 ```
 .
@@ -387,7 +418,7 @@ sibling files. Regenerate with `python3 presentation-edition-v1/render-docs.py`.
 
 ---
 
-## 7. Reproducing the numbers
+## 8. Reproducing the numbers
 
 ```bash
 cd v0
@@ -416,7 +447,7 @@ of `NOT n`, exit code 2), are in the benchmark store and the paper.
 
 ---
 
-## 8. What this does not claim
+## 9. What this does not claim
 
 Stating the boundary is part of the work.
 
@@ -438,7 +469,7 @@ Stating the boundary is part of the work.
 
 ---
 
-## 9. How this was built
+## 10. How this was built
 
 The pipeline, the app and the documents in this repository were produced with heavy use of
 AI coding assistants, under review, with the measurements run and checked rather than
