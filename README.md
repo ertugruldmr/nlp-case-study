@@ -60,7 +60,7 @@ hand-authored reference and these document-derived controls, not population perf
 | Validation checks | 103 pass / 4 fail / 6 not evaluable |
 | Leave-one-out Brier (33 controls) | 0.0085 |
 | Determinism | two runs on the same input are byte-identical outside the run block |
-| Tests | 37 pipeline tests, 76 app tests, all passing |
+| Tests | 37 pipeline tests, all passing. 79 app tests: 76 pass, 3 skip in a clean clone because they re-derive the benchmark store from research artifacts that are not shipped here |
 
 ---
 
@@ -408,7 +408,7 @@ sibling files. Regenerate with `python3 presentation-edition-v1/render-docs.py`.
     │   ├── runs/                        16 precomputed scenarios + 1 stored abort record
     │   ├── benchmarks/                  every measured comparison, one JSON each
     │   ├── fixtures/                    the source filing and a second public filing
-    │   ├── tests/                       76 tests
+    │   ├── tests/                       79 tests (76 pass, 3 skip without the research artifacts)
     │   └── Dockerfile compose.yaml
     ├── docs/                            paper, decks, ADRs, evidence notes, guides
     ├── rendered-docs/                   pre-rendered HTML for offline preview
@@ -435,9 +435,14 @@ uv run ftlink run --config configs/alt_footnote.yaml # footnote 12, rotated page
 
 ```bash
 cd presentation-edition-v1/app
-uv run pytest -q                                     # 76 tests
+uv run pytest -q                                     # 79 tests: 76 pass, 3 skip (see below)
 ./demo_preflight.sh                                  # hits every endpoint the demo uses, exits 1 on a mismatch
 ```
+
+The three skipped app tests are `test_benchmarks.py`'s sync checks. They rebuild the
+benchmark store from the raw research artifacts that produced it, and those artifacts are
+not shipped in this repository, so the tests skip rather than pretend to pass. Every
+committed benchmark file is still validated by the tests that do run.
 
 Config generality was exercised on footnotes 10, 12 and 13 of the same filing with zero
 code changes, and the sealed pipeline was run unchanged on three other public audit
