@@ -15,3 +15,6 @@ presentation-edition-v1/app/runs/_documents/
 presentation-edition-v1/app/runs/_debugger/
 presentation-edition-v1/app/runs/_labels/
 presentation-edition-v1/app/runs/doc-*/
+
+# local-only sanitization deny-list: holds the very strings that must not ship
+presentation-edition-v1/app/tests/denylist.local.json

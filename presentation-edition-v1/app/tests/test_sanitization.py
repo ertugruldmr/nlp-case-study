@@ -23,7 +23,14 @@ def _j(*parts: str) -> str:
 
 
 def _load_deny_literals() -> dict[str, list[str]]:
-    """Forbidden literals are read from an untracked local file, never committed."""
+    """Forbidden literals are read from an untracked local file, never committed.
+
+    The strings this guard exists to catch are themselves the material that must not
+    ship, so committing them would publish exactly what the guard protects. Supply them
+    at tests/denylist.local.json (git-ignored, an object of category -> list of lowercase
+    literals). Without that file the literal half of the guard is inert and only the
+    shipped regex patterns below run, which is the correct behaviour for a clone.
+    """
     p = Path(__file__).parent / "denylist.local.json"
     if not p.exists():
         return {}
@@ -56,6 +63,9 @@ def test_deny_list_catches_the_shapes():
                "400" + "+", "1.400" + "+", "1,400 " + "+", "+90 " + "532 " + "000 00 00"]
     for sample in samples:
         assert _hits(sample), sample
+    for kind, needles in DENY_LITERALS.items():
+        for needle in needles:
+            assert _hits(needle), f"{kind}: {needle}"
     for clean in ["400 dpi", "+400.000 fark", "R@5 0,40", "0,531", "cross-encoder/mmarco"]:
         assert not _hits(clean), clean
 
