@@ -368,8 +368,6 @@ Everything below is in the repository, no external links required.
 | Evidence: OCR engine bake-off | [`presentation-edition-v1/docs/evidence/ocr-bakeoff-run08.md`](presentation-edition-v1/docs/evidence/ocr-bakeoff-run08.md) |
 | Evidence: table-structure bake-off | [`presentation-edition-v1/docs/evidence/structure-bakeoff-run06.md`](presentation-edition-v1/docs/evidence/structure-bakeoff-run06.md) |
 | Evidence: the percent-rescue measurement | [`presentation-edition-v1/docs/evidence/percent-rescue.md`](presentation-edition-v1/docs/evidence/percent-rescue.md) |
-| Research playbook: the trade-off cards | [`presentation-edition-v1/docs/RESEARCH-PLAYBOOK.md`](presentation-edition-v1/docs/RESEARCH-PLAYBOOK.md) |
-| PDF debugger design brief, written before the implementation | [`presentation-edition-v1/docs/PDF-DEBUGGER-DESIGN-BRIEF.md`](presentation-edition-v1/docs/PDF-DEBUGGER-DESIGN-BRIEF.md) |
 | Source PDF page map, all 95 pages | [`presentation-edition-v1/docs/SOURCE-PDF-PAGE-GUIDE.md`](presentation-edition-v1/docs/SOURCE-PDF-PAGE-GUIDE.md) |
 | How the hand-authored reference was built and audited | [`presentation-edition-v1/docs/GROUND-TRUTH-AUTHORING-GUIDE.md`](presentation-edition-v1/docs/GROUND-TRUTH-AUTHORING-GUIDE.md) |
 | Scenario lab API and internals | [`presentation-edition-v1/app/README.md`](presentation-edition-v1/app/README.md) |
@@ -377,6 +375,15 @@ Everything below is in the repository, no external links required.
 `presentation-edition-v1/rendered-docs/` holds pre-rendered HTML of the Markdown documents
 so the offline cockpit can preview them over `file://`, where browsers block fetch to
 sibling files. Regenerate with `python3 presentation-edition-v1/render-docs.py`.
+
+**A note on the citation tags.** The paper, the methods deck and the benchmark JSON files cite
+their sources by path: `research/97.papers-and-frameworks.md`, `evidence/percent-rescue.md`,
+`research/assets/experiments/tatr-local/results-t07.json` and so on. Those paths name a private
+research tree that is not shipped here, and the citations are kept rather than stripped so that
+every number stays attributable to the artifact that produced it. Where a cited note carries the
+argument rather than just the number, it is included under `docs/evidence/` and `docs/decisions/`.
+Nothing on the landing page depends on an unshipped source: every figure quoted above is
+reproducible from `v0/` alone with the commands in section 8.
 
 ---
 

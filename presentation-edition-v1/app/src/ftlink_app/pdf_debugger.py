@@ -10,6 +10,7 @@ import datetime as dt
 import hashlib
 import io
 import json
+import os
 import re
 from pathlib import Path
 from typing import Any
@@ -136,8 +137,14 @@ def pdf_path(run_id: str = "baseline") -> Path:
         if not path.is_file():
             raise ValueError("uploaded PDF is unavailable")
         return path
-    source = APP_ROOT.parent / "case-info" / "Özak GYO 31122012 Bağımsız Denetim Raporu.pdf"
-    return source if source.exists() else FIXTURE_PDF
+    # The registry scenarios all run on the case filing, which ships as the app fixture.
+    # FTLINK_SOURCE_PDF overrides it for a checkout that keeps the PDF elsewhere.
+    override = os.environ.get("FTLINK_SOURCE_PDF")
+    if override:
+        path = Path(override).resolve()
+        if path.is_file():
+            return path
+    return FIXTURE_PDF
 
 
 def page_count(run_id: str = "baseline") -> int:

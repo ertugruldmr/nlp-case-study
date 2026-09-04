@@ -1,5 +1,11 @@
 # Benchmark store schema
 
+> Every `source` field in this store is a path into the author's private research tree
+> (`research/...`, `evidence/...`). Those artifacts are not shipped with this repository.
+> The paths are kept rather than stripped so each number stays attributable to the run that
+> produced it; the notes that carry an argument rather than just a number are included under
+> `presentation-edition-v1/docs/evidence/`.
+
 One JSON file per measured comparison, file name `<id>.json`, `id` equal to the file stem.
 Every file is validated by `ftlink_app.benchmarks.Benchmark` (pydantic) when the API reads it;
 a file that fails validation breaks `GET /api/benchmarks`, so run `make test` after adding one.

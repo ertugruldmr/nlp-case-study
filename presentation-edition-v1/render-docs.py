@@ -24,8 +24,6 @@ OUT_DIR = ROOT / "rendered-docs"
 
 # source markdown (relative to this folder) -> rendered page stem
 PAGES: dict[str, str] = {
-    "docs/PDF-DEBUGGER-DESIGN-BRIEF.md": "pdf-debugger-design-brief",
-    "docs/RESEARCH-PLAYBOOK.md": "research-playbook",
     "docs/SOURCE-PDF-PAGE-GUIDE.md": "source-pdf-page-guide",
     "docs/GROUND-TRUTH-AUTHORING-GUIDE.md": "ground-truth-authoring-guide",
     "docs/decisions/decision-matrix.md": "decision-matrix",

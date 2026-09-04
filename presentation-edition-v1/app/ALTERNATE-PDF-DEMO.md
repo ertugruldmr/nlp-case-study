@@ -20,7 +20,8 @@ it is not an accuracy benchmark.
 The historical research run completed in 22.0 seconds and emitted 6 tables, 111 rows,
 220 cells, 4 relations and checks 80 pass / 8 fail / 3 not-evaluable. Those are
 observations, not accuracy figures: there is no committed cell/relation gold set for
-this filing. Do not say “4/4 correct” from this smoke alone. Its historical
+this filing. A count of 4 relations is not a claim that 4 are correct: this smoke establishes that
+the bytes and the configuration reached the pipeline, nothing about accuracy. Its historical
 `config.yaml` also carries a stale `period_end: 2012-12-31`; this recipe deliberately
 passes and verifies the source-correct `2013-12-31` instead of copying that metadata.
 

@@ -1,6 +1,6 @@
 # ftlink scenario lab
 
-A demo layer over the submitted `ftlink` pipeline (`../../v0`) that makes
+A demo layer over the submitted `ftlink` pipeline (`../deliverable`) that makes
 every design alternative a **switchable, runnable, comparable configuration**.
 Built as a defense asset: "we did not just pick approach X, here are the others,
 live, and here is exactly where they diverge."
@@ -33,11 +33,11 @@ deliverable tree; every scenario output lands under `app/runs/<scenario>/`.
 ## Run it
 
 ```bash
-cd presentation-edition-v1/app
-make setup        # uv sync (path dependency on ../../v0)
+cd app
+make setup        # uv sync (path dependency on ../deliverable)
 make precompute   # one-time: executes the 17 precomputable scenarios (~14 min CPU; the reranker swap downloads a 600 MB model once)
 make serve        # http://127.0.0.1:8199
-make test         # 79 tests, 76 pass and 3 skip without the research artifacts (walkthrough, triage/labels/export, decision matrix, run lock, matrix read cache, platform stamp, sanitization guard, any-document upload/run, reranker-swap registry), no pipeline execution needed
+make test         # 63 tests (walkthrough, triage/labels/export, decision matrix, run lock, matrix read cache, platform stamp, sanitization guard, any-document upload/run, reranker-swap registry), no pipeline execution needed
 ```
 
 Requires `tesseract` + Turkish data on the host, same as the deliverable.
@@ -45,15 +45,15 @@ Requires `tesseract` + Turkish data on the host, same as the deliverable.
 ### Docker (authored, not yet smoke-tested: no container runtime on the dev Mac)
 
 ```bash
-# from the repository root (the build context needs v0/ and the app together)
-docker compose -f presentation-edition-v1/app/compose.yaml up --build
+# from the folder that contains app/ and deliverable/ (the build context needs both)
+docker compose -f app/compose.yaml up --build
 ```
 
 ## Demo preflight
 
 `./demo_preflight.sh` starts the server if needed, hits every endpoint the defense demo uses
 (scenarios, walkthrough, triage at 1/20 and 1/5, footnote-12 walkthrough, matrix, decision
-matrix asset, frontend buttons), prints the numbers to say aloud, and exits 1 on any mismatch.
+matrix asset, frontend buttons), prints the headline numbers, and exits 1 on any mismatch.
 Run it an hour before the call.
 
 ## Yapılandırılabilir KAP-tarzı belge (run the sealed pipeline on a compatible PDF)
@@ -68,7 +68,7 @@ pipeline is unchanged; only the configuration differs** (`document.pdf_path`,
 `confidence.extra_control_pages`). Uploads live under `runs/_documents/<doc_id>/` (`source.pdf`
 + `doc.json`), outputs under `runs/doc-<doc_id>/`; Rapor, result.json, Aşama aşama, İnceleme
 kuyruğu and Karşılaştır work on `doc-<doc_id>` like on any stored run. The gold-set scorer is not
-applied (it covers the shipped document only). Nothing is written into `../../v0`.
+applied (it covers the shipped document only). Nothing is written into `../deliverable`.
 Validation at the boundary: PDF magic bytes (400), page range inside the page count and
 `footnote_no >= 1` (422), size cap (413), one run at a time (409).
 
@@ -89,7 +89,7 @@ curl -s http://127.0.0.1:8199/api/documents/<doc_id>                  # doc.json
 curl -s http://127.0.0.1:8199/api/runs/doc-<doc_id>/walkthrough       # same views as a scenario
 ```
 
-An alternate-document smoke test is provided in [`ALTERNATE-PDF-DEMO.md`](ALTERNATE-PDF-DEMO.md)
+A genuine alternate-document smoke is provided in [`ALTERNATE-PDF-DEMO.md`](ALTERNATE-PDF-DEMO.md)
 and `demo_alternate_pdf.sh`. It runs the public Özak GYO 2013 filing through this exact
 upload/API path and verifies the source hash plus effective configuration. It reports
 observed output counts only; no accuracy claim is made because that filing has no
@@ -252,9 +252,9 @@ uploaded documents, reviewer labels and private workspace material.
 
 `frontend/index.html`'s `EVIDENCE_LABELS` map (near the decision-matrix render code) translates
 internal evidence-note slugs (e.g. `linux-grader-drill`) into neutral Turkish display labels for
-the chips shown in the Kıyaslama/decision-matrix view, since a raw slug is an internal identifier
-rather than something worth reading in a UI. Unmapped slugs fall through to a
+the chips shown in the Kıyaslama/decision-matrix view, since raw slugs are workspace-internal
+vocabulary that should not appear in front of a reader. Unmapped slugs fall through to a
 `humanize()` prettifier, which is a safety net, not a translation: it title-cases and de-hyphenates
-whatever it is given, so an unmapped slug like `run08-ocr-bakeoff` would render as "Run08 Ocr Bakeoff"
-rather than a neutral Turkish label. If you add a new evidence note whose slug
+whatever it is given, so a new slug like `alt-probe-round` would render as "Alt Probe Round"
+rather than something a reader should see. If you add a new evidence note whose slug
 might appear in `decision_matrix.json`'s `evidence` arrays, add a label for it here too.

@@ -71,6 +71,53 @@ else
   note "no private rehearsal material" "PASS"
 fi
 
+# --------------------------------- 3b. no agent-prompt or presentation-coaching residue
+residue=$(grep -rIlniE "you are implementing|copy everything below|fresh (high-effort )?(codex|claude) session|do not say|the correct message is|say aloud" . 2>/dev/null | grep -v "^\./verify\.sh$" || true)
+if [ -n "$residue" ]; then
+  note "no agent-prompt or coaching residue" "FAIL"
+  printf '    %s\n' $residue
+  fail=1
+else
+  note "no agent-prompt or coaching residue" "PASS"
+fi
+
+# ------------------------------------------- 3c. no private workspace folder names
+ws_names=$(grep -rIl -E "case-info/|002\.processed|career-content" . 2>/dev/null | grep -v "^\./verify\.sh$" || true)
+if [ -n "$ws_names" ]; then
+  note "no private workspace folder names" "FAIL"
+  printf '    %s\n' $ws_names
+  fail=1
+else
+  note "no private workspace folder names" "PASS"
+fi
+
+# --------------------------------------- 3d. every relative link in a shipped doc resolves
+if command -v python3 >/dev/null; then
+  python3 - <<'PYL'
+import pathlib, re, sys
+bad = []
+for pattern, attr in ((("*.md",), r'\]\(([^)]+)\)'), (("rendered-docs/*.html",), r'href="([^"]+)"')):
+    for glob in pattern:
+        for f in pathlib.Path(".").glob("**/" + glob if not glob.startswith("rendered") else glob):
+            if any(part in {".venv", "__pycache__", "node_modules"} for part in f.parts):
+                continue
+            for n, line in enumerate(f.read_text(encoding="utf-8", errors="ignore").splitlines(), 1):
+                for m in re.finditer(attr, line):
+                    t = m.group(1)
+                    if t.startswith(("http", "#", "mailto:", "data:", "javascript:")):
+                        continue
+                    if not (f.parent / t.split("#")[0].replace("%20", " ")).exists():
+                        bad.append(f"{f}:{n}: {t}")
+if bad:
+    print("\n".join("    " + b for b in sorted(set(bad))))
+    sys.exit(1)
+PYL
+  if [ $? -eq 0 ]; then note "shipped documents have no dead links" "PASS"
+  else note "shipped documents have no dead links" "FAIL"; fail=1; fi
+else
+  note "shipped documents have no dead links" "SKIP (python3 not installed)"
+fi
+
 # ------------------------------------------------------- 4. the pipeline is reachable
 if [ -f "$REPO/v0/configs/default.yaml" ]; then
   note "sealed pipeline present at ../v0" "PASS"

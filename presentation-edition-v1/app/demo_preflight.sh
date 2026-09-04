@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # demo_preflight.sh: run T-60 min before the defense. Starts the lab, hits every endpoint the
-# demo uses, prints the numbers you will say aloud, stops the server. Exit 1 on any mismatch.
+# demo uses, prints the headline numbers, stops the server. Exit 1 on any mismatch.
 # Usage: cd app && ./demo_preflight.sh          (about 20 seconds; needs `uv sync` done once)
 set -uo pipefail
 export PATH="$HOME/.local/bin:$PATH"
