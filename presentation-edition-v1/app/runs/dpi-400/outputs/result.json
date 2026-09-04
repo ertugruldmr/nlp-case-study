@@ -1,0 +1,7520 @@
+{
+ "schema_version": "1.0.0",
+ "document": {
+  "company": "ÖZAK GAYRİMENKUL YATIRIM ORTAKLIĞI A.Ş. VE BAĞLI ORTAKLIKLARI",
+  "period_end": "2012-12-31",
+  "currency": "TL",
+  "source_pdf": "data/ozak_gyo_2012.pdf",
+  "source_sha256": "25e4afe4c27bd2b3bb17a943a323e265520e68981c349f300d9248b3f3bfd7e0",
+  "page_offset": 4
+ },
+ "run": {
+  "started_at": "2026-08-28T23:27:40+00:00",
+  "ftlink_version": "1.0.2",
+  "tesseract_version": "tesseract 5.5.3",
+  "models_loaded": {
+   "cross_encoder": true
+  },
+  "config_echo": {
+   "document": {
+    "pdf_path": "data/ozak_gyo_2012.pdf",
+    "summary_pages": [
+     5,
+     7
+    ],
+    "footnote_no": 11,
+    "company": "ÖZAK GAYRİMENKUL YATIRIM ORTAKLIĞI A.Ş. VE BAĞLI ORTAKLIKLARI",
+    "period_end": "2012-12-31",
+    "currency": "TL"
+   },
+   "ocr": {
+    "dpi": 400,
+    "psm": 4,
+    "lang": "tur",
+    "percent_rescue": true
+   },
+   "candidates": {
+    "rrf_k": 10.0,
+    "anchor_weight": 3.0,
+    "top_k": 8,
+    "dense_model": "intfloat/multilingual-e5-small",
+    "dense_model_revision": "614241f622f53c4eeff9890bdc4f31cfecc418b3"
+   },
+   "linking": {
+    "cross_encoder_model": "cross-encoder/mmarco-mMiniLMv2-L12-H384-v1",
+    "cross_encoder_revision": "1427fd652930e4ba29e8149678df786c240d8825",
+    "accept_threshold": 0.5,
+    "rank1_min_score": 0.2,
+    "lexical_threshold": 0.75,
+    "llm": {
+     "enabled": false,
+     "base_url": "http://localhost:11434/v1",
+     "model": "llama3.1:8b",
+     "cache_path": "cache/llm_calls.jsonl"
+    }
+   },
+   "confidence": {
+    "low_confidence_flag": 0.5,
+    "second_engine": true,
+    "extra_control_pages": [
+     9,
+     10
+    ]
+   },
+   "output": {
+    "dir": "runs/dpi-400/outputs",
+    "emit_report_html": true
+   }
+  }
+ },
+ "tables": [
+  {
+   "table_id": "p05.t00",
+   "page": 5,
+   "title": "BAĞIMSIZ DENETİMDEN GEÇMİŞ 31 ARALIK 2012 TARİHLİ KONSOLİDE BİLANÇO",
+   "statement_hint": "instant",
+   "periods": [
+    {
+     "period_id": "y2012",
+     "label": "2012",
+     "kind": "instant"
+    },
+    {
+     "period_id": "y2011",
+     "label": "2011",
+     "kind": "instant"
+    }
+   ],
+   "confidence": 0.9093,
+   "provenance": {
+    "page": 5,
+    "bbox": [
+     404.0,
+     1102.0,
+     2874.0,
+     2254.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "table_id": "p06.t01",
+   "page": 6,
+   "title": "BAĞIMSIZ DENETİMDEN GEÇMİŞ 31 ARALIK 2012 TARİHLİ KONSOLİDE BİLANÇO",
+   "statement_hint": "instant",
+   "periods": [
+    {
+     "period_id": "y2012",
+     "label": "2012",
+     "kind": "instant"
+    },
+    {
+     "period_id": "y2011",
+     "label": "2011",
+     "kind": "instant"
+    }
+   ],
+   "confidence": 0.8976,
+   "provenance": {
+    "page": 6,
+    "bbox": [
+     396.0,
+     1062.0,
+     2876.0,
+     3142.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "table_id": "p07.t02",
+   "page": 7,
+   "title": "BAĞIMSIZ DENETİMDEN GEÇMİŞ 31 ARALIK 2012 TARİHİNDE SONA EREN YILA AİT KONSOLİDE KAPSAMLI GELİR TABLOSU",
+   "statement_hint": "duration",
+   "periods": [
+    {
+     "period_id": "y2012",
+     "label": "2012",
+     "kind": "duration"
+    },
+    {
+     "period_id": "y2011",
+     "label": "2011",
+     "kind": "duration"
+    }
+   ],
+   "confidence": 0.8572,
+   "provenance": {
+    "page": 7,
+    "bbox": [
+     398.0,
+     1186.0,
+     2874.0,
+     3759.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "table_id": "p54.t03",
+   "page": 54,
+   "title": "11. YATIRIM AMAÇLI GAYRİMENKULLER (devamı)",
+   "statement_hint": "instant",
+   "periods": [
+    {
+     "period_id": "ycol0",
+     "label": "col0",
+     "kind": "instant"
+    },
+    {
+     "period_id": "y2011",
+     "label": "2011",
+     "kind": "instant"
+    }
+   ],
+   "confidence": 0.6076,
+   "provenance": {
+    "page": 54,
+    "bbox": [
+     406.0,
+     1232.0,
+     2874.0,
+     1392.0
+    ],
+    "dpi": null,
+    "stage": "footnote_extraction"
+   }
+  },
+  {
+   "table_id": "p54.t04",
+   "page": 54,
+   "title": "11. YATIRIM AMAÇLI GAYRİMENKULLER (devamı)",
+   "statement_hint": "instant",
+   "periods": [
+    {
+     "period_id": "y2012",
+     "label": "2012",
+     "kind": "instant"
+    },
+    {
+     "period_id": "y2011",
+     "label": "2011",
+     "kind": "instant"
+    }
+   ],
+   "confidence": 0.9228,
+   "provenance": {
+    "page": 54,
+    "bbox": [
+     404.0,
+     2204.0,
+     2858.0,
+     2662.0
+    ],
+    "dpi": null,
+    "stage": "footnote_extraction"
+   }
+  }
+ ],
+ "rows": [
+  {
+   "row_id": "p05.t00.r000",
+   "table_id": "p05.t00",
+   "label_raw": "VARLIKLAR",
+   "label_norm": "varlıklar",
+   "indent_level": 0,
+   "role": "group_header",
+   "parent_row_id": null,
+   "dipnot_refs": [],
+   "asterisk_marks": [],
+   "confidence": 0.3,
+   "provenance": {
+    "page": 5,
+    "bbox": [
+     0.0,
+     1036.0,
+     0.0,
+     1074.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "row_id": "p05.t00.r001",
+   "table_id": "p05.t00",
+   "label_raw": "Dönen Varlıklar",
+   "label_norm": "dönen varlıklar",
+   "indent_level": 0,
+   "role": "item",
+   "parent_row_id": null,
+   "dipnot_refs": [],
+   "asterisk_marks": [],
+   "confidence": 0.9585,
+   "provenance": {
+    "page": 5,
+    "bbox": [
+     0.0,
+     1102.0,
+     0.0,
+     1150.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "row_id": "p05.t00.r002",
+   "table_id": "p05.t00",
+   "label_raw": "Nakit ve Nakit Benzerleri",
+   "label_norm": "nakit ve nakit benzerleri",
+   "indent_level": 1,
+   "role": "subitem",
+   "parent_row_id": "p05.t00.r001",
+   "dipnot_refs": [
+    4
+   ],
+   "asterisk_marks": [],
+   "confidence": 0.9549,
+   "provenance": {
+    "page": 5,
+    "bbox": [
+     0.0,
+     1166.0,
+     0.0,
+     1216.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "row_id": "p05.t00.r003",
+   "table_id": "p05.t00",
+   "label_raw": "Ticari Alacaklar",
+   "label_norm": "ticari alacaklar",
+   "indent_level": 1,
+   "role": "subitem",
+   "parent_row_id": "p05.t00.r001",
+   "dipnot_refs": [
+    8
+   ],
+   "asterisk_marks": [],
+   "confidence": 0.9604,
+   "provenance": {
+    "page": 5,
+    "bbox": [
+     0.0,
+     1230.0,
+     0.0,
+     1282.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "row_id": "p05.t00.r004",
+   "table_id": "p05.t00",
+   "label_raw": "-İlişkili Taraflardan Ticari Alacaklar",
+   "label_norm": "ilişkili taraflardan ticari alacaklar",
+   "indent_level": 2,
+   "role": "subitem",
+   "parent_row_id": "p05.t00.r003",
+   "dipnot_refs": [
+    28
+   ],
+   "asterisk_marks": [],
+   "confidence": 0.9609,
+   "provenance": {
+    "page": 5,
+    "bbox": [
+     0.0,
+     1290.0,
+     0.0,
+     1346.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "row_id": "p05.t00.r005",
+   "table_id": "p05.t00",
+   "label_raw": "-Diğer Ticari Alacaklar",
+   "label_norm": "diğer ticari alacaklar",
+   "indent_level": 2,
+   "role": "subitem",
+   "parent_row_id": "p05.t00.r003",
+   "dipnot_refs": [],
+   "asterisk_marks": [],
+   "confidence": 0.9625,
+   "provenance": {
+    "page": 5,
+    "bbox": [
+     0.0,
+     1362.0,
+     0.0,
+     1412.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "row_id": "p05.t00.r006",
+   "table_id": "p05.t00",
+   "label_raw": "Diğer Alacaklar",
+   "label_norm": "diğer alacaklar",
+   "indent_level": 1,
+   "role": "subitem",
+   "parent_row_id": "p05.t00.r001",
+   "dipnot_refs": [
+    9
+   ],
+   "asterisk_marks": [],
+   "confidence": 0.9629,
+   "provenance": {
+    "page": 5,
+    "bbox": [
+     0.0,
+     1428.0,
+     0.0,
+     1478.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "row_id": "p05.t00.r007",
+   "table_id": "p05.t00",
+   "label_raw": "Stoklar İ",
+   "label_norm": "stoklar i",
+   "indent_level": 1,
+   "role": "subitem",
+   "parent_row_id": "p05.t00.r001",
+   "dipnot_refs": [
+    10
+   ],
+   "asterisk_marks": [],
+   "confidence": 0.9574,
+   "provenance": {
+    "page": 5,
+    "bbox": [
+     0.0,
+     1480.0,
+     0.0,
+     1547.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "row_id": "p05.t00.r008",
+   "table_id": "p05.t00",
+   "label_raw": "Diğer Dönen Varlıklar",
+   "label_norm": "diğer dönen varlıklar",
+   "indent_level": 1,
+   "role": "subitem",
+   "parent_row_id": "p05.t00.r001",
+   "dipnot_refs": [
+    18
+   ],
+   "asterisk_marks": [],
+   "confidence": 0.9305,
+   "provenance": {
+    "page": 5,
+    "bbox": [
+     0.0,
+     1556.0,
+     0.0,
+     1606.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "row_id": "p05.t00.r009",
+   "table_id": "p05.t00",
+   "label_raw": "Duran Varlıklar",
+   "label_norm": "duran varlıklar",
+   "indent_level": 0,
+   "role": "item",
+   "parent_row_id": null,
+   "dipnot_refs": [],
+   "asterisk_marks": [],
+   "confidence": 0.961,
+   "provenance": {
+    "page": 5,
+    "bbox": [
+     0.0,
+     1688.0,
+     0.0,
+     1736.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "row_id": "p05.t00.r010",
+   "table_id": "p05.t00",
+   "label_raw": "Finansal Yatırımlar",
+   "label_norm": "finansal yatırımlar",
+   "indent_level": 1,
+   "role": "subitem",
+   "parent_row_id": "p05.t00.r009",
+   "dipnot_refs": [
+    5
+   ],
+   "asterisk_marks": [],
+   "confidence": 0.9327,
+   "provenance": {
+    "page": 5,
+    "bbox": [
+     0.0,
+     1752.0,
+     0.0,
+     1802.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "row_id": "p05.t00.r011",
+   "table_id": "p05.t00",
+   "label_raw": "Özkaynak Yönetimiyle Değerlenen Yatırımlar",
+   "label_norm": "özkaynak yönetimiyle değerlenen yatırımlar",
+   "indent_level": 1,
+   "role": "subitem",
+   "parent_row_id": "p05.t00.r009",
+   "dipnot_refs": [
+    6
+   ],
+   "asterisk_marks": [],
+   "confidence": 0.9007,
+   "provenance": {
+    "page": 5,
+    "bbox": [
+     0.0,
+     1810.0,
+     0.0,
+     1866.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "row_id": "p05.t00.r012",
+   "table_id": "p05.t00",
+   "label_raw": "Yatırım Amaçlı Gayrimenkuller",
+   "label_norm": "yatırım amaçlı gayrimenkuller",
+   "indent_level": 1,
+   "role": "subitem",
+   "parent_row_id": "p05.t00.r009",
+   "dipnot_refs": [
+    11
+   ],
+   "asterisk_marks": [],
+   "confidence": 0.8422,
+   "provenance": {
+    "page": 5,
+    "bbox": [
+     0.0,
+     1882.0,
+     0.0,
+     1932.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "row_id": "p05.t00.r013",
+   "table_id": "p05.t00",
+   "label_raw": "Maddi Duran Varlıklar",
+   "label_norm": "maddi duran varlıklar",
+   "indent_level": 1,
+   "role": "subitem",
+   "parent_row_id": "p05.t00.r009",
+   "dipnot_refs": [
+    12
+   ],
+   "asterisk_marks": [],
+   "confidence": 0.9599,
+   "provenance": {
+    "page": 5,
+    "bbox": [
+     0.0,
+     1948.0,
+     0.0,
+     1998.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "row_id": "p05.t00.r014",
+   "table_id": "p05.t00",
+   "label_raw": "Maddi Olmayan Duran Varlıklar",
+   "label_norm": "maddi olmayan duran varlıklar",
+   "indent_level": 1,
+   "role": "subitem",
+   "parent_row_id": "p05.t00.r009",
+   "dipnot_refs": [
+    13
+   ],
+   "asterisk_marks": [],
+   "confidence": 0.953,
+   "provenance": {
+    "page": 5,
+    "bbox": [
+     0.0,
+     2014.0,
+     0.0,
+     2062.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "row_id": "p05.t00.r015",
+   "table_id": "p05.t00",
+   "label_raw": "Ertelenen Vergi Varlığı",
+   "label_norm": "ertelenen vergi varlığı",
+   "indent_level": 1,
+   "role": "subitem",
+   "parent_row_id": "p05.t00.r009",
+   "dipnot_refs": [
+    26
+   ],
+   "asterisk_marks": [],
+   "confidence": 0.9613,
+   "provenance": {
+    "page": 5,
+    "bbox": [
+     0.0,
+     2078.0,
+     0.0,
+     2128.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "row_id": "p05.t00.r016",
+   "table_id": "p05.t00",
+   "label_raw": "Diğer Duran Varlıklar",
+   "label_norm": "diğer duran varlıklar",
+   "indent_level": 1,
+   "role": "subitem",
+   "parent_row_id": "p05.t00.r009",
+   "dipnot_refs": [
+    18
+   ],
+   "asterisk_marks": [],
+   "confidence": 0.947,
+   "provenance": {
+    "page": 5,
+    "bbox": [
+     0.0,
+     2144.0,
+     0.0,
+     2194.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "row_id": "p05.t00.r017",
+   "table_id": "p05.t00",
+   "label_raw": "TOPLAM VARLIKLAR",
+   "label_norm": "toplam varlıklar",
+   "indent_level": 0,
+   "role": "total",
+   "parent_row_id": null,
+   "dipnot_refs": [],
+   "asterisk_marks": [],
+   "confidence": 0.9616,
+   "provenance": {
+    "page": 5,
+    "bbox": [
+     0.0,
+     2210.0,
+     0.0,
+     2254.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "row_id": "p06.t01.r000",
+   "table_id": "p06.t01",
+   "label_raw": "KAYNAKLAR",
+   "label_norm": "kaynaklar",
+   "indent_level": 0,
+   "role": "group_header",
+   "parent_row_id": null,
+   "dipnot_refs": [],
+   "asterisk_marks": [],
+   "confidence": 0.3,
+   "provenance": {
+    "page": 6,
+    "bbox": [
+     0.0,
+     994.0,
+     0.0,
+     1032.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "row_id": "p06.t01.r001",
+   "table_id": "p06.t01",
+   "label_raw": "Kısa Vadeli Yükümlülükler",
+   "label_norm": "kısa vadeli yükümlülükler",
+   "indent_level": 0,
+   "role": "item",
+   "parent_row_id": null,
+   "dipnot_refs": [],
+   "asterisk_marks": [],
+   "confidence": 0.9663,
+   "provenance": {
+    "page": 6,
+    "bbox": [
+     0.0,
+     1062.0,
+     0.0,
+     1112.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "row_id": "p06.t01.r002",
+   "table_id": "p06.t01",
+   "label_raw": "Finansal Borçlar",
+   "label_norm": "finansal borçlar",
+   "indent_level": 1,
+   "role": "subitem",
+   "parent_row_id": "p06.t01.r001",
+   "dipnot_refs": [
+    7
+   ],
+   "asterisk_marks": [],
+   "confidence": 0.9607,
+   "provenance": {
+    "page": 6,
+    "bbox": [
+     0.0,
+     1132.0,
+     0.0,
+     1182.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "row_id": "p06.t01.r003",
+   "table_id": "p06.t01",
+   "label_raw": "Ticari Borçlar",
+   "label_norm": "ticari borçlar",
+   "indent_level": 1,
+   "role": "subitem",
+   "parent_row_id": "p06.t01.r001",
+   "dipnot_refs": [
+    8
+   ],
+   "asterisk_marks": [],
+   "confidence": 0.9136,
+   "provenance": {
+    "page": 6,
+    "bbox": [
+     0.0,
+     1200.0,
+     0.0,
+     1250.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "row_id": "p06.t01.r004",
+   "table_id": "p06.t01",
+   "label_raw": "-İlişkili Taraflara Ticari Borçlar",
+   "label_norm": "ilişkili taraflara ticari borçlar",
+   "indent_level": 2,
+   "role": "subitem",
+   "parent_row_id": "p06.t01.r003",
+   "dipnot_refs": [
+    28
+   ],
+   "asterisk_marks": [],
+   "confidence": 0.6904,
+   "provenance": {
+    "page": 6,
+    "bbox": [
+     0.0,
+     1266.0,
+     0.0,
+     1326.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "row_id": "p06.t01.r005",
+   "table_id": "p06.t01",
+   "label_raw": "“Diğer Ticari Borçlar",
+   "label_norm": "“diğer ticari borçlar",
+   "indent_level": 2,
+   "role": "subitem",
+   "parent_row_id": "p06.t01.r003",
+   "dipnot_refs": [],
+   "asterisk_marks": [],
+   "confidence": 0.9473,
+   "provenance": {
+    "page": 6,
+    "bbox": [
+     0.0,
+     1350.0,
+     0.0,
+     1406.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "row_id": "p06.t01.r006",
+   "table_id": "p06.t01",
+   "label_raw": "Diğer Borçlar",
+   "label_norm": "diğer borçlar",
+   "indent_level": 1,
+   "role": "subitem",
+   "parent_row_id": "p06.t01.r001",
+   "dipnot_refs": [
+    9
+   ],
+   "asterisk_marks": [],
+   "confidence": 0.9583,
+   "provenance": {
+    "page": 6,
+    "bbox": [
+     0.0,
+     1422.0,
+     0.0,
+     1472.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "row_id": "p06.t01.r007",
+   "table_id": "p06.t01",
+   "label_raw": "“İlişkili Taraflara Diğer Borçlar",
+   "label_norm": "“ilişkili taraflara diğer borçlar",
+   "indent_level": 2,
+   "role": "subitem",
+   "parent_row_id": "p06.t01.r006",
+   "dipnot_refs": [
+    28
+   ],
+   "asterisk_marks": [],
+   "confidence": 0.9373,
+   "provenance": {
+    "page": 6,
+    "bbox": [
+     0.0,
+     1486.0,
+     0.0,
+     1548.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "row_id": "p06.t01.r008",
+   "table_id": "p06.t01",
+   "label_raw": "-Diğer Borçlar i",
+   "label_norm": "diğer borçlar i",
+   "indent_level": 2,
+   "role": "subitem",
+   "parent_row_id": "p06.t01.r006",
+   "dipnot_refs": [],
+   "asterisk_marks": [],
+   "confidence": 0.9572,
+   "provenance": {
+    "page": 6,
+    "bbox": [
+     0.0,
+     1572.0,
+     0.0,
+     1626.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "row_id": "p06.t01.r009",
+   "table_id": "p06.t01",
+   "label_raw": "Dönem Karı Vergi Yükümlülüğü ,",
+   "label_norm": "dönem karı vergi yükümlülüğü ,",
+   "indent_level": 1,
+   "role": "subitem",
+   "parent_row_id": "p06.t01.r001",
+   "dipnot_refs": [
+    26
+   ],
+   "asterisk_marks": [],
+   "confidence": 0.8724,
+   "provenance": {
+    "page": 6,
+    "bbox": [
+     0.0,
+     1648.0,
+     0.0,
+     1704.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "row_id": "p06.t01.r010",
+   "table_id": "p06.t01",
+   "label_raw": "Borç Karşılıkları",
+   "label_norm": "borç karşılıkları",
+   "indent_level": 1,
+   "role": "subitem",
+   "parent_row_id": "p06.t01.r001",
+   "dipnot_refs": [
+    15
+   ],
+   "asterisk_marks": [],
+   "confidence": 0.934,
+   "provenance": {
+    "page": 6,
+    "bbox": [
+     0.0,
+     1722.0,
+     0.0,
+     1778.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "row_id": "p06.t01.r011",
+   "table_id": "p06.t01",
+   "label_raw": "Çalışanlara Sağlanan Faydalara İlişkin Karşılıklar",
+   "label_norm": "çalışanlara sağlanan faydalara ilişkin karşılıklar",
+   "indent_level": 1,
+   "role": "subitem",
+   "parent_row_id": "p06.t01.r001",
+   "dipnot_refs": [
+    17
+   ],
+   "asterisk_marks": [],
+   "confidence": 0.9463,
+   "provenance": {
+    "page": 6,
+    "bbox": [
+     0.0,
+     1798.0,
+     0.0,
+     1858.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "row_id": "p06.t01.r012",
+   "table_id": "p06.t01",
+   "label_raw": "Diğer Kısa Vadeli Yükümlülükler",
+   "label_norm": "diğer kısa vadeli yükümlülükler",
+   "indent_level": 1,
+   "role": "subitem",
+   "parent_row_id": "p06.t01.r001",
+   "dipnot_refs": [
+    18
+   ],
+   "asterisk_marks": [],
+   "confidence": 0.8447,
+   "provenance": {
+    "page": 6,
+    "bbox": [
+     0.0,
+     1876.0,
+     0.0,
+     1937.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "row_id": "p06.t01.r013",
+   "table_id": "p06.t01",
+   "label_raw": "Uzun Vadeli Yükümlülükler",
+   "label_norm": "uzun vadeli yükümlülükler",
+   "indent_level": 0,
+   "role": "item",
+   "parent_row_id": null,
+   "dipnot_refs": [],
+   "asterisk_marks": [],
+   "confidence": 0.9426,
+   "provenance": {
+    "page": 6,
+    "bbox": [
+     0.0,
+     2012.0,
+     0.0,
+     2060.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "row_id": "p06.t01.r014",
+   "table_id": "p06.t01",
+   "label_raw": "Finansal Borçlar",
+   "label_norm": "finansal borçlar",
+   "indent_level": 1,
+   "role": "subitem",
+   "parent_row_id": "p06.t01.r013",
+   "dipnot_refs": [
+    7
+   ],
+   "asterisk_marks": [],
+   "confidence": 0.9521,
+   "provenance": {
+    "page": 6,
+    "bbox": [
+     0.0,
+     2080.0,
+     0.0,
+     2128.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "row_id": "p06.t01.r015",
+   "table_id": "p06.t01",
+   "label_raw": "Diğer Uzun Vadeli Yükümlülükler",
+   "label_norm": "diğer uzun vadeli yükümlülükler",
+   "indent_level": 1,
+   "role": "subitem",
+   "parent_row_id": "p06.t01.r013",
+   "dipnot_refs": [
+    18
+   ],
+   "asterisk_marks": [],
+   "confidence": 0.9078,
+   "provenance": {
+    "page": 6,
+    "bbox": [
+     0.0,
+     2146.0,
+     0.0,
+     2194.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "row_id": "p06.t01.r016",
+   "table_id": "p06.t01",
+   "label_raw": "Çalışanlara Sağlanan Faydalara İlişkin Karşılıklar",
+   "label_norm": "çalışanlara sağlanan faydalara ilişkin karşılıklar",
+   "indent_level": 1,
+   "role": "subitem",
+   "parent_row_id": "p06.t01.r013",
+   "dipnot_refs": [
+    17
+   ],
+   "asterisk_marks": [],
+   "confidence": 0.9627,
+   "provenance": {
+    "page": 6,
+    "bbox": [
+     0.0,
+     2212.0,
+     0.0,
+     2266.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "row_id": "p06.t01.r017",
+   "table_id": "p06.t01",
+   "label_raw": "Ertelenmiş Vergi Yükümlülüğü",
+   "label_norm": "ertelenmiş vergi yükümlülüğü",
+   "indent_level": 1,
+   "role": "subitem",
+   "parent_row_id": "p06.t01.r013",
+   "dipnot_refs": [
+    26
+   ],
+   "asterisk_marks": [],
+   "confidence": 0.9564,
+   "provenance": {
+    "page": 6,
+    "bbox": [
+     0.0,
+     2284.0,
+     0.0,
+     2334.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "row_id": "p06.t01.r018",
+   "table_id": "p06.t01",
+   "label_raw": "ÖZKAYNAKLAR",
+   "label_norm": "özkaynaklar",
+   "indent_level": 0,
+   "role": "item",
+   "parent_row_id": null,
+   "dipnot_refs": [],
+   "asterisk_marks": [],
+   "confidence": 0.9598,
+   "provenance": {
+    "page": 6,
+    "bbox": [
+     0.0,
+     2406.0,
+     0.0,
+     2472.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "row_id": "p06.t01.r019",
+   "table_id": "p06.t01",
+   "label_raw": "Ana Ortaklığa Ait Özkaynaklar",
+   "label_norm": "ana ortaklığa ait özkaynaklar",
+   "indent_level": 0,
+   "role": "item",
+   "parent_row_id": null,
+   "dipnot_refs": [],
+   "asterisk_marks": [],
+   "confidence": 0.9565,
+   "provenance": {
+    "page": 6,
+    "bbox": [
+     0.0,
+     2480.0,
+     0.0,
+     2536.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "row_id": "p06.t01.r020",
+   "table_id": "p06.t01",
+   "label_raw": "Çıkarılmış Sermaye",
+   "label_norm": "çıkarılmış sermaye",
+   "indent_level": 1,
+   "role": "subitem",
+   "parent_row_id": "p06.t01.r019",
+   "dipnot_refs": [
+    19
+   ],
+   "asterisk_marks": [],
+   "confidence": 0.9637,
+   "provenance": {
+    "page": 6,
+    "bbox": [
+     0.0,
+     2554.0,
+     0.0,
+     2604.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "row_id": "p06.t01.r021",
+   "table_id": "p06.t01",
+   "label_raw": "Hisse Senedi İhraç Primleri",
+   "label_norm": "hisse senedi ihraç primleri",
+   "indent_level": 1,
+   "role": "subitem",
+   "parent_row_id": "p06.t01.r019",
+   "dipnot_refs": [],
+   "asterisk_marks": [],
+   "confidence": 0.9149,
+   "provenance": {
+    "page": 6,
+    "bbox": [
+     0.0,
+     2616.0,
+     0.0,
+     2668.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "row_id": "p06.t01.r022",
+   "table_id": "p06.t01",
+   "label_raw": "Sermaye Rezervleri",
+   "label_norm": "sermaye rezervleri",
+   "indent_level": 1,
+   "role": "subitem",
+   "parent_row_id": "p06.t01.r019",
+   "dipnot_refs": [],
+   "asterisk_marks": [],
+   "confidence": 0.9616,
+   "provenance": {
+    "page": 6,
+    "bbox": [
+     0.0,
+     2688.0,
+     0.0,
+     2736.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "row_id": "p06.t01.r023",
+   "table_id": "p06.t01",
+   "label_raw": "Maddi Duran Varlık Yeniden Değerleme Fonu",
+   "label_norm": "maddi duran varlık yeniden değerleme fonu",
+   "indent_level": 1,
+   "role": "subitem",
+   "parent_row_id": "p06.t01.r019",
+   "dipnot_refs": [],
+   "asterisk_marks": [],
+   "confidence": 0.9497,
+   "provenance": {
+    "page": 6,
+    "bbox": [
+     0.0,
+     2752.0,
+     0.0,
+     2802.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "row_id": "p06.t01.r024",
+   "table_id": "p06.t01",
+   "label_raw": "Kardan Ayrılan Kısıtlanmış Yedekler",
+   "label_norm": "kardan ayrılan kısıtlanmış yedekler",
+   "indent_level": 1,
+   "role": "subitem",
+   "parent_row_id": "p06.t01.r019",
+   "dipnot_refs": [],
+   "asterisk_marks": [],
+   "confidence": 0.9635,
+   "provenance": {
+    "page": 6,
+    "bbox": [
+     0.0,
+     2818.0,
+     0.0,
+     2870.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "row_id": "p06.t01.r025",
+   "table_id": "p06.t01",
+   "label_raw": "Geçmiş Yıllar Karları / (Zararları)",
+   "label_norm": "geçmiş yıllar karları / (zararları)",
+   "indent_level": 1,
+   "role": "subitem",
+   "parent_row_id": "p06.t01.r019",
+   "dipnot_refs": [],
+   "asterisk_marks": [],
+   "confidence": 0.9471,
+   "provenance": {
+    "page": 6,
+    "bbox": [
+     0.0,
+     2888.0,
+     0.0,
+     2948.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "row_id": "p06.t01.r026",
+   "table_id": "p06.t01",
+   "label_raw": "Net Dönem Karı",
+   "label_norm": "net dönem karı",
+   "indent_level": 1,
+   "role": "subitem",
+   "parent_row_id": "p06.t01.r019",
+   "dipnot_refs": [],
+   "asterisk_marks": [],
+   "confidence": 0.9287,
+   "provenance": {
+    "page": 6,
+    "bbox": [
+     0.0,
+     2960.0,
+     0.0,
+     3010.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "row_id": "p06.t01.r027",
+   "table_id": "p06.t01",
+   "label_raw": "Kontrol Gücü Olmayan Paylar",
+   "label_norm": "kontrol gücü olmayan paylar",
+   "indent_level": 0,
+   "role": "item",
+   "parent_row_id": null,
+   "dipnot_refs": [],
+   "asterisk_marks": [],
+   "confidence": 0.9636,
+   "provenance": {
+    "page": 6,
+    "bbox": [
+     0.0,
+     3030.0,
+     0.0,
+     3080.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "row_id": "p06.t01.r028",
+   "table_id": "p06.t01",
+   "label_raw": "TOPLAM KAYNAKLAR",
+   "label_norm": "toplam kaynaklar",
+   "indent_level": 0,
+   "role": "total",
+   "parent_row_id": null,
+   "dipnot_refs": [],
+   "asterisk_marks": [],
+   "confidence": 0.5722,
+   "provenance": {
+    "page": 6,
+    "bbox": [
+     0.0,
+     3098.0,
+     0.0,
+     3142.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "row_id": "p07.t02.r000",
+   "table_id": "p07.t02",
+   "label_raw": "Satış Gelirleri",
+   "label_norm": "satış gelirleri",
+   "indent_level": 1,
+   "role": "flow",
+   "parent_row_id": null,
+   "dipnot_refs": [
+    20
+   ],
+   "asterisk_marks": [],
+   "confidence": 0.927,
+   "provenance": {
+    "page": 7,
+    "bbox": [
+     0.0,
+     1186.0,
+     0.0,
+     1238.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "row_id": "p07.t02.r001",
+   "table_id": "p07.t02",
+   "label_raw": "Satışların Maliyeti (-)",
+   "label_norm": "satışların maliyeti (-)",
+   "indent_level": 1,
+   "role": "flow",
+   "parent_row_id": null,
+   "dipnot_refs": [
+    20
+   ],
+   "asterisk_marks": [],
+   "confidence": 0.9583,
+   "provenance": {
+    "page": 7,
+    "bbox": [
+     0.0,
+     1254.0,
+     0.0,
+     1322.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "row_id": "p07.t02.r002",
+   "table_id": "p07.t02",
+   "label_raw": "BRÜT KAR",
+   "label_norm": "brüt kar",
+   "indent_level": 0,
+   "role": "flow",
+   "parent_row_id": null,
+   "dipnot_refs": [],
+   "asterisk_marks": [],
+   "confidence": 0.7216,
+   "provenance": {
+    "page": 7,
+    "bbox": [
+     0.0,
+     1354.0,
+     0.0,
+     1412.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "row_id": "p07.t02.r003",
+   "table_id": "p07.t02",
+   "label_raw": "Pazarlama, Satış ve Dağıtım Giderleri (-)",
+   "label_norm": "pazarlama, satış ve dağıtım giderleri (-)",
+   "indent_level": 1,
+   "role": "flow",
+   "parent_row_id": "p07.t02.r002",
+   "dipnot_refs": [
+    21
+   ],
+   "asterisk_marks": [],
+   "confidence": 0.9574,
+   "provenance": {
+    "page": 7,
+    "bbox": [
+     0.0,
+     1456.0,
+     0.0,
+     1520.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "row_id": "p07.t02.r004",
+   "table_id": "p07.t02",
+   "label_raw": "Genel Yönetim Giderleri (-)",
+   "label_norm": "genel yönetim giderleri (-)",
+   "indent_level": 1,
+   "role": "flow",
+   "parent_row_id": "p07.t02.r002",
+   "dipnot_refs": [
+    21
+   ],
+   "asterisk_marks": [],
+   "confidence": 0.9592,
+   "provenance": {
+    "page": 7,
+    "bbox": [
+     0.0,
+     1524.0,
+     0.0,
+     1588.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "row_id": "p07.t02.r005",
+   "table_id": "p07.t02",
+   "label_raw": "Yatırım Amaçlı Gayrimenkul Değerleme Farkları",
+   "label_norm": "yatırım amaçlı gayrimenkul değerleme farkları",
+   "indent_level": 1,
+   "role": "flow",
+   "parent_row_id": "p07.t02.r002",
+   "dipnot_refs": [
+    11
+   ],
+   "asterisk_marks": [],
+   "confidence": 0.8826,
+   "provenance": {
+    "page": 7,
+    "bbox": [
+     0.0,
+     1592.0,
+     0.0,
+     1640.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "row_id": "p07.t02.r006",
+   "table_id": "p07.t02",
+   "label_raw": "Diğer Faaliyet Gelirleri",
+   "label_norm": "diğer faaliyet gelirleri",
+   "indent_level": 1,
+   "role": "flow",
+   "parent_row_id": "p07.t02.r002",
+   "dipnot_refs": [
+    23
+   ],
+   "asterisk_marks": [],
+   "confidence": 0.9367,
+   "provenance": {
+    "page": 7,
+    "bbox": [
+     0.0,
+     1656.0,
+     0.0,
+     1708.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "row_id": "p07.t02.r007",
+   "table_id": "p07.t02",
+   "label_raw": "Diğer Faaliyet Giderleri (-)",
+   "label_norm": "diğer faaliyet giderleri (-)",
+   "indent_level": 1,
+   "role": "flow",
+   "parent_row_id": "p07.t02.r002",
+   "dipnot_refs": [
+    23
+   ],
+   "asterisk_marks": [],
+   "confidence": 0.964,
+   "provenance": {
+    "page": 7,
+    "bbox": [
+     0.0,
+     1724.0,
+     0.0,
+     1786.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "row_id": "p07.t02.r008",
+   "table_id": "p07.t02",
+   "label_raw": "FAALİYET KARI",
+   "label_norm": "faaliyet karı",
+   "indent_level": 0,
+   "role": "flow",
+   "parent_row_id": null,
+   "dipnot_refs": [],
+   "asterisk_marks": [],
+   "confidence": 0.8367,
+   "provenance": {
+    "page": 7,
+    "bbox": [
+     0.0,
+     1824.0,
+     0.0,
+     1899.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "row_id": "p07.t02.r009",
+   "table_id": "p07.t02",
+   "label_raw": "Özkaynak Yöntemiyle Değerlenen Yatırımların Kar/Zararlarındaki Paylar",
+   "label_norm": "özkaynak yöntemiyle değerlenen yatırımların kar/zararlarındaki paylar",
+   "indent_level": 1,
+   "role": "flow",
+   "parent_row_id": "p07.t02.r008",
+   "dipnot_refs": [
+    6
+   ],
+   "asterisk_marks": [],
+   "confidence": 0.9382,
+   "provenance": {
+    "page": 7,
+    "bbox": [
+     0.0,
+     2026.0,
+     0.0,
+     2074.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "row_id": "p07.t02.r010",
+   "table_id": "p07.t02",
+   "label_raw": "(Esas Faaliyet Dışı) Finansal Gelirler",
+   "label_norm": "(esas faaliyet dışı) finansal gelirler",
+   "indent_level": 1,
+   "role": "flow",
+   "parent_row_id": "p07.t02.r008",
+   "dipnot_refs": [
+    24
+   ],
+   "asterisk_marks": [],
+   "confidence": 0.9571,
+   "provenance": {
+    "page": 7,
+    "bbox": [
+     0.0,
+     2092.0,
+     0.0,
+     2142.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "row_id": "p07.t02.r011",
+   "table_id": "p07.t02",
+   "label_raw": "(Esas Faaliyet Dışı) Finansal Giderler (-)",
+   "label_norm": "(esas faaliyet dışı) finansal giderler (-)",
+   "indent_level": 1,
+   "role": "flow",
+   "parent_row_id": "p07.t02.r008",
+   "dipnot_refs": [
+    25
+   ],
+   "asterisk_marks": [],
+   "confidence": 0.9152,
+   "provenance": {
+    "page": 7,
+    "bbox": [
+     0.0,
+     2160.0,
+     0.0,
+     2220.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "row_id": "p07.t02.r012",
+   "table_id": "p07.t02",
+   "label_raw": "VERGİ ÖNCESİ KAR",
+   "label_norm": "vergi öncesi kar",
+   "indent_level": 0,
+   "role": "flow",
+   "parent_row_id": null,
+   "dipnot_refs": [],
+   "asterisk_marks": [],
+   "confidence": 0.9062,
+   "provenance": {
+    "page": 7,
+    "bbox": [
+     0.0,
+     2302.0,
+     0.0,
+     2377.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "row_id": "p07.t02.r013",
+   "table_id": "p07.t02",
+   "label_raw": "Vergi Gelir / (Gideri)",
+   "label_norm": "vergi gelir / (gideri)",
+   "indent_level": 0,
+   "role": "flow",
+   "parent_row_id": null,
+   "dipnot_refs": [],
+   "asterisk_marks": [],
+   "confidence": 0.9446,
+   "provenance": {
+    "page": 7,
+    "bbox": [
+     0.0,
+     2442.0,
+     0.0,
+     2504.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "row_id": "p07.t02.r014",
+   "table_id": "p07.t02",
+   "label_raw": "Dönem Vergi Gideri",
+   "label_norm": "dönem vergi gideri",
+   "indent_level": 1,
+   "role": "flow",
+   "parent_row_id": "p07.t02.r013",
+   "dipnot_refs": [
+    26
+   ],
+   "asterisk_marks": [],
+   "confidence": 0.9518,
+   "provenance": {
+    "page": 7,
+    "bbox": [
+     0.0,
+     2510.0,
+     0.0,
+     2576.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "row_id": "p07.t02.r015",
+   "table_id": "p07.t02",
+   "label_raw": "Ertelenmiş Vergi Geliri",
+   "label_norm": "ertelenmiş vergi geliri",
+   "indent_level": 1,
+   "role": "flow",
+   "parent_row_id": "p07.t02.r013",
+   "dipnot_refs": [
+    26
+   ],
+   "asterisk_marks": [],
+   "confidence": 0.9424,
+   "provenance": {
+    "page": 7,
+    "bbox": [
+     0.0,
+     2578.0,
+     0.0,
+     2636.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "row_id": "p07.t02.r016",
+   "table_id": "p07.t02",
+   "label_raw": "DÖNEM KARI",
+   "label_norm": "dönem karı",
+   "indent_level": 0,
+   "role": "flow",
+   "parent_row_id": null,
+   "dipnot_refs": [],
+   "asterisk_marks": [],
+   "confidence": 0.9329,
+   "provenance": {
+    "page": 7,
+    "bbox": [
+     0.0,
+     2702.0,
+     0.0,
+     2756.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "row_id": "p07.t02.r017",
+   "table_id": "p07.t02",
+   "label_raw": "Dönem Karı Dağılımı",
+   "label_norm": "dönem karı dağılımı",
+   "indent_level": 0,
+   "role": "group_header",
+   "parent_row_id": null,
+   "dipnot_refs": [],
+   "asterisk_marks": [],
+   "confidence": 0.3,
+   "provenance": {
+    "page": 7,
+    "bbox": [
+     0.0,
+     2798.0,
+     0.0,
+     2846.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "row_id": "p07.t02.r018",
+   "table_id": "p07.t02",
+   "label_raw": "Kontrol Gücü Olmayan Paylar",
+   "label_norm": "kontrol gücü olmayan paylar",
+   "indent_level": 0,
+   "role": "flow",
+   "parent_row_id": null,
+   "dipnot_refs": [],
+   "asterisk_marks": [],
+   "confidence": 0.9627,
+   "provenance": {
+    "page": 7,
+    "bbox": [
+     0.0,
+     2866.0,
+     0.0,
+     2916.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "row_id": "p07.t02.r019",
+   "table_id": "p07.t02",
+   "label_raw": "Ana Ortaklık Payları",
+   "label_norm": "ana ortaklık payları",
+   "indent_level": 0,
+   "role": "flow",
+   "parent_row_id": null,
+   "dipnot_refs": [],
+   "asterisk_marks": [],
+   "confidence": 0.9549,
+   "provenance": {
+    "page": 7,
+    "bbox": [
+     0.0,
+     2932.0,
+     0.0,
+     2984.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "row_id": "p07.t02.r020",
+   "table_id": "p07.t02",
+   "label_raw": "",
+   "label_norm": "",
+   "indent_level": 0,
+   "role": "flow",
+   "parent_row_id": null,
+   "dipnot_refs": [],
+   "asterisk_marks": [],
+   "confidence": 0.8149,
+   "provenance": {
+    "page": 7,
+    "bbox": [
+     0.0,
+     3004.0,
+     0.0,
+     3044.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "row_id": "p07.t02.r021",
+   "table_id": "p07.t02",
+   "label_raw": "Hisse başına kazanç",
+   "label_norm": "hisse başına kazanç",
+   "indent_level": 0,
+   "role": "flow",
+   "parent_row_id": null,
+   "dipnot_refs": [
+    27
+   ],
+   "asterisk_marks": [],
+   "confidence": 0.7875,
+   "provenance": {
+    "page": 7,
+    "bbox": [
+     0.0,
+     3078.0,
+     0.0,
+     3134.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "row_id": "p07.t02.r022",
+   "table_id": "p07.t02",
+   "label_raw": "Diğer Kapsamlı (Gider) / Gelir",
+   "label_norm": "diğer kapsamlı (gider) / gelir",
+   "indent_level": 0,
+   "role": "flow",
+   "parent_row_id": null,
+   "dipnot_refs": [],
+   "asterisk_marks": [],
+   "confidence": 0.9553,
+   "provenance": {
+    "page": 7,
+    "bbox": [
+     0.0,
+     3210.0,
+     0.0,
+     3264.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "row_id": "p07.t02.r023",
+   "table_id": "p07.t02",
+   "label_raw": "Duran Varlıklar Değer Artış Fonundaki Değişim",
+   "label_norm": "duran varlıklar değer artış fonundaki değişim",
+   "indent_level": 0,
+   "role": "flow",
+   "parent_row_id": null,
+   "dipnot_refs": [],
+   "asterisk_marks": [],
+   "confidence": 0.9547,
+   "provenance": {
+    "page": 7,
+    "bbox": [
+     0.0,
+     3272.0,
+     0.0,
+     3328.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "row_id": "p07.t02.r024",
+   "table_id": "p07.t02",
+   "label_raw": "TOPLAM KAPSAMLI (GİDER) / GELİR",
+   "label_norm": "toplam kapsamlı (gider) / gelir",
+   "indent_level": 0,
+   "role": "total",
+   "parent_row_id": null,
+   "dipnot_refs": [],
+   "asterisk_marks": [],
+   "confidence": 0.9384,
+   "provenance": {
+    "page": 7,
+    "bbox": [
+     0.0,
+     3396.0,
+     0.0,
+     3461.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "row_id": "p07.t02.r025",
+   "table_id": "p07.t02",
+   "label_raw": "Toplam Kapsamlı (Giderin) / Gelirin Dağılımı",
+   "label_norm": "toplam kapsamlı (giderin) / gelirin dağılımı",
+   "indent_level": 0,
+   "role": "group_header",
+   "parent_row_id": null,
+   "dipnot_refs": [],
+   "asterisk_marks": [],
+   "confidence": 0.3,
+   "provenance": {
+    "page": 7,
+    "bbox": [
+     0.0,
+     3496.0,
+     0.0,
+     3546.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "row_id": "p07.t02.r026",
+   "table_id": "p07.t02",
+   "label_raw": "Kontrol Gücü Olmayan Paylar",
+   "label_norm": "kontrol gücü olmayan paylar",
+   "indent_level": 0,
+   "role": "flow",
+   "parent_row_id": null,
+   "dipnot_refs": [],
+   "asterisk_marks": [],
+   "confidence": 0.7733,
+   "provenance": {
+    "page": 7,
+    "bbox": [
+     0.0,
+     3562.0,
+     0.0,
+     3620.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "row_id": "p07.t02.r027",
+   "table_id": "p07.t02",
+   "label_raw": "Ana Ortaklık Payları (2.244165) o",
+   "label_norm": "ana ortaklık payları (2.244165) o",
+   "indent_level": 0,
+   "role": "flow",
+   "parent_row_id": null,
+   "dipnot_refs": [],
+   "asterisk_marks": [],
+   "confidence": 0.7729,
+   "provenance": {
+    "page": 7,
+    "bbox": [
+     0.0,
+     3630.0,
+     0.0,
+     3700.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "row_id": "p07.t02.r028",
+   "table_id": "p07.t02",
+   "label_raw": "",
+   "label_norm": "",
+   "indent_level": 0,
+   "role": "total",
+   "parent_row_id": null,
+   "dipnot_refs": [],
+   "asterisk_marks": [],
+   "confidence": 0.7117,
+   "provenance": {
+    "page": 7,
+    "bbox": [
+     0.0,
+     3700.0,
+     0.0,
+     3759.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "row_id": "p54.t03.r000",
+   "table_id": "p54.t03",
+   "label_raw": "İskonto oranı",
+   "label_norm": "iskonto oranı",
+   "indent_level": 0,
+   "role": "item",
+   "parent_row_id": null,
+   "dipnot_refs": [],
+   "asterisk_marks": [],
+   "confidence": 0.9228,
+   "provenance": {
+    "page": 54,
+    "bbox": [
+     0.0,
+     1232.0,
+     0.0,
+     1306.0
+    ],
+    "dpi": null,
+    "stage": "footnote_extraction"
+   }
+  },
+  {
+   "row_id": "p54.t03.r001",
+   "table_id": "p54.t03",
+   "label_raw": "Doluluk oranı (90)(*) “486,6",
+   "label_norm": "doluluk oranı (90) “486,6",
+   "indent_level": 0,
+   "role": "item",
+   "parent_row_id": null,
+   "dipnot_refs": [],
+   "asterisk_marks": [
+    "*"
+   ],
+   "confidence": 0.9215,
+   "provenance": {
+    "page": 54,
+    "bbox": [
+     0.0,
+     1322.0,
+     0.0,
+     1392.0
+    ],
+    "dpi": null,
+    "stage": "footnote_extraction"
+   }
+  },
+  {
+   "row_id": "p54.t03.r002",
+   "table_id": "p54.t03",
+   "label_raw": "Kira",
+   "label_norm": "kira",
+   "indent_level": 0,
+   "role": "item",
+   "parent_row_id": null,
+   "dipnot_refs": [],
+   "asterisk_marks": [],
+   "confidence": 0.3,
+   "provenance": {
+    "page": 54,
+    "bbox": [
+     0.0,
+     1404.0,
+     0.0,
+     1462.0
+    ],
+    "dpi": null,
+    "stage": "footnote_extraction"
+   }
+  },
+  {
+   "row_id": "p54.t04.r000",
+   "table_id": "p54.t04",
+   "label_raw": "Bağcılar Arsa",
+   "label_norm": "bağcılar arsa",
+   "indent_level": 0,
+   "role": "item",
+   "parent_row_id": null,
+   "dipnot_refs": [],
+   "asterisk_marks": [],
+   "confidence": 0.9591,
+   "provenance": {
+    "page": 54,
+    "bbox": [
+     0.0,
+     2204.0,
+     0.0,
+     2260.0
+    ],
+    "dpi": null,
+    "stage": "footnote_extraction"
+   }
+  },
+  {
+   "row_id": "p54.t04.r001",
+   "table_id": "p54.t04",
+   "label_raw": "Bayrampaşa Arsa (*)",
+   "label_norm": "bayrampaşa arsa",
+   "indent_level": 0,
+   "role": "item",
+   "parent_row_id": null,
+   "dipnot_refs": [],
+   "asterisk_marks": [
+    "*"
+   ],
+   "confidence": 0.9636,
+   "provenance": {
+    "page": 54,
+    "bbox": [
+     0.0,
+     2286.0,
+     0.0,
+     2342.0
+    ],
+    "dpi": null,
+    "stage": "footnote_extraction"
+   }
+  },
+  {
+   "row_id": "p54.t04.r002",
+   "table_id": "p54.t04",
+   "label_raw": "Güneşli Bina",
+   "label_norm": "güneşli bina",
+   "indent_level": 0,
+   "role": "item",
+   "parent_row_id": null,
+   "dipnot_refs": [],
+   "asterisk_marks": [],
+   "confidence": 0.9207,
+   "provenance": {
+    "page": 54,
+    "bbox": [
+     0.0,
+     2366.0,
+     0.0,
+     2422.0
+    ],
+    "dpi": null,
+    "stage": "footnote_extraction"
+   }
+  },
+  {
+   "row_id": "p54.t04.r003",
+   "table_id": "p54.t04",
+   "label_raw": "İkitelli Bina",
+   "label_norm": "ikitelli bina",
+   "indent_level": 0,
+   "role": "item",
+   "parent_row_id": null,
+   "dipnot_refs": [],
+   "asterisk_marks": [],
+   "confidence": 0.959,
+   "provenance": {
+    "page": 54,
+    "bbox": [
+     0.0,
+     2440.0,
+     0.0,
+     2502.0
+    ],
+    "dpi": null,
+    "stage": "footnote_extraction"
+   }
+  },
+  {
+   "row_id": "p54.t04.r004",
+   "table_id": "p54.t04",
+   "label_raw": "",
+   "label_norm": "",
+   "indent_level": 0,
+   "role": "total",
+   "parent_row_id": null,
+   "dipnot_refs": [],
+   "asterisk_marks": [],
+   "confidence": 0.8118,
+   "provenance": {
+    "page": 54,
+    "bbox": [
+     0.0,
+     2616.0,
+     0.0,
+     2662.0
+    ],
+    "dpi": null,
+    "stage": "footnote_extraction"
+   }
+  }
+ ],
+ "cells": [
+  {
+   "cell_id": "p05.t00.r001.c00",
+   "row_id": "p05.t00.r001",
+   "period_id": "y2012",
+   "value": {
+    "state": "number",
+    "raw": "134.557.729",
+    "value": "134557729",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 1.0,
+   "confidence_components": {
+    "ocr": 0.9576,
+    "parse": 1.0,
+    "engine_agreement": 1.0
+   },
+   "provenance": {
+    "page": 5,
+    "bbox": [
+     2172.0,
+     1112.0,
+     2418.0,
+     1148.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p05.t00.r001.c01",
+   "row_id": "p05.t00.r001",
+   "period_id": "y2011",
+   "value": {
+    "state": "number",
+    "raw": "21.380.946",
+    "value": "21380946",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 1.0,
+   "confidence_components": {
+    "ocr": 0.9593,
+    "parse": 1.0,
+    "engine_agreement": 1.0
+   },
+   "provenance": {
+    "page": 5,
+    "bbox": [
+     2648.0,
+     1114.0,
+     2874.0,
+     1150.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p05.t00.r002.c00",
+   "row_id": "p05.t00.r002",
+   "period_id": "y2012",
+   "value": {
+    "state": "number",
+    "raw": "41.854.579",
+    "value": "41854579",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.9979,
+   "confidence_components": {
+    "ocr": 0.9504,
+    "parse": 1.0,
+    "engine_agreement": 1.0
+   },
+   "provenance": {
+    "page": 5,
+    "bbox": [
+     2194.0,
+     1176.0,
+     2418.0,
+     1214.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p05.t00.r002.c01",
+   "row_id": "p05.t00.r002",
+   "period_id": "y2011",
+   "value": {
+    "state": "number",
+    "raw": "7.726.696",
+    "value": "7726696",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 1.0,
+   "confidence_components": {
+    "ocr": 0.9594,
+    "parse": 1.0,
+    "engine_agreement": 1.0
+   },
+   "provenance": {
+    "page": 5,
+    "bbox": [
+     2676.0,
+     1178.0,
+     2874.0,
+     1216.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p05.t00.r003.c00",
+   "row_id": "p05.t00.r003",
+   "period_id": "y2012",
+   "value": {
+    "state": "number",
+    "raw": "6.281.458",
+    "value": "6281458",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 1.0,
+   "confidence_components": {
+    "ocr": 0.9617,
+    "parse": 1.0,
+    "engine_agreement": 1.0
+   },
+   "provenance": {
+    "page": 5,
+    "bbox": [
+     2220.0,
+     1242.0,
+     2418.0,
+     1278.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p05.t00.r003.c01",
+   "row_id": "p05.t00.r003",
+   "period_id": "y2011",
+   "value": {
+    "state": "number",
+    "raw": "7.801.336",
+    "value": "7801336",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 1.0,
+   "confidence_components": {
+    "ocr": 0.9591,
+    "parse": 1.0,
+    "engine_agreement": 1.0
+   },
+   "provenance": {
+    "page": 5,
+    "bbox": [
+     2676.0,
+     1244.0,
+     2874.0,
+     1282.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p05.t00.r004.c00",
+   "row_id": "p05.t00.r004",
+   "period_id": "y2012",
+   "value": {
+    "state": "number",
+    "raw": "170.966",
+    "value": "170966",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 1.0,
+   "confidence_components": {
+    "ocr": 0.9671,
+    "parse": 1.0,
+    "engine_agreement": 1.0
+   },
+   "provenance": {
+    "page": 5,
+    "bbox": [
+     2264.0,
+     1308.0,
+     2418.0,
+     1344.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p05.t00.r004.c01",
+   "row_id": "p05.t00.r004",
+   "period_id": "y2011",
+   "value": {
+    "state": "number",
+    "raw": "2.082.986",
+    "value": "2082986",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 1.0,
+   "confidence_components": {
+    "ocr": 0.9547,
+    "parse": 1.0,
+    "engine_agreement": 1.0
+   },
+   "provenance": {
+    "page": 5,
+    "bbox": [
+     2674.0,
+     1310.0,
+     2874.0,
+     1346.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p05.t00.r005.c00",
+   "row_id": "p05.t00.r005",
+   "period_id": "y2012",
+   "value": {
+    "state": "number",
+    "raw": "6.110.492",
+    "value": "6110492",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 1.0,
+   "confidence_components": {
+    "ocr": 0.9604,
+    "parse": 1.0,
+    "engine_agreement": 1.0
+   },
+   "provenance": {
+    "page": 5,
+    "bbox": [
+     2220.0,
+     1372.0,
+     2418.0,
+     1410.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p05.t00.r005.c01",
+   "row_id": "p05.t00.r005",
+   "period_id": "y2011",
+   "value": {
+    "state": "number",
+    "raw": "5.718.350",
+    "value": "5718350",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 1.0,
+   "confidence_components": {
+    "ocr": 0.9646,
+    "parse": 1.0,
+    "engine_agreement": 1.0
+   },
+   "provenance": {
+    "page": 5,
+    "bbox": [
+     2676.0,
+     1376.0,
+     2872.0,
+     1412.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p05.t00.r006.c00",
+   "row_id": "p05.t00.r006",
+   "period_id": "y2012",
+   "value": {
+    "state": "number",
+    "raw": "3.993",
+    "value": "3993",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 1.0,
+   "confidence_components": {
+    "ocr": 0.9683,
+    "parse": 1.0,
+    "engine_agreement": 1.0
+   },
+   "provenance": {
+    "page": 5,
+    "bbox": [
+     2308.0,
+     1438.0,
+     2416.0,
+     1476.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p05.t00.r006.c01",
+   "row_id": "p05.t00.r006",
+   "period_id": "y2011",
+   "value": {
+    "state": "number",
+    "raw": "56.936",
+    "value": "56936",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.4,
+   "confidence_components": {
+    "ocr": 0.9575,
+    "parse": 1.0,
+    "engine_agreement": 0.0
+   },
+   "provenance": {
+    "page": 5,
+    "bbox": [
+     2740.0,
+     1440.0,
+     2874.0,
+     1478.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p05.t00.r007.c00",
+   "row_id": "p05.t00.r007",
+   "period_id": "y2012",
+   "value": {
+    "state": "number",
+    "raw": "71.543.097",
+    "value": "71543097",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.4,
+   "confidence_components": {
+    "ocr": 0.952,
+    "parse": 1.0,
+    "engine_agreement": 0.0
+   },
+   "provenance": {
+    "page": 5,
+    "bbox": [
+     2194.0,
+     1504.0,
+     2418.0,
+     1540.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p05.t00.r007.c01",
+   "row_id": "p05.t00.r007",
+   "period_id": "y2011",
+   "value": {
+    "state": "number",
+    "raw": "1.083.886",
+    "value": "1083886",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 1.0,
+   "confidence_components": {
+    "ocr": 0.9629,
+    "parse": 1.0,
+    "engine_agreement": 1.0
+   },
+   "provenance": {
+    "page": 5,
+    "bbox": [
+     2680.0,
+     1506.0,
+     2872.0,
+     1544.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p05.t00.r008.c00",
+   "row_id": "p05.t00.r008",
+   "period_id": "y2012",
+   "value": {
+    "state": "number",
+    "raw": "8.874.602",
+    "value": "8874602",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.9885,
+   "confidence_components": {
+    "ocr": 0.9414,
+    "parse": 1.0,
+    "engine_agreement": 1.0
+   },
+   "provenance": {
+    "page": 5,
+    "bbox": [
+     2222.0,
+     1568.0,
+     2418.0,
+     1604.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p05.t00.r008.c01",
+   "row_id": "p05.t00.r008",
+   "period_id": "y2011",
+   "value": {
+    "state": "number",
+    "raw": "4.712.072",
+    "value": "4712072",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.9656,
+   "confidence_components": {
+    "ocr": 0.9196,
+    "parse": 1.0,
+    "engine_agreement": 1.0
+   },
+   "provenance": {
+    "page": 5,
+    "bbox": [
+     2674.0,
+     1570.0,
+     2874.0,
+     1606.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p05.t00.r009.c00",
+   "row_id": "p05.t00.r009",
+   "period_id": "y2012",
+   "value": {
+    "state": "number",
+    "raw": "717.592.075",
+    "value": "717592075",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 1.0,
+   "confidence_components": {
+    "ocr": 0.9623,
+    "parse": 1.0,
+    "engine_agreement": 1.0
+   },
+   "provenance": {
+    "page": 5,
+    "bbox": [
+     2170.0,
+     1698.0,
+     2418.0,
+     1734.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p05.t00.r009.c01",
+   "row_id": "p05.t00.r009",
+   "period_id": "y2011",
+   "value": {
+    "state": "number",
+    "raw": "760.027.331",
+    "value": "760027331",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 1.0,
+   "confidence_components": {
+    "ocr": 0.9598,
+    "parse": 1.0,
+    "engine_agreement": 1.0
+   },
+   "provenance": {
+    "page": 5,
+    "bbox": [
+     2624.0,
+     1700.0,
+     2872.0,
+     1736.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p05.t00.r010.c00",
+   "row_id": "p05.t00.r010",
+   "period_id": "y2012",
+   "value": {
+    "state": "number",
+    "raw": "4,224",
+    "value": "4.224",
+    "kind": "decimal",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 1.0,
+   "confidence_components": {
+    "ocr": 0.9547,
+    "parse": 1.0,
+    "engine_agreement": 1.0
+   },
+   "provenance": {
+    "page": 5,
+    "bbox": [
+     2306.0,
+     1764.0,
+     2418.0,
+     1800.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p05.t00.r010.c01",
+   "row_id": "p05.t00.r010",
+   "period_id": "y2011",
+   "value": {
+    "state": "number",
+    "raw": "4.224",
+    "value": "4224",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.9563,
+   "confidence_components": {
+    "ocr": 0.9108,
+    "parse": 1.0,
+    "engine_agreement": 1.0
+   },
+   "provenance": {
+    "page": 5,
+    "bbox": [
+     2762.0,
+     1766.0,
+     2874.0,
+     1802.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p05.t00.r011.c00",
+   "row_id": "p05.t00.r011",
+   "period_id": "y2012",
+   "value": {
+    "state": "number",
+    "raw": "28.785.840",
+    "value": "28785840",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 1.0,
+   "confidence_components": {
+    "ocr": 0.9577,
+    "parse": 1.0,
+    "engine_agreement": 1.0
+   },
+   "provenance": {
+    "page": 5,
+    "bbox": [
+     2194.0,
+     1828.0,
+     2418.0,
+     1864.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p05.t00.r011.c01",
+   "row_id": "p05.t00.r011",
+   "period_id": "y2011",
+   "value": {
+    "state": "dash",
+    "raw": "-"
+   },
+   "confidence": 0.8437,
+   "confidence_components": {
+    "ocr": 0.8437,
+    "parse": 1.0
+   },
+   "provenance": {
+    "page": 5,
+    "bbox": [
+     2860.0,
+     1852.0,
+     2874.0,
+     1858.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p05.t00.r012.c00",
+   "row_id": "p05.t00.r012",
+   "period_id": "y2012",
+   "value": {
+    "state": "number",
+    "raw": "373.992.222",
+    "value": "373992222",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.7616,
+   "confidence_components": {
+    "ocr": 0.7253,
+    "parse": 1.0,
+    "engine_agreement": 1.0
+   },
+   "provenance": {
+    "page": 5,
+    "bbox": [
+     2168.0,
+     1894.0,
+     2418.0,
+     1930.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p05.t00.r012.c01",
+   "row_id": "p05.t00.r012",
+   "period_id": "y2011",
+   "value": {
+    "state": "number",
+    "raw": "423.580.000",
+    "value": "423580000",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 1.0,
+   "confidence_components": {
+    "ocr": 0.9592,
+    "parse": 1.0,
+    "engine_agreement": 1.0
+   },
+   "provenance": {
+    "page": 5,
+    "bbox": [
+     2624.0,
+     1896.0,
+     2872.0,
+     1932.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p05.t00.r013.c00",
+   "row_id": "p05.t00.r013",
+   "period_id": "y2012",
+   "value": {
+    "state": "number",
+    "raw": "285.161.777",
+    "value": "285161777",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 1.0,
+   "confidence_components": {
+    "ocr": 0.953,
+    "parse": 1.0,
+    "engine_agreement": 1.0
+   },
+   "provenance": {
+    "page": 5,
+    "bbox": [
+     2168.0,
+     1958.0,
+     2418.0,
+     1996.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p05.t00.r013.c01",
+   "row_id": "p05.t00.r013",
+   "period_id": "y2011",
+   "value": {
+    "state": "number",
+    "raw": "313.618.867",
+    "value": "313618867",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 1.0,
+   "confidence_components": {
+    "ocr": 0.9668,
+    "parse": 1.0,
+    "engine_agreement": 1.0
+   },
+   "provenance": {
+    "page": 5,
+    "bbox": [
+     2624.0,
+     1958.0,
+     2874.0,
+     1998.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p05.t00.r014.c00",
+   "row_id": "p05.t00.r014",
+   "period_id": "y2012",
+   "value": {
+    "state": "number",
+    "raw": "14.557.878",
+    "value": "14557878",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 1.0,
+   "confidence_components": {
+    "ocr": 0.9528,
+    "parse": 1.0,
+    "engine_agreement": 1.0
+   },
+   "provenance": {
+    "page": 5,
+    "bbox": [
+     2198.0,
+     2024.0,
+     2416.0,
+     2060.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p05.t00.r014.c01",
+   "row_id": "p05.t00.r014",
+   "period_id": "y2011",
+   "value": {
+    "state": "number",
+    "raw": "14.526.075",
+    "value": "14526075",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 1.0,
+   "confidence_components": {
+    "ocr": 0.9532,
+    "parse": 1.0,
+    "engine_agreement": 1.0
+   },
+   "provenance": {
+    "page": 5,
+    "bbox": [
+     2654.0,
+     2026.0,
+     2872.0,
+     2062.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p05.t00.r015.c00",
+   "row_id": "p05.t00.r015",
+   "period_id": "y2012",
+   "value": {
+    "state": "number",
+    "raw": "4.065.781",
+    "value": "4065781",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 1.0,
+   "confidence_components": {
+    "ocr": 0.9651,
+    "parse": 1.0,
+    "engine_agreement": 1.0
+   },
+   "provenance": {
+    "page": 5,
+    "bbox": [
+     2218.0,
+     2088.0,
+     2412.0,
+     2126.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p05.t00.r015.c01",
+   "row_id": "p05.t00.r015",
+   "period_id": "y2011",
+   "value": {
+    "state": "number",
+    "raw": "8.262.684",
+    "value": "8262684",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 1.0,
+   "confidence_components": {
+    "ocr": 0.9576,
+    "parse": 1.0,
+    "engine_agreement": 1.0
+   },
+   "provenance": {
+    "page": 5,
+    "bbox": [
+     2676.0,
+     2092.0,
+     2874.0,
+     2128.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p05.t00.r016.c00",
+   "row_id": "p05.t00.r016",
+   "period_id": "y2012",
+   "value": {
+    "state": "number",
+    "raw": "11.024.353",
+    "value": "11024353",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.9791,
+   "confidence_components": {
+    "ocr": 0.9325,
+    "parse": 1.0,
+    "engine_agreement": 1.0
+   },
+   "provenance": {
+    "page": 5,
+    "bbox": [
+     2198.0,
+     2154.0,
+     2414.0,
+     2190.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p05.t00.r016.c01",
+   "row_id": "p05.t00.r016",
+   "period_id": "y2011",
+   "value": {
+    "state": "number",
+    "raw": "35.481",
+    "value": "35481",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 1.0,
+   "confidence_components": {
+    "ocr": 0.9616,
+    "parse": 1.0,
+    "engine_agreement": 1.0
+   },
+   "provenance": {
+    "page": 5,
+    "bbox": [
+     2738.0,
+     2156.0,
+     2868.0,
+     2194.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p05.t00.r017.c00",
+   "row_id": "p05.t00.r017",
+   "period_id": "y2012",
+   "value": {
+    "state": "number",
+    "raw": "852.149.804",
+    "value": "852149804",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 1.0,
+   "confidence_components": {
+    "ocr": 0.9597,
+    "parse": 1.0,
+    "engine_agreement": 1.0
+   },
+   "provenance": {
+    "page": 5,
+    "bbox": [
+     2168.0,
+     2214.0,
+     2416.0,
+     2252.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p05.t00.r017.c01",
+   "row_id": "p05.t00.r017",
+   "period_id": "y2011",
+   "value": {
+    "state": "number",
+    "raw": "781.408.277",
+    "value": "781408277",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 1.0,
+   "confidence_components": {
+    "ocr": 0.9635,
+    "parse": 1.0,
+    "engine_agreement": 1.0
+   },
+   "provenance": {
+    "page": 5,
+    "bbox": [
+     2624.0,
+     2216.0,
+     2874.0,
+     2254.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p06.t01.r001.c00",
+   "row_id": "p06.t01.r001",
+   "period_id": "y2012",
+   "value": {
+    "state": "number",
+    "raw": "63.553.798",
+    "value": "63553798",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 1.0,
+   "confidence_components": {
+    "ocr": 0.9663,
+    "parse": 1.0,
+    "engine_agreement": 1.0
+   },
+   "provenance": {
+    "page": 6,
+    "bbox": [
+     2182.0,
+     1072.0,
+     2406.0,
+     1110.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p06.t01.r001.c01",
+   "row_id": "p06.t01.r001",
+   "period_id": "y2011",
+   "value": {
+    "state": "number",
+    "raw": "107.356.816",
+    "value": "107356816",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 1.0,
+   "confidence_components": {
+    "ocr": 0.9662,
+    "parse": 1.0,
+    "engine_agreement": 1.0
+   },
+   "provenance": {
+    "page": 6,
+    "bbox": [
+     2612.0,
+     1076.0,
+     2862.0,
+     1112.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p06.t01.r002.c00",
+   "row_id": "p06.t01.r002",
+   "period_id": "y2012",
+   "value": {
+    "state": "number",
+    "raw": "38.216.987",
+    "value": "38216987",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 1.0,
+   "confidence_components": {
+    "ocr": 0.9581,
+    "parse": 1.0,
+    "engine_agreement": 1.0
+   },
+   "provenance": {
+    "page": 6,
+    "bbox": [
+     2180.0,
+     1142.0,
+     2406.0,
+     1180.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p06.t01.r002.c01",
+   "row_id": "p06.t01.r002",
+   "period_id": "y2011",
+   "value": {
+    "state": "number",
+    "raw": "93.250.501",
+    "value": "93250501",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 1.0,
+   "confidence_components": {
+    "ocr": 0.9634,
+    "parse": 1.0,
+    "engine_agreement": 1.0
+   },
+   "provenance": {
+    "page": 6,
+    "bbox": [
+     2636.0,
+     1144.0,
+     2856.0,
+     1182.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p06.t01.r003.c00",
+   "row_id": "p06.t01.r003",
+   "period_id": "y2012",
+   "value": {
+    "state": "number",
+    "raw": "7.932.336",
+    "value": "7932336",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.9622,
+   "confidence_components": {
+    "ocr": 0.9164,
+    "parse": 1.0,
+    "engine_agreement": 1.0
+   },
+   "provenance": {
+    "page": 6,
+    "bbox": [
+     2208.0,
+     1210.0,
+     2406.0,
+     1248.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p06.t01.r003.c01",
+   "row_id": "p06.t01.r003",
+   "period_id": "y2011",
+   "value": {
+    "state": "number",
+    "raw": "4.232.740",
+    "value": "4232740",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.9563,
+   "confidence_components": {
+    "ocr": 0.9108,
+    "parse": 1.0,
+    "engine_agreement": 1.0
+   },
+   "provenance": {
+    "page": 6,
+    "bbox": [
+     2660.0,
+     1214.0,
+     2860.0,
+     1250.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p06.t01.r004.c00",
+   "row_id": "p06.t01.r004",
+   "period_id": "y2012",
+   "value": {
+    "state": "number",
+    "raw": "4.993.230",
+    "value": "4993230",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.8541,
+   "confidence_components": {
+    "ocr": 0.8134,
+    "parse": 1.0,
+    "engine_agreement": 1.0
+   },
+   "provenance": {
+    "page": 6,
+    "bbox": [
+     2206.0,
+     1288.0,
+     2406.0,
+     1326.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p06.t01.r004.c01",
+   "row_id": "p06.t01.r004",
+   "period_id": "y2011",
+   "value": {
+    "state": "dash",
+    "raw": "-"
+   },
+   "confidence": 0.5673,
+   "confidence_components": {
+    "ocr": 0.5673,
+    "parse": 1.0
+   },
+   "provenance": {
+    "page": 6,
+    "bbox": [
+     2846.0,
+     1312.0,
+     2862.0,
+     1318.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p06.t01.r005.c00",
+   "row_id": "p06.t01.r005",
+   "period_id": "y2012",
+   "value": {
+    "state": "number",
+    "raw": "2.939.106",
+    "value": "2939106",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 1.0,
+   "confidence_components": {
+    "ocr": 0.9639,
+    "parse": 1.0,
+    "engine_agreement": 1.0
+   },
+   "provenance": {
+    "page": 6,
+    "bbox": [
+     2206.0,
+     1366.0,
+     2406.0,
+     1404.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p06.t01.r005.c01",
+   "row_id": "p06.t01.r005",
+   "period_id": "y2011",
+   "value": {
+    "state": "number",
+    "raw": "4.232.740",
+    "value": "4232740",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.9773,
+   "confidence_components": {
+    "ocr": 0.9308,
+    "parse": 1.0,
+    "engine_agreement": 1.0
+   },
+   "provenance": {
+    "page": 6,
+    "bbox": [
+     2660.0,
+     1368.0,
+     2860.0,
+     1406.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p06.t01.r006.c00",
+   "row_id": "p06.t01.r006",
+   "period_id": "y2012",
+   "value": {
+    "state": "number",
+    "raw": "2.784.832",
+    "value": "2784832",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 1.0,
+   "confidence_components": {
+    "ocr": 0.9569,
+    "parse": 1.0,
+    "engine_agreement": 1.0
+   },
+   "provenance": {
+    "page": 6,
+    "bbox": [
+     2206.0,
+     1432.0,
+     2406.0,
+     1468.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p06.t01.r006.c01",
+   "row_id": "p06.t01.r006",
+   "period_id": "y2011",
+   "value": {
+    "state": "number",
+    "raw": "3.244.930",
+    "value": "3244930",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 1.0,
+   "confidence_components": {
+    "ocr": 0.9597,
+    "parse": 1.0,
+    "engine_agreement": 1.0
+   },
+   "provenance": {
+    "page": 6,
+    "bbox": [
+     2660.0,
+     1434.0,
+     2860.0,
+     1472.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p06.t01.r007.c00",
+   "row_id": "p06.t01.r007",
+   "period_id": "y2012",
+   "value": {
+    "state": "number",
+    "raw": "1.500.000",
+    "value": "1500000",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.9529,
+   "confidence_components": {
+    "ocr": 0.9075,
+    "parse": 1.0,
+    "engine_agreement": 1.0
+   },
+   "provenance": {
+    "page": 6,
+    "bbox": [
+     2212.0,
+     1508.0,
+     2406.0,
+     1546.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p06.t01.r007.c01",
+   "row_id": "p06.t01.r007",
+   "period_id": "y2011",
+   "value": {
+    "state": "number",
+    "raw": "1.887.911",
+    "value": "1887911",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 1.0,
+   "confidence_components": {
+    "ocr": 0.9671,
+    "parse": 1.0,
+    "engine_agreement": 1.0
+   },
+   "provenance": {
+    "page": 6,
+    "bbox": [
+     2666.0,
+     1512.0,
+     2856.0,
+     1548.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p06.t01.r008.c00",
+   "row_id": "p06.t01.r008",
+   "period_id": "y2012",
+   "value": {
+    "state": "number",
+    "raw": "1.284.832",
+    "value": "1284832",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.9966,
+   "confidence_components": {
+    "ocr": 0.9491,
+    "parse": 1.0,
+    "engine_agreement": 1.0
+   },
+   "provenance": {
+    "page": 6,
+    "bbox": [
+     2210.0,
+     1586.0,
+     2406.0,
+     1622.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p06.t01.r008.c01",
+   "row_id": "p06.t01.r008",
+   "period_id": "y2011",
+   "value": {
+    "state": "number",
+    "raw": "1.357.019",
+    "value": "1357019",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 1.0,
+   "confidence_components": {
+    "ocr": 0.9653,
+    "parse": 1.0,
+    "engine_agreement": 1.0
+   },
+   "provenance": {
+    "page": 6,
+    "bbox": [
+     2664.0,
+     1588.0,
+     2860.0,
+     1626.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p06.t01.r009.c00",
+   "row_id": "p06.t01.r009",
+   "period_id": "y2012",
+   "value": {
+    "state": "dash",
+    "raw": "-"
+   },
+   "confidence": 0.912,
+   "confidence_components": {
+    "ocr": 0.912,
+    "parse": 1.0
+   },
+   "provenance": {
+    "page": 6,
+    "bbox": [
+     2392.0,
+     1684.0,
+     2406.0,
+     1690.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p06.t01.r009.c01",
+   "row_id": "p06.t01.r009",
+   "period_id": "y2011",
+   "value": {
+    "state": "number",
+    "raw": "776.915",
+    "value": "776915",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.8745,
+   "confidence_components": {
+    "ocr": 0.8329,
+    "parse": 1.0,
+    "engine_agreement": 1.0
+   },
+   "provenance": {
+    "page": 6,
+    "bbox": [
+     2700.0,
+     1666.0,
+     2858.0,
+     1704.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p06.t01.r010.c00",
+   "row_id": "p06.t01.r010",
+   "period_id": "y2012",
+   "value": {
+    "state": "number",
+    "raw": "504.851",
+    "value": "504851",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.9906,
+   "confidence_components": {
+    "ocr": 0.9434,
+    "parse": 1.0,
+    "engine_agreement": 1.0
+   },
+   "provenance": {
+    "page": 6,
+    "bbox": [
+     2244.0,
+     1740.0,
+     2400.0,
+     1778.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p06.t01.r010.c01",
+   "row_id": "p06.t01.r010",
+   "period_id": "y2011",
+   "value": {
+    "state": "dash",
+    "raw": "-"
+   },
+   "confidence": 0.9246,
+   "confidence_components": {
+    "ocr": 0.9246,
+    "parse": 1.0
+   },
+   "provenance": {
+    "page": 6,
+    "bbox": [
+     2846.0,
+     1764.0,
+     2862.0,
+     1770.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p06.t01.r011.c00",
+   "row_id": "p06.t01.r011",
+   "period_id": "y2012",
+   "value": {
+    "state": "number",
+    "raw": "1.016.352",
+    "value": "1016352",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.9933,
+   "confidence_components": {
+    "ocr": 0.946,
+    "parse": 1.0,
+    "engine_agreement": 1.0
+   },
+   "provenance": {
+    "page": 6,
+    "bbox": [
+     2210.0,
+     1818.0,
+     2406.0,
+     1854.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p06.t01.r011.c01",
+   "row_id": "p06.t01.r011",
+   "period_id": "y2011",
+   "value": {
+    "state": "number",
+    "raw": "628.306",
+    "value": "628306",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.9938,
+   "confidence_components": {
+    "ocr": 0.9465,
+    "parse": 1.0,
+    "engine_agreement": 1.0
+   },
+   "provenance": {
+    "page": 6,
+    "bbox": [
+     2700.0,
+     1820.0,
+     2860.0,
+     1858.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p06.t01.r012.c00",
+   "row_id": "p06.t01.r012",
+   "period_id": "y2012",
+   "value": {
+    "state": "number",
+    "raw": "13.098.440",
+    "value": "13098440",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 1.0,
+   "confidence_components": {
+    "ocr": 0.9582,
+    "parse": 1.0,
+    "engine_agreement": 1.0
+   },
+   "provenance": {
+    "page": 6,
+    "bbox": [
+     2186.0,
+     1880.0,
+     2404.0,
+     1937.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p06.t01.r012.c01",
+   "row_id": "p06.t01.r012",
+   "period_id": "y2011",
+   "value": {
+    "state": "number",
+    "raw": "5.223.424",
+    "value": "5223424",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.7678,
+   "confidence_components": {
+    "ocr": 0.7312,
+    "parse": 1.0,
+    "engine_agreement": 1.0
+   },
+   "provenance": {
+    "page": 6,
+    "bbox": [
+     2660.0,
+     1888.0,
+     2860.0,
+     1926.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p06.t01.r013.c00",
+   "row_id": "p06.t01.r013",
+   "period_id": "y2012",
+   "value": {
+    "state": "number",
+    "raw": "136.150.924",
+    "value": "136150924",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.9667,
+   "confidence_components": {
+    "ocr": 0.9207,
+    "parse": 1.0,
+    "engine_agreement": 1.0
+   },
+   "provenance": {
+    "page": 6,
+    "bbox": [
+     2158.0,
+     2020.0,
+     2406.0,
+     2058.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p06.t01.r013.c01",
+   "row_id": "p06.t01.r013",
+   "period_id": "y2011",
+   "value": {
+    "state": "number",
+    "raw": "54.471.741",
+    "value": "54471741",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 1.0,
+   "confidence_components": {
+    "ocr": 0.9645,
+    "parse": 1.0,
+    "engine_agreement": 1.0
+   },
+   "provenance": {
+    "page": 6,
+    "bbox": [
+     2636.0,
+     2024.0,
+     2858.0,
+     2060.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p06.t01.r014.c00",
+   "row_id": "p06.t01.r014",
+   "period_id": "y2012",
+   "value": {
+    "state": "number",
+    "raw": "71.554.357",
+    "value": "71554357",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.9951,
+   "confidence_components": {
+    "ocr": 0.9477,
+    "parse": 1.0,
+    "engine_agreement": 1.0
+   },
+   "provenance": {
+    "page": 6,
+    "bbox": [
+     2180.0,
+     2090.0,
+     2406.0,
+     2126.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p06.t01.r014.c01",
+   "row_id": "p06.t01.r014",
+   "period_id": "y2011",
+   "value": {
+    "state": "number",
+    "raw": "1.180.562",
+    "value": "1180562",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 1.0,
+   "confidence_components": {
+    "ocr": 0.9564,
+    "parse": 1.0,
+    "engine_agreement": 1.0
+   },
+   "provenance": {
+    "page": 6,
+    "bbox": [
+     2664.0,
+     2092.0,
+     2860.0,
+     2128.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p06.t01.r015.c00",
+   "row_id": "p06.t01.r015",
+   "period_id": "y2012",
+   "value": {
+    "state": "number",
+    "raw": "20.384.859",
+    "value": "20384859",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.9996,
+   "confidence_components": {
+    "ocr": 0.952,
+    "parse": 1.0,
+    "engine_agreement": 1.0
+   },
+   "provenance": {
+    "page": 6,
+    "bbox": [
+     2180.0,
+     2156.0,
+     2404.0,
+     2194.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p06.t01.r015.c01",
+   "row_id": "p06.t01.r015",
+   "period_id": "y2011",
+   "value": {
+    "state": "dash",
+    "raw": "-"
+   },
+   "confidence": 0.8636,
+   "confidence_components": {
+    "ocr": 0.8636,
+    "parse": 1.0
+   },
+   "provenance": {
+    "page": 6,
+    "bbox": [
+     2846.0,
+     2180.0,
+     2860.0,
+     2186.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p06.t01.r016.c00",
+   "row_id": "p06.t01.r016",
+   "period_id": "y2012",
+   "value": {
+    "state": "number",
+    "raw": "100.330",
+    "value": "100330",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 1.0,
+   "confidence_components": {
+    "ocr": 0.9641,
+    "parse": 1.0,
+    "engine_agreement": 1.0
+   },
+   "provenance": {
+    "page": 6,
+    "bbox": [
+     2250.0,
+     2226.0,
+     2404.0,
+     2262.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p06.t01.r016.c01",
+   "row_id": "p06.t01.r016",
+   "period_id": "y2011",
+   "value": {
+    "state": "number",
+    "raw": "122.730",
+    "value": "122730",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 1.0,
+   "confidence_components": {
+    "ocr": 0.9614,
+    "parse": 1.0,
+    "engine_agreement": 1.0
+   },
+   "provenance": {
+    "page": 6,
+    "bbox": [
+     2704.0,
+     2228.0,
+     2860.0,
+     2264.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p06.t01.r017.c00",
+   "row_id": "p06.t01.r017",
+   "period_id": "y2012",
+   "value": {
+    "state": "number",
+    "raw": "44.111.378",
+    "value": "44111378",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.9963,
+   "confidence_components": {
+    "ocr": 0.9489,
+    "parse": 1.0,
+    "engine_agreement": 1.0
+   },
+   "provenance": {
+    "page": 6,
+    "bbox": [
+     2178.0,
+     2292.0,
+     2404.0,
+     2330.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p06.t01.r017.c01",
+   "row_id": "p06.t01.r017",
+   "period_id": "y2011",
+   "value": {
+    "state": "number",
+    "raw": "53.168.449",
+    "value": "53168449",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 1.0,
+   "confidence_components": {
+    "ocr": 0.9639,
+    "parse": 1.0,
+    "engine_agreement": 1.0
+   },
+   "provenance": {
+    "page": 6,
+    "bbox": [
+     2636.0,
+     2296.0,
+     2860.0,
+     2334.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p06.t01.r018.c00",
+   "row_id": "p06.t01.r018",
+   "period_id": "y2012",
+   "value": {
+    "state": "number",
+    "raw": "652.445.082",
+    "value": "652445082",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 1.0,
+   "confidence_components": {
+    "ocr": 0.9568,
+    "parse": 1.0,
+    "engine_agreement": 1.0
+   },
+   "provenance": {
+    "page": 6,
+    "bbox": [
+     2156.0,
+     2426.0,
+     2404.0,
+     2464.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p06.t01.r018.c01",
+   "row_id": "p06.t01.r018",
+   "period_id": "y2011",
+   "value": {
+    "state": "number",
+    "raw": "619.579.720",
+    "value": "619579720",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 1.0,
+   "confidence_components": {
+    "ocr": 0.9629,
+    "parse": 1.0,
+    "engine_agreement": 1.0
+   },
+   "provenance": {
+    "page": 6,
+    "bbox": [
+     2612.0,
+     2430.0,
+     2860.0,
+     2468.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p06.t01.r019.c00",
+   "row_id": "p06.t01.r019",
+   "period_id": "y2012",
+   "value": {
+    "state": "number",
+    "raw": "527.217.933",
+    "value": "527217933",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 1.0,
+   "confidence_components": {
+    "ocr": 0.9549,
+    "parse": 1.0,
+    "engine_agreement": 1.0
+   },
+   "provenance": {
+    "page": 6,
+    "bbox": [
+     2156.0,
+     2496.0,
+     2402.0,
+     2534.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p06.t01.r019.c01",
+   "row_id": "p06.t01.r019",
+   "period_id": "y2011",
+   "value": {
+    "state": "number",
+    "raw": "492.663.853",
+    "value": "492663853",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 1.0,
+   "confidence_components": {
+    "ocr": 0.958,
+    "parse": 1.0,
+    "engine_agreement": 1.0
+   },
+   "provenance": {
+    "page": 6,
+    "bbox": [
+     2610.0,
+     2498.0,
+     2858.0,
+     2536.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p06.t01.r020.c00",
+   "row_id": "p06.t01.r020",
+   "period_id": "y2012",
+   "value": {
+    "state": "number",
+    "raw": "157.000.000",
+    "value": "157000000",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 1.0,
+   "confidence_components": {
+    "ocr": 0.9637,
+    "parse": 1.0,
+    "engine_agreement": 1.0
+   },
+   "provenance": {
+    "page": 6,
+    "bbox": [
+     2160.0,
+     2564.0,
+     2404.0,
+     2602.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p06.t01.r020.c01",
+   "row_id": "p06.t01.r020",
+   "period_id": "y2011",
+   "value": {
+    "state": "number",
+    "raw": "141.483.500",
+    "value": "141483500",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 1.0,
+   "confidence_components": {
+    "ocr": 0.9637,
+    "parse": 1.0,
+    "engine_agreement": 1.0
+   },
+   "provenance": {
+    "page": 6,
+    "bbox": [
+     2616.0,
+     2568.0,
+     2860.0,
+     2604.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p06.t01.r021.c00",
+   "row_id": "p06.t01.r021",
+   "period_id": "y2012",
+   "value": {
+    "state": "number",
+    "raw": "22.322.361",
+    "value": "22322361",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.9633,
+   "confidence_components": {
+    "ocr": 0.9174,
+    "parse": 1.0,
+    "engine_agreement": 1.0
+   },
+   "provenance": {
+    "page": 6,
+    "bbox": [
+     2180.0,
+     2630.0,
+     2400.0,
+     2668.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p06.t01.r021.c01",
+   "row_id": "p06.t01.r021",
+   "period_id": "y2011",
+   "value": {
+    "state": "dash",
+    "raw": "-"
+   },
+   "confidence": 0.9124,
+   "confidence_components": {
+    "ocr": 0.9124,
+    "parse": 1.0
+   },
+   "provenance": {
+    "page": 6,
+    "bbox": [
+     2846.0,
+     2654.0,
+     2862.0,
+     2660.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p06.t01.r022.c00",
+   "row_id": "p06.t01.r022",
+   "period_id": "y2012",
+   "value": {
+    "state": "number",
+    "raw": "124.390.608",
+    "value": "124390608",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 1.0,
+   "confidence_components": {
+    "ocr": 0.96,
+    "parse": 1.0,
+    "engine_agreement": 1.0
+   },
+   "provenance": {
+    "page": 6,
+    "bbox": [
+     2158.0,
+     2696.0,
+     2404.0,
+     2732.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p06.t01.r022.c01",
+   "row_id": "p06.t01.r022",
+   "period_id": "y2011",
+   "value": {
+    "state": "number",
+    "raw": "124.390.608",
+    "value": "124390608",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 1.0,
+   "confidence_components": {
+    "ocr": 0.9632,
+    "parse": 1.0,
+    "engine_agreement": 1.0
+   },
+   "provenance": {
+    "page": 6,
+    "bbox": [
+     2616.0,
+     2698.0,
+     2858.0,
+     2736.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p06.t01.r023.c00",
+   "row_id": "p06.t01.r023",
+   "period_id": "y2012",
+   "value": {
+    "state": "number",
+    "raw": "100.574.161",
+    "value": "100574161",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.98,
+   "confidence_components": {
+    "ocr": 0.9333,
+    "parse": 1.0,
+    "engine_agreement": 1.0
+   },
+   "provenance": {
+    "page": 6,
+    "bbox": [
+     2160.0,
+     2760.0,
+     2400.0,
+     2798.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p06.t01.r023.c01",
+   "row_id": "p06.t01.r023",
+   "period_id": "y2011",
+   "value": {
+    "state": "number",
+    "raw": "111.878.913",
+    "value": "111878913",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 1.0,
+   "confidence_components": {
+    "ocr": 0.9662,
+    "parse": 1.0,
+    "engine_agreement": 1.0
+   },
+   "provenance": {
+    "page": 6,
+    "bbox": [
+     2616.0,
+     2764.0,
+     2858.0,
+     2800.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p06.t01.r024.c00",
+   "row_id": "p06.t01.r024",
+   "period_id": "y2012",
+   "value": {
+    "state": "number",
+    "raw": "2.569.141",
+    "value": "2569141",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 1.0,
+   "confidence_components": {
+    "ocr": 0.9602,
+    "parse": 1.0,
+    "engine_agreement": 1.0
+   },
+   "provenance": {
+    "page": 6,
+    "bbox": [
+     2204.0,
+     2830.0,
+     2400.0,
+     2868.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p06.t01.r024.c01",
+   "row_id": "p06.t01.r024",
+   "period_id": "y2011",
+   "value": {
+    "state": "number",
+    "raw": "53.036",
+    "value": "53036",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 1.0,
+   "confidence_components": {
+    "ocr": 0.9667,
+    "parse": 1.0,
+    "engine_agreement": 1.0
+   },
+   "provenance": {
+    "page": 6,
+    "bbox": [
+     2724.0,
+     2832.0,
+     2860.0,
+     2870.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p06.t01.r025.c00",
+   "row_id": "p06.t01.r025",
+   "period_id": "y2012",
+   "value": {
+    "state": "number",
+    "raw": "111.301.075",
+    "value": "111301075",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 1.0,
+   "confidence_components": {
+    "ocr": 0.954,
+    "parse": 1.0,
+    "engine_agreement": 1.0
+   },
+   "provenance": {
+    "page": 6,
+    "bbox": [
+     2160.0,
+     2898.0,
+     2404.0,
+     2934.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p06.t01.r025.c01",
+   "row_id": "p06.t01.r025",
+   "period_id": "y2011",
+   "value": {
+    "state": "number",
+    "raw": "(46.784.714)",
+    "value": "-46784714",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.9872,
+   "confidence_components": {
+    "ocr": 0.9402,
+    "parse": 1.0,
+    "engine_agreement": 1.0
+   },
+   "provenance": {
+    "page": 6,
+    "bbox": [
+     2618.0,
+     2900.0,
+     2876.0,
+     2948.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p06.t01.r026.c00",
+   "row_id": "p06.t01.r026",
+   "period_id": "y2012",
+   "value": {
+    "state": "number",
+    "raw": "9.060.587",
+    "value": "9060587",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.9518,
+   "confidence_components": {
+    "ocr": 0.9065,
+    "parse": 1.0,
+    "engine_agreement": 1.0
+   },
+   "provenance": {
+    "page": 6,
+    "bbox": [
+     2206.0,
+     2970.0,
+     2404.0,
+     3008.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p06.t01.r026.c01",
+   "row_id": "p06.t01.r026",
+   "period_id": "y2011",
+   "value": {
+    "state": "number",
+    "raw": "161.642.510",
+    "value": "161642510",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.9986,
+   "confidence_components": {
+    "ocr": 0.951,
+    "parse": 1.0,
+    "engine_agreement": 1.0
+   },
+   "provenance": {
+    "page": 6,
+    "bbox": [
+     2616.0,
+     2974.0,
+     2860.0,
+     3010.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p06.t01.r027.c00",
+   "row_id": "p06.t01.r027",
+   "period_id": "y2012",
+   "value": {
+    "state": "number",
+    "raw": "125.227.149",
+    "value": "125227149",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 1.0,
+   "confidence_components": {
+    "ocr": 0.964,
+    "parse": 1.0,
+    "engine_agreement": 1.0
+   },
+   "provenance": {
+    "page": 6,
+    "bbox": [
+     2156.0,
+     3038.0,
+     2404.0,
+     3076.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p06.t01.r027.c01",
+   "row_id": "p06.t01.r027",
+   "period_id": "y2011",
+   "value": {
+    "state": "number",
+    "raw": "126.915.867",
+    "value": "126915867",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 1.0,
+   "confidence_components": {
+    "ocr": 0.9632,
+    "parse": 1.0,
+    "engine_agreement": 1.0
+   },
+   "provenance": {
+    "page": 6,
+    "bbox": [
+     2612.0,
+     3040.0,
+     2860.0,
+     3078.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p06.t01.r028.c00",
+   "row_id": "p06.t01.r028",
+   "period_id": "y2012",
+   "value": {
+    "state": "number",
+    "raw": "852.149.804",
+    "value": "852149804",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.1895,
+   "confidence_components": {
+    "ocr": 0.1805,
+    "parse": 1.0,
+    "engine_agreement": 1.0
+   },
+   "provenance": {
+    "page": 6,
+    "bbox": [
+     2154.0,
+     3100.0,
+     2404.0,
+     3138.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p06.t01.r028.c01",
+   "row_id": "p06.t01.r028",
+   "period_id": "y2011",
+   "value": {
+    "state": "number",
+    "raw": "781.408.277",
+    "value": "781408277",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 1.0,
+   "confidence_components": {
+    "ocr": 0.964,
+    "parse": 1.0,
+    "engine_agreement": 1.0
+   },
+   "provenance": {
+    "page": 6,
+    "bbox": [
+     2610.0,
+     3104.0,
+     2860.0,
+     3142.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p07.t02.r000.c00",
+   "row_id": "p07.t02.r000",
+   "period_id": "y2012",
+   "value": {
+    "state": "number",
+    "raw": "77.043.573",
+    "value": "77043573",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.9553,
+   "confidence_components": {
+    "ocr": 0.9098,
+    "parse": 1.0,
+    "engine_agreement": 1.0
+   },
+   "provenance": {
+    "page": 7,
+    "bbox": [
+     2272.0,
+     1196.0,
+     2492.0,
+     1234.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p07.t02.r000.c01",
+   "row_id": "p07.t02.r000",
+   "period_id": "y2011",
+   "value": {
+    "state": "number",
+    "raw": "76.431.595",
+    "value": "76431595",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.9913,
+   "confidence_components": {
+    "ocr": 0.9441,
+    "parse": 1.0,
+    "engine_agreement": 1.0
+   },
+   "provenance": {
+    "page": 7,
+    "bbox": [
+     2634.0,
+     1198.0,
+     2858.0,
+     1238.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p07.t02.r001.c00",
+   "row_id": "p07.t02.r001",
+   "period_id": "y2012",
+   "value": {
+    "state": "number",
+    "raw": "(49.167.330)",
+    "value": "-49167330",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 1.0,
+   "confidence_components": {
+    "ocr": 0.9554,
+    "parse": 1.0,
+    "engine_agreement": 1.0
+   },
+   "provenance": {
+    "page": 7,
+    "bbox": [
+     2256.0,
+     1264.0,
+     2512.0,
+     1310.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p07.t02.r001.c01",
+   "row_id": "p07.t02.r001",
+   "period_id": "y2011",
+   "value": {
+    "state": "number",
+    "raw": "(44.411.839)",
+    "value": "-44411839",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 1.0,
+   "confidence_components": {
+    "ocr": 0.9611,
+    "parse": 1.0,
+    "engine_agreement": 1.0
+   },
+   "provenance": {
+    "page": 7,
+    "bbox": [
+     2616.0,
+     1266.0,
+     2874.0,
+     1322.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p07.t02.r002.c00",
+   "row_id": "p07.t02.r002",
+   "period_id": "y2012",
+   "value": {
+    "state": "number",
+    "raw": "27.876.243",
+    "value": "27876243",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.8324,
+   "confidence_components": {
+    "ocr": 0.7928,
+    "parse": 1.0,
+    "engine_agreement": 1.0
+   },
+   "provenance": {
+    "page": 7,
+    "bbox": [
+     2270.0,
+     1372.0,
+     2494.0,
+     1410.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p07.t02.r002.c01",
+   "row_id": "p07.t02.r002",
+   "period_id": "y2011",
+   "value": {
+    "state": "number",
+    "raw": "32.019.756",
+    "value": "32019756",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.683,
+   "confidence_components": {
+    "ocr": 0.6505,
+    "parse": 1.0,
+    "engine_agreement": 1.0
+   },
+   "provenance": {
+    "page": 7,
+    "bbox": [
+     2632.0,
+     1376.0,
+     2858.0,
+     1412.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p07.t02.r003.c00",
+   "row_id": "p07.t02.r003",
+   "period_id": "y2012",
+   "value": {
+    "state": "number",
+    "raw": "(10.043.970)",
+    "value": "-10043970",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 1.0,
+   "confidence_components": {
+    "ocr": 0.9587,
+    "parse": 1.0,
+    "engine_agreement": 1.0
+   },
+   "provenance": {
+    "page": 7,
+    "bbox": [
+     2256.0,
+     1463.0,
+     2512.0,
+     1520.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p07.t02.r003.c01",
+   "row_id": "p07.t02.r003",
+   "period_id": "y2011",
+   "value": {
+    "state": "number",
+    "raw": "(9.733.892)",
+    "value": "-9733892",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 1.0,
+   "confidence_components": {
+    "ocr": 0.9561,
+    "parse": 1.0,
+    "engine_agreement": 1.0
+   },
+   "provenance": {
+    "page": 7,
+    "bbox": [
+     2642.0,
+     1470.0,
+     2874.0,
+     1518.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p07.t02.r004.c00",
+   "row_id": "p07.t02.r004",
+   "period_id": "y2012",
+   "value": {
+    "state": "number",
+    "raw": "(13.500.342)",
+    "value": "-13500342",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 1.0,
+   "confidence_components": {
+    "ocr": 0.9632,
+    "parse": 1.0,
+    "engine_agreement": 1.0
+   },
+   "provenance": {
+    "page": 7,
+    "bbox": [
+     2256.0,
+     1536.0,
+     2512.0,
+     1588.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p07.t02.r004.c01",
+   "row_id": "p07.t02.r004",
+   "period_id": "y2011",
+   "value": {
+    "state": "number",
+    "raw": "(2.680.177)",
+    "value": "-2680177",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 1.0,
+   "confidence_components": {
+    "ocr": 0.9553,
+    "parse": 1.0,
+    "engine_agreement": 1.0
+   },
+   "provenance": {
+    "page": 7,
+    "bbox": [
+     2642.0,
+     1538.0,
+     2874.0,
+     1586.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p07.t02.r005.c00",
+   "row_id": "p07.t02.r005",
+   "period_id": "y2012",
+   "value": {
+    "state": "number",
+    "raw": "3.896.434",
+    "value": "3896434",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 1.0,
+   "confidence_components": {
+    "ocr": 0.9536,
+    "parse": 1.0,
+    "engine_agreement": 1.0
+   },
+   "provenance": {
+    "page": 7,
+    "bbox": [
+     2296.0,
+     1600.0,
+     2496.0,
+     1638.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p07.t02.r005.c01",
+   "row_id": "p07.t02.r005",
+   "period_id": "y2011",
+   "value": {
+    "state": "number",
+    "raw": "151.350.000",
+    "value": "151350000",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.8523,
+   "confidence_components": {
+    "ocr": 0.8117,
+    "parse": 1.0,
+    "engine_agreement": 1.0
+   },
+   "provenance": {
+    "page": 7,
+    "bbox": [
+     2612.0,
+     1602.0,
+     2858.0,
+     1640.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p07.t02.r006.c00",
+   "row_id": "p07.t02.r006",
+   "period_id": "y2012",
+   "value": {
+    "state": "number",
+    "raw": "105.590",
+    "value": "105590",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 1.0,
+   "confidence_components": {
+    "ocr": 0.9576,
+    "parse": 1.0,
+    "engine_agreement": 1.0
+   },
+   "provenance": {
+    "page": 7,
+    "bbox": [
+     2338.0,
+     1668.0,
+     2496.0,
+     1706.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p07.t02.r006.c01",
+   "row_id": "p07.t02.r006",
+   "period_id": "y2011",
+   "value": {
+    "state": "number",
+    "raw": "5.030.355",
+    "value": "5030355",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.9617,
+   "confidence_components": {
+    "ocr": 0.9159,
+    "parse": 1.0,
+    "engine_agreement": 1.0
+   },
+   "provenance": {
+    "page": 7,
+    "bbox": [
+     2660.0,
+     1670.0,
+     2858.0,
+     1708.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p07.t02.r007.c00",
+   "row_id": "p07.t02.r007",
+   "period_id": "y2012",
+   "value": {
+    "state": "number",
+    "raw": "(346.564)",
+    "value": "-346564",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 1.0,
+   "confidence_components": {
+    "ocr": 0.9645,
+    "parse": 1.0,
+    "engine_agreement": 1.0
+   },
+   "provenance": {
+    "page": 7,
+    "bbox": [
+     2318.0,
+     1736.0,
+     2512.0,
+     1782.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p07.t02.r007.c01",
+   "row_id": "p07.t02.r007",
+   "period_id": "y2011",
+   "value": {
+    "state": "number",
+    "raw": "(561.989)",
+    "value": "-561989",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 1.0,
+   "confidence_components": {
+    "ocr": 0.9634,
+    "parse": 1.0,
+    "engine_agreement": 1.0
+   },
+   "provenance": {
+    "page": 7,
+    "bbox": [
+     2680.0,
+     1738.0,
+     2874.0,
+     1786.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p07.t02.r008.c00",
+   "row_id": "p07.t02.r008",
+   "period_id": "y2012",
+   "value": {
+    "state": "number",
+    "raw": "7.987.391",
+    "value": "7987391",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.866,
+   "confidence_components": {
+    "ocr": 0.8248,
+    "parse": 1.0,
+    "engine_agreement": 1.0
+   },
+   "provenance": {
+    "page": 7,
+    "bbox": [
+     2296.0,
+     1844.0,
+     2494.0,
+     1880.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p07.t02.r008.c01",
+   "row_id": "p07.t02.r008",
+   "period_id": "y2011",
+   "value": {
+    "state": "number",
+    "raw": "175.424.053",
+    "value": "175424053",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.891,
+   "confidence_components": {
+    "ocr": 0.8486,
+    "parse": 1.0,
+    "engine_agreement": 1.0
+   },
+   "provenance": {
+    "page": 7,
+    "bbox": [
+     2610.0,
+     1846.0,
+     2858.0,
+     1882.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p07.t02.r009.c00",
+   "row_id": "p07.t02.r009",
+   "period_id": "y2012",
+   "value": {
+    "state": "number",
+    "raw": "71.896",
+    "value": "71896",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 1.0,
+   "confidence_components": {
+    "ocr": 0.9669,
+    "parse": 1.0,
+    "engine_agreement": 1.0
+   },
+   "provenance": {
+    "page": 7,
+    "bbox": [
+     2360.0,
+     2036.0,
+     2494.0,
+     2072.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p07.t02.r009.c01",
+   "row_id": "p07.t02.r009",
+   "period_id": "y2011",
+   "value": {
+    "state": "dash",
+    "raw": "-"
+   },
+   "confidence": 0.9095,
+   "confidence_components": {
+    "ocr": 0.9095,
+    "parse": 1.0
+   },
+   "provenance": {
+    "page": 7,
+    "bbox": [
+     2842.0,
+     2060.0,
+     2860.0,
+     2066.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p07.t02.r010.c00",
+   "row_id": "p07.t02.r010",
+   "period_id": "y2012",
+   "value": {
+    "state": "number",
+    "raw": "19.727.437",
+    "value": "19727437",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 1.0,
+   "confidence_components": {
+    "ocr": 0.9634,
+    "parse": 1.0,
+    "engine_agreement": 1.0
+   },
+   "provenance": {
+    "page": 7,
+    "bbox": [
+     2276.0,
+     2102.0,
+     2496.0,
+     2140.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p07.t02.r010.c01",
+   "row_id": "p07.t02.r010",
+   "period_id": "y2011",
+   "value": {
+    "state": "number",
+    "raw": "13.834.817",
+    "value": "13834817",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.9983,
+   "confidence_components": {
+    "ocr": 0.9508,
+    "parse": 1.0,
+    "engine_agreement": 1.0
+   },
+   "provenance": {
+    "page": 7,
+    "bbox": [
+     2638.0,
+     2106.0,
+     2860.0,
+     2142.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p07.t02.r011.c00",
+   "row_id": "p07.t02.r011",
+   "period_id": "y2012",
+   "value": {
+    "state": "number",
+    "raw": "(16.289.551)",
+    "value": "-16289551",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.9149,
+   "confidence_components": {
+    "ocr": 0.8713,
+    "parse": 1.0,
+    "engine_agreement": 1.0
+   },
+   "provenance": {
+    "page": 7,
+    "bbox": [
+     2254.0,
+     2170.0,
+     2512.0,
+     2218.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p07.t02.r011.c01",
+   "row_id": "p07.t02.r011",
+   "period_id": "y2011",
+   "value": {
+    "state": "number",
+    "raw": "(24.329.214)",
+    "value": "-24329214",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 1.0,
+   "confidence_components": {
+    "ocr": 0.9591,
+    "parse": 1.0,
+    "engine_agreement": 1.0
+   },
+   "provenance": {
+    "page": 7,
+    "bbox": [
+     2616.0,
+     2172.0,
+     2874.0,
+     2220.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p07.t02.r012.c00",
+   "row_id": "p07.t02.r012",
+   "period_id": "y2012",
+   "value": {
+    "state": "number",
+    "raw": "11.497.173",
+    "value": "11497173",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.9608,
+   "confidence_components": {
+    "ocr": 0.915,
+    "parse": 1.0,
+    "engine_agreement": 1.0
+   },
+   "provenance": {
+    "page": 7,
+    "bbox": [
+     2272.0,
+     2322.0,
+     2494.0,
+     2358.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p07.t02.r012.c01",
+   "row_id": "p07.t02.r012",
+   "period_id": "y2011",
+   "value": {
+    "state": "number",
+    "raw": "164.929.656",
+    "value": "164929656",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.9424,
+   "confidence_components": {
+    "ocr": 0.8975,
+    "parse": 1.0,
+    "engine_agreement": 1.0
+   },
+   "provenance": {
+    "page": 7,
+    "bbox": [
+     2610.0,
+     2324.0,
+     2860.0,
+     2362.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p07.t02.r013.c00",
+   "row_id": "p07.t02.r013",
+   "period_id": "y2012",
+   "value": {
+    "state": "number",
+    "raw": "(778.217)",
+    "value": "-778217",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 1.0,
+   "confidence_components": {
+    "ocr": 0.9598,
+    "parse": 1.0,
+    "engine_agreement": 1.0
+   },
+   "provenance": {
+    "page": 7,
+    "bbox": [
+     2318.0,
+     2448.0,
+     2510.0,
+     2504.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p07.t02.r013.c01",
+   "row_id": "p07.t02.r013",
+   "period_id": "y2011",
+   "value": {
+    "state": "number",
+    "raw": "(3.015.405)",
+    "value": "-3015405",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.976,
+   "confidence_components": {
+    "ocr": 0.9295,
+    "parse": 1.0,
+    "engine_agreement": 1.0
+   },
+   "provenance": {
+    "page": 7,
+    "bbox": [
+     2642.0,
+     2456.0,
+     2874.0,
+     2504.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p07.t02.r014.c00",
+   "row_id": "p07.t02.r014",
+   "period_id": "y2012",
+   "value": {
+    "state": "number",
+    "raw": "(676.668)",
+    "value": "-676668",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 1.0,
+   "confidence_components": {
+    "ocr": 0.9672,
+    "parse": 1.0,
+    "engine_agreement": 1.0
+   },
+   "provenance": {
+    "page": 7,
+    "bbox": [
+     2318.0,
+     2520.0,
+     2510.0,
+     2568.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p07.t02.r014.c01",
+   "row_id": "p07.t02.r014",
+   "period_id": "y2011",
+   "value": {
+    "state": "number",
+    "raw": "(3.742.633)",
+    "value": "-3742633",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.9833,
+   "confidence_components": {
+    "ocr": 0.9365,
+    "parse": 1.0,
+    "engine_agreement": 1.0
+   },
+   "provenance": {
+    "page": 7,
+    "bbox": [
+     2642.0,
+     2518.0,
+     2874.0,
+     2576.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p07.t02.r015.c00",
+   "row_id": "p07.t02.r015",
+   "period_id": "y2012",
+   "value": {
+    "state": "number",
+    "raw": "(101.549)",
+    "value": "-101549",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.9941,
+   "confidence_components": {
+    "ocr": 0.9468,
+    "parse": 1.0,
+    "engine_agreement": 1.0
+   },
+   "provenance": {
+    "page": 7,
+    "bbox": [
+     2316.0,
+     2588.0,
+     2512.0,
+     2636.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p07.t02.r015.c01",
+   "row_id": "p07.t02.r015",
+   "period_id": "y2011",
+   "value": {
+    "state": "number",
+    "raw": "727.228",
+    "value": "727228",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.9848,
+   "confidence_components": {
+    "ocr": 0.9379,
+    "parse": 1.0,
+    "engine_agreement": 1.0
+   },
+   "provenance": {
+    "page": 7,
+    "bbox": [
+     2698.0,
+     2592.0,
+     2858.0,
+     2630.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p07.t02.r016.c00",
+   "row_id": "p07.t02.r016",
+   "period_id": "y2012",
+   "value": {
+    "state": "number",
+    "raw": "10.718.956",
+    "value": "10718956",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.9515,
+   "confidence_components": {
+    "ocr": 0.9062,
+    "parse": 1.0,
+    "engine_agreement": 1.0
+   },
+   "provenance": {
+    "page": 7,
+    "bbox": [
+     2272.0,
+     2716.0,
+     2494.0,
+     2754.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p07.t02.r016.c01",
+   "row_id": "p07.t02.r016",
+   "period_id": "y2011",
+   "value": {
+    "state": "number",
+    "raw": "161.914.251",
+    "value": "161914251",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 1.0,
+   "confidence_components": {
+    "ocr": 0.9596,
+    "parse": 1.0,
+    "engine_agreement": 1.0
+   },
+   "provenance": {
+    "page": 7,
+    "bbox": [
+     2610.0,
+     2718.0,
+     2856.0,
+     2756.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p07.t02.r018.c00",
+   "row_id": "p07.t02.r018",
+   "period_id": "y2012",
+   "value": {
+    "state": "number",
+    "raw": "1.658.369",
+    "value": "1658369",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 1.0,
+   "confidence_components": {
+    "ocr": 0.9601,
+    "parse": 1.0,
+    "engine_agreement": 1.0
+   },
+   "provenance": {
+    "page": 7,
+    "bbox": [
+     2300.0,
+     2876.0,
+     2494.0,
+     2914.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p07.t02.r018.c01",
+   "row_id": "p07.t02.r018",
+   "period_id": "y2011",
+   "value": {
+    "state": "number",
+    "raw": "271.741",
+    "value": "271741",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 1.0,
+   "confidence_components": {
+    "ocr": 0.9652,
+    "parse": 1.0,
+    "engine_agreement": 1.0
+   },
+   "provenance": {
+    "page": 7,
+    "bbox": [
+     2696.0,
+     2880.0,
+     2854.0,
+     2916.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p07.t02.r019.c00",
+   "row_id": "p07.t02.r019",
+   "period_id": "y2012",
+   "value": {
+    "state": "number",
+    "raw": "9.060.587",
+    "value": "9060587",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 1.0,
+   "confidence_components": {
+    "ocr": 0.9532,
+    "parse": 1.0,
+    "engine_agreement": 1.0
+   },
+   "provenance": {
+    "page": 7,
+    "bbox": [
+     2296.0,
+     2944.0,
+     2494.0,
+     2982.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p07.t02.r019.c01",
+   "row_id": "p07.t02.r019",
+   "period_id": "y2011",
+   "value": {
+    "state": "number",
+    "raw": "161.642.510",
+    "value": "161642510",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 1.0,
+   "confidence_components": {
+    "ocr": 0.9567,
+    "parse": 1.0,
+    "engine_agreement": 1.0
+   },
+   "provenance": {
+    "page": 7,
+    "bbox": [
+     2612.0,
+     2946.0,
+     2858.0,
+     2984.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p07.t02.r020.c00",
+   "row_id": "p07.t02.r020",
+   "period_id": "y2012",
+   "value": {
+    "state": "number",
+    "raw": "10.718.956",
+    "value": "10718956",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 1.0,
+   "confidence_components": {
+    "ocr": 0.9661,
+    "parse": 1.0,
+    "engine_agreement": 1.0
+   },
+   "provenance": {
+    "page": 7,
+    "bbox": [
+     2272.0,
+     3004.0,
+     2494.0,
+     3040.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p07.t02.r020.c01",
+   "row_id": "p07.t02.r020",
+   "period_id": "y2011",
+   "value": {
+    "state": "number",
+    "raw": "161.914.251",
+    "value": "161914251",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.999,
+   "confidence_components": {
+    "ocr": 0.9514,
+    "parse": 1.0,
+    "engine_agreement": 1.0
+   },
+   "provenance": {
+    "page": 7,
+    "bbox": [
+     2608.0,
+     3004.0,
+     2856.0,
+     3044.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p07.t02.r021.c00",
+   "row_id": "p07.t02.r021",
+   "period_id": "y2012",
+   "value": {
+    "state": "number",
+    "raw": "0,058",
+    "value": "0.058",
+    "kind": "decimal",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.657,
+   "confidence_components": {
+    "ocr": 0.6257,
+    "parse": 1.0,
+    "engine_agreement": 1.0
+   },
+   "provenance": {
+    "page": 7,
+    "bbox": [
+     2384.0,
+     3088.0,
+     2494.0,
+     3132.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p07.t02.r021.c01",
+   "row_id": "p07.t02.r021",
+   "period_id": "y2011",
+   "value": {
+    "state": "number",
+    "raw": "1,191",
+    "value": "1.191",
+    "kind": "decimal",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.9969,
+   "confidence_components": {
+    "ocr": 0.9494,
+    "parse": 1.0,
+    "engine_agreement": 1.0
+   },
+   "provenance": {
+    "page": 7,
+    "bbox": [
+     2748.0,
+     3092.0,
+     2856.0,
+     3134.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p07.t02.r022.c00",
+   "row_id": "p07.t02.r022",
+   "period_id": "y2012",
+   "value": {
+    "state": "number",
+    "raw": "(19.846.865)",
+    "value": "-19846865",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.9967,
+   "confidence_components": {
+    "ocr": 0.9492,
+    "parse": 1.0,
+    "engine_agreement": 1.0
+   },
+   "provenance": {
+    "page": 7,
+    "bbox": [
+     2254.0,
+     3216.0,
+     2510.0,
+     3264.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p07.t02.r022.c01",
+   "row_id": "p07.t02.r022",
+   "period_id": "y2011",
+   "value": {
+    "state": "number",
+    "raw": "196.292.383",
+    "value": "196292383",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 1.0,
+   "confidence_components": {
+    "ocr": 0.9614,
+    "parse": 1.0,
+    "engine_agreement": 1.0
+   },
+   "provenance": {
+    "page": 7,
+    "bbox": [
+     2612.0,
+     3218.0,
+     2856.0,
+     3256.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p07.t02.r023.c00",
+   "row_id": "p07.t02.r023",
+   "period_id": "y2012",
+   "value": {
+    "state": "number",
+    "raw": "(19.846.865)",
+    "value": "-19846865",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 1.0,
+   "confidence_components": {
+    "ocr": 0.9575,
+    "parse": 1.0,
+    "engine_agreement": 1.0
+   },
+   "provenance": {
+    "page": 7,
+    "bbox": [
+     2254.0,
+     3280.0,
+     2510.0,
+     3328.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p07.t02.r023.c01",
+   "row_id": "p07.t02.r023",
+   "period_id": "y2011",
+   "value": {
+    "state": "number",
+    "raw": "196.292.383",
+    "value": "196292383",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.9995,
+   "confidence_components": {
+    "ocr": 0.9519,
+    "parse": 1.0,
+    "engine_agreement": 1.0
+   },
+   "provenance": {
+    "page": 7,
+    "bbox": [
+     2612.0,
+     3282.0,
+     2856.0,
+     3322.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p07.t02.r024.c00",
+   "row_id": "p07.t02.r024",
+   "period_id": "y2012",
+   "value": {
+    "state": "number",
+    "raw": "(9.127.909)",
+    "value": "-9127909",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.9903,
+   "confidence_components": {
+    "ocr": 0.9431,
+    "parse": 1.0,
+    "engine_agreement": 1.0
+   },
+   "provenance": {
+    "page": 7,
+    "bbox": [
+     2278.0,
+     3408.0,
+     2510.0,
+     3454.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p07.t02.r024.c01",
+   "row_id": "p07.t02.r024",
+   "period_id": "y2011",
+   "value": {
+    "state": "number",
+    "raw": "358.206.634",
+    "value": "358206634",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.9804,
+   "confidence_components": {
+    "ocr": 0.9337,
+    "parse": 1.0,
+    "engine_agreement": 1.0
+   },
+   "provenance": {
+    "page": 7,
+    "bbox": [
+     2606.0,
+     3410.0,
+     2858.0,
+     3448.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p07.t02.r026.c00",
+   "row_id": "p07.t02.r026",
+   "period_id": "y2012",
+   "value": {
+    "state": "number",
+    "raw": "(6.883.744)",
+    "value": "-6883744",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 1.0,
+   "confidence_components": {
+    "ocr": 0.9645,
+    "parse": 1.0,
+    "engine_agreement": 1.0
+   },
+   "provenance": {
+    "page": 7,
+    "bbox": [
+     2278.0,
+     3572.0,
+     2510.0,
+     3620.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p07.t02.r026.c01",
+   "row_id": "p07.t02.r026",
+   "period_id": "y2011",
+   "value": {
+    "state": "number",
+    "raw": "84.685.211",
+    "value": "84685211",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.6113,
+   "confidence_components": {
+    "ocr": 0.5822,
+    "parse": 1.0,
+    "engine_agreement": 1.0
+   },
+   "provenance": {
+    "page": 7,
+    "bbox": [
+     2634.0,
+     3576.0,
+     2854.0,
+     3614.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p07.t02.r027.c01",
+   "row_id": "p07.t02.r027",
+   "period_id": "y2011",
+   "value": {
+    "state": "number",
+    "raw": "273.521.423",
+    "value": "273521423",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.8115,
+   "confidence_components": {
+    "ocr": 0.7729,
+    "parse": 1.0,
+    "engine_agreement": 1.0
+   },
+   "provenance": {
+    "page": 7,
+    "bbox": [
+     2606.0,
+     3644.0,
+     2854.0,
+     3682.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p07.t02.r028.c00",
+   "row_id": "p07.t02.r028",
+   "period_id": "y2012",
+   "value": {
+    "state": "number",
+    "raw": "(9.127.909)",
+    "value": "-9127909",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.9841,
+   "confidence_components": {
+    "ocr": 0.9372,
+    "parse": 1.0,
+    "engine_agreement": 1.0
+   },
+   "provenance": {
+    "page": 7,
+    "bbox": [
+     2278.0,
+     3704.0,
+     2510.0,
+     3752.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p07.t02.r028.c01",
+   "row_id": "p07.t02.r028",
+   "period_id": "y2011",
+   "value": {
+    "state": "number",
+    "raw": "358.206.634",
+    "value": "358206634",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.7742,
+   "confidence_components": {
+    "ocr": 0.7373,
+    "parse": 1.0,
+    "engine_agreement": 1.0
+   },
+   "provenance": {
+    "page": 7,
+    "bbox": [
+     2606.0,
+     3706.0,
+     2858.0,
+     3744.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p54.t03.r000.c00",
+   "row_id": "p54.t03.r000",
+   "period_id": "ycol0",
+   "value": {
+    "state": "number",
+    "raw": "(94)",
+    "value": "-94",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.9242,
+   "confidence_components": {
+    "ocr": 0.9242,
+    "parse": 1.0
+   },
+   "provenance": {
+    "page": 54,
+    "bbox": [
+     742.0,
+     1242.0,
+     828.0,
+     1298.0
+    ],
+    "dpi": null,
+    "stage": "footnote_extraction"
+   }
+  },
+  {
+   "cell_id": "p54.t03.r000.c01",
+   "row_id": "p54.t03.r000",
+   "period_id": "y2011",
+   "value": {
+    "state": "number",
+    "raw": "%10,5",
+    "value": "10.5",
+    "kind": "percent",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.9215,
+   "confidence_components": {
+    "ocr": 0.9215,
+    "parse": 1.0,
+    "percent_rescue": 1.0,
+    "engine_agreement": 0.7
+   },
+   "provenance": {
+    "page": 54,
+    "bbox": [
+     2526.66,
+     1232.0,
+     2926.928,
+     1306.0
+    ],
+    "dpi": null,
+    "stage": "percent_rescue"
+   }
+  },
+  {
+   "cell_id": "p54.t03.r001.c01",
+   "row_id": "p54.t03.r001",
+   "period_id": "y2011",
+   "value": {
+    "state": "number",
+    "raw": "%80,8",
+    "value": "80.8",
+    "kind": "percent",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.9215,
+   "confidence_components": {
+    "ocr": 0.9215,
+    "parse": 1.0,
+    "percent_rescue": 1.0,
+    "engine_agreement": 0.7
+   },
+   "provenance": {
+    "page": 54,
+    "bbox": [
+     2526.66,
+     1322.0,
+     2926.928,
+     1392.0
+    ],
+    "dpi": null,
+    "stage": "percent_rescue"
+   }
+  },
+  {
+   "cell_id": "p54.t04.r000.c00",
+   "row_id": "p54.t04.r000",
+   "period_id": "y2012",
+   "value": {
+    "state": "number",
+    "raw": "22.719.446",
+    "value": "22719446",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 1.0,
+   "confidence_components": {
+    "ocr": 0.9554,
+    "parse": 1.0,
+    "engine_agreement": 1.0
+   },
+   "provenance": {
+    "page": 54,
+    "bbox": [
+     2102.0,
+     2212.0,
+     2372.0,
+     2256.0
+    ],
+    "dpi": null,
+    "stage": "footnote_extraction"
+   }
+  },
+  {
+   "cell_id": "p54.t04.r000.c01",
+   "row_id": "p54.t04.r000",
+   "period_id": "y2011",
+   "value": {
+    "state": "number",
+    "raw": "21.717.000",
+    "value": "21717000",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 1.0,
+   "confidence_components": {
+    "ocr": 0.9628,
+    "parse": 1.0,
+    "engine_agreement": 1.0
+   },
+   "provenance": {
+    "page": 54,
+    "bbox": [
+     2582.0,
+     2214.0,
+     2856.0,
+     2258.0
+    ],
+    "dpi": null,
+    "stage": "footnote_extraction"
+   }
+  },
+  {
+   "cell_id": "p54.t04.r001.c00",
+   "row_id": "p54.t04.r001",
+   "period_id": "y2012",
+   "value": {
+    "state": "number",
+    "raw": "81.026.895",
+    "value": "81026895",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 1.0,
+   "confidence_components": {
+    "ocr": 0.9667,
+    "parse": 1.0,
+    "engine_agreement": 1.0
+   },
+   "provenance": {
+    "page": 54,
+    "bbox": [
+     2104.0,
+     2292.0,
+     2372.0,
+     2338.0
+    ],
+    "dpi": null,
+    "stage": "footnote_extraction"
+   }
+  },
+  {
+   "cell_id": "p54.t04.r001.c01",
+   "row_id": "p54.t04.r001",
+   "period_id": "y2011",
+   "value": {
+    "state": "number",
+    "raw": "138.538.000",
+    "value": "138538000",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 1.0,
+   "confidence_components": {
+    "ocr": 0.9605,
+    "parse": 1.0,
+    "engine_agreement": 1.0
+   },
+   "provenance": {
+    "page": 54,
+    "bbox": [
+     2556.0,
+     2294.0,
+     2856.0,
+     2340.0
+    ],
+    "dpi": null,
+    "stage": "footnote_extraction"
+   }
+  },
+  {
+   "cell_id": "p54.t04.r002.c00",
+   "row_id": "p54.t04.r002",
+   "period_id": "y2012",
+   "value": {
+    "state": "number",
+    "raw": "83.586.353",
+    "value": "83586353",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.9282,
+   "confidence_components": {
+    "ocr": 0.884,
+    "parse": 1.0,
+    "engine_agreement": 1.0
+   },
+   "provenance": {
+    "page": 54,
+    "bbox": [
+     2104.0,
+     2372.0,
+     2370.0,
+     2418.0
+    ],
+    "dpi": null,
+    "stage": "footnote_extraction"
+   }
+  },
+  {
+   "cell_id": "p54.t04.r002.c01",
+   "row_id": "p54.t04.r002",
+   "period_id": "y2011",
+   "value": {
+    "state": "number",
+    "raw": "81.890.000",
+    "value": "81890000",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 1.0,
+   "confidence_components": {
+    "ocr": 0.9575,
+    "parse": 1.0,
+    "engine_agreement": 1.0
+   },
+   "provenance": {
+    "page": 54,
+    "bbox": [
+     2586.0,
+     2376.0,
+     2856.0,
+     2420.0
+    ],
+    "dpi": null,
+    "stage": "footnote_extraction"
+   }
+  },
+  {
+   "cell_id": "p54.t04.r003.c00",
+   "row_id": "p54.t04.r003",
+   "period_id": "y2012",
+   "value": {
+    "state": "number",
+    "raw": "186.659.528",
+    "value": "186659528",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 1.0,
+   "confidence_components": {
+    "ocr": 0.9562,
+    "parse": 1.0,
+    "engine_agreement": 1.0
+   },
+   "provenance": {
+    "page": 54,
+    "bbox": [
+     2076.0,
+     2454.0,
+     2372.0,
+     2498.0
+    ],
+    "dpi": null,
+    "stage": "footnote_extraction"
+   }
+  },
+  {
+   "cell_id": "p54.t04.r003.c01",
+   "row_id": "p54.t04.r003",
+   "period_id": "y2011",
+   "value": {
+    "state": "number",
+    "raw": "181.435.000",
+    "value": "181435000",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 1.0,
+   "confidence_components": {
+    "ocr": 0.9619,
+    "parse": 1.0,
+    "engine_agreement": 1.0
+   },
+   "provenance": {
+    "page": 54,
+    "bbox": [
+     2558.0,
+     2456.0,
+     2858.0,
+     2502.0
+    ],
+    "dpi": null,
+    "stage": "footnote_extraction"
+   }
+  },
+  {
+   "cell_id": "p54.t04.r004.c00",
+   "row_id": "p54.t04.r004",
+   "period_id": "y2012",
+   "value": {
+    "state": "number",
+    "raw": "373.992.222",
+    "value": "373992222",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.9953,
+   "confidence_components": {
+    "ocr": 0.9479,
+    "parse": 1.0,
+    "engine_agreement": 1.0
+   },
+   "provenance": {
+    "page": 54,
+    "bbox": [
+     2070.0,
+     2616.0,
+     2374.0,
+     2660.0
+    ],
+    "dpi": null,
+    "stage": "footnote_extraction"
+   }
+  },
+  {
+   "cell_id": "p54.t04.r004.c01",
+   "row_id": "p54.t04.r004",
+   "period_id": "y2011",
+   "value": {
+    "state": "number",
+    "raw": "423.580.000",
+    "value": "423580000",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 1.0,
+   "confidence_components": {
+    "ocr": 0.9623,
+    "parse": 1.0,
+    "engine_agreement": 1.0
+   },
+   "provenance": {
+    "page": 54,
+    "bbox": [
+     2552.0,
+     2618.0,
+     2858.0,
+     2662.0
+    ],
+    "dpi": null,
+    "stage": "footnote_extraction"
+   }
+  }
+ ],
+ "relations": [
+  {
+   "relation_id": "rel007",
+   "summary_row_id": "p05.t00.r012",
+   "footnote_row_id": "p54.t04.r004",
+   "period_scope": "both",
+   "relation_type": "total_reconciliation",
+   "approaches": [
+    {
+     "name": "cross_encoder",
+     "raw_score": 0.7456,
+     "rank": 1,
+     "accepted": true
+    },
+    {
+     "name": "lexical",
+     "raw_score": 0.0,
+     "rank": null,
+     "accepted": false
+    },
+    {
+     "name": "value_rules",
+     "raw_score": 1.0,
+     "rank": null,
+     "accepted": true
+    }
+   ],
+   "agreement": "consensus",
+   "confidence": 0.8016,
+   "confidence_components": {
+    "cross_encoder": 0.7456,
+    "value_rules": 1.0,
+    "lexical": 0.0,
+    "fused": 0.6982,
+    "reconciliation": 1.0,
+    "validation_factor": 1.0457,
+    "calibration_fitted": 0.0
+   },
+   "low_confidence": true,
+   "evidence": "value match [('y2012', 'y2012'), ('y2011', 'y2011')]; footnote row role=total"
+  }
+ ],
+ "checks": [
+  {
+   "check_id": "STR_SUMMARY_RANGE",
+   "group": "structural",
+   "scope": "page_5",
+   "status": "pass",
+   "detail": "1 coherent financial table(s) on configured page 5"
+  },
+  {
+   "check_id": "STR_SUMMARY_RANGE",
+   "group": "structural",
+   "scope": "page_6",
+   "status": "pass",
+   "detail": "1 coherent financial table(s) on configured page 6"
+  },
+  {
+   "check_id": "STR_SUMMARY_RANGE",
+   "group": "structural",
+   "scope": "page_7",
+   "status": "pass",
+   "detail": "1 coherent financial table(s) on configured page 7"
+  },
+  {
+   "check_id": "STR_FOOTNOTE_REFS_PRESENT",
+   "group": "structural",
+   "scope": "document",
+   "status": "pass",
+   "detail": "2 summary row(s) reference footnote 11"
+  },
+  {
+   "check_id": "FMT_ENGINE_AGREEMENT",
+   "group": "format",
+   "scope": "document",
+   "status": "fail",
+   "detail": "{'checked': 146, 'agree': 144, 'disagree': 2, 'unavailable': 0, 'skipped_rotated': 0, 'disagreements': ['p05.t00.r006.c01: tesseract=56936 rapidocr=56956', 'p05.t00.r007.c00: tesseract=71543097 rapidocr=77543097']}"
+  },
+  {
+   "check_id": "FMT_PERCENT_RESCUE",
+   "group": "format",
+   "scope": "document",
+   "status": "pass",
+   "detail": "{'rows_added': 1, 'cells': 2, 'exact': 0, 'suffix': 2, 'mismatch': 0, 'unavailable': 0, 'overrides': [\"row 'İskonto oranı' col1: primary=10,5 -> %10,5\", \"row 'Doluluk oranı (90)(*) “486,6' col1: primary=480,8 -> %80,8\"]}"
+  },
+  {
+   "check_id": "STR_PERIOD_ORDER",
+   "group": "structural",
+   "scope": "p05.t00",
+   "status": "pass",
+   "detail": "periods=[2012, 2011]"
+  },
+  {
+   "check_id": "STR_REF_RANGE",
+   "group": "structural",
+   "scope": "p05.t00",
+   "status": "pass",
+   "detail": "bad=[]"
+  },
+  {
+   "check_id": "FMT_REPAIRED_CELLS",
+   "group": "format",
+   "scope": "p05.t00",
+   "status": "pass",
+   "detail": "0 repaired numeric cells (flagged, values kept)"
+  },
+  {
+   "check_id": "FMT_THREE_STATE",
+   "group": "format",
+   "scope": "p05.t00",
+   "status": "pass",
+   "detail": "bad=[]"
+  },
+  {
+   "check_id": "FIN_PARENT_SUM",
+   "group": "financial",
+   "scope": "p05.t00.p05.t00.r001.y2012",
+   "status": "fail",
+   "detail": "children_sum=128557729 parent=134557729"
+  },
+  {
+   "check_id": "FIN_PARENT_SUM",
+   "group": "financial",
+   "scope": "p05.t00.p05.t00.r001.y2011",
+   "status": "fail",
+   "detail": "children_sum=21380926 parent=21380946"
+  },
+  {
+   "check_id": "FIN_PARENT_SUM",
+   "group": "financial",
+   "scope": "p05.t00.p05.t00.r003.y2012",
+   "status": "pass",
+   "detail": "children_sum=6281458 parent=6281458"
+  },
+  {
+   "check_id": "FIN_PARENT_SUM",
+   "group": "financial",
+   "scope": "p05.t00.p05.t00.r003.y2011",
+   "status": "pass",
+   "detail": "children_sum=7801336 parent=7801336"
+  },
+  {
+   "check_id": "FIN_PARENT_SUM",
+   "group": "financial",
+   "scope": "p05.t00.p05.t00.r009.y2012",
+   "status": "fail",
+   "detail": "children_sum=717587855.224 parent=717592075"
+  },
+  {
+   "check_id": "FIN_PARENT_SUM",
+   "group": "financial",
+   "scope": "p05.t00.p05.t00.r009.y2011",
+   "status": "pass",
+   "detail": "children_sum=760027331 parent=760027331"
+  },
+  {
+   "check_id": "FIN_GRAND_TOTAL",
+   "group": "financial",
+   "scope": "p05.t00.p05.t00.r017.y2012",
+   "status": "pass",
+   "detail": "2/2 member-set hypotheses match"
+  },
+  {
+   "check_id": "FIN_GRAND_TOTAL",
+   "group": "financial",
+   "scope": "p05.t00.p05.t00.r017.y2011",
+   "status": "pass",
+   "detail": "2/2 member-set hypotheses match"
+  },
+  {
+   "check_id": "STR_PERIOD_ORDER",
+   "group": "structural",
+   "scope": "p06.t01",
+   "status": "pass",
+   "detail": "periods=[2012, 2011]"
+  },
+  {
+   "check_id": "STR_REF_RANGE",
+   "group": "structural",
+   "scope": "p06.t01",
+   "status": "pass",
+   "detail": "bad=[]"
+  },
+  {
+   "check_id": "FMT_REPAIRED_CELLS",
+   "group": "format",
+   "scope": "p06.t01",
+   "status": "pass",
+   "detail": "0 repaired numeric cells (flagged, values kept)"
+  },
+  {
+   "check_id": "FMT_THREE_STATE",
+   "group": "format",
+   "scope": "p06.t01",
+   "status": "pass",
+   "detail": "bad=[]"
+  },
+  {
+   "check_id": "FIN_PARENT_SUM",
+   "group": "financial",
+   "scope": "p06.t01.p06.t01.r001.y2012",
+   "status": "pass",
+   "detail": "children_sum=63553798 parent=63553798"
+  },
+  {
+   "check_id": "FIN_PARENT_SUM",
+   "group": "financial",
+   "scope": "p06.t01.p06.t01.r001.y2011",
+   "status": "pass",
+   "detail": "children_sum=107356816 parent=107356816"
+  },
+  {
+   "check_id": "FIN_PARENT_SUM",
+   "group": "financial",
+   "scope": "p06.t01.p06.t01.r003.y2012",
+   "status": "pass",
+   "detail": "children_sum=7932336 parent=7932336"
+  },
+  {
+   "check_id": "FIN_PARENT_SUM",
+   "group": "financial",
+   "scope": "p06.t01.p06.t01.r003.y2011",
+   "status": "pass",
+   "detail": "children_sum=4232740 parent=4232740"
+  },
+  {
+   "check_id": "FIN_PARENT_SUM",
+   "group": "financial",
+   "scope": "p06.t01.p06.t01.r006.y2012",
+   "status": "pass",
+   "detail": "children_sum=2784832 parent=2784832"
+  },
+  {
+   "check_id": "FIN_PARENT_SUM",
+   "group": "financial",
+   "scope": "p06.t01.p06.t01.r006.y2011",
+   "status": "pass",
+   "detail": "children_sum=3244930 parent=3244930"
+  },
+  {
+   "check_id": "FIN_PARENT_SUM",
+   "group": "financial",
+   "scope": "p06.t01.p06.t01.r013.y2012",
+   "status": "pass",
+   "detail": "children_sum=136150924 parent=136150924"
+  },
+  {
+   "check_id": "FIN_PARENT_SUM",
+   "group": "financial",
+   "scope": "p06.t01.p06.t01.r013.y2011",
+   "status": "pass",
+   "detail": "children_sum=54471741 parent=54471741"
+  },
+  {
+   "check_id": "FIN_PARENT_SUM",
+   "group": "financial",
+   "scope": "p06.t01.p06.t01.r019.y2012",
+   "status": "pass",
+   "detail": "children_sum=527217933 parent=527217933"
+  },
+  {
+   "check_id": "FIN_PARENT_SUM",
+   "group": "financial",
+   "scope": "p06.t01.p06.t01.r019.y2011",
+   "status": "pass",
+   "detail": "children_sum=492663853 parent=492663853"
+  },
+  {
+   "check_id": "FIN_GRAND_TOTAL",
+   "group": "financial",
+   "scope": "p06.t01.p06.t01.r028.y2012",
+   "status": "pass",
+   "detail": "1/3 member-set hypotheses match"
+  },
+  {
+   "check_id": "FIN_GRAND_TOTAL",
+   "group": "financial",
+   "scope": "p06.t01.p06.t01.r028.y2011",
+   "status": "pass",
+   "detail": "1/3 member-set hypotheses match"
+  },
+  {
+   "check_id": "STR_PERIOD_ORDER",
+   "group": "structural",
+   "scope": "p07.t02",
+   "status": "pass",
+   "detail": "periods=[2012, 2011]"
+  },
+  {
+   "check_id": "STR_REF_RANGE",
+   "group": "structural",
+   "scope": "p07.t02",
+   "status": "pass",
+   "detail": "bad=[]"
+  },
+  {
+   "check_id": "FMT_REPAIRED_CELLS",
+   "group": "format",
+   "scope": "p07.t02",
+   "status": "pass",
+   "detail": "0 repaired numeric cells (flagged, values kept)"
+  },
+  {
+   "check_id": "FMT_THREE_STATE",
+   "group": "format",
+   "scope": "p07.t02",
+   "status": "pass",
+   "detail": "bad=[]"
+  },
+  {
+   "check_id": "FIN_PARENT_SUM",
+   "group": "financial",
+   "scope": "p07.t02.p07.t02.r002.y2012",
+   "status": "fail",
+   "detail": "children_sum=-19888852 parent=27876243"
+  },
+  {
+   "check_id": "FIN_PARENT_SUM",
+   "group": "financial",
+   "scope": "p07.t02.p07.t02.r002.y2011",
+   "status": "fail",
+   "detail": "children_sum=143404297 parent=32019756"
+  },
+  {
+   "check_id": "FIN_PARENT_SUM",
+   "group": "financial",
+   "scope": "p07.t02.p07.t02.r008.y2012",
+   "status": "fail",
+   "detail": "children_sum=3509782 parent=7987391"
+  },
+  {
+   "check_id": "FIN_PARENT_SUM",
+   "group": "financial",
+   "scope": "p07.t02.p07.t02.r008.y2011",
+   "status": "fail",
+   "detail": "children_sum=-10494397 parent=175424053"
+  },
+  {
+   "check_id": "FIN_PARENT_SUM",
+   "group": "financial",
+   "scope": "p07.t02.p07.t02.r013.y2012",
+   "status": "pass",
+   "detail": "children_sum=-778217 parent=-778217"
+  },
+  {
+   "check_id": "FIN_PARENT_SUM",
+   "group": "financial",
+   "scope": "p07.t02.p07.t02.r013.y2011",
+   "status": "pass",
+   "detail": "children_sum=-3015405 parent=-3015405"
+  },
+  {
+   "check_id": "FIN_GRAND_TOTAL",
+   "group": "financial",
+   "scope": "p07.t02.p07.t02.r024.y2012",
+   "status": "fail",
+   "detail": "no member-set hypothesis reproduces the total"
+  },
+  {
+   "check_id": "FIN_GRAND_TOTAL",
+   "group": "financial",
+   "scope": "p07.t02.p07.t02.r024.y2011",
+   "status": "fail",
+   "detail": "no member-set hypothesis reproduces the total"
+  },
+  {
+   "check_id": "FIN_GRAND_TOTAL",
+   "group": "financial",
+   "scope": "p07.t02.p07.t02.r028.y2012",
+   "status": "fail",
+   "detail": "no member-set hypothesis reproduces the total"
+  },
+  {
+   "check_id": "FIN_GRAND_TOTAL",
+   "group": "financial",
+   "scope": "p07.t02.p07.t02.r028.y2011",
+   "status": "fail",
+   "detail": "no member-set hypothesis reproduces the total"
+  },
+  {
+   "check_id": "FMT_SIGN_LEGALITY",
+   "group": "format",
+   "scope": "p07.t02.p07.t02.r001.y2012",
+   "status": "pass",
+   "detail": "value=-49167330 for a (-) labeled row"
+  },
+  {
+   "check_id": "FMT_SIGN_LEGALITY",
+   "group": "format",
+   "scope": "p07.t02.p07.t02.r001.y2011",
+   "status": "pass",
+   "detail": "value=-44411839 for a (-) labeled row"
+  },
+  {
+   "check_id": "FMT_SIGN_LEGALITY",
+   "group": "format",
+   "scope": "p07.t02.p07.t02.r003.y2012",
+   "status": "pass",
+   "detail": "value=-10043970 for a (-) labeled row"
+  },
+  {
+   "check_id": "FMT_SIGN_LEGALITY",
+   "group": "format",
+   "scope": "p07.t02.p07.t02.r003.y2011",
+   "status": "pass",
+   "detail": "value=-9733892 for a (-) labeled row"
+  },
+  {
+   "check_id": "FMT_SIGN_LEGALITY",
+   "group": "format",
+   "scope": "p07.t02.p07.t02.r004.y2012",
+   "status": "pass",
+   "detail": "value=-13500342 for a (-) labeled row"
+  },
+  {
+   "check_id": "FMT_SIGN_LEGALITY",
+   "group": "format",
+   "scope": "p07.t02.p07.t02.r004.y2011",
+   "status": "pass",
+   "detail": "value=-2680177 for a (-) labeled row"
+  },
+  {
+   "check_id": "FMT_SIGN_LEGALITY",
+   "group": "format",
+   "scope": "p07.t02.p07.t02.r007.y2012",
+   "status": "pass",
+   "detail": "value=-346564 for a (-) labeled row"
+  },
+  {
+   "check_id": "FMT_SIGN_LEGALITY",
+   "group": "format",
+   "scope": "p07.t02.p07.t02.r007.y2011",
+   "status": "pass",
+   "detail": "value=-561989 for a (-) labeled row"
+  },
+  {
+   "check_id": "FMT_SIGN_LEGALITY",
+   "group": "format",
+   "scope": "p07.t02.p07.t02.r011.y2012",
+   "status": "pass",
+   "detail": "value=-16289551 for a (-) labeled row"
+  },
+  {
+   "check_id": "FMT_SIGN_LEGALITY",
+   "group": "format",
+   "scope": "p07.t02.p07.t02.r011.y2011",
+   "status": "pass",
+   "detail": "value=-24329214 for a (-) labeled row"
+  },
+  {
+   "check_id": "FIN_FLOW_CASCADE",
+   "group": "financial",
+   "scope": "p07.t02.p07.t02.r002.y2012",
+   "status": "pass",
+   "detail": "prev=0 segment=27876243 milestone=27876243"
+  },
+  {
+   "check_id": "FIN_FLOW_CASCADE",
+   "group": "financial",
+   "scope": "p07.t02.p07.t02.r008.y2012",
+   "status": "fail",
+   "detail": "prev=27876243 segment=0 milestone=7987391"
+  },
+  {
+   "check_id": "FIN_FLOW_CASCADE",
+   "group": "financial",
+   "scope": "p07.t02.p07.t02.r012.y2012",
+   "status": "fail",
+   "detail": "prev=7987391 segment=0 milestone=11497173"
+  },
+  {
+   "check_id": "FIN_FLOW_CASCADE",
+   "group": "financial",
+   "scope": "p07.t02.p07.t02.r016.y2012",
+   "status": "pass",
+   "detail": "prev=11497173 segment=-778217 milestone=10718956"
+  },
+  {
+   "check_id": "FIN_FLOW_CASCADE",
+   "group": "financial",
+   "scope": "p07.t02.p07.t02.r024.y2012",
+   "status": "pass",
+   "detail": "prev=10718956 segment=-19846865 milestone=-9127909"
+  },
+  {
+   "check_id": "FIN_FLOW_CASCADE",
+   "group": "financial",
+   "scope": "p07.t02.p07.t02.r002.y2011",
+   "status": "pass",
+   "detail": "prev=0 segment=32019756 milestone=32019756"
+  },
+  {
+   "check_id": "FIN_FLOW_CASCADE",
+   "group": "financial",
+   "scope": "p07.t02.p07.t02.r008.y2011",
+   "status": "fail",
+   "detail": "prev=32019756 segment=0 milestone=175424053"
+  },
+  {
+   "check_id": "FIN_FLOW_CASCADE",
+   "group": "financial",
+   "scope": "p07.t02.p07.t02.r012.y2011",
+   "status": "fail",
+   "detail": "prev=175424053 segment=0 milestone=164929656"
+  },
+  {
+   "check_id": "FIN_FLOW_CASCADE",
+   "group": "financial",
+   "scope": "p07.t02.p07.t02.r016.y2011",
+   "status": "pass",
+   "detail": "prev=164929656 segment=-3015405 milestone=161914251"
+  },
+  {
+   "check_id": "FIN_FLOW_CASCADE",
+   "group": "financial",
+   "scope": "p07.t02.p07.t02.r024.y2011",
+   "status": "pass",
+   "detail": "prev=161914251 segment=196292383 milestone=358206634"
+  },
+  {
+   "check_id": "STR_PERIOD_ORDER",
+   "group": "structural",
+   "scope": "p54.t03",
+   "status": "not_evaluable",
+   "detail": "periods=['col0', '2011']"
+  },
+  {
+   "check_id": "STR_REF_RANGE",
+   "group": "structural",
+   "scope": "p54.t03",
+   "status": "pass",
+   "detail": "bad=[]"
+  },
+  {
+   "check_id": "STR_FOOTNOTE_HEADING",
+   "group": "structural",
+   "scope": "p54.t03",
+   "status": "pass",
+   "detail": ""
+  },
+  {
+   "check_id": "FMT_REPAIRED_CELLS",
+   "group": "format",
+   "scope": "p54.t03",
+   "status": "pass",
+   "detail": "0 repaired numeric cells (flagged, values kept)"
+  },
+  {
+   "check_id": "FMT_THREE_STATE",
+   "group": "format",
+   "scope": "p54.t03",
+   "status": "pass",
+   "detail": "bad=[]"
+  },
+  {
+   "check_id": "FMT_PERCENT_BOUNDS",
+   "group": "format",
+   "scope": "p54.t03.r000.c01",
+   "status": "pass",
+   "detail": "%10,5"
+  },
+  {
+   "check_id": "FMT_PERCENT_BOUNDS",
+   "group": "format",
+   "scope": "p54.t03.r001.c01",
+   "status": "pass",
+   "detail": "%80,8"
+  },
+  {
+   "check_id": "STR_PERIOD_ORDER",
+   "group": "structural",
+   "scope": "p54.t04",
+   "status": "pass",
+   "detail": "periods=[2012, 2011]"
+  },
+  {
+   "check_id": "STR_REF_RANGE",
+   "group": "structural",
+   "scope": "p54.t04",
+   "status": "pass",
+   "detail": "bad=[]"
+  },
+  {
+   "check_id": "STR_FOOTNOTE_HEADING",
+   "group": "structural",
+   "scope": "p54.t04",
+   "status": "pass",
+   "detail": ""
+  },
+  {
+   "check_id": "FMT_REPAIRED_CELLS",
+   "group": "format",
+   "scope": "p54.t04",
+   "status": "pass",
+   "detail": "0 repaired numeric cells (flagged, values kept)"
+  },
+  {
+   "check_id": "FMT_THREE_STATE",
+   "group": "format",
+   "scope": "p54.t04",
+   "status": "pass",
+   "detail": "bad=[]"
+  },
+  {
+   "check_id": "STR_CALIBRATION_CONTROLS",
+   "group": "structural",
+   "scope": "document",
+   "status": "not_evaluable",
+   "detail": "mode=fallback positives=1 negatives=31 control_pages=[9, 10] separated=true"
+  },
+  {
+   "check_id": "FIN_RECONCILE",
+   "group": "financial",
+   "scope": "rel007",
+   "status": "pass",
+   "detail": "matched [('y2012', 'y2012'), ('y2011', 'y2011')]"
+  },
+  {
+   "check_id": "REL_COVERAGE",
+   "group": "structural",
+   "scope": "p05.t00.r012",
+   "status": "pass",
+   "detail": "1 relation(s) from row referencing footnote 11"
+  },
+  {
+   "check_id": "REL_COVERAGE",
+   "group": "structural",
+   "scope": "p07.t02.r005",
+   "status": "fail",
+   "detail": "0 relation(s) from row referencing footnote 11"
+  }
+ ]
+}

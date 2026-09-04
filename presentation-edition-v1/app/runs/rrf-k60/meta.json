@@ -1,0 +1,42 @@
+{
+  "state": "done",
+  "scenario": "rrf-k60",
+  "started": "2026-08-29T02:28:08",
+  "duration_s": 27.6,
+  "overrides": {
+    "candidates": {
+      "rrf_k": 60
+    }
+  },
+  "eval": {
+    "raw": "CELLS: total=201 correct=199 (99.0%) wrong_val=2 wrong_state=0 missing_cell=0 missing_row=0\n    ('stoklar', 'p2012', '77.543.097', '77.943.097')\n    ('finansal_yatirimlar', 'p2012', '4.224', '4,224')\nCELLS 95% CI (Clopper-Pearson, n=201, one document): [0.9645, 0.9988]\nEXTRACTED rows on reference pages not matched to any reference row: 0 (their 0 cells are outside the cell metric)\nRELATIONS: gold=7 predicted=7 tp=7 fp=0 fn=0 P=1.00 R=1.00\n  fp: []\n  fn: []\nRELATIONS exact one-sided 95% lower bounds (n=7): precision >= 0.652, recall >= 0.652\nCHECKS: 103 pass / 4 fail / 6 not_evaluable",
+    "cells": {
+      "total": 201,
+      "correct": 199,
+      "pct": 99.0,
+      "wrong_val": 2,
+      "wrong_state": 0,
+      "missing_cell": 0,
+      "missing_row": 0
+    },
+    "relations": {
+      "gold": 7,
+      "predicted": 7,
+      "tp": 7,
+      "fp": 0,
+      "fn": 0,
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    "checks": {
+      "pass": 103,
+      "fail": 4,
+      "not_evaluable": 6
+    }
+  },
+  "platform": {
+    "platform": "macOS-15.4-arm64-arm-64bit",
+    "tesseract": "5.5.3",
+    "note": "backfilled 29.08 after the run from the run block; same host"
+  }
+}

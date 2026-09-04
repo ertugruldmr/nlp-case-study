@@ -1,4 +1,17 @@
+# environments and caches
 .venv/
 __pycache__/
 *.pyc
 .pytest_cache/
+.tmp/
+.DS_Store
+
+# build artifacts
+presentation-edition-v1/app/dist/
+
+# runtime state of the demo server: uploaded PDFs, rendered page caches,
+# reviewer labels and ad-hoc per-document runs. All regenerate on demand.
+presentation-edition-v1/app/runs/_documents/
+presentation-edition-v1/app/runs/_debugger/
+presentation-edition-v1/app/runs/_labels/
+presentation-edition-v1/app/runs/doc-*/

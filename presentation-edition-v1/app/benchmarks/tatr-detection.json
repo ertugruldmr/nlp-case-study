@@ -1,0 +1,129 @@
+{
+  "id": "tatr-detection",
+  "title_tr": "Tablo tespiti: TATR dedektörü vs teslimat x-kümeleme, sayfa başına (E50)",
+  "title_en": "Table detection: TATR detector vs shipped x-clustering, per page (E50)",
+  "measured_at": "2026-08-29T03:27:17",
+  "source": "research/assets/experiments/tatr-local/results-t07.json, research/assets/experiments/tatr-local/results-t03.json",
+  "scope": "this document",
+  "baseline": "shipped-xclust",
+  "columns": [
+    {
+      "key": "method",
+      "label_tr": "yöntem",
+      "kind": "text"
+    },
+    {
+      "key": "threshold",
+      "label_tr": "tespit eşiği",
+      "kind": "number"
+    },
+    {
+      "key": "p05",
+      "label_tr": "s.5 tablo",
+      "kind": "number"
+    },
+    {
+      "key": "p06",
+      "label_tr": "s.6 tablo",
+      "kind": "number"
+    },
+    {
+      "key": "p07",
+      "label_tr": "s.7 tablo",
+      "kind": "number"
+    },
+    {
+      "key": "p53",
+      "label_tr": "s.53 tablo",
+      "kind": "number"
+    },
+    {
+      "key": "p54",
+      "label_tr": "s.54 tablo",
+      "kind": "number"
+    },
+    {
+      "key": "total",
+      "label_tr": "toplam tespit",
+      "kind": "number"
+    },
+    {
+      "key": "gold",
+      "label_tr": "gold tablo",
+      "kind": "number"
+    },
+    {
+      "key": "rotated",
+      "label_tr": "dönmüş tespit",
+      "kind": "number"
+    },
+    {
+      "key": "seconds",
+      "label_tr": "süre (CPU)",
+      "kind": "seconds"
+    }
+  ],
+  "rows": [
+    {
+      "id": "shipped-xclust",
+      "label": "Teslimat: x-kümeleme (ftlink 1.0.2, taban çizgisi)",
+      "role": "shipped",
+      "source": "app/runs/baseline/outputs/result.json",
+      "method": "x-clustering (heuristic)",
+      "threshold": null,
+      "p05": 1,
+      "p06": 1,
+      "p07": 1,
+      "p53": 2,
+      "p54": 2,
+      "total": 7,
+      "gold": 7,
+      "rotated": null,
+      "seconds": null
+    },
+    {
+      "id": "tatr-t07",
+      "label": "TATR dedektör, eşik 0.7",
+      "role": "measured",
+      "source": "research/assets/experiments/tatr-local/results-t07.json",
+      "method": "table-transformer-detection + structure v1.1-fin",
+      "threshold": 0.7,
+      "p05": 0,
+      "p06": 1,
+      "p07": 0,
+      "p53": 0,
+      "p54": 0,
+      "total": 1,
+      "gold": 7,
+      "rotated": 0,
+      "seconds": 1.2
+    },
+    {
+      "id": "tatr-t03",
+      "label": "TATR dedektör, eşik 0.3",
+      "role": "measured",
+      "source": "research/assets/experiments/tatr-local/results-t03.json",
+      "method": "table-transformer-detection + structure v1.1-fin",
+      "threshold": 0.3,
+      "p05": 2,
+      "p06": 1,
+      "p07": 1,
+      "p53": 4,
+      "p54": 0,
+      "total": 8,
+      "gold": 7,
+      "rotated": 1,
+      "seconds": 2.8
+    }
+  ],
+  "notes_tr": [
+    "eşik 0.7, s.6: 1 bölge [36x4 skor 0.886]; gold: bilanco_kaynak 29x3",
+    "tatr-t07: E50 local TATR run, CPU, 29.08.2026; detection threshold 0.7, structure threshold 0.5; pages downscaled to 1600 px wide before detection",
+    "eşik 0.3, s.5: 2 bölge [19x4 skor 0.99, 20x4 skor 0.93]; gold: bilanco_varlik 18x3",
+    "eşik 0.3, s.6: 1 bölge [36x4 skor 0.886]; gold: bilanco_kaynak 29x3",
+    "eşik 0.3, s.7: 1 bölge [35x4 skor 0.88]; gold: gelir 29x3",
+    "eşik 0.3, s.53: 4 bölge [6x3 skor 0.973, 6x3 skor 0.979, 7x3 skor 0.914, 7x3 skor 0.887]; gold: dipnot11_t1 6x2, dipnot11_t2 5x2",
+    "tatr-t03: E50 local TATR run, CPU, 29.08.2026; detection threshold 0.3, structure threshold 0.5; pages downscaled to 1600 px wide before detection"
+  ],
+  "decision_rule": "Dedektör düşük eşikte gold tablo sayısına yaklaşır ama çift ve dönmüş tespitler sayıma girer; yapı doğruluğu (GriTS) bu tabloda yoktur ve GPU koşusuna aittir. Teslimat x-kümeleme sayfa başına tablo sayısını korur; TATR konfigürasyon kapılı yükseltme adayı olarak bekler."
+}

@@ -1,0 +1,71 @@
+<svg viewBox="0 0 1000 400" role="img" aria-label="ftlink stages S0 to S10 in three lanes: extraction, linking, verification; each arrow names the data handed to the next stage" xmlns="http://www.w3.org/2000/svg" style="max-width:100%;height:auto;font-family:Source Sans 3,Arial,sans-serif">
+<defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="currentColor"/></marker></defs>
+<text x="20" y="42" font-size="12" letter-spacing="1.5" fill="currentColor" opacity=".7">EXTRACTION</text>
+<rect x="20" y="56" width="108" height="54" rx="6" fill="none" stroke="currentColor" stroke-width="1.2"/>
+<text x="29" y="76" font-size="13" font-weight="600" fill="currentColor">S0</text>
+<text x="29" y="96" font-size="11" fill="currentColor">config</text>
+<line x1="128" y1="83.0" x2="160" y2="83.0" stroke="currentColor" stroke-width="1.2" marker-end="url(#ar)"/>
+<text x="144.0" y="124" font-size="9.5" text-anchor="middle" fill="currentColor" opacity=".75">page images</text>
+<rect x="160" y="56" width="108" height="54" rx="6" fill="none" stroke="currentColor" stroke-width="1.2"/>
+<text x="169" y="76" font-size="13" font-weight="600" fill="currentColor">S1</text>
+<text x="169" y="96" font-size="11" fill="currentColor">render + OCR</text>
+<line x1="268" y1="83.0" x2="300" y2="83.0" stroke="currentColor" stroke-width="1.2" marker-end="url(#ar)"/>
+<text x="284.0" y="124" font-size="9.5" text-anchor="middle" fill="currentColor" opacity=".75">word boxes</text>
+<rect x="300" y="56" width="108" height="54" rx="6" fill="none" stroke="currentColor" stroke-width="1.2"/>
+<text x="309" y="76" font-size="13" font-weight="600" fill="currentColor">S1b</text>
+<text x="309" y="96" font-size="11" fill="currentColor">2nd-engine digits</text>
+<line x1="408" y1="83.0" x2="440" y2="83.0" stroke="currentColor" stroke-width="1.2" marker-end="url(#ar)"/>
+<text x="424.0" y="124" font-size="9.5" text-anchor="middle" fill="currentColor" opacity=".75">verified digits</text>
+<rect x="440" y="56" width="108" height="54" rx="6" fill="none" stroke="currentColor" stroke-width="1.2"/>
+<text x="449" y="76" font-size="13" font-weight="600" fill="currentColor">S2</text>
+<text x="449" y="96" font-size="11" fill="currentColor">page detection</text>
+<line x1="548" y1="83.0" x2="580" y2="83.0" stroke="currentColor" stroke-width="1.2" marker-end="url(#ar)"/>
+<text x="564.0" y="124" font-size="9.5" text-anchor="middle" fill="currentColor" opacity=".75">verified range</text>
+<rect x="580" y="56" width="108" height="54" rx="6" fill="none" stroke="currentColor" stroke-width="1.2"/>
+<text x="589" y="76" font-size="13" font-weight="600" fill="currentColor">S3</text>
+<text x="589" y="96" font-size="11" fill="currentColor">x-cluster structure</text>
+<line x1="688" y1="83.0" x2="720" y2="83.0" stroke="currentColor" stroke-width="1.2" marker-end="url(#ar)"/>
+<text x="704.0" y="124" font-size="9.5" text-anchor="middle" fill="currentColor" opacity=".75">cells</text>
+<rect x="720" y="56" width="108" height="54" rx="6" fill="none" stroke="currentColor" stroke-width="1.2"/>
+<text x="729" y="76" font-size="13" font-weight="600" fill="currentColor">S3b</text>
+<text x="729" y="96" font-size="11" fill="currentColor">percent rescue</text>
+<line x1="828" y1="83.0" x2="860" y2="83.0" stroke="currentColor" stroke-width="1.2" marker-end="url(#ar)"/>
+<text x="844.0" y="124" font-size="9.5" text-anchor="middle" fill="currentColor" opacity=".75">rate cells</text>
+<rect x="860" y="56" width="108" height="54" rx="6" fill="none" stroke="currentColor" stroke-width="1.2"/>
+<text x="869" y="76" font-size="13" font-weight="600" fill="currentColor">S4</text>
+<text x="869" y="96" font-size="11" fill="currentColor">TR number grammar</text>
+<path d="M914.0 110 V140 H74.0 V176" fill="none" stroke="currentColor" stroke-width="1.2" marker-end="url(#ar)"/>
+<text x="494.0" y="136" font-size="9.5" text-anchor="middle" fill="currentColor" opacity=".75">3-state rows</text>
+<text x="20" y="164" font-size="12" letter-spacing="1.5" fill="currentColor" opacity=".7">LINKING</text>
+<rect x="20" y="178" width="108" height="54" rx="6" fill="none" stroke="currentColor" stroke-width="1.2"/>
+<text x="29" y="198" font-size="13" font-weight="600" fill="currentColor">S5</text>
+<text x="29" y="218" font-size="11" fill="currentColor">footnote locate</text>
+<line x1="128" y1="205.0" x2="160" y2="205.0" stroke="currentColor" stroke-width="1.2" marker-end="url(#ar)"/>
+<text x="144.0" y="246" font-size="9.5" text-anchor="middle" fill="currentColor" opacity=".75">footnote pages</text>
+<rect x="160" y="178" width="108" height="54" rx="6" fill="none" stroke="currentColor" stroke-width="1.2"/>
+<text x="169" y="198" font-size="13" font-weight="600" fill="currentColor">S6</text>
+<text x="169" y="218" font-size="11" fill="currentColor">RRF candidates</text>
+<line x1="268" y1="205.0" x2="300" y2="205.0" stroke="currentColor" stroke-width="1.2" marker-end="url(#ar)"/>
+<text x="284.0" y="246" font-size="9.5" text-anchor="middle" fill="currentColor" opacity=".75">top-10 per row</text>
+<rect x="300" y="178" width="108" height="54" rx="6" fill="none" stroke="currentColor" stroke-width="1.2"/>
+<text x="309" y="198" font-size="13" font-weight="600" fill="currentColor">S7</text>
+<text x="309" y="218" font-size="11" fill="currentColor">A / B / C linking</text>
+<line x1="408" y1="205.0" x2="440" y2="205.0" stroke="currentColor" stroke-width="1.2" marker-end="url(#ar)"/>
+<text x="424.0" y="246" font-size="9.5" text-anchor="middle" fill="currentColor" opacity=".75">accepted links</text>
+<rect x="440" y="178" width="108" height="54" rx="6" fill="none" stroke="#7A2E1D" stroke-width="1.8"/>
+<text x="449" y="198" font-size="13" font-weight="600" fill="currentColor">S8</text>
+<text x="449" y="218" font-size="11" fill="currentColor">Platt + Venn-ABERS</text>
+<path d="M494.0 232 V262 H74.0 V298" fill="none" stroke="currentColor" stroke-width="1.2" marker-end="url(#ar)"/>
+<text x="284.0" y="258" font-size="9.5" text-anchor="middle" fill="currentColor" opacity=".75">p per relation</text>
+<text x="20" y="286" font-size="12" letter-spacing="1.5" fill="currentColor" opacity=".7">VERIFICATION</text>
+<rect x="20" y="300" width="108" height="54" rx="6" fill="none" stroke="#7A2E1D" stroke-width="1.8"/>
+<text x="29" y="320" font-size="13" font-weight="600" fill="currentColor">S9</text>
+<text x="29" y="340" font-size="11" fill="currentColor">3 check groups</text>
+<line x1="128" y1="327.0" x2="160" y2="327.0" stroke="currentColor" stroke-width="1.2" marker-end="url(#ar)"/>
+<text x="144.0" y="368" font-size="9.5" text-anchor="middle" fill="currentColor" opacity=".75">flags</text>
+<rect x="160" y="300" width="108" height="54" rx="6" fill="none" stroke="currentColor" stroke-width="1.2"/>
+<text x="169" y="320" font-size="13" font-weight="600" fill="currentColor">S10</text>
+<text x="169" y="340" font-size="11" fill="currentColor">json / jsonl / html</text>
+<text x="308" y="323.0" font-size="11" fill="#7A2E1D">outlined stages assign and audit confidence: 0 to 1 at cell, row, table and relation level;</text>
+<text x="308" y="339.0" font-size="11" fill="#7A2E1D">low-confidence records are flagged in the output, never dropped or silently corrected</text>
+</svg>

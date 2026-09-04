@@ -1,0 +1,43 @@
+{
+  "state": "done",
+  "scenario": "reranker-tr-modernbert",
+  "started": "2026-08-29T19:59:57",
+  "duration_s": 82.7,
+  "platform": {
+    "platform": "macOS-15.4-arm64-arm-64bit",
+    "tesseract": "5.5.3",
+    "models": "cold"
+  },
+  "overrides": {
+    "linking": {
+      "cross_encoder_model": "ytu-ce-cosmos/modernbert-tr-reranker",
+      "cross_encoder_revision": "d6aabbe061f1bf6cb796e317ecb6d9b8f7b96c54"
+    }
+  },
+  "eval": {
+    "raw": "CELLS: total=201 correct=199 (99.0%) wrong_val=2 wrong_state=0 missing_cell=0 missing_row=0\n    ('stoklar', 'p2012', '77.543.097', '77.943.097')\n    ('finansal_yatirimlar', 'p2012', '4.224', '4,224')\nCELLS 95% CI (Clopper-Pearson, n=201, one document): [0.9645, 0.9988]\nEXTRACTED rows on reference pages not matched to any reference row: 0 (their 0 cells are outside the cell metric)\nRELATIONS: gold=7 predicted=17 tp=7 fp=10 fn=0 P=0.41 R=1.00\n  fp: [('bilanco_varlik.yatirim_amacli_gayrimenkuller', 'dipnot11_t1.alim_sonrasi_harcamalar'), ('bilanco_varlik.yatirim_amacli_gayrimenkuller', 'dipnot11_t1.makul_deger_kazanc'), ('bilanco_varlik.yatirim_amacli_gayrimenkuller', 'dipnot11_t1.stoklara_transferler'), ('bilanco_varlik.yatirim_amacli_gayrimenkuller', 'dipnot11_t2.alimlar'), ('gelir.yatirim_amacli_degerleme_farklari', 'dipnot11_t1.acilis'), ('gelir.yatirim_amacli_degerleme_farklari', 'dipnot11_t1.alim_sonrasi_harcamalar'), ('gelir.yatirim_amacli_degerleme_farklari', 'dipnot11_t1.kapanis'), ('gelir.yatirim_amacli_degerleme_farklari', 'dipnot11_t1.net_defter_degeri'), ('gelir.yatirim_amacli_degerleme_farklari', 'dipnot11_t1.stoklara_transferler'), ('gelir.yatirim_amacli_degerleme_farklari', 'dipnot11_t2.alimlar')]\n  fn: []\nRELATIONS exact one-sided 95% lower bounds (n=7): precision >= 0.212, recall >= 0.652\nCHECKS: 102 pass / 14 fail / 7 not_evaluable",
+    "cells": {
+      "total": 201,
+      "correct": 199,
+      "pct": 99.0,
+      "wrong_val": 2,
+      "wrong_state": 0,
+      "missing_cell": 0,
+      "missing_row": 0
+    },
+    "relations": {
+      "gold": 7,
+      "predicted": 17,
+      "tp": 7,
+      "fp": 10,
+      "fn": 0,
+      "precision": 0.41,
+      "recall": 1.0
+    },
+    "checks": {
+      "pass": 102,
+      "fail": 14,
+      "not_evaluable": 7
+    }
+  }
+}

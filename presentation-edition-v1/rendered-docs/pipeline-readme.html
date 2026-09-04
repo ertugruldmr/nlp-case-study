@@ -1,0 +1,758 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1"><title>ftlink: Finansal Tablo ve Dipnot İlişkilendirme</title>
+<style>
+:root{--navy:#071d49;--blue:#0b3b82;--ink:#17233d;--muted:#5b6b8c;--line:#d9e1ef;--bg:#f5f8fc}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.6 Inter,ui-sans-serif,system-ui,sans-serif}
+header{background:var(--navy);color:#fff;padding:14px 26px;display:flex;align-items:center;gap:14px;flex-wrap:wrap;position:sticky;top:0;z-index:2}
+header .src{color:#a9c5e9;font-size:12px;word-break:break-all}
+header a{color:#bfeaf4;text-decoration:none;font-size:12px;margin-left:auto;white-space:nowrap}
+main{max-width:860px;margin:0 auto;padding:28px 26px 80px;background:#fff;box-shadow:0 0 0 1px var(--line);min-height:100vh}
+h1,h2,h3,h4{color:var(--navy);line-height:1.25}
+h1{font-size:26px;border-bottom:2px solid var(--line);padding-bottom:10px}
+h2{font-size:20px;margin-top:34px;border-bottom:1px solid var(--line);padding-bottom:6px}
+h3{font-size:16px;margin-top:24px}
+code{background:#eef3fb;padding:1px 5px;border-radius:4px;font:13px/1.4 ui-monospace,SFMono-Regular,monospace}
+pre{background:#091a3b;color:#d7e8ff;padding:14px 16px;border-radius:8px;overflow:auto}
+pre code{background:none;padding:0;color:inherit}
+table{border-collapse:collapse;width:100%;margin:14px 0;font-size:13.5px}
+th,td{border:1px solid var(--line);padding:7px 10px;text-align:left;vertical-align:top}
+th{background:#edf3fb}
+blockquote{border-left:4px solid var(--blue);margin:14px 0;padding:2px 16px;color:var(--muted);background:#f2f7ff}
+a{color:var(--blue)}
+img{max-width:100%}
+</style></head><body>
+<header><b>ftlink: Finansal Tablo ve Dipnot İlişkilendirme</b><span class="src">../v0/README.md</span><a href="../../v0/README.md" target="_blank" rel="noopener">View raw source &#8599;</a></header>
+<main><h1 id="ftlink-finansal-tablo-ve-dipnot-iliskilendirme">ftlink: Finansal Tablo ve Dipnot İlişkilendirme</h1>
+<p><strong>Özet (TR).</strong> Taranmış (metin katmanı olmayan) Özak GYO 2012 KAP denetim raporundan özet
+finansal tabloları çıkaran, konfigürasyonda verilen dipnotun sayfasını otomatik olarak bulan,
+dipnot tablolarını okuyup özet kalemlerini dipnot satırlarıyla satır seviyesinde
+ilişkilendiren aşamalı bir boru hattı. Üç ilişkilendirme yaklaşımı birlikte çalışır ve
+karşılaştırılır (çapraz kodlayıcı, değer+rol kuralları, sözcüksel taban çizgisi;
+isteğe bağlı dördüncü: LLM seçici). Güven değerleri ham benzerlik değildir: hücre,
+satır, tablo ve ilişki seviyesinde, dokümanın kendisinden türetilen kontrol örnekleri
+üzerinde kalibre edilir. Doğrulama aşaması yapısal, biçimsel ve finansal kontrol
+gruplarını içerir ve bu dokümandaki iki gerçek OCR hatasını (rakam değişimi ve
+binlik/ondalık ayırıcı karışması) kendi başına yakalar. Aynı girdiyle iki çalıştırma bayt düzeyinde
+aynı çıktıyı üretir. Kurulum ve çalıştırma için Bölüm 1'e bakınız.</p>
+<p>A staged pipeline that extracts the summary financial tables from a scanned KAP audit
+report (Özak GYO, 31.12.2012), locates a configured footnote automatically, parses its
+tables, and links summary items to footnote rows with calibrated confidences and a
+self-checking validation stage.</p>
+<p>Key facts discovered by measurement and reflected in the design:</p>
+<ul>
+<li>The source PDF is a scan. All 95 pages are images with no text layer, so extraction
+  is OCR-based by necessity, and three of the notes pages (55 to 57) are rotated
+  landscape pages that need orientation recovery.</li>
+<li>The linking problem has two distinct physics: reconciliation links (a balance sheet
+  carrying amount against opening/closing/total rows, whose labels are dates and
+  roles, not item names) and item-semantic links (an income statement item against a
+  named movement row). No single signal solves both; the pipeline combines them.</li>
+</ul>
+<h2 id="1-setup-and-run">1. Setup and run</h2>
+<p>Prerequisites: Python 3.11+, <a href="https://docs.astral.sh/uv/">uv</a>, and tesseract with
+Turkish data:</p>
+<div class="codehilite" style="background: #f8f8f8"><pre style="line-height: 125%;"><span></span><code><span style="color: #3D7B7B; font-style: italic"># macOS                          # Debian/Ubuntu</span>
+brew<span style="color: #BBB"> </span>install<span style="color: #BBB"> </span>tesseract<span style="color: #BBB"> </span>tesseract-lang
+<span style="color: #BBB">                                 </span>sudo<span style="color: #BBB"> </span>apt<span style="color: #BBB"> </span>install<span style="color: #BBB"> </span>tesseract-ocr<span style="color: #BBB"> </span>tesseract-ocr-tur
+</code></pre></div>
+
+<p>Place the source document at <code>data/ozak_gyo_2012.pdf</code> (KAP download:
+<code>https://kap.org.tr/tr/api/file/download/33E83438337C023CE0530A4A622B5826</code>), then:</p>
+<div class="codehilite" style="background: #f8f8f8"><pre style="line-height: 125%;"><span></span><code>uv<span style="color: #BBB"> </span>sync<span style="color: #BBB"> </span>--frozen<span style="color: #BBB">          </span><span style="color: #3D7B7B; font-style: italic"># or: make setup</span>
+uv<span style="color: #BBB"> </span>run<span style="color: #BBB"> </span>ftlink<span style="color: #BBB"> </span>run<span style="color: #BBB"> </span>--config<span style="color: #BBB"> </span>configs/default.yaml<span style="color: #BBB">    </span><span style="color: #3D7B7B; font-style: italic"># or: make run</span>
+uv<span style="color: #BBB"> </span>run<span style="color: #BBB"> </span>pytest<span style="color: #BBB"> </span>-q<span style="color: #BBB">          </span><span style="color: #3D7B7B; font-style: italic"># unit tests</span>
+uv<span style="color: #BBB"> </span>run<span style="color: #BBB"> </span>python<span style="color: #BBB"> </span>eval/score.py<span style="color: #BBB">                        </span><span style="color: #3D7B7B; font-style: italic"># score against reference cells</span>
+uv<span style="color: #BBB"> </span>run<span style="color: #BBB"> </span>ftlink<span style="color: #BBB"> </span>run<span style="color: #BBB"> </span>--config<span style="color: #BBB"> </span>configs/alt_footnote.yaml<span style="color: #BBB">   </span><span style="color: #3D7B7B; font-style: italic"># footnote 12 demo (rotated pages)</span>
+uv<span style="color: #BBB"> </span>run<span style="color: #BBB"> </span>python<span style="color: #BBB"> </span>eval/determinism.py<span style="color: #BBB">   </span><span style="color: #3D7B7B; font-style: italic"># or: make determinism (two runs, diff outside the run block, exit 1 on drift)</span>
+uv<span style="color: #BBB"> </span>run<span style="color: #BBB"> </span>python<span style="color: #BBB"> </span>eval/calibration_loo.py<span style="color: #BBB">   </span><span style="color: #3D7B7B; font-style: italic"># or: make calibration (leave-one-out Brier, Venn-ABERS with and without own label)</span>
+</code></pre></div>
+
+<p>Outputs land in <code>outputs/</code>: <code>result.json</code> (canonical, full schema), <code>relations.jsonl</code>
+(one line per link, jq/pandas friendly), <code>report.html</code> (self-contained visual review,
+opens by double click). First run downloads two small Hugging Face models
+(about 950 MB on disk, fp32 safetensors plus tokenizers); subsequent runs are
+offline. For an ASSERTABLE offline
+property (air-gapped or regulated segments), set <code>HF_HUB_OFFLINE=1</code> after the
+first run: the loaders then refuse any network access and serve the pinned
+snapshots from the local cache.</p>
+<p>Re-run check on a second platform: the same commands were executed from the
+submission zip on a fresh x86_64 Ubuntu 22.04 machine (Python 3.13 through uv,
+tesseract 4.1.1 from apt, empty caches): 37/37 tests, the same evaluation numbers
+as on the macOS development machine (99.0 percent of reference cells, relation
+precision and recall 1.00, 103 checks pass / 4 fail / 6 not evaluable, the same two
+flagged corruption cells), and a byte-identical <code>result.json</code> (excluding the <code>run</code>
+block) across two consecutive runs. The first <code>make run</code> took 165 seconds cold,
+model downloads included.</p>
+<h2 id="2-pipeline-stages">2. Pipeline stages</h2>
+<p>Single-call whole-document conversion is rejected by design (and by the task). Stages:</p>
+<div class="codehilite" style="background: #f8f8f8"><pre style="line-height: 125%;"><span></span><code>S0<span style="color: #BBB"> </span>config<span style="color: #BBB">          </span>summary<span style="color: #BBB"> </span>page<span style="color: #BBB"> </span><span style="color: #008000">range</span><span style="color: #BBB"> </span><span style="color: #A2F; font-weight: bold">and</span><span style="color: #BBB"> </span>footnote<span style="color: #BBB"> </span>number<span style="color: #BBB"> </span>come<span style="color: #BBB"> </span>from<span style="color: #BBB"> </span>YAML,<span style="color: #BBB"> </span>never<span style="color: #BBB"> </span>code
+S1<span style="color: #BBB"> </span>render<span style="color: #BBB"> </span><span style="color: #666">+</span><span style="color: #BBB"> </span>OCR<span style="color: #BBB">    </span>PyMuPDF<span style="color: #BBB"> </span><span style="color: #666">300</span><span style="color: #BBB"> </span>dpi<span style="color: #BBB"> </span>grayscale<span style="color: #BBB"> </span><span style="color: #666">-&gt;</span><span style="color: #BBB"> </span>tesseract<span style="color: #BBB"> </span>TSV<span style="color: #BBB"> </span>(word<span style="color: #BBB"> </span>boxes<span style="color: #BBB"> </span><span style="color: #666">+</span><span style="color: #BBB"> </span>confidences)
+<span style="color: #BBB">                   </span>with<span style="color: #BBB"> </span>automatic<span style="color: #BBB"> </span>orientation<span style="color: #BBB"> </span>recovery<span style="color: #BBB"> </span><span style="color: #008000; font-weight: bold">for</span><span style="color: #BBB"> </span>rotated<span style="color: #BBB"> </span>pages
+S1b<span style="color: #BBB"> </span>verification<span style="color: #BBB">   </span>every<span style="color: #BBB"> </span>numeric<span style="color: #BBB"> </span>cell<span style="color: #BBB"> </span>crop<span style="color: #BBB"> </span><span style="color: #008000; font-weight: bold">is</span><span style="color: #BBB"> </span>re<span style="color: #666">-</span>read<span style="color: #BBB"> </span>by<span style="color: #BBB"> </span>a<span style="color: #BBB"> </span>second<span style="color: #BBB"> </span>OCR<span style="color: #BBB"> </span>engine
+<span style="color: #BBB">                   </span>(RapidOCR,<span style="color: #BBB"> </span>ONNX);<span style="color: #BBB"> </span>digit<span style="color: #BBB"> </span>disagreement<span style="color: #BBB"> </span>caps<span style="color: #BBB"> </span>the<span style="color: #BBB"> </span>cell<span style="color: #BBB"> </span>confidence<span style="color: #666">.</span>
+<span style="color: #BBB">                   </span>Flag<span style="color: #BBB"> </span>over<span style="color: #BBB"> </span>fix:<span style="color: #BBB"> </span>values<span style="color: #BBB"> </span>are<span style="color: #BBB"> </span>never<span style="color: #BBB"> </span>silently<span style="color: #BBB"> </span>replaced,<span style="color: #BBB"> </span>the<span style="color: #BBB"> </span>financial
+<span style="color: #BBB">                   </span>checks<span style="color: #BBB"> </span>arbitrate
+S2<span style="color: #BBB"> </span>page<span style="color: #BBB"> </span>detection<span style="color: #BBB">  </span>configured<span style="color: #BBB"> </span><span style="color: #008000">range</span><span style="color: #BBB"> </span>verified<span style="color: #BBB"> </span>by<span style="color: #BBB"> </span>check:<span style="color: #BBB"> </span>a<span style="color: #BBB"> </span>configured<span style="color: #BBB"> </span>page<span style="color: #BBB"> </span>yielding
+<span style="color: #BBB">                   </span>no<span style="color: #BBB"> </span>coherent<span style="color: #BBB"> </span>financial<span style="color: #BBB"> </span>table<span style="color: #BBB"> </span>fails<span style="color: #BBB"> </span>STR_SUMMARY_RANGE,<span style="color: #BBB"> </span><span style="color: #A2F; font-weight: bold">and</span>
+<span style="color: #BBB">                   </span>STR_FOOTNOTE_REFS_PRESENT<span style="color: #BBB"> </span>fails<span style="color: #BBB"> </span>when<span style="color: #BBB"> </span>no<span style="color: #BBB"> </span>summary<span style="color: #BBB"> </span>row<span style="color: #BBB"> </span>references
+<span style="color: #BBB">                   </span>the<span style="color: #BBB"> </span>configured<span style="color: #BBB"> </span>footnote<span style="color: #BBB"> </span>(misconfiguration<span style="color: #BBB"> </span>fails<span style="color: #BBB"> </span>loudly)
+S3<span style="color: #BBB"> </span>table<span style="color: #BBB"> </span>structure<span style="color: #BBB"> </span>deterministic<span style="color: #BBB"> </span>x<span style="color: #666">-</span>clustering<span style="color: #BBB"> </span>over<span style="color: #BBB"> </span>word<span style="color: #BBB"> </span>boxes<span style="color: #BBB"> </span>(details<span style="color: #BBB"> </span>below)
+S3b<span style="color: #BBB"> </span>percent<span style="color: #BBB"> </span>rescue<span style="color: #BBB"> </span>rate<span style="color: #BBB"> </span>rows<span style="color: #BBB"> </span>(percent<span style="color: #BBB"> </span>cells)<span style="color: #BBB"> </span>are<span style="color: #BBB"> </span>re<span style="color: #666">-</span>read<span style="color: #BBB"> </span>per<span style="color: #BBB"> </span>cell<span style="color: #BBB"> </span>with<span style="color: #BBB"> </span>the<span style="color: #BBB"> </span>engines
+<span style="color: #BBB">                   </span>swapped,<span style="color: #BBB"> </span>because<span style="color: #BBB"> </span>tesseract<span style="color: #BBB"> </span>cannot<span style="color: #BBB"> </span>read<span style="color: #BBB"> </span>the<span style="color: #BBB"> </span><span style="color: #666">%</span><span style="color: #BBB"> </span>glyph<span style="color: #BBB"> </span>on<span style="color: #BBB"> </span>this<span style="color: #BBB"> </span>scan
+<span style="color: #BBB">                   </span><span style="color: #008000; font-weight: bold">class</span><span style="color: #BBB"> </span>(measured<span style="color: #BBB"> </span><span style="color: #666">0/6</span>)<span style="color: #BBB"> </span><span style="color: #008000; font-weight: bold">while</span><span style="color: #BBB"> </span>RapidOCR<span style="color: #BBB"> </span>reads<span style="color: #BBB"> </span>all<span style="color: #BBB"> </span>six<span style="color: #BBB"> </span>rate<span style="color: #BBB"> </span>cells
+<span style="color: #BBB">                   </span>verbatim;<span style="color: #BBB"> </span>tesseract<span style="color: #BBB"> </span>becomes<span style="color: #BBB"> </span>the<span style="color: #BBB"> </span>cross<span style="color: #666">-</span>check<span style="color: #BBB"> </span>vote
+S4<span style="color: #BBB"> </span>normalization<span style="color: #BBB">   </span>Turkish<span style="color: #BBB"> </span>numeric<span style="color: #BBB"> </span>grammar,<span style="color: #BBB"> </span>three<span style="color: #666">-</span>state<span style="color: #BBB"> </span>cells,<span style="color: #BBB"> </span>label<span style="color: #BBB"> </span>cleanup,<span style="color: #BBB"> </span>row<span style="color: #BBB"> </span>roles
+S5<span style="color: #BBB"> </span>footnote<span style="color: #BBB"> </span>locate<span style="color: #BBB"> </span>TOC<span style="color: #BBB"> </span>parse<span style="color: #BBB"> </span><span style="color: #666">-&gt;</span><span style="color: #BBB"> </span>printed<span style="color: #666">-</span>to<span style="color: #666">-</span>PDF<span style="color: #BBB"> </span>offset<span style="color: #BBB"> </span><span style="color: #666">-&gt;</span><span style="color: #BBB"> </span>verify;<span style="color: #BBB"> </span>bounded<span style="color: #BBB"> </span>scan<span style="color: #BBB"> </span>fallback
+S6<span style="color: #BBB"> </span>candidates<span style="color: #BBB">      </span><span style="color: #008000">char</span><span style="color: #BBB"> </span>n<span style="color: #666">-</span>gram<span style="color: #BBB"> </span>TF<span style="color: #666">-</span>IDF<span style="color: #BBB"> </span><span style="color: #666">+</span><span style="color: #BBB"> </span>dense<span style="color: #BBB"> </span>embeddings<span style="color: #BBB"> </span><span style="color: #666">+</span><span style="color: #BBB"> </span>value<span style="color: #BBB"> </span>anchor,<span style="color: #BBB"> </span>fused<span style="color: #BBB"> </span>with<span style="color: #BBB"> </span>RRF
+S7<span style="color: #BBB"> </span>linking<span style="color: #BBB">         </span>three<span style="color: #BBB"> </span>approaches<span style="color: #BBB"> </span>(cross<span style="color: #666">-</span>encoder,<span style="color: #BBB"> </span>value<span style="color: #666">+</span>role<span style="color: #BBB"> </span>rules,<span style="color: #BBB"> </span>lexical<span style="color: #BBB"> </span>baseline)
+S8<span style="color: #BBB"> </span>confidence<span style="color: #BBB">      </span>multi<span style="color: #666">-</span><span style="color: #008000; font-weight: bold">signal</span><span style="color: #BBB"> </span>fusion<span style="color: #BBB"> </span>calibrated<span style="color: #BBB"> </span>on<span style="color: #BBB"> </span>document<span style="color: #666">-</span>derived<span style="color: #BBB"> </span>control<span style="color: #BBB"> </span>samples
+S9<span style="color: #BBB"> </span>validation<span style="color: #BBB">      </span>structural,<span style="color: #BBB"> </span>format<span style="color: #BBB"> </span><span style="color: #A2F; font-weight: bold">and</span><span style="color: #BBB"> </span>financial<span style="color: #BBB"> </span>check<span style="color: #BBB"> </span>groups;<span style="color: #BBB"> </span>flags<span style="color: #BBB"> </span>into<span style="color: #BBB"> </span>output
+S10<span style="color: #BBB"> </span>output<span style="color: #BBB">         </span>result<span style="color: #666">.</span>json<span style="color: #BBB"> </span><span style="color: #666">+</span><span style="color: #BBB"> </span>relations<span style="color: #666">.</span>jsonl<span style="color: #BBB"> </span><span style="color: #666">+</span><span style="color: #BBB"> </span>report<span style="color: #666">.</span>html,<span style="color: #BBB"> </span>deterministic<span style="color: #BBB"> </span>IDs
+</code></pre></div>
+
+<h3 id="table-structure-without-ruling-lines-s3">Table structure without ruling lines (S3)</h3>
+<p>The tables are borderless, so structure comes from geometry: money tokens are
+right-aligned, so value columns are clustered on the right edge of numeric tokens;
+dash marks are short and would create phantom columns, so they are assigned in a
+second pass by column-center proximity; the footnote-reference column is a cluster of
+small integers left of the values; the row label is what remains; indentation depth of
+the label x-origin encodes the item hierarchy; stacked header lines above the first
+data row provide period columns (year tokens) or category columns (Arazi ve Arsalar /
+Binalar / Toplam). Prose paragraphs with inline numbers are rejected by a table
+coherence test (repeated column structure), with an explicit exception for rate
+tables, which are kept and flagged rather than dropped.</p>
+<p>Table titles are not in the table: on this document class the real titles print as
+page-level headings above the table bbox, while the in-table header lines carry only
+the stacked period columns. So the title comes from the heading block above the
+table: on any page, the nearest note-number-prefixed line above the table (a
+note number followed by its heading text; OCR sometimes splits them into two
+same-height lines that are re-joined) wins; when no such line exists, as on the
+summary pages, the topmost multi-word uppercase block that is not the configured
+company name (the statement heading) is used. A page with no qualifying heading
+yields an empty title: honest absence beats a prose fragment in a required field.
+Titles are deliberately never consumed by the matching stages (Section 3), so this
+derivation cannot move any link or confidence.</p>
+<p>Text-only lines inside a table body are resolved by an indent rule measured on this
+scan: a wrapped long label prints its continuation row indented under the fragment
+(about 18 px), while a group header (Dönem Karı Dağılımı) is followed by rows at the
+same left edge. So a cell-less labeled line merges into the next row only when that
+row indents past it; otherwise it becomes a value-less group-header row that keeps
+the hierarchy intact.</p>
+<h3 id="rate-rows-the-engines-swap-roles-s3b">Rate rows: the engines swap roles (S3b)</h3>
+<p>The valuation-assumptions table (İskonto oranı, Doluluk oranı, Kira artış oranı)
+defeats the primary engine in a specific, measured way: tesseract renders the %
+glyph as a digit or drops it (%9 becomes 49, %86,6 becomes 486,6) at every dpi and
+psm combination tried, while the second engine reads all six rate cells verbatim
+from the same crops. So for rate rows only, RapidOCR becomes the reader and
+tesseract the verifier: each value-column crop is re-read by RapidOCR, then
+tesseract re-reads it (psm 7, symbol whitelist) as a cross-check vote. Tesseract's
+corruption is a leading-character artifact, so digit agreement is tested
+exact-or-suffix, both readings land in the cell's confidence components, and a
+disagreement caps confidence instead of being silently arbitrated. Rate lines whose
+value tokens all failed the money test (and therefore never became rows) are
+re-collected from the OCR lines below the table, and a % glyph that fused into a
+small integer and masqueraded as a footnote reference is removed. A dedicated
+format check (FMT_PERCENT_BOUNDS) then requires percent values to lie in [0, 100],
+which is exactly the class the corruption produces (486,6).</p>
+<p>The same corruption also hits the LABEL side: the printed "(%)" unit marker in
+these row labels is read as (©), (90) or (0). <code>label_norm</code> strips that trailing
+junk token (it carries no label semantics; alphabetic parentheticals such as
+"(net)" are never touched), while <code>label_raw</code> preserves the raw read, so the
+output keeps both the clean and the honest version of every rate-row label.</p>
+<h3 id="footnote-location-s5">Footnote location (S5)</h3>
+<p>Primary path: find the İÇİNDEKİLER page, parse note entries, resolve the printed-page
+to PDF-page offset from a page footer folio, jump, and verify the heading on the
+target page. OCR damages the TOC in measured ways, and each has a countermeasure:</p>
+<ul>
+<li>note numbers mangle ("NOT 11" reads as "NOT1lI"), so entries are renumbered by their
+  sequence position, which is immune to glyph damage;</li>
+<li>dot leaders eat leading page digits ("49-50" reads as "9-50"), so a printed page
+  that violates the non-decreasing page order is distrusted and replaced by a bounded
+  scan over the window implied by its neighbors;</li>
+<li>the final answer is always verified by re-reading the target page heading, and the
+  footnote's full page set is the contiguous run of pages carrying its heading.</li>
+</ul>
+<p>Fallback path when the TOC is unusable: scan the notes range for the heading. On this
+document, footnote 11 resolves to PDF pages 53 and 54 (bounded scan, about 14 s) and
+footnote 12 to pages 55 to 57 (direct TOC hit, about 17 s, all three pages rotated).</p>
+<h2 id="3-models-what-why-settings">3. Models: what, why, settings</h2>
+<table>
+<thead>
+<tr>
+<th>Stage</th>
+<th>Model</th>
+<th>Why</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>S6 dense channel</td>
+<td><code>intfloat/multilingual-e5-small</code> (118M, MIT)</td>
+<td>Strongest small multilingual embedder on the Turkish portions of the MTEB family per parameter at selection time (a leaderboard reading, not re-verifiable from this repository; the binding evaluation is in-document: the dense channel carries the paraphrase pairs the lexical channels miss). Measured to be non-load-bearing: swapping in <code>paraphrase-multilingual-MiniLM-L12-v2</code> (same size class) via the two config keys leaves the accepted relation set identical and moves confidences by at most 0.0009, so the channel design, not the specific embedder, carries the result. <code>query:</code> prefix on both sides, the documented convention for symmetric matching. Encoding about 40 short labels costs well under a second on CPU.</td>
+</tr>
+<tr>
+<td>S7 approach A</td>
+<td><code>cross-encoder/mmarco-mMiniLMv2-L12-H384-v1</code> (118M, Apache-2.0)</td>
+<td>Ranks all reference links into the top 5 with the serialization below, at single-digit milliseconds per pair on CPU (re-timed on the dev machine: 3 ms batched, 8 ms single-pair; machine-dependent). Turkish is not among mMARCO's 14 languages (English plus 13 machine-translated targets), so the Turkish behavior is zero-shot transfer through the multilingual MiniLMv2 backbone distilled from XLM-R; that is one more reason the ranking claim is measured on this document instead of read off a model card. Larger rerankers (bge-reranker-v2-m3, 568M) were evaluated and matched but not beaten at rank level, so the small model ships and the large one remains a config swap.</td>
+</tr>
+</tbody>
+</table>
+<p>Inference settings: CPU, fp32, no sampling anywhere (cross-encoders and embedders are
+deterministic forward passes). Two pinning layers, because they pin different
+things: the uv lockfile pins PACKAGE versions, and the model WEIGHTS are pinned to
+explicit Hugging Face snapshot revision hashes in the config, passed to every model
+loader, so a re-published model card cannot change what a fresh machine downloads.
+Models with
+non-commercial licenses (jina rerankers and embeddings) were evaluated on paper and
+excluded: a bank cannot ship CC-BY-NC.</p>
+<h3 id="input-construction-measured-not-assumed">Input construction (measured, not assumed)</h3>
+<p>The cross-encoder pair text is <code>label | value ; value</code> for both sides, with amounts
+formatted with Turkish dot grouping exactly as printed. This is the single most
+important input decision: movement-table rows are labeled by dates and roles
+("31 Aralık 2012 itibari ile kapanış bakiyesi"), so with labels alone the correct
+targets rank near the bottom; with values in the pair text they rank 1 to 5 out of
+19. The measurement is re-runnable from the shipped output:
+<code>uv run python eval/ablation.py</code> ranks every reference link under both
+serializations and reports R@5 = 1/7 labels-only (gold targets at ranks 9 to 19)
+against 7/7 with values (ranks 1 to 5), prints the top-1 margin of every query, and
+adds the paired view: on the 7 reference links, 6 are discordant (hit with values,
+miss without) and none the other way, exact McNemar two-sided p = 0.031, which is
+directional evidence on one document, not a population claim. One convention favours
+the labels-only condition: when two footnote rows print identical labels (the 2012
+and 2011 movement tables), the best rank across the twins is credited, a tie that
+labels-only could not break on its own.
+Within one footnote the table title is deliberately NOT added to candidate texts: it
+is constant across all candidates, adds no discrimination, and measurably degrades
+the easy pairs.</p>
+<h3 id="chunking-of-long-documents-and-large-tables">Chunking of long documents and large tables</h3>
+<p>The document is processed page by page (render, OCR, structure), so document length
+only affects the locate stage, which reads the TOC instead of scanning when it can.
+Tables are chunked naturally by the line/row structure; no table in scope approaches
+model context limits because every model input is a single row pair, never a whole
+table. Rotated wide tables (footnote 12) are handled by orientation recovery, not by
+special-casing.</p>
+<h2 id="4-candidate-generation-and-ranking-s6">4. Candidate generation and ranking (S6)</h2>
+<p>Four channels, fused with weighted Reciprocal Rank Fusion (k = 10):</p>
+<ul>
+<li>char_wb 2-4 TF-IDF cosine over normalized labels: robust to Turkish agglutination
+  and residual OCR noise, and it carries the morpheme overlap ("değerleme" against
+  "değer değişikliği") that word-level matching misses;</li>
+<li>token-set fuzzy ratio (rapidfuzz): a second, word-level lexical voter. Candidate
+  generation is recall-oriented, so a partially redundant voter is harmless here;
+  this is a different job from approach C, which uses the same similarity as an
+  ACCEPTANCE baseline in the linking stage;</li>
+<li>multilingual-e5-small cosine: semantic channel for paraphrased items;</li>
+<li>value anchor (weight 3): equal absolute amounts between the item's period values and
+  a candidate row's values. High amount multiplicity is usually a legitimate
+  reconciliation chain, not noise, so anchors are period-scoped and later gated by row
+  roles instead of being stop-listed.</li>
+</ul>
+<p>The candidate set per summary item is the RRF top 8 plus every anchor hit. Candidate
+recall on the reference links is 7 of 7. The stage's constants are
+sensitivity-checked by config re-runs on this document, not argued: <code>top_k</code> 8 to 2,
+<code>anchor_weight</code> 3 to 0, and <code>rrf_k</code> 10 to 60 (the RRF paper's default) each leave
+the accepted relation set identical, because the anchor-union rule and rank-1
+admission carry the links. One honest side effect is part of the result: at
+<code>top_k</code> 2 the calibrator's negative pool starves (22 to 2), so calibration drops
+to fallback mode and every relation ships force-flagged; beam width is also a
+calibration resource, and the system discloses the change instead of hiding it.
+Every re-run is one config edit away for the grader.</p>
+<h2 id="5-linking-approaches-and-thresholds-s7">5. Linking approaches and thresholds (S7)</h2>
+<ul>
+<li>A, cross-encoder: accepts when the sigmoid score clears <code>linking.accept_threshold</code>
+  (0.5), or when the pair is the top-ranked candidate for its summary item and clears
+  the coarse rank-1 floor <code>linking.rank1_min_score</code> (0.2). Rank-aware acceptance is
+  deliberate: absolute sigmoid scales vary across rerankers, rank ordering is the
+  validated signal, and the floor only guards rank-1 admission against noise-level
+  scores; both numbers are config, and threshold re-runs at 0.2 and 0.8 leave the
+  accepted set unchanged on this document.</li>
+<li>B, value + role rules: accepts when a period-scoped value match exists AND the
+  footnote row role is consistent (stock values bind to opening/closing/net book
+  value/total rows; flow values bind to movement rows). Roles come from five
+  deterministic label rules. Fully explainable, no ML.</li>
+<li>
+<p>C, lexical baseline: rapidfuzz token-set ratio over Turkish-lowercased labels
+  (the OCR-junk strip of <code>label_norm</code> applies to the TF-IDF channel only; C and the
+  fuzzy candidate channel see the raw label after Turkish lowercasing), threshold
+  <code>linking.lexical_threshold</code> (0.75). Kept as the deliberately insufficient
+  baseline. On this document it accepts nothing, and the insufficiency is
+  measured in BOTH directions by a config re-run: at a lowered bar of 0.4 it
+  admits three false links (precision drops to 0.70), all three of which arrive
+  with calibrated confidences of 0.044 to 0.048 and the low-confidence flag.
+  Word-level matching does not merely underperform here; it injects garbage the
+  moment it is loosened, and the calibration layer prices that garbage correctly.</p>
+</li>
+<li>
+<p>D, LLM select (optional, <code>linking.llm.enabled</code>, off by default): one call per
+  summary item to any OpenAI-compatible endpoint; the model sees all candidates and
+  selects related rows under a strict JSON schema. The prompt is Turkish: the summary
+  item's label and per-period values, then one line per candidate (<code>id | table hint |
+  row label | values</code>), with the instruction to select, per period, every row carrying
+  the same amount (opening, closing, net book value and total rows included) and to
+  leave out anything uncertain; the reply is JSON with the selected candidate ids.
+  When the tier is enabled, every
+  response is written to <code>cache/llm_calls.jsonl</code> keyed by a prompt hash, and later
+  runs replay the cache offline and byte-identically, so determinism never depends
+  on provider seed behavior. The repository ships with the tier disabled and
+  therefore without a cache file; enabling it creates the cache on first run (the
+  cache-replay and unreachable-endpoint paths are covered by unit tests). Local
+  measurement (35B-class local model, temperature 0): precision 1.00 on both
+  items, identical picks across repeated runs; the default <code>linking.llm.model</code>
+  value is an endpoint-name placeholder and carries no measurement. D is
+  decision-level and stays OUTSIDE the calibrated fusion: a pair accepted by D
+  alone ships with agreement <code>d_only</code>, its confidence still comes from the fused
+  channels (low by construction), so it always arrives flagged for review, and
+  D's acceptances never feed the calibrator's control set.</p>
+</li>
+</ul>
+<p>Fallback chain: if the cross-encoder model cannot load (offline first run, wrong
+platform), approach A scores zero and accepts nothing, the run continues on
+approaches B and C, the run block records <code>models_loaded.cross_encoder: false</code>,
+and every relation ships force-flagged because the approach comparison is
+degraded (the path is unit-tested);
+if OCR yields no words for a page, orientation recovery retries three rotations, and
+a page that stays empty contributes no words, which on a configured summary page
+fails STR_SUMMARY_RANGE loudly (each tesseract call is also bounded by a timeout, so
+one hung page cannot stall the run); if the LLM endpoint is unreachable, approach D
+degrades to no-op without failing the run.</p>
+<h2 id="6-confidence-s8">6. Confidence (S8)</h2>
+<p>Confidence is never a raw model similarity. Levels:</p>
+<ul>
+<li>cell: OCR word confidence times numeric-parse confidence, times 1.05 (capped at 1.0)
+  when the second engine reads the same digits and capped at 0.4 when it disagrees. A
+  repaired number is flagged <code>repaired</code> and capped at 0.7 (one lost thousands separator
+  regrouped) or 0.5 (the heavier regroup).</li>
+<li>row: mean of cell confidences, with a penalty for structural doubts (missing label).</li>
+<li>table: mean row confidence, discounted by header/period completeness.</li>
+</ul>
+<p>Cell, row and table confidences are ordinal compositions (OCR word confidence, parse
+confidence, engine agreement, structural penalties), not calibrated probabilities; only
+the relation level is calibrated. On this document the two wrong cells rank 4th and
+17th lowest of 193 by cell confidence: the digit substitution is caught by the cell
+layer itself (engine disagreement, 0.40), the separator corruption is not (both engines
+agree on the digits, 0.85) and is caught only by the parent-sum residue, which is why
+the financial check group exists. The other three cells at or below 0.5 on this run are
+correct values with low OCR confidence (a group total, a repaired footnote cell, a
+per-share figure): cell-level flags are recall-oriented, and precision comes from the
+check groups, not from the cell score.
+- relation: a weighted fusion of the three approach scores (0.4 cross-encoder, 0.4
+  value rules, 0.2 lexical) mapped through a logistic function whose two parameters
+  are fitted at run time on control samples derived from the document itself, as the
+  task statement permits: positives are decisions that some approach accepted and
+  whose value reconciliation check passes; negatives are candidates all approaches
+  rejected. Decisions that some approach accepted but that do NOT reconcile enter
+  neither pool: they are the hard region, and the calibrator must not learn it from
+  its own acceptances. The fit uses Platt's original target smoothing (t+ = (n+ + 1)/(n+ + 2)),
+  which keeps it finite under perfectly separated controls, the normal situation at
+  this control-set size. The family choice is not taste: on perfectly separated
+  controls (which STR_CALIBRATION_CONTROLS discloses) an isotonic fit provably
+  collapses to a two-plateau step function whose accepted-side value is exactly
+  1.0, and an unsmoothed logistic saturates the same way, so of the standard
+  small-N families only the smoothed Platt map stays graded. The Platt map's own
+  leave-one-out stability SHIPS in the output (loo_max_delta_p in the
+  STR_CALIBRATION_CONTROLS detail), and so do the fitted parameters (<code>platt_a</code>,
+  <code>platt_b</code>), which makes the map itself monitorable across documents without labels; the isotonic side of the comparison was a
+  development measurement on the same 33 controls, where isotonic also moved
+  more under leave-one-out. A leave-one-out Brier score is one command away
+  (<code>make calibration</code>, eval/calibration_loo.py): on the 33 controls the smoothed
+  Platt map scores 0.009 against 0.222 for the constant base rate and 0.058 for the
+  raw fused score, and the leave-one-out reliability quartiles hold 0 positives in
+  the two lowest quartiles (mean prediction about 0.05), 2 of 8 in the third (mean
+  0.24) and 9 of 9 in the top (mean 0.92). These are the calibrator's own controls,
+  so the number says the map is coherent on this document, not that it transfers.
+  If the control set still degenerates (fewer than three positives or three
+  negatives, or a non-finite fit) the mapping falls back to fixed parameters a = 6,
+  b = -3 (a steep map through 0.5 at a fused score of 0.5, ordinal only, never read as
+  a probability) and says so in <code>confidence_components.calibration_fitted</code>
+  (1.0 = fitted, 0.0 = fallback; kept numeric because every component in that
+  dict is a float, and the authoritative mode string ships in the
+  STR_CALIBRATION_CONTROLS check detail).</p>
+<p>The control set is enlarged beyond the summary tables by <code>confidence.
+extra_control_pages</code> (default: the cash-flow statement, pages 9 and 10), whose rows
+also reference the configured footnote with sign-flipped amounts. Those rows run
+through the same candidate and linking machinery but only feed the calibrator; they
+never appear in the output. On this document that yields 11 positives and 22
+negatives, a fitted (not fallback) calibration, and the STR_CALIBRATION_CONTROLS
+check reports the counts.</p>
+<p>Validation feedback is saturation-free by construction: a passing value
+reconciliation shrinks the remaining doubt by 15 percent (1 - 0.85 x (1 - p), so a
+calibrated probability never reaches 1.0); a failing one debits the probability to
+60 percent; not-evaluable applies a mild debit (a factor of 0.9).</p>
+<p>Three properties of this construction are measured, not asserted:</p>
+<ul>
+<li>Stability: the STR_CALIBRATION_CONTROLS check reports a jackknife over the
+  control set (refit with each control point left out); on this document the worst
+  movement of any calibrated confidence is 0.037 (<code>loo_max_delta_p</code>).</li>
+<li>Weight sensitivity: rerunning with the lexical channel zeroed (weights
+  0.5/0.5/0.0 instead of 0.4/0.4/0.2) leaves the accepted relation set and the
+  confidence ORDERING identical and moves confidences by at most 0.02: the
+  runtime-refit mapping absorbs the hand weights, so no fragile information hides
+  in them.</li>
+<li>Guarded circularity: the controls are label-free but not model-free, so the
+  positive rule deliberately requires a second signature the models cannot
+  produce: an arithmetic value reconciliation of the document itself. EVERY
+  positive, consensus included, requires that signature (enforced in code, not
+  just described), and the optional LLM tier's acceptances never enter the
+  control set. Negatives need no arithmetic at all (rejected by every approach). The
+  reconciliation signature itself is period-agnostic by design (a balance-sheet
+  amount legitimately reconciles to the other year's movement table: opening equals
+  prior closing), so period discipline lives in the anchor channel and in the
+  relation's <code>period_scope</code>, not in the signature. Coincidental value collisions are
+  bounded by period-scoping and role gates on the anchor channel. One consequence is
+  stated plainly: approach B's acceptance test and the reconciliation signature are the
+  same arithmetic (a period-scoped value match), so every B acceptance is a positive
+  control and the perfect separation of the controls is partly structural, not evidence
+  of model skill. The fitted map therefore certifies value-anchored links. A link with
+  no value match cannot reconcile, takes the 0.9 not-evaluable factor, and on this
+  document's map needs a cross-encoder score above roughly 0.73 (with a typical lexical
+  score of 0.4) to clear the 0.5 operating point: the design is conservative on
+  text-only links by construction, which is the intended behavior for a reviewer queue.</li>
+</ul>
+<p>The low-confidence flag at 0.5 is a demonstration operating point, not a claim
+about costs: the calibrated scale is the deliverable, and a consumer derives their
+own threshold from costs without refitting anything. The derivation: reviewing a
+relation costs c_review; accepting it unreviewed costs (1 - p) x c_miss in
+expectation, so review whenever (1 - p) x c_miss exceeds c_review, that is,
+whenever p &lt; 1 - c_review / c_miss. Worked example: review cost 1, miss cost 20
+gives a threshold of 0.95, so almost everything gets reviewed, which is the sane
+behavior when misses are twenty times as expensive. The threshold RISES with the
+miss cost. That portability is the practical difference between shipping
+calibration and shipping one tuned threshold.</p>
+<p>Two flag semantics are deliberate: a relation is flagged when its calibrated
+probability sits below the threshold OR when the calibration mode is fallback,
+because a fallback-mode number is ordinal, not probabilistic, and must always
+reach a reviewer regardless of where it lands on the scale. The footnote-12 demo
+shows this firing: its single cross-note relation scores 0.53 under fallback
+calibration and ships flagged.</p>
+<p>Each relation also reports, whenever the control set holds at least three positives
+and three negatives (below that the interval is omitted and the fallback rule flags
+the relation anyway), a Venn-ABERS interval <code>[venn_abers_p0, venn_abers_p1]</code>
+in its components: two isotonic fits over the control set with the test point
+appended as a negative and as a positive (Vovk and Petej 2014). The interval width
+is the honest statement of how much the calibration itself can be trusted at this
+control-set size; on this document the weakest reconciliation link reports
+[0.50, 1.00] while the consensus fair-values link reports [0.90, 1.00], which is
+exactly the ordering a reviewer should act on. One caveat is stated rather than
+hidden: the controls are the emitted decisions themselves, so each interval is
+computed with the relation's own control label present. The same script reports a
+leave-self-out variant (own label removed before the two isotonic fits): the weakest
+link widens from [0.50, 1.00] to [0.00, 1.00] and the consensus link moves from
+[0.90, 1.00] to [0.89, 1.00]. The weakest link's lower bound rests on its own label,
+which is why the interval is presented as a review-ordering device and a disclosure
+of control-set thinness, not as a coverage guarantee.</p>
+<p>Every relation carries its components, so a reviewer can see exactly what produced
+each number. Relations below 0.5 are flagged <code>low_confidence: true</code> in the output.</p>
+<h2 id="7-validation-s9-and-results-on-this-document">7. Validation (S9) and results on this document</h2>
+<p>Three groups, with an explicit fourth status: a check that cannot be evaluated
+reports <code>not_evaluable</code> and never silently passes or treats a missing operand as
+zero.</p>
+<p>Structural: period columns present and in the document's descending year order;
+footnote references within plausible note-number range; located footnote heading
+verified against the configured number (the binding of a reference to its row is
+verified indirectly: REL_COVERAGE plus FIN_RECONCILE require every row carrying the
+configured reference to produce a value-reconciled link; there is no separate
+reference-on-the-right-row check); and per-item link coverage (REL_COVERAGE):
+every summary row that references the configured footnote must produce at least
+one relation, so a silent linking loss on a referencing item (for example a
+unit-scale mismatch killing the value anchor while the text channels score near
+zero) ships as a failing check, never invisibly.</p>
+<p>Two failure styles are deliberate. A configured footnote that cannot be located
+aborts the run with a clean error and exit code 2 (there is no meaningful partial
+output without the target note), whereas a misconfigured summary page range ships
+with failing structural checks, because a partially wrong page set still yields
+inspectable tables and the checks say exactly which pages are wrong.</p>
+<p>Format: repaired-cell flagging (FMT_REPAIRED_CELLS); the dash / empty / zero three-state
+legality (FMT_THREE_STATE), which is a type-level guarantee of the output model surfaced as
+a check, so it passes by construction and exists for visibility, not detection;</p>
+<p>Format also includes sign legality (a row labeled "(-)" must not carry a positive
+value) and the document-level second-engine agreement summary. The sign check keys on
+the printed "(-)" marker; on this document one such marker is OCR-read as "(&lt;9)"
+(Pazarlama, Satış ve Dağıtım Giderleri), so that row is not checked (its values are
+negative anyway). A stricter version would treat any corrupted trailing parenthesised
+token as a candidate marker and report not_evaluable.</p>
+<p>Financial: movement roll-forward (opening + flows = closing, per column); row-wise
+category sums (Arazi + Binalar = Toplam); parent sums over the extracted hierarchy;
+grand totals checked against member-set hypotheses with an exact, pre-enumerated
+rule (the hypotheses are structural and fixed in advance: same-indent members,
+members-with-children, and same-indent with aggregate rows dropped when a running
+sum of subsequent members reproduces them; a hypothesis is evaluable only when
+none of its member cells is missing and no fractional per-share row is mixed in;
+the check passes when at least one evaluable hypothesis reproduces the total, the
+detail names how many did, it fails when none does, and it reports not_evaluable
+when no hypothesis is evaluable, so ambiguity never converts into a silent pass);
+an income-statement flow cascade (each
+uppercase milestone equals the previous one plus the intervening signed rows, with
+value-based deduplication of breakdown re-listings and aggregate/component double
+counts, because scanned layouts are too flat for indentation to be trusted); and
+value reconciliation per accepted relation.</p>
+<p>Results on the default run (113 check instances; the count includes per-scope
+repeats of one check id and the type-level FMT_THREE_STATE, so the informative signal is
+in the fail and not_evaluable lines): 103 checks pass, 6 report not_evaluable (four
+FIN_GRAND_TOTAL instances on two income-statement milestone rows, where a fractional
+per-share row leaves no evaluable member hypothesis, and two STR_PERIOD_ORDER on the
+single-period movement tables, where order has nothing to compare), and all 4
+failures are genuine document/OCR defects the pipeline caught on its own: the
+second-engine disagreement summary and two parent-sum contradictions are analyzed
+as cases 1 and 2 in Section 8, and the fourth (FMT_REPAIRED_CELLS) flags three
+footnote-table cells whose lost thousands separators were regrouped by the repair
+tier, values kept and capped at confidence 0.7, which is the repair tier's
+precision-first contract making itself visible rather than a defect of its own.
+The Stoklar digit corruption is additionally pinpointed BEFORE any financial
+check runs by the second-engine disagreement, which caps that cell at confidence
+0.4; the separator corruption passes the digit comparison by nature (both engines
+read the same digits) and is caught by the parent-sum residue instead, a measured
+division of labor between the check groups.</p>
+<p>The check suite itself is testable, and the test ships: <code>uv run python
+eval/mutations.py</code> injects three corruptions into the live pipeline (a summed
+member digit, a grand total, and the reference row's values, which kills the
+value anchor and with it the links) and asserts each is caught by NEW failing
+checks against the clean reference run: the member digit by parent sums at two
+hierarchy levels, the total by the grand-total hypothesis vote, and the induced
+linking loss by REL_COVERAGE. A validation stage that has never watched itself
+miss or catch an injected error is an assertion; this one is a measurement.</p>
+<p>Operational signals: run this nightly over a filing stream and the per-document
+output already carries the monitoring surface: check pass/fail/not_evaluable rates
+per group (the financial-group failure rate is the data-quality alarm), the
+second-engine disagreement rate (scanner or layout drift shows up here first), the
+calibration mode with its control counts (a fitted-to-fallback shift is the canary
+that a document class stopped yielding controls), and the low-confidence relation
+rate plus the Venn-ABERS width distribution (the review-queue depth). Page on
+fallback-mode or financial-failure spikes; route low-confidence relations to human
+review, which is what the flag exists for.</p>
+<h2 id="8-error-analysis-low-confidence-and-failure-cases">8. Error analysis (low-confidence and failure cases)</h2>
+<p>Six cases, all measured on this document, summarized first and analyzed below:</p>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Case</th>
+<th>Expected</th>
+<th>Produced</th>
+<th>Failing stage</th>
+<th>Root cause</th>
+<th>Fix / catch</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Silent digit substitution</td>
+<td>Stoklar 2012 = 77.543.097</td>
+<td>77.943.097</td>
+<td>OCR recognition</td>
+<td>5 misread as 9; number stays well-formed</td>
+<td>flagged twice: second-engine disagreement caps cell at 0.4; FIN_PARENT_SUM localizes +400.000</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Separator read as decimal</td>
+<td>Finansal Yatırımlar 2012 = 4.224</td>
+<td>4,224 (=four)</td>
+<td>OCR glyph + grammar</td>
+<td>dot misread as comma; token is a valid decimal</td>
+<td>digits identical so the engine check passes BY NATURE; FIN_PARENT_SUM catches the impossible .224 residue</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Percent glyph destruction</td>
+<td>%9, %10,5, %86,6, %80,8, %3, %2-%4</td>
+<td>49, 710,5, 486,6, dropped, dropped row</td>
+<td>OCR recognition</td>
+<td>tesseract has no reliable % class on this scan</td>
+<td>S3b engine swap: RapidOCR reads 6/6, tesseract votes by digit suffix; FMT_PERCENT_BOUNDS guards the [0,100] range</td>
+</tr>
+<tr>
+<td>4</td>
+<td>TOC dot leaders eat digits</td>
+<td>NOT 11 at printed 49-50</td>
+<td>"9-50"</td>
+<td>OCR on contents page</td>
+<td>dot leader touches the page number</td>
+<td>monotonicity rule distrusts 9 after 48; bounded scan finds page 53; heading verified</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Wrapped label vs group header</td>
+<td>one row "Özkaynak ... Paylar"; header rows kept</td>
+<td>fragment dropped, label truncated</td>
+<td>structure segmentation</td>
+<td>text-only lines inside a table body were discarded</td>
+<td>indent rule: continuation rows indent under their fragment, group headers align with what follows</td>
+</tr>
+<tr>
+<td>6</td>
+<td>Rotated landscape pages</td>
+<td>footnote 12 tables (pages 55-57) readable</td>
+<td>near-zero words upright</td>
+<td>render orientation</td>
+<td>scan printed sideways; PDF /Rotate does not correct it</td>
+<td>orientation recovery re-renders at 90/270/180 and keeps the confident-word maximum; extraction stays demo-grade and its check failures are reported honestly</td>
+</tr>
+</tbody>
+</table>
+<ol>
+<li>
+<p>Silent digit substitution. The format stage cannot see it because the corrupted
+   number is perfectly well-formed. Caught twice, independently: the second-engine
+   cross-check disagrees (RapidOCR reads the correct 77.543.097) and caps the cell
+   at confidence 0.4, and FIN_PARENT_SUM localizes it (the Dönen Varlıklar children
+   sum overshoots the printed group total by exactly 400.000). This double catch is
+   the flag-over-fix design working as intended: the pipeline does not silently
+   substitute the second reading, it makes the disagreement and the arithmetic
+   contradiction visible.</p>
+</li>
+<li>
+<p>Thousands separator read as decimal comma. The digit cross-check does NOT catch
+   this one (both engines read the same digits 4224; the corruption is in the
+   separator, not the digits), which is exactly why the financial group exists:
+   FIN_PARENT_SUM exposes the fractional residue (.224) that a money column cannot
+   have. Division of labor between check groups, demonstrated on a real cell.
+   Improvement: column-type inference (a column whose other values are all integers
+   makes a decimal member suspect).</p>
+</li>
+<li>
+<p>Percent glyph destruction. The primary engine's failure is total on this class
+   (0/6 rate cells) and produces PLAUSIBLE numbers: 486,6 is a well-formed decimal,
+   and a %-digit fusion ("%9" as "49") even masqueraded as a footnote reference.
+   The fix inverts the engine roles for rate rows only (Section 2, S3b) and its
+   output is auditable: every rescued cell records both engine readings and the
+   vote class in its confidence components, and FMT_PERCENT_BOUNDS would flag the
+   corruption class again if the rescue ever regressed.</p>
+</li>
+<li>
+<p>TOC dot leaders eat page digits. Caught by the monotonicity rule (9 cannot
+   follow 48) and repaired by the bounded scan, which found page 53 and verified
+   the heading. This is why the locate stage never trusts a single signal.</p>
+</li>
+<li>
+<p>Wrapped label vs group header. Both print as text-only lines inside the table
+   body, so dropping them (the original behavior) truncated the wrapped
+   "Özkaynak Yöntemiyle Değerlenen Yatırımların Kar/Zararlarındaki Paylar" label and
+   lost the Dağılımı group headers. The two cases are separated by a measured
+   geometric signal, not semantics: a continuation row indents past its fragment
+   (about 18 px on this scan), a group header's following rows stay at its left
+   edge. Header/body boundaries need content tests, not just position tests.</p>
+</li>
+<li>
+<p>Rotated landscape pages (footnote 12 demo, <code>configs/alt_footnote.yaml</code>). The
+   upright OCR pass yields almost no words, and raw word count is a misleading
+   recovery signal because sideways text still produces junk words; the recovery
+   keeps the rotation with the most CONFIDENT multi-char words. Extraction quality
+   on these pages is honestly lower and the run reports it as failing roll-forward
+   checks instead of hiding it; the point of the demo is that the footnote number
+   and page set come from config and the pipeline degrades visibly, not silently. Two
+   page-level scoping limits show in this demo and are stated as such: footnote pages are
+   assigned by the heading at the top of the page, so a page shared by two notes goes to
+   the note whose heading is on top and the neighbor's table enters the footnote table
+   set (here page 57 also carries note 13's first table, <code>p57.t07</code>, visible in the output
+   title), and a note that starts mid-page loses that page (footnote 13 starts under
+   note 12's tables on page 57 and is located from page 58). Sub-page segmentation by
+   heading position is the fix; the titles in the output make both cases auditable.</p>
+</li>
+</ol>
+<p>Minor defects also visible in the output and worth naming: the 2011 movement table's
+first column header carries OCR junk ("harcamalar Arazi ve Arsalar"); columns still map
+positionally and every value under it scores correct, but header text has no check of
+its own.</p>
+<h2 id="9-approach-comparison-where-they-diverge-not-just-scores">9. Approach comparison: where they diverge, not just scores</h2>
+<p>All three approaches run on every candidate; each relation records per-approach
+scores, accept decisions, and an agreement class (<code>consensus</code>, <code>a_only</code>, <code>b_only</code>,
+<code>baseline_only</code>, plus <code>d_only</code> when the optional LLM tier is enabled and admits a
+pair every fused approach rejected; such relations keep the fused channels'
+conservative confidence and always arrive flagged). On this document:</p>
+<ul>
+<li>consensus: the income-statement fair-value link for 2011 and the fair-values-table
+  total. Both semantics and value+role agree; these carry the highest confidences.</li>
+<li>b_only (value + role rules): five relations. Four are the balance-sheet
+  reconciliation links against the movement tables: their labels are pure
+  date/role text, so the text model under-accepts them and the value+role
+  approach carries them. This is the reconciliation-link physics described at the
+  top, visible in the output as a systematic divergence pattern, not a random
+  disagreement. The fifth is subtler and worth naming: the income-statement
+  fair-value item links to BOTH movement tables (2011 and 2012 twins), and the
+  cross-encoder's rank-aware acceptance admits at most one below-threshold
+  candidate per summary item, so the 2011 twin lands consensus (rank 1) while the
+  2012 twin (rank 2, score 0.18) is carried by the value+role approach alone.
+  Twin-table links therefore systematically split consensus/b_only; that is a
+  property of rank-1 admission, not an inconsistency.</li>
+<li>a_only (cross-encoder): not present in the shipped run. It occurred during
+  development on the fair-values total row (label empty in print) before the
+  role-inference fix; in the shipped output that link lands consensus. The class
+  stays reachable by design: under the approach-B fallback (role inference
+  degraded), the cross-encoder still carries value-bearing rows alone.</li>
+<li>The lexical baseline accepts nothing, and on the hardest pair (Yatırım Amaçlı
+  Gayrimenkul Değerleme Farkları against Makul değer değişikliğinden kaynaklanan
+  kazanç) word-level similarity stays far below the acceptance bar (token-set
+  ratio about 0.40 against the 0.75 threshold) while both other approaches link
+  it confidently. That pair is the reason a semantic component is required at all.</li>
+<li>Comparison fairness: C sees labels only by design (it is the word-matching baseline
+  the task calls insufficient), while A sees <code>label | values</code> pair texts; the
+  divergence map therefore measures what values add, not two equally informed models.</li>
+</ul>
+<p>Scoring against the hand-labeled reference (<code>eval/score.py</code>): link precision 1.00
+and recall 1.00 on the reference relation set (the two movement tables print
+identical row labels, so the scorer disambiguates twin rows by value overlap), and
+99.0 percent exact cell accuracy over all 201 reference cells. The two remaining
+wrong cells are exactly the two real OCR corruptions analyzed in Section 8, and
+both are flagged by a failing check plus a confidence cap rather than passing
+silently: the pipeline's contract is zero silent errors, not zero errors.</p>
+<p>Scorer conventions, stated so the numbers can be audited against <code>eval/score.py</code>: a
+reference cell whose state is empty counts as correct when the extractor emits no cell
+at that position (there is nothing to extract, and an emitted number there would count
+as a wrong state); and a predicted relation whose rows cannot be mapped to any
+reference row is left out of the precision count instead of being counted as a false
+positive. In the shipped run every predicted relation maps (predicted 7, reference 7),
+so the second convention is inert here; on a document with links outside the reference
+set it would understate false positives, which is why the number of mapped relations
+is printed next to the precision. The cell metric walks the reference rows, so an
+extracted row that matches no reference row would fall outside it; the scorer prints
+that count and it is 0 on the shipped run.</p>
+<p>Uncertainty on these numbers, printed by the scorer: the cell accuracy carries a
+Clopper-Pearson 95 percent interval of 0.965 to 0.999 (n = 201 cells of one
+document), and 7 of 7 relations gives an exact one-sided 95 percent lower bound of
+0.65 on both precision and recall. Seven links can show that the approach works on
+this filing; they cannot estimate its error rate across filings.</p>
+<p>Provenance of the reference: one person transcribed all 201 cells from the page
+renders and accepted a value only after 77 arithmetic identities held; a second,
+blind re-transcription pass over a seeded 30-cell sample, every dash and empty
+state, and the whole footnote-reference column agreed on every item.</p>
+<h2 id="10-output-schema-why-it-looks-the-way-it-does">10. Output schema (why it looks the way it does)</h2>
+<p><code>result.json</code> holds flat, ID-referenced collections (tables, rows, cells, relations,
+checks), the shape mature document-AI products expose; hierarchy is <code>parent_row_id</code>
+references, not nesting, so consumers can walk it either way. IDs are deterministic
+and semantic (<code>p05.t00.r003.c01</code>), so two runs on the same input and config are
+byte-identical apart from the quarantined <code>run</code> block; that is re-runnability made
+verifiable with a diff, and <code>eval/determinism.py</code> (make determinism) turns that diff
+into an exit code. <code>document.source_sha256</code> fingerprints the input file so outputs
+can be joined to their source across a corpus. The claim is scoped honestly: package versions are pinned
+by the lockfile and model weights by snapshot hashes, but the OCR engine itself is
+a system dependency, so cross-machine identity holds given the same tesseract
+build. The run block records <code>tesseract --version</code> for exactly this reason, and a
+drifted OCR build announces itself through the second-engine disagreement rate
+before anything else. <code>document</code> echoes the configured company, period and currency (they are not extracted
+from the scan) next to the input fingerprint. Money is Decimal serialized as string (0,058
+cannot live in a float). A cell value is a discriminated union on <code>state</code> (<code>number</code>, <code>dash</code>, <code>empty</code>),
+because the dash and the empty cell are semantically different absences and zero is a
+number (this document prints no empty cells: every absence is a dash, so the <code>empty</code>
+state is exercised by the tests, not by this run). Every relation carries per-approach evidence and its confidence components.
+<code>relations.jsonl</code> is a derived, self-contained view (one line per link with labels
+inlined) for quick grading with jq or pandas.</p>
+<h2 id="11-deliberately-not-built">11. Deliberately not built</h2>
+<p>CI/CD (a lockfile plus <code>make test</code> gives the same signal here), containers as the
+primary path (Python plus tesseract is a lighter ask; a Dockerfile would add a
+daemon dependency for the grader), Kubernetes/IaC (one process, one document), a
+database (JSON artifacts are the contract), authentication (nothing is served), and
+model training (the task forbids it). Each omission trades no correctness for less
+friction.</p>
+<p>Also not built, stated so they are not mistaken for oversights: leading-minus
+negatives (this filing prints every negative in parentheses; a <code>-1.234</code> token is not
+parsed as a number today), a text-layer fast path (every page is OCRed; a born-digital
+filing would work, slower than necessary), automatic detection of the summary-statement
+pages (the range is configured and verified by STR_SUMMARY_RANGE), traversal of
+cross-references between footnotes ("bkz. Not X"), cross-statement identities as
+shipped checks (assets equal liabilities plus equity, the net-profit tie between
+balance sheet and income statement, prior-year closing equals current-year opening),
+and role rules beyond the five Turkish phrases this filing uses (a filing writing
+dönem başı / dönem sonu would need them added to the lexicon).</p></main>
+</body></html>

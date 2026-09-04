@@ -1,0 +1,841 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ftlink scenario lab</title>
+<style>
+  :root {
+    --bg: #0f1419; --panel: #171d24; --panel2: #1d242d; --line: #2a3340;
+    --text: #e6e9ec; --muted: #8a97a5; --accent: #4da3ff; --ok: #3fbf7f;
+    --warn: #e0a63d; --bad: #e06c5d; --chip: #232c37;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--text);
+         font: 15px/1.5 -apple-system, "Segoe UI", Roboto, sans-serif; }
+  header { padding: 20px 28px 14px; border-bottom: 1px solid var(--line); }
+  header h1 { margin: 0 0 2px; font-size: 21px; font-weight: 650; }
+  header .sub { color: var(--muted); font-size: 13px; }
+  main { padding: 20px 28px 60px; max-width: 1240px; margin: 0 auto; }
+  h2 { font-size: 16px; margin: 28px 0 12px; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 14px; }
+  .card { background: var(--panel); border: 1px solid var(--line); border-radius: 10px;
+          padding: 14px 16px; display: flex; flex-direction: column; gap: 8px; }
+  .card.selA { border-color: var(--accent); }
+  .card.selB { border-color: var(--warn); }
+  .card h3 { margin: 0; font-size: 15px; display: flex; align-items: center; gap: 8px; }
+  .card .en { color: var(--muted); font-size: 12px; }
+  .badge { font-size: 11px; padding: 1px 8px; border-radius: 10px; background: var(--chip);
+           color: var(--muted); white-space: nowrap; }
+  .status { font-size: 12px; padding: 2px 9px; border-radius: 10px; font-weight: 600; }
+  .st-done { background: #14311f; color: var(--ok); }
+  .st-absent { background: #33270f; color: var(--warn); }
+  .st-running { background: #10283f; color: var(--accent); }
+  .st-error { background: #3a1712; color: var(--bad); }
+  .story { color: var(--muted); font-size: 13px; }
+  .metrics { display: flex; flex-wrap: wrap; gap: 6px 14px; font-size: 12.5px; }
+  .metrics span b { color: var(--text); font-weight: 600; }
+  .metrics .flag { color: var(--warn); }
+  .row { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; margin-top: auto; }
+  button, select { background: var(--panel2); color: var(--text); border: 1px solid var(--line);
+                   border-radius: 7px; padding: 6px 12px; font-size: 13px; cursor: pointer; }
+  button:hover { border-color: var(--accent); }
+  button:disabled { opacity: .45; cursor: default; }
+  button.primary { background: #143a63; border-color: #1e50a0; }
+  a { color: var(--accent); text-decoration: none; font-size: 13px; }
+  .bar-wrap { background: var(--chip); border-radius: 4px; height: 7px; width: 120px;
+              display: inline-block; vertical-align: middle; }
+  .bar { height: 7px; border-radius: 4px; background: var(--accent); }
+  table { border-collapse: collapse; width: 100%; font-size: 13px; }
+  th, td { text-align: left; padding: 7px 10px; border-bottom: 1px solid var(--line);
+           vertical-align: top; }
+  th { color: var(--muted); font-weight: 600; font-size: 12px; }
+  .chip { display: inline-block; font-size: 11px; padding: 1px 7px; border-radius: 9px;
+          background: var(--chip); color: var(--muted); margin-right: 4px; }
+  .chip.acc { background: #14311f; color: var(--ok); }
+  .chip.rej { background: #2c2c31; color: var(--muted); text-decoration: line-through; }
+  .delta-pos { color: var(--ok); } .delta-neg { color: var(--bad); }
+  .cmp-head { display: flex; gap: 12px; align-items: center; flex-wrap: wrap;
+              background: var(--panel); border: 1px solid var(--line); border-radius: 10px;
+              padding: 12px 16px; position: sticky; top: 0; z-index: 5; }
+  .pill { font-size: 12px; padding: 2px 9px; border-radius: 10px; }
+  .pill.a { background: #10283f; color: var(--accent); }
+  .pill.b { background: #33270f; color: var(--warn); }
+  .empty { color: var(--muted); font-size: 13px; padding: 8px 0; }
+  .section { background: var(--panel); border: 1px solid var(--line); border-radius: 10px;
+             padding: 14px 18px; margin-bottom: 16px; }
+  .conf { font-variant-numeric: tabular-nums; }
+  .lowconf { color: var(--warn); font-size: 11px; font-weight: 700; }
+  .stage { background: var(--panel); border: 1px solid var(--line); border-radius: 10px;
+           padding: 12px 18px; margin: 12px 0; }
+  .stage h3 { margin: 0 0 6px; font-size: 15px; display: flex; gap: 10px; align-items: baseline; }
+  .stage h3 .sid { color: var(--accent); font-weight: 700; font-variant-numeric: tabular-nums; }
+  .stage .en { font-size: 12px; }
+  .facts { display: flex; flex-wrap: wrap; gap: 6px 16px; font-size: 12.5px; margin: 6px 0 8px; }
+  .facts span b { color: var(--text); font-weight: 600; }
+  .stage table { margin-top: 4px; }
+  .st-pass { color: var(--ok); } .st-fail { color: var(--bad); } .st-ne { color: var(--muted); }
+  .lbl button { padding: 3px 8px; font-size: 12px; }
+  .lbl button.on-accept { background: #14311f; border-color: var(--ok); }
+  .lbl button.on-reject { background: #3a1712; border-color: var(--bad); }
+  .lbl button.on-unsure { background: #33270f; border-color: var(--warn); }
+  .lbl input { width: 140px; font-size: 12px; padding: 3px 6px; background: var(--panel2); color: var(--text);
+               border: 1px solid var(--line); border-radius: 6px; }
+  .thr { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; }
+  .thr .box { background: var(--panel2); border: 1px solid var(--line); border-radius: 8px; padding: 10px 12px; }
+  .thr .big { font-size: 22px; font-weight: 700; font-variant-numeric: tabular-nums; }
+  .curve { display: flex; gap: 4px; align-items: flex-end; height: 56px; margin-top: 6px; }
+  .curve div { flex: 1; background: var(--accent); border-radius: 2px 2px 0 0; min-height: 2px; }
+  .curve div.at { background: var(--warn); }
+  body.present { font-size: 18px; }
+  body.present table { font-size: 15.5px; } body.present .card { font-size: 16px; }
+  body.present .stage h3, body.present h2 { font-size: 20px; } body.present .en { font-size: 14px; }
+  .role { display: inline-block; font-size: 11px; padding: 1px 8px; border-radius: 9px; font-weight: 600; white-space: nowrap; }
+  .role-shipped { background: #14311f; color: var(--ok); } .role-verifier, .role-fallback { background: #10283f; color: var(--accent); }
+  .role-comparison { background: var(--chip); color: var(--text); } .role-pending { background: #33270f; color: var(--warn); }
+  .role-rejected, .role-excluded { background: #2c2c31; color: var(--muted); }
+  .role-measured { background: #10283f; color: var(--accent); }
+  .bench-grid { display: grid; grid-template-columns: 280px 1fr; gap: 14px; align-items: start; }
+  .bench-list { display: flex; flex-direction: column; gap: 6px; }
+  .bench-list .grp { color: var(--muted); font-size: 12px; font-weight: 600; margin: 8px 0 2px; }
+  .bench-list button { text-align: left; width: 100%; line-height: 1.35; }
+  .bench-list button.active { border-color: var(--accent); background: #143a63; }
+  .bench-flag { display: inline-block; font-size: 12px; padding: 2px 9px; border-radius: 10px;
+                background: #33270f; color: var(--warn); margin: 2px 0 8px; }
+  .bench-notes { margin: 8px 0 0; padding-left: 18px; font-size: 13px; color: var(--muted); }
+  .bench-notes li.perr { color: var(--bad); }
+  tr.bench-shipped td { background: var(--panel2); }
+  body.present .bench-grid { grid-template-columns: 330px 1fr; }
+  body.present .bench-list button, body.present .bench-notes { font-size: 16px; }
+  @media (max-width: 900px) { .bench-grid { grid-template-columns: 1fr; } }
+  #toast { position: fixed; bottom: 18px; right: 18px; background: var(--panel2);
+           border: 1px solid var(--line); padding: 10px 16px; border-radius: 9px;
+           font-size: 13px; display: none; }
+</style>
+</head>
+<body>
+<header>
+  <h1>ftlink scenario lab</h1>
+  <div class="sub" id="meta">Finansal Tablo ve Dipnot İlişkilendirme: her alternatif,
+  teslim edilen sistemin bir konfigürasyon farkı olarak canlı çalıştırılabilir.</div>
+</header>
+<main>
+  <div class="cmp-head">
+    <strong style="font-size:14px">Karşılaştır</strong>
+    <span class="pill a">A</span>
+    <select id="selA"></select>
+    <span class="pill b">B</span>
+    <select id="selB"></select>
+    <button class="primary" id="btnCompare">Karşılaştır</button>
+    <button id="btnMatrix">Matris (tümü)</button>
+    <span style="border-left:1px solid var(--line);height:22px"></span>
+    <select id="selW"></select>
+    <button id="btnWalk">Aşama aşama</button>
+    <span style="border-left:1px solid var(--line);height:22px"></span>
+    <select id="selT"></select>
+    <label class="en">c_inceleme <input id="cRev" type="number" min="0" step="0.5" value="1" style="width:64px"></label>
+    <label class="en">c_kaçırma <input id="cMiss" type="number" min="0.5" step="0.5" value="20" style="width:64px"></label>
+    <button id="btnTriage">İnceleme kuyruğu</button>
+    <span style="border-left:1px solid var(--line);height:22px"></span>
+    <button id="btnMatrixDM">Karar matrisi</button>
+    <button id="btnDocs" title="Aynı boru hattını başka bir PDF üzerinde çalıştır">Belge yükle</button>
+    <button id="btnBench" title="Bu projede ölçülen her karşılaştırma (benchmarks/*.json)">Kıyaslama</button>
+    <button id="btnPresent" title="Ekran paylaşımı için büyük yazı">Sunum</button>
+    <button id="btnPdfDebugger" title="PDF sayfası, bbox provenance ve sonuç bağlama masası">PDF visual debugger</button>
+    <span class="empty" id="cmpHint">İki senaryo seçin; fark tablosu aşağıda açılır.</span>
+  </div>
+
+  <div id="matrix" style="display:none">
+    <h2>Tüm senaryolar matrisi (taban çizgisine göre sapmalar)</h2>
+    <div class="section" id="matrixBody"><div class="empty">Yükleniyor...</div></div>
+  </div>
+
+  <div id="docs" style="display:none">
+    <h2>Herhangi bir belge: aynı boru hattı, yalnız konfigürasyon farklı</h2>
+    <div class="section">
+      <div class="empty">Bir PDF yükleyin, özet tabloların sayfa aralığını ve hedef dipnot numarasını verin. Teslim edilen boru hattı kod değişikliği olmadan çalışır: sayfa aralığı, dipnot numarası ve kontrol sayfaları konfigürasyondan gelir. Çıktı runs/doc-&lt;kimlik&gt;/ altına yazılır; Rapor, result.json, Aşama aşama ve İnceleme kuyruğu görünümleri aynıdır.</div>
+      <div class="row" style="align-items:flex-end;margin-top:10px">
+        <label class="en">PDF (en çok 60 MB)<br><input type="file" id="docFile" accept="application/pdf,.pdf"></label>
+        <label class="en">özet sayfa başı<br><input id="docStart" type="number" min="1" value="5" style="width:72px"></label>
+        <label class="en">özet sayfa sonu<br><input id="docEnd" type="number" min="1" value="7" style="width:72px"></label>
+        <label class="en">dipnot no<br><input id="docFn" type="number" min="1" value="11" style="width:72px"></label>
+        <label class="en" title="Dipnota referans veren ek sayfalar (ör. nakit akış tablosu); yalnız kalibrasyon kontrolü olarak kullanılır. Boş bırakılırsa ek kontrol yok.">ek kontrol sayfaları<br><input id="docCtrl" type="text" value="9,10" style="width:96px"></label>
+        <label class="en" title="Başlık türetmede şirket adı satırını dışlamak için kullanılır">şirket adı / etiket (isteğe bağlı)<br><input id="docLabel" type="text" placeholder="ör. şirket unvanı" style="width:220px"></label>
+        <button class="primary" id="btnDocRun">Çalıştır</button>
+        <span class="empty" id="docHint"></span>
+      </div>
+    </div>
+    <div class="section" id="docList"><div class="empty">Henüz belge yüklenmedi.</div></div>
+  </div>
+
+  <div id="walk" style="display:none">
+    <h2 id="walkTitle">Aşama aşama: boru hattının bu çalıştırmadaki izi</h2>
+    <div class="empty">Her kart yalnızca result.json alanlarından türetilir (tablolar, satırlar, hücreler, ilişkiler, kontroller, run.config_echo); hiçbir ara sonuç yeniden hesaplanmaz. Sıra = teslim edilen aşamalar S2 -> S10.</div>
+    <div id="walkBody"></div>
+  </div>
+
+  <div id="dm" style="display:none">
+    <h2 id="dmTitle">Karar matrisi: her aşamada seçilen, karşılaştırılan, reddedilen</h2>
+    <div class="empty" id="dmNote"></div>
+    <div id="dmBody"></div>
+  </div>
+
+  <div id="bench" style="display:none">
+    <h2>Kıyaslama: bu projede ölçülen her karşılaştırma</h2>
+    <div class="empty">Her tablo <code>benchmarks/&lt;id&gt;.json</code> dosyasından okunur (şema: benchmarks/SCHEMA.md; üretim: <code>uv run ftlink-benchmarks-sync</code>). Teslimat satırı vurgulanır; roller karar matrisindeki gibidir. Sayılar araştırma artefaktlarından kopyalanmıştır, burada hiçbir şey yeniden hesaplanmaz.</div>
+    <div class="bench-grid">
+      <div class="bench-list" id="benchList"><div class="empty">Yükleniyor...</div></div>
+      <div class="section" id="benchBody"><div class="empty">Soldan bir kıyaslama seçin.</div></div>
+    </div>
+  </div>
+
+  <div id="triage" style="display:none">
+    <h2 id="triageTitle">İnceleme kuyruğu: bayraklı kayıtlar, inceleme sırası, maliyet eşiği</h2>
+    <div class="section" id="thrPanel"></div>
+    <div class="section">
+      <h2 style="margin-top:0">İlişkiler (inceleme sırası: bayraklı, sonra en geniş Venn-ABERS aralığı, sonra en düşük güven)</h2>
+      <label class="en" style="display:block;margin:0 0 8px"><input type="checkbox" id="vaLso"> Venn-ABERS aralığını kendi-dışı (leave-self-out) değerlerle göster <span id="vaLsoCap"></span></label>
+      <div id="triRels"></div>
+    </div>
+    <div class="section">
+      <h2 style="margin-top:0">Hücreler (güven &le; 0,5 veya onarılmış)</h2>
+      <div id="triCells"></div>
+    </div>
+  </div>
+
+  <h2>Senaryolar</h2>
+  <div class="grid" id="cards"></div>
+
+  <div id="cmp" style="display:none">
+    <h2 id="cmpTitle">Karşılaştırma</h2>
+    <div class="section" id="cmpSummary"></div>
+    <div class="section">
+      <h2 style="margin-top:0">İlişkiler (dipnot bağlantıları)</h2>
+      <div id="cmpRelations"></div>
+    </div>
+    <div class="section">
+      <h2 style="margin-top:0">Doğrulama kontrolleri farkı</h2>
+      <div id="cmpChecks"></div>
+    </div>
+    <div class="section">
+      <h2 style="margin-top:0">Hücre farkları</h2>
+      <div id="cmpCells"></div>
+    </div>
+  </div>
+</main>
+<div id="toast"></div>
+<script>
+"use strict";
+const $ = (s) => document.querySelector(s);
+let SCENARIOS = [];
+let DOCS = [];
+let pollTimer = null;
+const docTitle = (d) => `Belge: ${d.label || d.filename}`;
+const titleOf = (id) => SCENARIOS.find(s => s.id === id)?.title_tr
+  || (DOCS.find(d => d.run_id === id) ? docTitle(DOCS.find(d => d.run_id === id)) : id);
+
+const fmt = (x, d=2) => x == null ? "?" : Number(x).toFixed(d);
+const esc = (s) => String(s ?? "").replace(/[&<>"]/g,
+  c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+
+// Evidence slugs are internal note filenames; never show them verbatim in the UI.
+// Curated labels for the ones that would otherwise read as internal process jargon,
+// a general humanizer (strip run/E-number/ADR-number prefixes, title-case) for the rest.
+const EVIDENCE_LABELS = {
+  "linux-grader-drill": "İkinci işletim sistemi denemesi",
+  "app-linux-drill-run05": "Uygulama Linux denemesi",
+  "ocr-bakeoff-run08": "OCR motor karşılaştırması",
+  "structure-bakeoff-run06": "Tablo yapısı karşılaştırması",
+  "reranker-bakeoff-run07": "Reranker karşılaştırması",
+  "heavy-evidence-run01": "GPU kanıt turu",
+  "scenario-lab": "Senaryo laboratuvarı",
+  "mock03-hardening": "Sağlamlaştırma turu",
+  "v010-battery-foldin": "Değerlendirme paketi",
+  "adr-01-extraction-stack": "Çıkarım motoru kararı",
+  "adr-02-linker-lineup": "Eşleştirici kararı",
+  "adr-03-confidence-decomposition": "Güven ayrıştırma kararı",
+};
+function evidenceLabel(slug) {
+  if (EVIDENCE_LABELS[slug]) return EVIDENCE_LABELS[slug];
+  const humanized = String(slug)
+    .replace(/^e\d+-/i, "")
+    .replace(/^adr-\d+-/i, "")
+    .replace(/^v\d+-/i, "")
+    .replace(/^\d+-/, "")
+    .replace(/-run\d+$/i, "")
+    .split("-").filter(Boolean)
+    .map(w => w.charAt(0).toUpperCase() + w.slice(1))
+    .join(" ");
+  return humanized || slug;
+}
+
+function toast(msg) {
+  const t = $("#toast"); t.textContent = msg; t.style.display = "block";
+  setTimeout(() => t.style.display = "none", 3200);
+}
+
+async function api(path, opts) {
+  const r = await fetch(path, opts);
+  if (!r.ok) throw new Error((await r.json().catch(() => ({}))).detail || r.status);
+  return r.json();
+}
+
+function statusChip(s) {
+  const st = s.status?.state || "absent";
+  const map = { done: ["hazır", "st-done"], absent: ["çalıştırılmadı", "st-absent"],
+                running: ["çalışıyor...", "st-running"], error: ["hata", "st-error"] };
+  const [label, cls] = map[st] || map.absent;
+  return `<span class="status ${cls}">${label}</span>`;
+}
+
+function metricsHtml(s) {
+  const m = s.summary;
+  if (!m && s.status?.state === "error") {
+    return `<div class="metrics"><span style="color:var(--bad)">Gürültülü durdu:
+      ${esc((s.status.error || "").slice(0, 400))}</span>${s.status.trace ?
+      `<details style="width:100%"><summary class="en">hata izi</summary><pre style="white-space:pre-wrap;font-size:11px;background:var(--panel2);padding:8px;border-radius:6px">${esc(s.status.trace)}</pre></details>` : ""}</div>`;
+  }
+  if (!m) return `<div class="metrics"><span class="empty">Henüz çıktı yok.</span></div>`;
+  const ev = m.eval || {};
+  const cells = ev.cells, rels = ev.relations;
+  return `<div class="metrics">
+    <span>tablo <b>${m.tables}</b></span>
+    <span>satır <b>${m.rows}</b></span>
+    <span>hücre <b>${m.cells}</b></span>
+    <span>ilişki <b>${m.relations}</b>${m.low_conf_relations ?
+      ` <span class="flag">(${m.low_conf_relations} bayraklı)</span>` : ""}</span>
+    <span>kontrol <b>${m.checks.pass}✓ / ${m.checks.fail}✗ / ${m.checks.not_evaluable}∅</b></span>
+    ${m.calibration_mode ? `<span>kalibrasyon <b>${m.calibration_mode}</b></span>` : ""}
+    ${cells ? `<span>hücre doğruluğu <b>${cells.pct}%</b></span>` : ""}
+    ${rels ? `<span>P <b>${fmt(rels.precision)}</b> R <b>${fmt(rels.recall)}</b></span>` : ""}
+    ${m.duration_s ? `<span>süre <b>${m.duration_s}s</b>${platformHtml(m.platform)}</span>` : ""}
+  </div>`;
+}
+function platformHtml(p) {
+  if (!p) return "";
+  const models = p.models ? ` · modeller ${p.models === "warm" ? "sıcak" : "soğuk"}` : "";
+  return ` <span class="en" title="Süre yalnız platformuyla birlikte anlamlıdır">${esc(p.platform)} · tesseract ${esc(p.tesseract)}${models}</span>`;
+}
+
+function cardHtml(s) {
+  const canRun = !s.requires_endpoint;
+  const hasRun = !!s.summary;
+  const selCls = $("#selA")?.value === s.id ? " selA" :
+                 $("#selB")?.value === s.id ? " selB" : "";
+  return `<div class="card${selCls}" id="card-${s.id}">
+    <h3>${esc(s.title_tr)} <span class="badge">${esc(s.group)}</span> ${statusChip(s)}</h3>
+    <div class="en">${esc(s.title)}</div>
+    <div class="story">${esc(s.story_tr)}</div>
+    ${metricsHtml(s)}
+    <div class="row">
+      <button onclick="runScenario('${s.id}')" ${canRun ? "" : "disabled title='OpenAI uyumlu bir uç (endpoint) gerektirir'"}>Çalıştır</button>
+      ${hasRun ? `<a href="/api/runs/${s.id}/report" target="_blank">Rapor</a>
+                  <a href="/api/runs/${s.id}/result" target="_blank">result.json</a>` : ""}
+      ${s.requires_endpoint ? `<span class="badge">endpoint gerekli</span>` : ""}
+    </div>
+  </div>`;
+}
+
+function render() {
+  $("#cards").innerHTML = SCENARIOS.map(cardHtml).join("");
+  const opts = SCENARIOS.filter(s => s.summary)
+    .map(s => `<option value="${s.id}">${esc(s.title_tr)}</option>`).join("")
+    + DOCS.filter(d => d.summary)
+    .map(d => `<option value="${d.run_id}">${esc(docTitle(d))}</option>`).join("");
+  const a = $("#selA").value, b = $("#selB").value;
+  $("#selA").innerHTML = opts; $("#selB").innerHTML = opts;
+  const tsel = $("#selT").value; $("#selT").innerHTML = opts;
+  if ([...$("#selT").options].some(o => o.value === tsel)) $("#selT").value = tsel;
+  const w = $("#selW").value; $("#selW").innerHTML = opts;
+  if ([...$("#selW").options].some(o => o.value === w)) $("#selW").value = w;
+  if ([...$("#selA").options].some(o => o.value === a)) $("#selA").value = a;
+  if ([...$("#selB").options].some(o => o.value === b)) $("#selB").value = b;
+  else if ($("#selB").options.length > 1) $("#selB").selectedIndex = 1;
+}
+
+async function load() {
+  SCENARIOS = await api("/api/scenarios");
+  await loadDocs();
+  render();
+  const anyRunning = SCENARIOS.some(s => s.status?.state === "running")
+    || DOCS.some(d => d.status?.state === "running");
+  clearTimeout(pollTimer);
+  if (anyRunning) pollTimer = setTimeout(load, 3000);
+}
+
+async function runScenario(id) {
+  try {
+    await api(`/api/runs/${id}`, { method: "POST" });
+    toast(`${id} başlatıldı (modeller yükleniyor, ~1-2 dk)`);
+    setTimeout(load, 800);
+  } catch (e) { toast(`Çalıştırılamadı: ${e.message}`); }
+}
+
+function appChips(r) {
+  return (r.approaches || []).map(a =>
+    `<span class="chip ${a.accepted ? "acc" : "rej"}">${esc(a.name)}${a.rank ? " #" + a.rank : ""}</span>`).join("");
+}
+function relIdCells(r) {
+  return `<td>${esc(r.summary?.label)} <span class="en">s.${r.summary?.page}</span></td>
+    <td>${esc(r.footnote?.label)} <span class="en">s.${r.footnote?.page}</span></td>
+    <td>${esc(r.period_scope)}</td>`;
+}
+function confCell(r) {
+  return `<td class="conf">${fmt(r.confidence, 3)}
+    <span class="bar-wrap"><span class="bar" style="width:${(r.confidence*100)|0}%"></span></span>
+    ${r.low_confidence ? '<span class="lowconf">DÜŞÜK GÜVEN</span>' : ""}</td>`;
+}
+function relRow(r) {
+  return `${relIdCells(r)}
+    <td><span class="chip">${esc(r.agreement)}</span>${appChips(r)}</td>
+    ${confCell(r)}`;
+}
+
+function renderCompare(d, aId, bId) {
+  $("#cmp").style.display = "block";
+  const ta = titleOf(aId);
+  const tb = titleOf(bId);
+  $("#cmpTitle").textContent = `Karşılaştırma: A = ${ta}  |  B = ${tb}`;
+
+  const sum = (side, s) => {
+    const m = s.summary || {}; const ev = m.eval || {};
+    return `<tr><td><span class="pill ${side.toLowerCase()}">${side}</span> ${esc(s.id)}</td>
+      <td>${m.tables ?? "?"}</td><td>${m.cells ?? "?"}</td>
+      <td>${m.relations ?? "?"}${m.low_conf_relations ? ` (${m.low_conf_relations} bayraklı)` : ""}</td>
+      <td>${m.checks ? `${m.checks.pass}✓/${m.checks.fail}✗/${m.checks.not_evaluable}∅` : "?"}</td>
+      <td>${m.calibration_mode ?? "-"}</td>
+      <td>${ev.cells ? ev.cells.pct + "%" : "-"}</td>
+      <td>${ev.relations ? `P=${fmt(ev.relations.precision)} R=${fmt(ev.relations.recall)}` : "-"}</td></tr>`;
+  };
+  $("#cmpSummary").innerHTML = `<table>
+    <tr><th>Senaryo</th><th>tablo</th><th>hücre</th><th>ilişki</th><th>kontrol</th>
+    <th>kalibrasyon</th><th>hücre doğruluğu</th><th>ilişki P/R</th></tr>
+    ${sum("A", d.a)}${sum("B", d.b)}</table>`;
+
+  const rel = d.relations;
+  let html = "";
+  if (rel.both.length) {
+    html += `<h3 style="font-size:14px">Her ikisinde de var (${rel.both.length})</h3>
+      <table><tr><th>Özet satırı</th><th>Dipnot satırı</th><th>Dönem</th>
+      <th>A yaklaşımları</th><th>A güven</th><th>B güven</th><th>Δ güven</th></tr>` +
+      rel.both.map(e => {
+        const cls = e.confidence_delta > 0 ? "delta-pos" : e.confidence_delta < 0 ? "delta-neg" : "";
+        return `<tr>${relIdCells(e.a)}
+          <td>${appChips(e.a)}</td>
+          <td class="conf">${fmt(e.a.confidence,3)}${e.a.low_confidence?' <span class="lowconf">⚑</span>':""}</td>
+          <td class="conf">${fmt(e.b.confidence,3)}${e.b.low_confidence?' <span class="lowconf">⚑</span>':""}</td>
+          <td class="conf ${cls}">${e.confidence_delta>0?"+":""}${fmt(e.confidence_delta,3)}
+          ${e.agreement_changed?'<span class="chip">uzlaşma değişti</span>':""}
+          ${e.flag_changed?'<span class="chip">bayrak değişti</span>':""}</td></tr>`;
+      }).join("") + "</table>";
+  }
+  const list = (rows, label, pill) => rows.length ?
+    `<h3 style="font-size:14px">Sadece ${label} (${rows.length})</h3>
+     <table><tr><th>Özet satırı</th><th>Dipnot satırı</th><th>Dönem</th>
+     <th>Uzlaşma + yaklaşımlar</th><th>Güven</th></tr>` +
+     rows.map(r => `<tr>${relRow(r)}</tr>`).join("") + "</table>" : "";
+  html += list(rel.only_a, 'A’da <span class="pill a">A</span>');
+  html += list(rel.only_b, 'B’de <span class="pill b">B</span>');
+  if (!html) html = `<div class="empty">İlişki farkı yok: iki senaryo aynı bağlantı kümesini üretti.</div>`;
+  $("#cmpRelations").innerHTML = html;
+
+  let checksHtml = d.checks.length ?
+    `<table><tr><th>Kontrol</th><th>Kapsam</th><th>A</th><th>B</th><th>Detay (B)</th></tr>` +
+    d.checks.map(c => `<tr><td>${esc(c.check_id)}</td><td class="en">${esc(c.scope)}</td>
+      <td>${esc(c.a)}</td><td>${esc(c.b)}</td>
+      <td class="en">${esc(c.detail_b || c.detail_a)}</td></tr>`).join("") + "</table>"
+    : `<div class="empty">Kontrol sonucu (durum) farkı yok.</div>`;
+  const dc = d.check_details_changed || [];
+  if (dc.length) {
+    checksHtml += `<h3 style="font-size:14px">Durum aynı, detay değişti (${dc.length})</h3>
+      <table><tr><th>Kontrol</th><th>A detayı</th><th>B detayı</th></tr>` +
+      dc.map(c => `<tr><td>${esc(c.check_id)}</td>
+        <td class="en">${esc(c.detail_a)}</td><td class="en">${esc(c.detail_b)}</td></tr>`).join("") +
+      "</table>";
+  }
+  $("#cmpChecks").innerHTML = checksHtml;
+
+  const cc = d.cells;
+  $("#cmpCells").innerHTML = (cc.changed.length || cc.only_a || cc.only_b) ?
+    ((cc.changed.length ? `<table><tr><th>Hücre</th><th>A değeri</th><th>B değeri</th></tr>` +
+      cc.changed.map(c => `<tr><td class="en">${esc(c.cell_id)}</td>
+        <td>${esc(c.a.raw)} <span class="chip">${esc(c.a.state)}</span></td>
+        <td>${esc(c.b.raw)} <span class="chip">${esc(c.b.state)}</span></td></tr>`).join("") +
+      "</table>" : "") +
+     `<div class="empty">Sadece A'da olan hücre: ${cc.only_a} · sadece B'de: ${cc.only_b}</div>`)
+    : `<div class="empty">Ortak hücrelerde fark yok.</div>`;
+  $("#cmp").scrollIntoView({ behavior: "smooth" });
+}
+
+async function renderMatrix() {
+  const box = $("#matrix");
+  if (box.style.display === "block") { box.style.display = "none"; return; }
+  box.style.display = "block";
+  try {
+    const rows = await api("/api/matrix");
+    const cell = (v, d=2) => v == null ? "-" : (typeof v === "number" ? Number(v).toFixed(d) : v);
+    $("#matrixBody").innerHTML = `<div style="overflow-x:auto"><table>
+      <tr><th>Senaryo</th><th>grup</th><th>durum</th><th>hücre %</th><th>P</th><th>R</th>
+      <th>ilişki (bayraklı)</th><th>kontrol ✓/✗/∅</th><th>kalibrasyon</th>
+      <th>Δ ilişki (yalnız taban / yalnız bu)</th><th>maks |Δgüven|</th>
+      <th>bayrak değişimi</th><th>hücre farkı</th><th>kontrol dönüşü</th></tr>` +
+      rows.map(r => {
+        const s = r.summary || {}, v = r.vs_baseline || {};
+        const st = { done: "hazır", absent: "yok", running: "çalışıyor", error: "HATA" }[r.state] || r.state;
+        return `<tr${r.id === "baseline" ? ' style="background:var(--panel2)"' : ""}>
+          <td><b>${esc(r.title_tr)}</b>${r.state === "error" ?
+            `<div class="en" style="color:var(--bad)">${esc(r.error || "")}</div>` : ""}</td>
+          <td><span class="badge">${esc(r.group)}</span></td>
+          <td>${st}</td>
+          <td class="conf">${cell(s.cells_pct, 1)}</td>
+          <td class="conf">${cell(s.precision)}</td><td class="conf">${cell(s.recall)}</td>
+          <td class="conf">${s.relations ?? "-"}${s.low_conf ? ` <span class="lowconf">(${s.low_conf}⚑)</span>` : ""}</td>
+          <td class="conf">${s.checks ? `${s.checks.pass}/${s.checks.fail}/${s.checks.not_evaluable}` : "-"}</td>
+          <td>${s.calibration ?? "-"}</td>
+          <td class="conf">${r.vs_baseline ? `${v.rels_only_base} / ${v.rels_only_here}` : "-"}</td>
+          <td class="conf">${r.vs_baseline ? cell(v.max_abs_dconf, 4) : "-"}</td>
+          <td class="conf">${r.vs_baseline ? v.flags_changed : "-"}</td>
+          <td class="conf">${r.vs_baseline ? v.cells_changed : "-"}</td>
+          <td class="conf">${r.vs_baseline ? v.check_flips : "-"}</td></tr>`;
+      }).join("") + "</table></div>";
+  } catch (e) { $("#matrixBody").innerHTML = `<div class="empty">Matris hatası: ${esc(e.message)}</div>`; }
+}
+$("#btnMatrix").addEventListener("click", renderMatrix);
+const kv = (obj) => Object.entries(obj || {}).map(([k, v]) =>
+  `<span>${esc(k)} <b>${esc(typeof v === "object" ? JSON.stringify(v) : v)}</b></span>`).join("");
+const stChip = (st) => `<span class="${st === "pass" ? "st-pass" : st === "fail" ? "st-fail" : "st-ne"}">${esc(st)}</span>`;
+const tbl = (cols, rows) => rows.length ? `<div style="overflow-x:auto"><table><tr>${cols.map(c => `<th>${c}</th>`).join("")}</tr>${rows.join("")}</table></div>` : "";
+
+function stageHtml(st) {
+  const f = st.facts || {};
+  let facts = "", body = "";
+  if (st.id === "S2") {
+    facts = kv({ "konfig. özet sayfaları": f.configured_summary_pages, "konfig. dipnot no": f.configured_footnote_no,
+                 "sayfa ofseti": f.page_offset, "bulunan özet sayfaları": f.summary_pages_found, "bulunan dipnot sayfaları": f.footnote_pages_found });
+    body = tbl(["kontrol", "kapsam", "durum", "detay"], st.items.map(c =>
+      `<tr><td>${esc(c.check_id)}</td><td class="en">${esc(c.scope)}</td><td>${stChip(c.status)}</td><td class="en">${esc(c.detail)}</td></tr>`));
+  } else if (st.id === "S3") {
+    facts = kv({ tablo: f.tables, satır: f.rows, hücre: f.cells, "dipnot referanslı satır": f.rows_with_footnote_refs, roller: f.roles });
+    body = tbl(["tablo", "sayfa", "başlık", "aşama", "dönemler", "satır", "hücre", "güven"], st.items.map(t =>
+      `<tr><td class="en">${esc(t.table_id)}</td><td>${t.page}</td><td>${esc(t.title)}</td><td class="en">${esc(t.stage)}</td>
+       <td>${esc((t.periods || []).join(", "))}</td><td>${t.rows}</td><td>${t.cells}</td><td class="conf">${fmt(t.confidence, 3)}</td></tr>`));
+  } else if (st.id === "S4") {
+    facts = kv({ durumlar: f.states, "onarılan hücre": f.repaired_cells, "motor uyuşmazlığı": f.engine_disagreements,
+                 "güven <= 0,5 hücre": f.cells_at_or_below_0_5, OCR: f.ocr });
+    body = `<div class="en" style="margin:4px 0 6px">Düşük güvenli ve onarılmış hücreler (işaretlenir, düzeltilmez):</div>` +
+      tbl(["hücre", "satır", "sayfa", "dönem", "durum", "ham", "değer", "onarım", "güven", "bileşenler"], st.items.map(c =>
+      `<tr><td class="en">${esc(c.cell_id)}</td><td>${esc(c.row)}</td><td>${c.page ?? ""}</td><td>${esc(c.period)}</td>
+       <td><span class="chip">${esc(c.state)}</span></td><td>${esc(c.raw)}</td><td>${esc(c.value)}</td>
+       <td>${c.repaired ? '<span class="chip acc">onarıldı</span>' : ""}</td><td class="conf">${fmt(c.confidence, 3)}</td>
+       <td class="en">${esc(JSON.stringify(c.components))}</td></tr>`));
+  } else if (st.id === "S6") {
+    facts = kv({ config: f.config, "kabul edilen bağların CE sırası": f.cross_encoder_rank_of_accepted_links });
+    body = tbl(["dipnota referans veren özet satırı", "sayfa", "referanslar"], (f.referencing_rows || []).map(r =>
+      `<tr><td>${esc(r.row)}</td><td>${r.page ?? ""}</td><td>${esc(JSON.stringify(r.refs))}</td></tr>`));
+  } else if (st.id === "S7") {
+    facts = kv({ config: f.config, ilişki: f.relations, uzlaşma: f.agreement });
+    body = tbl(["özet satırı", "dipnot satırı", "dönem", "tür", "yaklaşımlar (skor, sıra)", "uzlaşma", "kanıt"], st.items.map(r =>
+      `<tr><td>${esc(r.summary.label)} <span class="en">s.${r.summary.page}</span></td>
+       <td>${esc(r.footnote.label)} <span class="en">s.${r.footnote.page}</span></td><td>${esc(r.period_scope)}</td>
+       <td class="en">${esc(r.relation_type)}</td>
+       <td>${(r.approaches || []).map(a => `<span class="chip ${a.accepted ? "acc" : "rej"}">${esc(a.name)} ${fmt(a.raw_score, 3)}${a.rank ? " #" + a.rank : ""}</span>`).join("")}</td>
+       <td><span class="chip">${esc(r.agreement)}</span></td><td class="en">${esc(r.evidence)}</td></tr>`));
+  } else if (st.id === "S8") {
+    facts = kv({ config: f.config, "düşük güven bayraklı ilişki": f.low_confidence_relations,
+                 kalibrasyon: f.calibration_check ? f.calibration_check.detail : "-" });
+    const keys = ["fused", "reconciliation", "validation_factor", "venn_abers_p0", "venn_abers_p1", "calibration_fitted"];
+    body = tbl(["ilişki", ...keys, "güven"], st.items.map(r =>
+      `<tr><td class="en">${esc(r.relation_id)}</td>${keys.map(k => `<td class="conf">${fmt(r[k], 3)}</td>`).join("")}
+       <td class="conf">${fmt(r.confidence, 3)}${r.low_confidence ? ' <span class="lowconf">DÜŞÜK</span>' : ""}</td></tr>`)) +
+      `<div class="en" style="margin-top:6px">Tablo güvenleri: ${(f.table_confidence || []).map(t => `${esc(t.table_id)} ${fmt(t.confidence, 3)}`).join(" · ")}</div>`;
+  } else if (st.id === "S9") {
+    facts = kv({ toplam: f.totals, ...Object.fromEntries(Object.entries(f.by_group || {}).map(([g, v]) => [g, v])) });
+    body = `<div class="en" style="margin:4px 0 6px">Başarısız kontroller (hepsi gerçek doküman/OCR kusuru olmalı):</div>` +
+      tbl(["kontrol", "grup", "kapsam", "detay"], st.items.map(c =>
+      `<tr><td>${esc(c.check_id)}</td><td class="en">${esc(c.group)}</td><td class="en">${esc(c.scope)}</td><td class="en">${esc(c.detail)}</td></tr>`));
+  } else if (st.id === "S10") {
+    facts = kv({ şema: f.schema_version, sayılar: f.counts, run: f.run });
+    body = `<div class="en">${esc(JSON.stringify(f.document))}</div>`;
+  }
+  return `<div class="stage"><h3><span class="sid">${esc(st.id)}</span> ${esc(st.title_tr)} <span class="en">${esc(st.title)}</span></h3>
+    <div class="facts">${facts}</div>${body}</div>`;
+}
+
+async function renderWalkthrough() {
+  const id = $("#selW").value;
+  if (!id) return toast("Önce bir senaryo çalıştırın/seçin.");
+  await showWalkthrough(id);
+}
+async function showWalkthrough(id) {
+  const box = $("#walk");
+  try {
+    const w = await api(`/api/runs/${id}/walkthrough`);
+    $("#walkTitle").textContent = `Aşama aşama: ${titleOf(id)}`;
+    $("#walkBody").innerHTML = w.stages.map(stageHtml).join("");
+    box.style.display = "block";
+    box.scrollIntoView({ behavior: "smooth" });
+  } catch (e) { toast(`Walkthrough hatası: ${e.message}`); }
+}
+$("#btnWalk").addEventListener("click", renderWalkthrough);
+
+let TRI = null;
+// Leave-self-out Venn-ABERS intervals measured 29.08 on the shipped baseline run (each relation's own
+// control label removed before its interval is computed). The pipeline emits only the in-sample interval,
+// so this is a static overlay for the baseline scenario, not a live value.
+const VA_LSO_BASELINE = { rel000: [0.75, 1.0], rel004: [0.5, 1.0], rel005: [0.0, 1.0], rel007: [0.667, 1.0],
+                          rel008: [0.889, 1.0], rel011: [0.8, 1.0], rel016: [0.857, 1.0] };
+function lblButtons(kind, key, cur) {
+  const note = cur?.note || "";
+  return `<span class="lbl">
+    ${["accept", "reject", "unsure"].map(l => `<button class="${cur?.label === l ? "on-" + l : ""}"
+      onclick="setLabel('${kind}', '${key.replace(/'/g, "\\'")}', '${l}')">${{accept: "Kabul", reject: "Reddet", unsure: "Emin değil"}[l]}</button>`).join(" ")}
+    <input placeholder="${cur ? "not" : "not (önce etiket seçin)"}" title="${cur ? "" : "Not tek başına etiket oluşturmaz; önce Kabul / Reddet / Emin değil seçin"}" value="${esc(note)}" onchange="setNote('${kind}', '${key.replace(/'/g, "\\'")}', this)">
+    ${cur ? `<button title="temizle" onclick="setLabel('${kind}', '${key.replace(/'/g, "\\'")}', null)">×</button>` : ""}
+  </span>`;
+}
+function setNote(kind, key, input) {
+  const cur = kind === "relation" ? TRI?.relations.find(r => r.key === key)?.label : TRI?.cells.find(c => c.cell_id === key)?.label;
+  if (!cur) { input.value = ""; return toast("Not tek başına etiket oluşturmaz: önce Kabul / Reddet / Emin değil seçin."); }
+  setLabel(kind, key, cur.label, input.value);
+}
+async function setLabel(kind, key, label, note) {
+  const id = $("#selT").value;
+  try {
+    await api(`/api/runs/${id}/labels`, { method: "POST", headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ kind, key, label, note: note ?? (TRI ? (kind === "relation" ? TRI.relations.find(r => r.key === key)?.label?.note : TRI.cells.find(c => c.cell_id === key)?.label?.note) : "") ?? "" }) });
+    await renderTriage(false);
+  } catch (e) { toast(`Etiket kaydedilemedi: ${e.message}`); }
+}
+function thrHtml(t, n) {
+  const rev = t.review_ids.length, acc = t.accept_ids.length;
+  const cur = t.curve, maxv = Math.max(1, ...cur.map(c => c.review));
+  const ls = t.labels;
+  return `<div class="thr">
+    <div class="box"><div class="en">eşik p* = 1 - c_inceleme / c_kaçırma</div><div class="big">${fmt(t.p_star, 3)}</div>
+      <div class="en">c_inceleme ${t.c_review} · c_kaçırma ${t.c_miss}; kaçırma pahalandıkça eşik YÜKSELİR</div></div>
+    <div class="box"><div class="en">inceleme kuyruğu</div><div class="big">${rev} / ${n}</div>
+      <div class="en">p &lt; p* veya bayraklı (fallback kalibrasyon her zaman incelemeye gider); ${acc} ilişki incelemesiz kabul</div></div>
+    <div class="box"><div class="en">beklenen maliyet</div><div class="big">${fmt(t.expected_cost.at_p_star, 2)}</div>
+      <div class="en">p* ile; hepsini incele ${fmt(t.expected_cost.review_all, 2)} · hiçbirini inceleme ${fmt(t.expected_cost.review_none, 2)}</div></div>
+    <div class="box"><div class="en">kuyruk derinliği eşiğe göre (0 → 1)</div>
+      <div class="curve">${cur.map(c => `<div title="eşik ${c.threshold}: ${c.review} inceleme" class="${Math.abs(c.threshold - t.p_star) < 0.025 ? "at" : ""}" style="height:${Math.max(4, 100 * c.review / maxv)}%"></div>`).join("")}</div>
+      <div class="en">sarı = mevcut p*; kalibre ölçek teslimat, eşik tüketicinin maliyetinden türetilir (README 6)</div></div>
+    ${ls ? `<div class="box"><div class="en">inceleyici etiketleri vs kalibrasyon</div>
+      <div class="big">${ls.reviewer_precision_of_accept_set == null ? "-" : fmt(ls.reviewer_precision_of_accept_set, 2)}</div>
+      <div class="en">kabul kümesinde etiketli ${ls.labelled_in_accept_set}; kabul kümesinde reddedilen ${ls.reviewer_rejects_in_accept_set}; inceleme kümesinde kabul edilen ${ls.reviewer_accepts_in_review_set}</div></div>` : ""}
+  </div>`;
+}
+async function renderTriage(scroll = true) {
+  const id = $("#selT").value;
+  if (!id) return toast("Önce bir senaryo çalıştırın/seçin.");
+  const cr = $("#cRev").value || 1, cm = $("#cMiss").value || 20;
+  try {
+    TRI = await api(`/api/runs/${id}/triage?c_review=${cr}&c_miss=${cm}`);
+  } catch (e) { return toast(`Kuyruk hatası: ${e.message}`); }
+  $("#triageTitle").textContent = `İnceleme kuyruğu: ${titleOf(id)}`;
+  $("#thrPanel").innerHTML = thrHtml(TRI.threshold, TRI.relations.length);
+  const inReview = new Set(TRI.threshold.review_ids);
+  const lso = $("#vaLso").checked, lsoOk = lso && id === "baseline";
+  $("#vaLsoCap").textContent = lso ? (lsoOk ? "(29.08 ölçümü, canlı değil; sıra canlı aralığa göre)"
+    : "(29.08 ölçümü, canlı değil; yalnız taban çizgisi için ölçüldü, burada n/a)") : "";
+  const lsoOf = (r) => lsoOk ? VA_LSO_BASELINE[r.relation_id] : null;
+  const vaCell = (r) => { if (!lso) return `[${fmt(r.confidence_components.venn_abers_p0, 2)}, ${fmt(r.confidence_components.venn_abers_p1, 2)}]`;
+    const v = lsoOf(r); return v ? `[${fmt(v[0], 2)}, ${fmt(v[1], 2)}]` : "n/a"; };
+  const vaWidth = (r) => { if (!lso) return fmt(r.va_width, 3); const v = lsoOf(r); return v ? fmt(v[1] - v[0], 3) : "n/a"; };
+  $("#triRels").innerHTML = tbl(["#", "özet satırı", "dipnot satırı", "dönem", "uzlaşma", "güven",
+      lso ? "[p0, p1] kendi-dışı (29.08 ölçümü, canlı değil)" : "[p0, p1]", "genişlik", "p* kararı", "inceleyici etiketi"],
+    TRI.relations.map((r, i) => `<tr>
+      <td class="en">${i + 1}</td>
+      <td>${esc(r.summary.label)} <span class="en">s.${r.summary.page}</span></td>
+      <td>${esc(r.footnote.label)} <span class="en">s.${r.footnote.page}</span></td>
+      <td>${esc(r.period_scope)}</td><td><span class="chip">${esc(r.agreement)}</span></td>
+      <td class="conf">${fmt(r.confidence, 3)}${r.low_confidence ? ' <span class="lowconf">DÜŞÜK</span>' : ""}</td>
+      <td class="conf">${vaCell(r)}</td>
+      <td class="conf">${vaWidth(r)}</td>
+      <td>${inReview.has(r.relation_id) ? '<span class="chip" style="color:var(--warn)">incele</span>' : '<span class="chip acc">kabul</span>'}</td>
+      <td>${lblButtons("relation", r.key, r.label)}</td></tr>`)) || `<div class="empty">İlişki yok.</div>`;
+  $("#triCells").innerHTML = tbl(["hücre", "satır", "sayfa", "dönem", "ham", "değer", "durum", "güven", "bileşenler", "inceleyici etiketi"],
+    TRI.cells.map(c => `<tr>
+      <td class="en">${esc(c.cell_id)}</td><td>${esc(c.row)}</td><td>${c.page ?? ""}</td><td>${esc(c.period)}</td>
+      <td>${esc(c.raw)}</td><td>${esc(c.value)}</td>
+      <td><span class="chip">${esc(c.state)}</span>${c.repaired ? ' <span class="chip acc">onarıldı</span>' : ""}</td>
+      <td class="conf">${fmt(c.confidence, 3)}</td><td class="en">${esc(JSON.stringify(c.components))}</td>
+      <td>${lblButtons("cell", c.cell_id, c.label)}</td></tr>`)) || `<div class="empty">Bayraklı hücre yok.</div>`;
+  const ls = TRI.labels_summary;
+  $("#triageTitle").textContent += `  ·  etiketli: ${ls.relation.labelled} ilişki, ${ls.cell.labelled} hücre (runs/_labels/${id}.json)`;
+  $("#triage").style.display = "block";
+  if (scroll) $("#triage").scrollIntoView({ behavior: "smooth" });
+}
+$("#btnTriage").addEventListener("click", () => renderTriage(true));
+
+let DM = null;
+async function renderDM() {
+  const box = $("#dm");
+  if (box.style.display === "block") { box.style.display = "none"; return; }
+  try {
+    DM = DM || await api("/decision_matrix.json");
+    const roles = DM.roles || {};
+    $("#dmNote").textContent = `Kaynak: karar matrisi, ${DM.updated}, ${DM.version}. Her satır ölçülmüş bir kanıta işaret eder. "bekliyor" = henüz ölçülmedi veya bilinçli olarak sevk edilmedi.`;
+    $("#dmBody").innerHTML = DM.stages.map(st => `<div class="stage"><h3><span class="sid">${esc(st.id)}</span> ${esc(st.title_tr)}</h3>` +
+      tbl(["seçenek", "rol", "ölçüm", "neden", "kanıt"], st.options.map(o =>
+        `<tr><td>${esc(o.name)}</td><td><span class="role role-${esc(o.role)}">${esc(roles[o.role] || o.role)}</span></td>
+         <td>${esc(o.measure)}</td><td class="en">${esc(o.why)}</td>
+         <td class="en">${(o.evidence || []).map(e => `<span class="chip">${esc(evidenceLabel(e))}</span>`).join(" ")}</td></tr>`)) + `</div>`).join("");
+    box.style.display = "block";
+    box.scrollIntoView({ behavior: "smooth" });
+  } catch (e) { toast(`Karar matrisi yüklenemedi: ${e.message}`); }
+}
+$("#btnMatrixDM").addEventListener("click", renderDM);
+
+let BENCH = null, BENCH_SEL = null;
+const SCOPE_TR = { "this document": "Bu belge", "other documents": "Başka belgeler",
+                   "offline refit": "Çevrimdışı yeniden fit", "colab": "Colab" };
+const SCOPE_ORDER = ["this document", "other documents", "offline refit", "colab"];
+const ROLE_TR = { shipped: "teslimat", measured: "ölçüldü", pending: "bekliyor", rejected: "reddedildi" };
+const benchNum = (v) => Number.isInteger(v) ? String(v) : Number(v).toFixed(4).replace(/0+$/, "").replace(/\.$/, "");
+function benchVal(v, kind) {
+  if (v == null) return "-";
+  if (kind === "bool") return v ? "evet" : "hayır";
+  if (kind === "pct") return `${benchNum(v)}%`;
+  if (kind === "seconds") return `${benchNum(v)} s`;
+  if (kind === "number") return benchNum(v);
+  return esc(v);
+}
+function benchListHtml() {
+  return SCOPE_ORDER.filter(sc => BENCH.some(b => b.scope === sc)).map(sc =>
+    `<div class="grp">${SCOPE_TR[sc] || esc(sc)}</div>` + BENCH.filter(b => b.scope === sc).map(b =>
+      `<button data-id="${esc(b.id)}" class="${b.id === BENCH_SEL ? "active" : ""}">${esc(b.title_tr)}
+         <span class="en">${b.rows} satır${b.parse_errors ? ` · <span style="color:var(--bad)">${b.parse_errors} okuma hatası</span>` : ""}</span></button>`).join("")).join("");
+}
+async function showBench(id) {
+  BENCH_SEL = id;
+  $("#benchList").innerHTML = benchListHtml();
+  try {
+    const b = await api(`/api/benchmarks/${id}`);
+    const isBase = (r) => r.id === b.baseline || r.role === "shipped";
+    $("#benchBody").innerHTML = `
+      <h3 style="margin:0 0 4px;font-size:16px">${esc(b.title_tr)}</h3>
+      <div class="en">${esc(b.title_en)}</div>
+      ${b.scope !== "this document" ? `<div class="bench-flag">araştırma tarafı; teslimat 1.0.2 değişmedi</div>` : ""}
+      <div class="facts"><span>kapsam <b>${SCOPE_TR[b.scope] || esc(b.scope)}</b></span>
+        <span>ölçüm <b>${esc(b.measured_at.replace("T", " ").slice(0, 16))}</b></span>
+        <span>taban <b>${esc(b.baseline || "-")}</b></span>
+        <span>kaynak <b class="en">${esc(b.source)}</b></span></div>
+      ${tbl(["seçenek", "rol", ...b.columns.map(c => esc(c.label_tr)), "kaynak"], b.rows.map(r =>
+        `<tr class="${isBase(r) ? "bench-shipped" : ""}"><td><b>${esc(r.label)}</b><div class="en">${esc(r.id)}</div></td>
+         <td><span class="role role-${esc(r.role)}">${ROLE_TR[r.role] || esc(r.role)}</span></td>
+         ${b.columns.map(c => `<td class="${c.kind === "text" ? "" : "conf"}">${benchVal(r[c.key], c.kind)}</td>`).join("")}
+         <td class="en">${esc(r.source)}</td></tr>`)) || `<div class="empty">Satır yok.</div>`}
+      ${b.notes_tr.length ? `<ul class="bench-notes">${b.notes_tr.map(n =>
+        `<li class="${n.startsWith("parse_error:") ? "perr" : ""}">${esc(n)}</li>`).join("")}</ul>` : ""}
+      <div style="margin-top:12px"><b>Karar kuralı:</b> ${esc(b.decision_rule)}</div>`;
+  } catch (e) { $("#benchBody").innerHTML = `<div class="empty">Kıyaslama yüklenemedi: ${esc(e.message)}</div>`; }
+}
+async function renderBench() {
+  const box = $("#bench");
+  if (box.style.display === "block") { box.style.display = "none"; return; }
+  box.style.display = "block";
+  try {
+    BENCH = BENCH || await api("/api/benchmarks");
+    if (!BENCH.length) { $("#benchList").innerHTML = `<div class="empty">benchmarks/ boş.</div>`; return; }
+    await showBench(BENCH_SEL && BENCH.some(b => b.id === BENCH_SEL) ? BENCH_SEL : BENCH[0].id);
+  } catch (e) { $("#benchList").innerHTML = `<div class="empty">Liste yüklenemedi: ${esc(e.message)}</div>`; }
+  box.scrollIntoView({ behavior: "smooth" });
+}
+$("#btnBench").addEventListener("click", renderBench);
+$("#benchList").addEventListener("click", (e) => { const b = e.target.closest("[data-id]"); if (b) showBench(b.dataset.id); });
+
+$("#btnPdfDebugger").addEventListener("click", () => { window.open("/pdf-debugger.html", "_blank", "noopener"); });
+$("#btnPresent").addEventListener("click", () => {
+  document.body.classList.toggle("present");
+  $("#btnPresent").textContent = document.body.classList.contains("present") ? "Sunum: açık" : "Sunum";
+});
+
+["cRev", "cMiss", "vaLso"].forEach(id => $("#" + id).addEventListener("change", () => { if ($("#triage").style.display === "block") renderTriage(false); }));
+
+function docRowHtml(d) {
+  const st = d.status?.state || "absent";
+  const m = d.summary;
+  const done = st === "done" && m;
+  const cfg = `özet ${d.summary_pages[0]}-${d.summary_pages[1]} · dipnot ${d.footnote_no}` +
+    (d.extra_control_pages.length ? ` · kontrol ${d.extra_control_pages.join(",")}` : " · kontrol yok");
+  const result = m ? `ilişki <b>${m.relations}</b>${m.low_conf_relations ? ` <span class="flag">(${m.low_conf_relations} bayraklı)</span>` : ""}
+      · kontrol <b>${m.checks.pass}✓ / ${m.checks.fail}✗ / ${m.checks.not_evaluable}∅</b>
+      ${m.calibration_mode ? ` · kalibrasyon <b>${m.calibration_mode}</b>` : ""}
+      ${m.duration_s ? ` · <b>${m.duration_s}s</b>${platformHtml(m.platform)}` : ""}` : "-";
+  return `<tr>
+    <td><b>${esc(d.label || d.filename)}</b><div class="en">${esc(d.doc_id)} · ${d.page_count} sayfa · ${(d.size / 1048576).toFixed(1)} MB · ${esc(d.uploaded_at)}</div></td>
+    <td class="en">${cfg}</td>
+    <td>${statusChip(d)}${st === "error" ? `<div class="en" style="color:var(--bad)">${esc((d.status.error || "").slice(0, 240))}</div>` : ""}</td>
+    <td class="metrics" style="display:table-cell">${result}</td>
+    <td><div class="row">
+      <button onclick="runDocument('${esc(d.doc_id)}')" ${st === "running" ? "disabled" : ""}>Çalıştır</button>
+      ${done ? `<a href="/api/runs/${d.run_id}/report" target="_blank">Rapor</a>
+                <a href="/api/runs/${d.run_id}/result" target="_blank">result.json</a>
+                <a href="/pdf-debugger.html?run=${encodeURIComponent(d.run_id)}#review" target="_blank">PDF debugger</a>
+                <button onclick="showWalkthrough('${d.run_id}')">Aşama aşama</button>` : ""}
+    </div></td></tr>`;
+}
+function renderDocs() {
+  $("#docList").innerHTML = DOCS.length
+    ? tbl(["belge", "konfigürasyon", "durum", "sonuç", ""], DOCS.map(docRowHtml))
+    : `<div class="empty">Henüz belge yüklenmedi.</div>`;
+}
+async function loadDocs() {
+  try { DOCS = await api("/api/documents"); } catch (e) { DOCS = []; }
+  renderDocs();
+}
+async function runDocument(docId) {
+  try {
+    await api(`/api/documents/${docId}/run`, { method: "POST" });
+    toast(`doc-${docId} başlatıldı (modeller yükleniyor, ~1-2 dk)`);
+    setTimeout(load, 800);
+  } catch (e) { toast(`Çalıştırılamadı: ${e.message}`); }
+}
+async function uploadAndRun() {
+  const f = $("#docFile").files[0];
+  if (!f) return toast("Önce bir PDF seçin.");
+  const fd = new FormData();
+  fd.append("file", f);
+  fd.append("summary_pages_start", $("#docStart").value);
+  fd.append("summary_pages_end", $("#docEnd").value);
+  fd.append("footnote_no", $("#docFn").value);
+  fd.append("extra_control_pages", $("#docCtrl").value);
+  fd.append("label", $("#docLabel").value);
+  $("#docHint").textContent = "Yükleniyor...";
+  $("#btnDocRun").disabled = true;
+  try {
+    const d = await api("/api/documents", { method: "POST", body: fd });
+    $("#docHint").textContent = `${d.doc_id}: ${d.page_count} sayfa, ${(d.size / 1048576).toFixed(1)} MB yüklendi.`;
+    await runDocument(d.doc_id);
+  } catch (e) { $("#docHint").textContent = ""; toast(`Yüklenemedi: ${e.message}`); }
+  $("#btnDocRun").disabled = false;
+}
+$("#btnDocRun").addEventListener("click", uploadAndRun);
+$("#btnDocs").addEventListener("click", () => {
+  const box = $("#docs");
+  if (box.style.display === "block") { box.style.display = "none"; return; }
+  box.style.display = "block";
+  loadDocs();
+  box.scrollIntoView({ behavior: "smooth" });
+});
+
+
+
+$("#btnCompare").addEventListener("click", async () => {
+  const a = $("#selA").value, b = $("#selB").value;
+  if (!a || !b) return toast("Önce iki senaryoyu çalıştırın/seçin.");
+  if (a === b) return toast("Farklı iki senaryo seçin.");
+  try {
+    const d = await api(`/api/compare?a=${a}&b=${b}`);
+    if (d.error) return toast(d.error);
+    renderCompare(d, a, b);
+    render();
+  } catch (e) { toast(`Karşılaştırma hatası: ${e.message}`); }
+});
+["selA", "selB"].forEach(id => $("#" + id).addEventListener("change", render));
+
+load();
+</script>
+</body>
+</html>

@@ -1,0 +1,158 @@
+{
+  "id": "reranker-swap",
+  "title_tr": "Yeniden sıralayıcı takası: Türkçe eğitilmiş çapraz-kodlayıcı (E51b)",
+  "title_en": "Reranker swap: a Turkish-trained cross-encoder against the shipped mmarco model (E51b)",
+  "measured_at": "2026-08-29T20:07:35",
+  "source": "evidence/reranker-swap-local.md",
+  "scope": "this document",
+  "baseline": "mmarco-shipped",
+  "columns": [
+    {
+      "key": "model",
+      "label_tr": "model",
+      "kind": "text"
+    },
+    {
+      "key": "activation",
+      "label_tr": "aktivasyon",
+      "kind": "text"
+    },
+    {
+      "key": "params",
+      "label_tr": "parametre",
+      "kind": "number"
+    },
+    {
+      "key": "auc_labels",
+      "label_tr": "AUC (yalnız etiket, 33 kontrol)",
+      "kind": "number"
+    },
+    {
+      "key": "auc_label_values",
+      "label_tr": "AUC (etiket + değer)",
+      "kind": "number"
+    },
+    {
+      "key": "controls_ge_05",
+      "label_tr": "kontrol >= 0,5 (33 içinde)",
+      "kind": "number"
+    },
+    {
+      "key": "brier_loo",
+      "label_tr": "birleşik harita LOO Brier",
+      "kind": "number"
+    },
+    {
+      "key": "relations",
+      "label_tr": "ilişki",
+      "kind": "number"
+    },
+    {
+      "key": "precision",
+      "label_tr": "ilişki P",
+      "kind": "number"
+    },
+    {
+      "key": "recall",
+      "label_tr": "ilişki R",
+      "kind": "number"
+    },
+    {
+      "key": "flagged",
+      "label_tr": "bayraklı ilişki",
+      "kind": "number"
+    },
+    {
+      "key": "checks",
+      "label_tr": "kontrol geçti / kaldı / değerlendirilemez",
+      "kind": "text"
+    },
+    {
+      "key": "cells_pct",
+      "label_tr": "hücre doğruluğu",
+      "kind": "pct"
+    },
+    {
+      "key": "calibration",
+      "label_tr": "kalibrasyon",
+      "kind": "text"
+    },
+    {
+      "key": "wall_s",
+      "label_tr": "duvar saati",
+      "kind": "seconds"
+    }
+  ],
+  "rows": [
+    {
+      "id": "mmarco-shipped",
+      "label": "Teslimat: mmarco-mMiniLMv2 çapraz-kodlayıcı (ftlink 1.0.2)",
+      "role": "shipped",
+      "source": "app/runs/baseline/meta.json, research/assets/experiments/reranker-swap-local/results.json",
+      "model": "cross-encoder/mmarco-mMiniLMv2-L12-H384-v1",
+      "activation": "Identity",
+      "params": 117641089,
+      "auc_labels": 0.4504,
+      "auc_label_values": 0.9545,
+      "controls_ge_05": 3,
+      "brier_loo": 0.0085,
+      "relations": 7,
+      "precision": 1.0,
+      "recall": 1.0,
+      "flagged": 0,
+      "checks": "103 / 4 / 6",
+      "cells_pct": 99.0,
+      "calibration": "fitted, 11 poz / 22 neg",
+      "wall_s": 28.8
+    },
+    {
+      "id": "modernbert-tr-as-wired",
+      "label": "modernbert-tr yeniden sıralayıcı, bağlandığı gibi (çift sigmoid)",
+      "role": "measured",
+      "source": "app/runs/reranker-tr-modernbert/meta.json, research/assets/experiments/reranker-swap-local/results.json",
+      "model": "ytu-ce-cosmos/modernbert-tr-reranker",
+      "activation": "Sigmoid",
+      "params": 149365249,
+      "auc_labels": 0.7149,
+      "auc_label_values": 0.9917,
+      "controls_ge_05": 33,
+      "brier_loo": 0.0051,
+      "relations": 17,
+      "precision": 0.41,
+      "recall": 1.0,
+      "flagged": 17,
+      "checks": "102 / 14 / 7",
+      "cells_pct": 99.0,
+      "calibration": "fallback, 11 poz / 0 neg",
+      "wall_s": 82.7
+    },
+    {
+      "id": "modernbert-tr-identity",
+      "label": "modernbert-tr yeniden sıralayıcı, Identity aktivasyonu zorlanmış",
+      "role": "measured",
+      "source": "research/assets/experiments/reranker-swap-local/results-identity-e2e.json, research/assets/experiments/reranker-swap-local/results.json",
+      "model": "ytu-ce-cosmos/modernbert-tr-reranker",
+      "activation": "Identity",
+      "params": 149365249,
+      "auc_labels": 0.7149,
+      "auc_label_values": 0.9917,
+      "controls_ge_05": 11,
+      "brier_loo": 0.0076,
+      "relations": 8,
+      "precision": 0.88,
+      "recall": 1.0,
+      "flagged": 1,
+      "checks": "103 / 5 / 6",
+      "cells_pct": 99.0,
+      "calibration": "fitted, 11 poz / 21 neg",
+      "wall_s": 25.2
+    }
+  ],
+  "notes_tr": [
+    "Tekrar oynatma sabit 33 kontrol kararı üzerindedir (11 pozitif / 22 negatif, 7 yayımlanan ilişki); etiketler her aday için aynıdır, yalnız çapraz-kodlayıcı değişir.",
+    "Geçerlilik kapısı: mmarco satırı yakalanan skorları maks mutlak fark 0.0 ile yeniden üretir ve teslimat koşusunun a=10.5259, b=-3.6973, mod=fitted haritasına oturur.",
+    "'kontrol >= 0,5' sütunu aktivasyon sözleşmesini gösterir: modelin konfigürasyonunda sbert_ce_default_activation_function yoktur, sentence-transformers tek etiketli çapraz-kodlayıcıyı Sigmoid'e düşürür ve boru hattı ikinci bir sigmoid uygular, böylece 33 kontrolün 33'ü kabul barını aşar.",
+    "Ön kayıtlı karar kuralı: handoff/RUN0678-FOLDIN-PLAN.md (run-07, sonuçlar üretilmeden önce yazıldı)."
+  ],
+  "decision_rule": "Ön kayıtlı run-07 kuralı: bir yeniden sıralayıcı ancak yalnız-etiket AUC en az 0,05 artarsa VE birleşik haritanın LOO Brier'i kötüleşmezse VE model 1 GB altındaysa önerilen takas olur. Üç koşul da sağlanıyor, ama tablo takasın 1.0.2'de yalnız konfigürasyonla yapılamayacağını gösteriyor: kabul eşiği modelin aktivasyon ölçeğine bağlıdır, bağlandığı gibi her kontrol barı aşar, kalibrasyon geri düşer ve P 1,00'den 0,41'e iner. Ölçek düzeltildiğinde bile çalışma noktası P 0,88 verir; teslimat mmarco kalır, aktivasyon sözleşmesini okumak bir 1.0.3 işidir."
+}

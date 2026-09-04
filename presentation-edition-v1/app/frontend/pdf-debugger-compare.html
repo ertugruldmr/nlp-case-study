@@ -1,0 +1,93 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>ftlink · side-by-side compare</title><style>
+:root{--navy:#071d49;--blue:#0b3b82;--cyan:#20c4d8;--ink:#17233d;--muted:#66738f;--line:#d9e1ef;--bg:#f5f8fc}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:13px/1.4 Inter,ui-sans-serif,system-ui,sans-serif}
+button,select{font:inherit;cursor:pointer;border:1px solid var(--line);background:white;color:var(--ink);border-radius:7px;padding:6px 9px}
+button:hover,select:hover{border-color:var(--cyan)}
+.top{background:var(--navy);color:white;padding:10px 18px;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.brand{font-size:16px;font-weight:750;letter-spacing:.02em}.brand small{display:block;color:#a9c5e9;font-size:10px;font-weight:500}
+.top a{color:#bfeaf4;text-decoration:none;font-size:12px}.top select{background:#102e60;color:white;border-color:#43689e;max-width:220px}
+.hint{color:#a9c5e9;font-size:11px;margin-left:auto}
+.panes{display:grid;gap:2px;background:var(--line);height:calc(100vh - 49px)}
+.pane{display:flex;flex-direction:column;background:white;min-width:0}
+.pane-head{display:flex;align-items:center;gap:8px;padding:6px 10px;border-bottom:1px solid var(--line);background:#edf3fb}
+.pane-head select{flex:1;min-width:0}
+.pane-head button{padding:4px 8px;font-size:11px}
+.pane iframe{flex:1;border:0;width:100%}
+.empty{display:flex;align-items:center;justify-content:center;height:100%;color:var(--muted);flex-direction:column;gap:10px;padding:20px;text-align:center}
+</style></head><body>
+<header class="top">
+  <div class="brand">ftlink <small>SIDE-BY-SIDE COMPARE</small></div>
+  <button id="addPane">+ Add pane</button>
+  <span class="hint" id="hint">Each pane is the full debugger, fully independent -- upload, configure and run in any pane without affecting the others.</span>
+  <a href="/pdf-debugger.html">&larr; Back to single debugger</a>
+  <a href="/">Back to cockpit</a>
+</header>
+<main class="panes" id="panes"></main>
+<script>
+const $ = s => document.querySelector(s);
+const MAX_PANES = 4;
+let runsCache = null;
+
+async function fetchRuns() {
+  if (runsCache) return runsCache;
+  const r = await fetch('/api/debugger/runs');
+  runsCache = r.ok ? await r.json() : [];
+  return runsCache;
+}
+
+function readPanesFromUrl() {
+  const p = new URLSearchParams(location.search).get('runs');
+  const ids = p ? p.split(',').map(x => x.trim()).filter(Boolean) : ['baseline'];
+  return ids.length ? ids : ['baseline'];
+}
+
+function writePanesToUrl(ids) {
+  history.replaceState(null, '', `?runs=${encodeURIComponent(ids.join(','))}`);
+}
+
+function paneHtml(id, runs) {
+  const options = runs.map(r => `<option value="${esc(r.run_id)}" ${r.run_id===id?'selected':''}>${esc(r.label||r.run_id)}</option>`).join('');
+  return `<div class="pane-head"><select class="paneSelect">${options}</select><button class="paneRemove" title="Remove this pane">Remove</button></div><iframe src="/pdf-debugger.html?run=${encodeURIComponent(id)}"></iframe>`;
+}
+
+function esc(x) { return String(x ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+
+async function render() {
+  const ids = readPanesFromUrl();
+  const runs = await fetchRuns();
+  const container = $('#panes');
+  if (!runs.length) {
+    container.style.gridTemplateColumns = '1fr';
+    container.innerHTML = '<div class="empty"><b>No runs available yet.</b><p>Run the baseline scenario or upload a document from the single debugger first, then come back here to compare it against another run.</p></div>';
+    return;
+  }
+  container.style.gridTemplateColumns = `repeat(${ids.length}, 1fr)`;
+  container.innerHTML = ids.map(id => `<div class="pane">${paneHtml(id, runs)}</div>`).join('');
+  container.querySelectorAll('.pane').forEach((paneEl, i) => {
+    paneEl.querySelector('.paneSelect').onchange = (e) => {
+      const newIds = readPanesFromUrl(); newIds[i] = e.target.value; writePanesToUrl(newIds); render();
+    };
+    paneEl.querySelector('.paneRemove').onclick = () => {
+      const newIds = readPanesFromUrl(); if (newIds.length <= 1) return; newIds.splice(i, 1); writePanesToUrl(newIds); render();
+    };
+  });
+  $('#addPane').disabled = ids.length >= MAX_PANES;
+}
+
+$('#addPane').onclick = async () => {
+  const ids = readPanesFromUrl();
+  if (ids.length >= MAX_PANES) return;
+  const runs = await fetchRuns();
+  const used = new Set(ids);
+  const next = runs.find(r => !used.has(r.run_id)) || runs[0];
+  ids.push(next ? next.run_id : 'baseline');
+  writePanesToUrl(ids);
+  render();
+};
+
+// Refresh the run list periodically so a run finishing inside one pane's
+// workbench appears as an option in the others without a manual reload.
+setInterval(() => { runsCache = null; }, 15000);
+render();
+</script>
+</body></html>

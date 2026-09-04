@@ -1,0 +1,466 @@
+{
+ "updated": "30.08.2026",
+ "version": "ftlink 1.0.2",
+ "roles": {
+  "shipped": "sevk edildi",
+  "verifier": "doğrulayıcı",
+  "fallback": "yedek yol",
+  "comparison": "karşılaştırma",
+  "pending": "bekliyor",
+  "rejected": "reddedildi",
+  "excluded": "lisans dışı"
+ },
+ "stages": [
+  {
+   "id": "S1",
+   "title_tr": "OCR",
+   "options": [
+    {
+     "name": "tesseract 5 tur, 300 dpi / psm 4",
+     "role": "shipped",
+     "measure": "154/156 rakam birebir; 400 dpi ölçülebilir kötü (lab dpi-400: %79,6 hücre, R 0,14); GPU karşılaştırması (run-08, 16 motor): hiçbiri şevkedilen 199/201'i geçemedi, en iyi alternatif 185-190/201",
+     "why": "Apache-2.0, çevrimdışı, apt/brew ile kurulur; % glifinde kör (0/6)",
+     "evidence": [
+      "tesseract-ocr",
+      "scenario-lab",
+      "ocr-bakeoff-run08"
+     ]
+    },
+    {
+     "name": "RapidOCR (onnx) rakam kontrolü + oran satırlarında birincil",
+     "role": "verifier",
+     "measure": "sevk edilen çalıştırmada 5 hücrede motor uyuşmazlığı (Stoklar 77.943.097 = gerçek bozulma, 0,4; 4 oran hücresi 0,92); ayraç bozulması (4,224) rakam kontrolünden doğası gereği geçer, FIN_PARENT_SUM yakalar; % 6/6",
+     "why": "motorlar glif sınıfına göre rol değiştirir; ikinci okuma bileşenlere yazılır",
+     "evidence": [
+      "deliverable-v0",
+      "percent-rescue"
+     ]
+    },
+    {
+     "name": "PaddleOCR",
+     "role": "rejected",
+     "measure": "TR aksan desteği yok (bakımcı, #16482)",
+     "why": "etiketler bozulur",
+     "evidence": [
+      "10-ocr-engines"
+     ]
+    },
+    {
+     "name": "Apple Vision",
+     "role": "rejected",
+     "measure": "tr dili desteklenmiyor (ölçüldü)",
+     "why": "yalnız macOS; yeniden üretilemez",
+     "evidence": [
+      "10-ocr-engines"
+     ]
+    },
+    {
+     "name": "surya",
+     "role": "excluded",
+     "measure": "OpenRAIL-M gelir sınırı",
+     "why": "banka lisans eşiği",
+     "evidence": [
+      "10-ocr-engines"
+     ]
+    },
+    {
+     "name": "GPU OCR karşılaştırması: docTR, RapidOCR varyantları, EasyOCR, Qwen2.5-VL-7B, olmOCR-2 (run-08)",
+     "role": "comparison",
+     "measure": "en iyi alternatifler 185-190/201 (%92-94,5), şevkedilenin altında; 2 adet 7B VLM sayfa-seviyesi geri çağırmada bile CPU motorlarının gerisinde; PaddleOCR ortam hatasıyla hiç çalışmadı",
+     "why": "% glif okuyan motorlar (RapidOCR, docTR, EasyOCR) rakam/etiket sadakatinde kaybediyor; şevkedilen iki-motor tasarımı bu yer değiştirmeyi tam olarak bu yüzden yapıyor",
+     "evidence": [
+      "ocr-bakeoff-run08"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "S3",
+   "title_tr": "Tablo yapısı",
+   "options": [
+    {
+     "name": "x-kümeleme (sayısal token sağ kenarları) + girinti kuralı",
+     "role": "shipped",
+     "measure": "%99,0 hücre (199/201); 7/7 gerçek başlık",
+     "why": "deterministik, GPU'suz, bağımlılık yok",
+     "evidence": [
+      "deliverable-v0",
+      "mock03-hardening"
+     ]
+    },
+    {
+     "name": "TATR v1.1-fin (FinTabNet.c) yapı motoru",
+     "role": "comparison",
+     "measure": "GPU baş-başa (run-06): en iyi konfig 151/201 (%75,1), s.54 hiç algılanmadı; algılama eşiğine karşı çok duyarlı (s.7: 0,76→0,0 eşik 0,3→0,5); zayıflık algılama konfigürasyonu, algılanınca yapı kalitesi tavana yakın",
+     "why": "konfigle takılacak (extract_tables() arkasında; motor anahtarı henüz yok); ADR-01 revizyon maddesi",
+     "evidence": [
+      "adr-01-extraction-stack",
+      "tatr-local-structure",
+      "structure-bakeoff-run06"
+     ]
+    },
+    {
+     "name": "docling TableFormer",
+     "role": "comparison",
+     "measure": "GPU baş-başa (run-06): 165/201 (%82,1), ayarsız, gerçekten güçlü ama şevkedilenin altında; en iyi CPU-uyumlu meydan okuyucu",
+     "why": "born-digital eğitim; tarama sağlamlığı bilinmiyor",
+     "evidence": [
+      "15-table-structure",
+      "structure-bakeoff-run06"
+     ]
+    },
+    {
+     "name": "VLM sayfa başına (API)",
+     "role": "comparison",
+     "measure": "önbellek tekrarı olmadan %95-99 çalıştırma özdeşliği (kaynaklı)",
+     "why": "API katmanı; banka varsayılanı değil",
+     "evidence": [
+      "15-table-structure"
+     ]
+    },
+    {
+     "name": "camelot / pdfplumber / tabula",
+     "role": "rejected",
+     "measure": "okunacak metin katmanı yok",
+     "why": "tarama",
+     "evidence": [
+      "05-document-recon"
+     ]
+    },
+    {
+     "name": "Qwen2.5-VL-7B-Instruct → HTML tablo",
+     "role": "comparison",
+     "measure": "GPU (run-06): 187/201 (%93,0), en iyi meydan okuyucu; 23,7 GB GPU, sayfa başına 73-124 sn",
+     "why": "şevkedilenin 12 hücre altında, 7B parametreli GPU modeli gerektiriyor; gerçek doğruluk/maliyet ödünleşimi, başarısızlık değil",
+     "evidence": [
+      "structure-bakeoff-run06"
+     ]
+    },
+    {
+     "name": "PaddleOCR PP-StructureV3",
+     "role": "pending",
+     "measure": "run-06'da hiç çalışmadı (runner hatası, iz kaydı yok); ölçülmedi olarak kaydedildi, 'daha kötü' olarak değil",
+     "why": "izole kurulum betiği başarısız oldu; nedeni araştırılmadı",
+     "evidence": [
+      "structure-bakeoff-run06"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "S4",
+   "title_tr": "Sayı normalizasyonu",
+   "options": [
+    {
+     "name": "özel Decimal grameri (parantez negatif, nokta binlik, virgül ondalık, üç durum)",
+     "role": "shipped",
+     "measure": "182/182 hücre; 19/19 durum; 175/176 OCR değeri kurtarıldı",
+     "why": "stdlib; baştaki eksi ayrıştırılmaz (README 11)",
+     "evidence": [
+      "tr-number-parser"
+     ]
+    },
+    {
+     "name": "onarım katmanı (kayıp nokta yeniden gruplama)",
+     "role": "shipped",
+     "measure": "P 1,00 / R 0,53",
+     "why": "kesinlik öncelikli; onarılamayan düşük güvenle işaretlenir",
+     "evidence": [
+      "tr-number-parser"
+     ]
+    },
+    {
+     "name": "zeyrek / Zemberek",
+     "role": "rejected",
+     "measure": "çevrimdışı çöker / JVM",
+     "why": "yeniden üretilebilirlik tuzağı",
+     "evidence": [
+      "20-normalization"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "S6",
+   "title_tr": "Aday üretimi",
+   "options": [
+    {
+     "name": "ağırlıklı RRF (k=10): char_wb TF-IDF + token-set fuzzy + e5-small + değer çapası (×3)",
+     "role": "shipped",
+     "measure": "aday geri çağırma 7/7; eşik 0,2-0,8 / top_k 2 / rrf_k 60 kabul kümesini değiştirmez",
+     "why": "YKT'nin yayımlanan RRF hibrit tadıyla aynı",
+     "evidence": [
+      "candidate-channels",
+      "scenario-lab"
+     ]
+    },
+    {
+     "name": "bm25s (lucene + stem)",
+     "role": "comparison",
+     "measure": "R@5 0,40 / 0,50",
+     "why": "stem 'değerle' ≠ 'değer' kaçırma ölçüldü",
+     "evidence": [
+      "candidate-channels"
+     ]
+    },
+    {
+     "name": "e5-small tek başına",
+     "role": "comparison",
+     "measure": "kalem-anlam 1,00; mutabakat rastgelenin altı [14-19]",
+     "why": "yalnız kanal, asla tek başına",
+     "evidence": [
+      "candidate-channels"
+     ]
+    },
+    {
+     "name": "başlık/bağlam serileştirme",
+     "role": "rejected",
+     "measure": "YANLIŞLANDI: kolay çifti [1,2] → [9,10] bozar",
+     "why": "sabit bağlam ayrım gücü katmaz",
+     "evidence": [
+      "candidate-channels"
+     ]
+    },
+    {
+     "name": "jina-embeddings-v3",
+     "role": "excluded",
+     "measure": "CC-BY-NC",
+     "why": "banka lisans eşiği",
+     "evidence": [
+      "30-candidate-generation"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "S7",
+   "title_tr": "İlişkilendirme",
+   "options": [
+    {
+     "name": "A: mmarco-mMiniLMv2 çapraz kodlayıcı, etiket|değer çifti",
+     "role": "shipped",
+     "measure": "R@5 7/7 değerlerle, 1/7 yalnız etiket (p = 0,031); 3 ms toplu / 8 ms tek çift (yeniden ölçüldü; ilk ölçüm 11 ms); GPU (run-01, E47): top1 marjı 3,502/0,482, test edilen 3 reranker arasında EN BÜYÜK (en iyi ayrışma)",
+     "why": "mMARCO'da Türkçe yok: XLM-R omurgasıyla sıfır-atış; burada ölçüldü",
+     "evidence": [
+      "small-rerankers",
+      "v010-battery-foldin",
+      "heavy-evidence-run01"
+     ]
+    },
+    {
+     "name": "B: değer + rol kuralları",
+     "role": "shipped",
+     "measure": "b_only 5 ilişki (4 mutabakat + 1 ikiz akış); ML yok",
+     "why": "mutabakat fiziğini taşır",
+     "evidence": [
+      "roles-and-anchors"
+     ]
+    },
+    {
+     "name": "C: rapidfuzz token-set taban çizgisi (eşik 0,75)",
+     "role": "shipped",
+     "measure": "hiçbir şey kabul etmez; 0,4 eşikte P 0,70 (3 yanlış, hepsi bayraklı)",
+     "why": "şartnamenin 'yetersiz' tezinin ölçümü",
+     "evidence": [
+      "scenario-lab"
+     ]
+    },
+    {
+     "name": "D: LLM seçici (OpenAI-uyumlu uç + commit'li önbellek)",
+     "role": "fallback",
+     "measure": "yerel ölçüm P 1,00; varsayılan KAPALI; d_only hep bayraklı",
+     "why": "notlandırma sürtünmesi; kalibratöre girmez",
+     "evidence": [
+      "llm-select-linker"
+     ]
+    },
+    {
+     "name": "bge-reranker-v2-m3 (568M) / mxbai-rerank-base-v2",
+     "role": "comparison",
+     "measure": "R@5 1,00/1,00: parite; 11-31 ms ve 54 ms/çift; run-01 (E47): marjı mmarco'dan 5-7x küçük. run-07 (E72, sadece 13 adayın 2'si tamamlandı): labels-only AUC 0,7438 vs mmarco 0,4504, fused LOO Brier 0,0054 vs 0,0071, değişim kuralını teknik olarak tetikliyor ama 10/13 aday hiç yarışmadı, bu yüzden KARAR ÖNERİLMİYOR (DECISIONS 21)",
+     "why": "büyük model kazandırmıyor; tek konfig satırı uzakta",
+     "evidence": [
+      "bge-reranker",
+      "small-rerankers",
+      "heavy-evidence-run01",
+      "reranker-bakeoff-run07"
+     ]
+    },
+    {
+     "name": "ytu-ce-cosmos/modernbert-tr-reranker (149M, Apache-2.0; kartı Türkçe veriyle eğitildiğini yazar)",
+     "role": "comparison",
+     "measure": "yerel ölçüm 29.08 (lab senaryosu reranker-tr-modernbert, 33 sabit kontrol): yalnız-etiket AUC 0,71 vs mmarco 0,45; etiket|değer 0,99 vs 0,95; füzyon LOO Brier 0,0076 vs 0,0085. Konfigürasyonla takılınca çift sigmoid: 17 ilişki, 10 yanlış hepsi bayraklı, P 0,41, kalibrasyon fallback; aktivasyon Identity sabitlenince 8 ilişki (7 altın + 1 bayraklı), P 0,88, fitted",
+     "why": "ön-kayıtlı kural (AUC +0,05, LOO Brier kaybı yok, <1 GB) sağlanır; ama kabul eşiğinin sigmoid ölçeği model başına sözleşme ve 1.0.2 mühürlü: araştırma tarafı öneri, ADR-02 değişmedi",
+     "evidence": [
+      "reranker-swap-local",
+      "107-reranker-embedding-frontier-2026"
+     ]
+    },
+    {
+     "name": "NLI mDeBERTa üçüncü sinyal",
+     "role": "rejected",
+     "measure": "run-01 (E17): bilanço 2/5 hedef top5'te, gelir 0/2 top5'te; kolay sorguda bile başarısız",
+     "why": "entailment çerçevesi bu belgenin tablo satırlarına aktarılamıyor; 3. sinyal olarak BENİMSENMEDİ",
+     "evidence": [
+      "adr-02-linker-lineup"
+     ]
+    },
+    {
+     "name": "jina-reranker-v2",
+     "role": "excluded",
+     "measure": "CC-BY-NC",
+     "why": "lisans",
+     "evidence": [
+      "40-linking-models"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "S8",
+   "title_tr": "Güven ve kalibrasyon",
+   "options": [
+    {
+     "name": "yumuşatılmış Platt, çalışma anı kontrolleri (11 poz / 22 neg)",
+     "role": "shipped",
+     "measure": "LOO Brier 0,0085 vs taban 0,2222 vs ham 0,0579; jackknife 0,037; a = 10,53, b = -3,70 çıktıda",
+     "why": "pozitif = kabul + aritmetik mutabakat; ayrışan kontrollerde tek kalan derecelendirilmiş aile",
+     "evidence": [
+      "e27-controls-venn-abers",
+      "e34-isotonic-vs-platt",
+      "v010-battery-foldin"
+     ]
+    },
+    {
+     "name": "Venn-ABERS aralığı [p0, p1]",
+     "role": "shipped",
+     "measure": "en zayıf [0,50, 1,00] → kendi etiket dışı [0,00, 1,00]; konsensüs [0,90, 1,00] → [0,89, 1,00]",
+     "why": "sıralama aracı ve seyreklik beyanı; kapsama garantisi değil (README 6)",
+     "evidence": [
+      "v010-battery-foldin"
+     ]
+    },
+    {
+     "name": "izotonik",
+     "role": "comparison",
+     "measure": "ayrışan kontrollerde {0,1} basamağa çöker; LOO 0,0449",
+     "why": "ilişkiler 1,0'a sabitlenir",
+     "evidence": [
+      "e34-isotonic-vs-platt"
+     ]
+    },
+    {
+     "name": "yumuşatmasız lojistik",
+     "role": "comparison",
+     "measure": "0,997+ doyar; v0.2 sessizce yedek yola düşmüştü",
+     "why": "ölçtük ve düzelttik",
+     "evidence": [
+      "e27-controls-venn-abers"
+     ]
+    },
+    {
+     "name": "GPU çalışması: e5-large + bge-reranker füzyonu",
+     "role": "comparison",
+     "measure": "Brier 0,145 [0,080-0,226] vs ham 0,235; pozitifler 0,19-0,20 (7 pozitif + L2)",
+     "why": "darboğaz N, model değil",
+     "evidence": [
+      "gpu-calibration-study"
+     ]
+    },
+    {
+     "name": "noisy-OR üç kanal",
+     "role": "rejected",
+     "measure": "bağımsızlık iddia edilemez; değer kanalı çift sayar",
+     "why": "ADR-03",
+     "evidence": [
+      "adr-03-confidence-decomposition"
+     ]
+    },
+    {
+     "name": "ham benzerlik = güven",
+     "role": "rejected",
+     "measure": "şartname yasaklıyor",
+     "why": "gereksinim 7",
+     "evidence": []
+    }
+   ]
+  },
+  {
+   "id": "S9",
+   "title_tr": "Doğrulama",
+   "options": [
+    {
+     "name": "3 grup (yapısal / biçimsel / finansal) + not_evaluable",
+     "role": "shipped",
+     "measure": "103 / 4 / 6; 4 kalanın hepsi gerçek kusur; mutasyon 3/3 adlı yakalayıcı",
+     "why": "değerlendirilemeyen asla sessizce geçmez",
+     "evidence": [
+      "e35-shipped-validation-mutations",
+      "mutation-harness"
+     ]
+    },
+    {
+     "name": "LLM-hakem doğrulama",
+     "role": "rejected",
+     "measure": "Cetvel bulgusu: LLM-only girişler hibritlere yenildi",
+     "why": "aritmetik özdeşlik daha güçlü hakem",
+     "evidence": [
+      "97-papers-and-frameworks"
+     ]
+    },
+    {
+     "name": "çapraz-tablo özdeşlikleri (varlık = kaynak, dönem kârı bağı, önceki kapanış = açılış)",
+     "role": "pending",
+     "measure": "sevk edilmedi; README 11'de açıkça yazıldı (DECISIONS 14)",
+     "why": "kararlılık bir kontrol grubundan önce gelir",
+     "evidence": [
+      "v010-battery-foldin"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "EV",
+   "title_tr": "Değerlendirme",
+   "options": [
+    {
+     "name": "elle yazılmış referans (201 hücre, 7 bağ) + 77 özdeşlik + kör ikinci geçiş",
+     "role": "shipped",
+     "measure": "30/30, 6/6, dipnot-11 işaretleri birebir, 53/53 özdeşlik, 201/201 ikincil",
+     "why": "tek bildirim, aynı sayfa görüntüleri (artık risk yazıldı)",
+     "evidence": [
+      "gold-audit"
+     ]
+    },
+    {
+     "name": "puanlayıcı aralıkları (eval/score.py)",
+     "role": "shipped",
+     "measure": "CI [0,965, 0,999]; alt sınır 0,652; eşleşmeyen çıkarılmış satır 0",
+     "why": "yedi bağ işlev kanıtı, hata oranı değil",
+     "evidence": [
+      "v010-battery-foldin"
+     ]
+    },
+    {
+     "name": "determinizm çıkış kodu (eval/determinism.py)",
+     "role": "shipped",
+     "measure": "True (macOS); Linux çift çalıştırma True; ikinci Linux çalıştırması (run-05, E74): şevkedilen 199/201 + aynı 2 işaretli hücre birebir tekrarlandı, sunucu/duman testi 18 senaryo temiz",
+     "why": "bayt-özdeşlik OCR derlemesine bağlı",
+     "evidence": [
+      "linux-grader-drill",
+      "app-linux-drill-run05"
+     ]
+    },
+    {
+     "name": "GriTS yapı metriği",
+     "role": "pending",
+     "measure": "hesaplanmadı; açıkça söylendi",
+     "why": "başlık/hiyerarşi hatalarını puanlar",
+     "evidence": [
+      "100-eval-standards-card"
+     ]
+    }
+   ]
+  }
+ ]
+}

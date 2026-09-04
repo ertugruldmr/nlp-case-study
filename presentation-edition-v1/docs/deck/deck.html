@@ -1,0 +1,474 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<title>ftlink savunma sunumu</title>
+<style>
+  :root { --bg:#14100b; --card:#1e1812; --ink:#f0e9df; --dim:#b3a58f; --acc:#d97757; --ok:#7fa66b; --warn:#c9a03c; --line:#3a3227; }
+  * { box-sizing:border-box; margin:0; }
+  body { background:var(--bg); color:var(--ink); font:17px/1.55 "Avenir Next",Seravek,system-ui,sans-serif; }
+  .slide { display:none; min-height:100vh; padding:56px 72px; flex-direction:column; }
+  .slide.on { display:flex; }
+  .k { color:var(--acc); font-weight:600; }
+  .ok { color:var(--ok); font-weight:600; }
+  .warn { color:var(--warn); }
+  .dim { color:var(--dim); }
+  h1 { font-size:44px; line-height:1.15; margin-bottom:16px; }
+  h2 { font-size:30px; margin-bottom:6px; }
+  h2 + .sub { color:var(--dim); margin-bottom:22px; font-size:18px; }
+  ul { padding-left:22px; } li { margin:9px 0; }
+  table { border-collapse:collapse; margin:14px 0; font-size:15.5px; }
+  th,td { border:1px solid var(--line); padding:7px 12px; text-align:left; vertical-align:top; }
+  th { background:var(--card); color:var(--dim); font-weight:600; }
+  code, .mono { font-family:"SF Mono",Menlo,monospace; font-size:14.5px; color:#e8c9a0; }
+  .grid { display:grid; grid-template-columns:1fr 1fr; gap:22px; }
+  .card { background:var(--card); border:1px solid var(--line); border-radius:10px; padding:16px 20px; }
+  .big { font-size:40px; font-weight:700; }
+  .foot { margin-top:auto; padding-top:24px; color:var(--dim); font-size:13px; display:flex; justify-content:space-between; }
+  .stage { display:flex; gap:6px; flex-wrap:wrap; margin:16px 0; }
+  .stage span { background:var(--card); border:1px solid var(--line); border-radius:7px; padding:5px 11px; font-size:14px; white-space:nowrap; }
+  .stage span.hot { border-color:var(--acc); color:var(--acc); }
+  .kbd { position:fixed; right:16px; bottom:12px; color:var(--dim); font-size:12px; }
+  @page { size: 13.333in 7.5in; margin: 0; }
+  @media print {
+    .slide { display:flex !important; width:13.333in; height:7.5in; min-height:0; page-break-after:always; break-after:page; padding:40px 60px; overflow:hidden; }
+    .slide:last-of-type { page-break-after:auto; }
+    .kbd { display:none; }
+    body { background:var(--bg); }
+  }
+</style>
+</head>
+<body>
+
+<section class="slide on">
+  <div style="margin:auto; max-width:900px">
+    <div class="dim" style="font-size:20px">Finansal Tablo ve Dipnot İlişkilendirme</div>
+    <h1>ftlink: taranmış KAP raporunda satır seviyesinde tablo-dipnot ilişkilendirme</h1>
+    <p class="dim" style="font-size:19px">Aşamalı boru hattı · konfigürasyon güdümlü · kalibre edilmiş güven · kendi kendini doğrulayan çıktı · <span class="mono">ftlink 1.0.2</span></p>
+    <div class="grid" style="margin-top:36px">
+      <div class="card"><div class="big ok">sıfır sessiz hata</div><div class="dim">%99,0 hücre doğruluğu (199/201) bunun sonucu; kalan 2 yanlış işaretli</div></div>
+      <div class="card"><div class="big ok">P=1,00 · R=1,00</div><div class="dim">ilişki kesinliği / geri çağırması (7/7 referans ilişki)</div></div>
+      <div class="card"><div class="big">bayt-özdeş</div><div class="dim">iki çalıştırma, diff ile kanıtlanabilir yeniden üretilebilirlik</div></div>
+      <div class="card"><div class="big">2 gerçek hata</div><div class="dim">dokümandaki OCR bozulmaları kendiliğinden yakalandı ve işaretlendi</div></div>
+    </div>
+  </div>
+  <div class="foot"><span>Ertuğrul Demir</span><span>1 / 15</span></div>
+</section>
+
+<section class="slide">
+  <h2>Problemi doğru okumak: ölçümle başladık</h2>
+  <div class="sub">Tasarım kararlarının hepsi dokümanın ölçülmüş özelliklerinden geliyor</div>
+  <ul>
+    <li><span class="k">Kaynak bir tarama:</span> 95 sayfanın hiçbirinde metin katmanı yok, ~200 DPI. OCR zorunlu; 3 dipnot sayfası 270° döndürülmüş (yan) basılmış.</li>
+    <li><span class="k">İki farklı ilişki fiziği ölçüldü:</span> (a) mutabakat ilişkileri: bilanço kalemi ↔ açılış/kapanış/toplam satırları. Etiketler tarih+rol, kalem adı değil; TÜM metin kanalları başarısız, değer çapası R@5=1,00. (b) kalem-anlam ilişkileri: gelir kalemi ↔ adlandırılmış hareket satırı; metin kanalları taşıyor.</li>
+    <li><span class="k">Şartname kısıtları:</span> tek LLM çağrısı reddedilmiş; sayfa aralığı + dipnot no konfigürasyondan; güven 0-1 kalibre (ham benzerlik yasak); ≥2 yaklaşım karşılaştırması; ≥3 doğrulama grubu.</li>
+    <li>Sözcük düzeyi eşleme kasıtlı olarak yetersiz: "Değerleme Farkları" ↔ "Makul değer değişikliği..." çiftinde sözcük kesişimi sıfıra yakın (char n-gram "değer" morfemini taşıyor, o yüzden bir kanal).</li>
+  </ul>
+  <div class="foot"><span>problem</span><span>2 / 15</span></div>
+</section>
+
+<section class="slide">
+  <h2>Boru hattı: 13 aşama, her biri bir ölçümün sonucu</h2>
+  <div class="sub">Tek çağrı yok; her aşamanın ürünü çıktıda denetlenebilir</div>
+  <div class="stage">
+    <span>S0 config (YAML)</span><span>S1 render+OCR (TSV)</span><span class="hot">S1b ikinci motor doğrulama</span>
+    <span>S2 sayfa doğrulama</span><span>S3 x-kümeleme yapı</span><span class="hot">S3b yüzde kurtarma</span>
+    <span>S4 TR sayı grameri</span><span>S5 dipnot bulma (TOC)</span><span>S6 aday üretimi (RRF)</span>
+    <span>S7 ilişkilendirme (3+1 yaklaşım)</span><span class="hot">S8 kalibre güven</span><span>S9 doğrulama (3 grup)</span><span>S10 çıktı</span>
+  </div>
+  <ul>
+    <li>Sütunlar çizgisiz tabloda <span class="k">sayısal tokenlerin SAĞ kenarlarının kümelenmesinden</span>; tireler ikinci geçişte (hayalet sütun engeli); hiyerarşi etiket girintisinden.</li>
+    <li>Dipnot bulma: İçindekiler + basılı-sayfa/PDF ofseti + başlık doğrulama + <span class="k">(devamı) yürüyüşü</span>. Ölçülen üç TOC hasarına üç karşı önlem (yeniden numaralama, monotonluk, sınırlı tarama).</li>
+    <li>Üç durum ayrımı tip olarak taşınıyor: <code>number | dash | empty</code>; sıfır bir sayıdır, tire "hareket yok"tur, boşluk hiç basılmamıştır.</li>
+  </ul>
+  <div class="foot"><span>mimari</span><span>3 / 15</span></div>
+</section>
+
+<section class="slide">
+  <h2>Kanıt kültürü: varsayım yok, A/B ölçümü var</h2>
+  <div class="sub">Savunulabilir her karar bir deneye işaret ediyor</div>
+  <table>
+    <tr><th>Karar</th><th>Deney</th><th>Sonuç</th></tr>
+    <tr><td>OCR konfigi 300dpi/psm4</td><td>dpi × psm ızgarası, altın hücrelere karşı</td><td>154/156 birebir; 400 dpi ÖLÇÜLEBİLİR şekilde daha kötü</td></tr>
+    <tr><td>Çapraz kodlayıcı (cross-encoder) girdisine değerler dahil</td><td>labels-only vs labels+values A/B</td><td>R@5 <span class="ok">1/7 → 7/7</span> (pakete dahil eval/ablation.py ile yeniden üretilebilir): en önemli tek girdi kararı</td></tr>
+    <tr><td>Aday metnine tablo başlığı EKLENMEZ</td><td>başlık bağlamı A/B</td><td>sabit bağlam ayrım gücü katmıyor; kolay çifti [1,2]→[9,10] BOZUYOR</td></tr>
+    <tr><td>Küçük reranker (mmarco 118M) yeterli</td><td>bge-568M / mxbai-0.5B karşılaştırma</td><td>üçü de R@5 1,00: parite; 1/5 boyut, çift başına tek haneli ms (3-8 ms ölçüldü)</td></tr>
+    <tr><td>zeyrek/Zemberek reddi</td><td>çevrimdışı çalıştırma denemesi</td><td>zeyrek çevrimdışı çöküyor; JVM bağımlılığı tekrar üretilebilirliği bozar</td></tr>
+    <tr><td>Doğrulama katmanı mutasyon-testli</td><td>canlı boru hattına 3 enjekte bozulma (eval/mutations.py, pakete dahil)</td><td><span class="ok">3/3 yakalandı</span>: alt kalem rakamı → 2 seviyede üst toplam; genel toplam → hipotez oyu; bağlantı kaybı → REL_COVERAGE</td></tr>
+    <tr><td>lower() yerine özel tr_lower</td><td>İ/I bozulması ölçümü</td><td>Python lower() Türkçe noktalı/noktasız i'yi bozuyor (ölçüldü)</td></tr>
+    <tr><td>Altın set güvenilir mi</td><td>kör ikinci yeniden-yazım geçişi (30 hücre örneklem + tüm dipnot-referans sütunu)</td><td><span class="ok">30/30, 6/6 tire-boş, dipnot-11 işaretleri birebir</span>; 53/53 aritmetik özdeşlik; artık risk açıkça yazıldı</td></tr>
+    <tr><td>Linux'ta aynı sayılar mı</td><td>aynı zip taze x86_64 Ubuntu 22.04 VM'de (tesseract 4.1.1)</td><td><span class="ok">37/37, aynı değerlendirme, çift çalıştırma bayt-özdeş</span>; README bölüm 1</td></tr>
+    <tr><td>Kalibrasyon sayıyla savunulur mu</td><td>leave-one-out Brier + kendi-etiket-dışı Venn-ABERS (make calibration)</td><td>Brier <span class="ok">0,0085</span> (taban 0,222); en zayıf bağ kendi etiketi çıkınca [0,00, 1,00]: dürüstçe yazıldı</td></tr>
+  </table>
+  <div class="foot"><span>yöntem</span><span>4 / 15</span></div>
+</section>
+
+<section class="slide">
+  <h2>Hikâye 1: motorların rol değiştirdiği an (S3b)</h2>
+  <div class="sub">Yüzde tablosu: birincil motorun ölçülmüş kör noktası</div>
+  <table>
+    <tr><th>Hücre (altın)</th><th>tesseract (her dpi/psm)</th><th>RapidOCR (aynı kırpımlar)</th></tr>
+    <tr><td>%9</td><td class="warn">49 veya 9</td><td class="ok">%9</td></tr>
+    <tr><td>%10,5</td><td class="warn">710,5 / 10,5</td><td class="ok">%10,5</td></tr>
+    <tr><td>%86,6</td><td class="warn">486,6 / 086,6</td><td class="ok">%86,6</td></tr>
+    <tr><td>%2-%4</td><td class="warn">42-4 / 02-4</td><td class="ok">%2-%4</td></tr>
+  </table>
+  <ul>
+    <li>Tesseract'ın % bozulması hep <span class="k">baştaki karakter artefaktı</span> → oy verme kuralı: rakam dizisi birebir VEYA sonek eşleşmesi.</li>
+    <li>Sadece oran satırlarında roller değişir: RapidOCR okur, tesseract oylar. İki okuma da bileşenlere yazılır; uyuşmazlık güveni 0,4'e sabitler. <span class="k">"Düzeltme değil, işaretle" ilkesi korundu.</span></li>
+    <li>Yan etkiler de onarıldı: %9→"49" sahte dipnot referansı olmuştu (değer penceresi içindeki hayalet referans silinir); tabloya hiç girmemiş oran satırları tablo altından geri toplanır.</li>
+    <li><code>FMT_PERCENT_BOUNDS</code>: yüzde [0,100] içinde olmalı; 486,6 sınıfı gerileme olursa yeniden yakalanır.</li>
+  </ul>
+  <div class="foot"><span>ekstraksiyon</span><span>5 / 15</span></div>
+</section>
+
+<section class="slide">
+  <h2>Hikâye 2: iki gerçek OCR hatası ve iş bölümü</h2>
+  <div class="sub">Doğruluk değil, sıfır sessiz hata asıl başlık</div>
+  <div class="grid">
+    <div class="card">
+      <b>Stoklar 2012: 77.543.097 → <span class="warn">77.943.097</span></b>
+      <ul>
+        <li>Sayı biçimsel olarak kusursuz: biçim kontrolü göremez</li>
+        <li><span class="ok">Yakalama 1:</span> ikinci motor uyuşmazlığı (RapidOCR doğrusunu okuyor) → güven 0,4</li>
+        <li><span class="ok">Yakalama 2:</span> FIN_PARENT_SUM: alt kalemler toplamı tam <b>+400.000</b> sapıyor</li>
+      </ul>
+    </div>
+    <div class="card">
+      <b>Finansal Yatırımlar: 4.224 → <span class="warn">4,224</span></b>
+      <ul>
+        <li>Rakamlar AYNI (4224): ikinci motor kontrolü <i>doğası gereği</i> geçer</li>
+        <li><span class="ok">Yakalayan:</span> FIN_PARENT_SUM'daki <b>,224 kalıntısı</b>: para sütununda kesir olamaz</li>
+        <li>Ayırıcı sınıfı hatalar finansal grubun; rakam sınıfı motor karşılaştırmasının işi: <span class="k">ölçülmüş iş bölümü</span></li>
+      </ul>
+    </div>
+  </div>
+  <ul style="margin-top:14px">
+    <li>İkisi de <span class="k">değeri değiştirmeden</span> işaretlenir: boru hattı ikinci okumayı sessizce yazmaz, çelişkiyi görünür kılar. Hakemlik finansal kontrollerde.</li>
+    <li>Varış noktası: %99,0 hücre doğruluğu; kalan 2 yanlış = bu iki işaretli bozulma. <span class="k">Sıfır sessiz ikame ile tutarlı tavan.</span></li>
+  </ul>
+  <div class="foot"><span>doğrulama</span><span>6 / 15</span></div>
+</section>
+
+<section class="slide">
+  <h2>Bağlama: 3+1 yaklaşım, uzlaşma haritasıyla</h2>
+  <div class="sub">Nerede ayrıştıkları çıktının kendisinde (agreement alanı)</div>
+  <table>
+    <tr><th>Yaklaşım</th><th>Ne yapar</th><th>Nerede kazanır / kaybeder</th></tr>
+    <tr><td>A çapraz kodlayıcı (cross-encoder, mmarco 118M)</td><td>etiket|değerler çifti, sıraya duyarlı kabul</td><td>anlamsal çiftleri taşır; tarih-rol etiketlerinde tek başına yetmez</td></tr>
+    <tr><td>B değer+rol kuralları</td><td>dönem kapsamlı değer eşleşmesi × rol tutarlılığı (5 kural)</td><td>mutabakat ilişkilerinin tamamını taşır (b_only ×5: 4 bilanço mutabakatı + 1 ikiz-tablo akış ilişkisi); ML yok, tam açıklanabilir</td></tr>
+    <tr><td>C sözcüksel taban çizgisi</td><td>rapidfuzz token-set, eşik 0,75</td><td><span class="warn">hiçbir şey kabul etmiyor</span>: şartnamenin kendi tezinin ölçülmüş kanıtı</td></tr>
+    <tr><td>D LLM seçici (varsayılan olarak kapalı)</td><td>OpenAI-uyumlu uç nokta + <span class="k">commit'li yanıt önbelleği</span></td><td>çevrimdışı bayt-özdeş tekrar; notlandırma sürtünmesi olmasın diye varsayılan kapalı</td></tr>
+  </table>
+  <ul>
+    <li>Uzlaşma deseni rastgele değil, sistematik: <span class="mono">consensus ×2</span> (anlamsal ilişkiler), <span class="mono">b_only ×5</span> (4 bilanço mutabakatı + 1 ikiz-tablo akış ilişkisi), lexical ×0.</li>
+    <li>Aday üretimi: 4 kanal, char_wb TF-IDF + token-set fuzzy (rapidfuzz) + e5-small + değer çapası, ağırlıklı RRF (k=10, çapa 3×). Aday geri çağırma 7/7.</li>
+  </ul>
+  <div class="foot"><span>ilişkilendirme</span><span>7 / 15</span></div>
+</section>
+
+<section class="slide">
+  <h2>Güven mimarisi: doküman kendi kendini denetler</h2>
+  <div class="sub">Ham benzerlik hiçbir seviyede güven değildir (şartname gereği + tasarım gereği)</div>
+  <ul>
+    <li><b>Hücre</b> = OCR kelime güveni × ayrıştırma güveni; onarım ≤0,7; motor uyuşmazlığı 0,4 tavanı. <b>Satır/tablo</b> = yapısal cezalı birleşik skorlar.</li>
+    <li><b>İlişki</b> = elle ağırlıklandırılmış füzyon (0,4 CE / 0,4 kural / 0,2 sözcüksel) → <span class="k">çalışma anında dokümandan türetilen kontrol örnekleriyle Platt</span>: pozitif = kabul + mutabakat geçen; negatif = herkesin reddettiği.</li>
+    <li><b>Kontrol seti genişletmesi (E27):</b> nakit akış tablosu da dipnot 11'e referans veriyor (işaret ters, mutlak değer karşılaştırması). <code>confidence.extra_control_pages: [9,10]</code> → <span class="ok">11 pozitif + 22 negatif, mode=fitted</span>. Sadece kalibratörü besler, çıktıya girmez.</li>
+    <li><b>Platt hedef yumuşatması</b> (Platt 1999): bu N'de kontroller mükemmel ayrışıyor; yumuşatmasız fit ıraksar. Yumuşatma olmadan "çalışma anı kalibrasyonu" sessizce yedek yola (fallback) düşüyordu: <span class="k">bunu ölçtük ve düzelttik.</span></li>
+    <li><b>Doygunluk yok:</b> mutabakat geçişi kalan şüpheyi %15 küçültür (1-0,85·(1-p)); hiçbir ilişki 1,0 olamaz. Ölçülen aralık: 0,816-0,979, hepsi farklı.</li>
+    <li><b>Kararlılık ölçüldü, iddia edilmedi:</b> jackknife çıktının içinde: her kontrol noktası çıkarılıp yeniden fit → en kötü güven kayması <span class="ok">0,037</span>. Ağırlık duyarlılığı: sözcüksel kanal sıfırlanınca kabul kümesi ve SIRALAMA aynı, azami kayma 0,02.</li>
+  </ul>
+  <div class="foot"><span>belirsizlik</span><span>8 / 15</span></div>
+</section>
+
+<section class="slide">
+  <h2>Dürüstlük katmanı: Venn-ABERS aralıkları</h2>
+  <div class="sub">"Kalibrasyona ne kadar güvenilir?" sorusunun cevabı da çıktıda</div>
+  <table>
+    <tr><th>İlişki</th><th>Kalibre güven</th><th>[p0, p1]</th><th>Okuma</th></tr>
+    <tr><td>consensus: gerçeğe uygun değer toplamı</td><td>0,979</td><td class="ok">[0,90, 1,00]</td><td>en dar aralık = en sağlam bağ</td></tr>
+    <tr><td>b_only: makul değer ilişkisi (2012)</td><td>0,909</td><td>[0,83, 1,00]</td><td rowspan="2">tek yaklaşımlı ilişkiler orta genişlikte</td></tr>
+    <tr><td>b_only: kapanış mutabakatı</td><td>0,842</td><td>[0,67, 1,00]</td></tr>
+    <tr><td>b_only: net defter değeri ilişkisi</td><td>0,816</td><td class="warn">[0,50, 1,00]</td><td>en geniş aralık = önce burayı incele</td></tr>
+  </table>
+  <ul>
+    <li>Basitleştirilmiş Venn-ABERS (SVA; Vovk ve Petej 2014, Bölüm 5; "IVAP" adı 2015 izleyen makaleden): test noktası kontrol setine önce 0, sonra 1 etiketiyle eklenip iki izotonik fit → [p0, p1]. Deterministik, ~20 satır.</li>
+    <li><span class="k">p1=1,0 bu N'de beklenir</span> (hiçbir negatif kontrol bir pozitifin üstünde değil); bilgi taşıyan uç p0. Aralık sıralaması, bir inceleyicinin bakma önceliğiyle birebir aynı.</li>
+    <li><span class="k">Kendisi de dürüst mü:</span> kontroller çıktıdaki kararların kendisi olduğu için her aralık ilişkinin KENDİ kontrol etiketi içerideyken hesaplanır. Etiket çıkarılınca (ölçüldü): en zayıf bağ [0,50, 1,00] → <span class="warn">[0,00, 1,00]</span>, konsensüs [0,90, 1,00] → [0,89, 1,00]. Bu yüzden aralık bir sıralama aracı ve kontrol seyrekliği beyanıdır, kapsama garantisi değil.</li>
+    <li>İddia etmediklerimiz: N=33'ten keskin olasılık; conformal garanti dili; ECE (küçük N'de yanlı: Brier + güvenilirlik çeyrekleri raporlanır).</li>
+  </ul>
+  <div class="foot"><span>belirsizlik</span><span>9 / 15</span></div>
+</section>
+
+<section class="slide">
+  <h2>Kalibrasyon eğrisi: kontroller, fit, aralıklar (tek bakışta)</h2>
+  <div class="sub">Bu şekil koddan üretildi; her nokta çıktıdaki bir kayda karşılık geliyor</div>
+  <svg viewBox="0 0 780 400" style="width:100%;max-width:880px;background:#1e1812;border:1px solid #3a3227;border-radius:10px" xmlns="http://www.w3.org/2000/svg">
+<line x1="70" y1="350.0" x2="730" y2="350.0" stroke="#3a3227" stroke-width="1"/><text x="60" y="355.0" fill="#b3a58f" font-size="13" text-anchor="end">0</text><line x1="70" y1="272.5" x2="730" y2="272.5" stroke="#3a3227" stroke-width="1"/><text x="60" y="277.5" fill="#b3a58f" font-size="13" text-anchor="end">0,25</text><line x1="70" y1="195.0" x2="730" y2="195.0" stroke="#3a3227" stroke-width="1"/><text x="60" y="200.0" fill="#b3a58f" font-size="13" text-anchor="end">0,5</text><line x1="70" y1="117.5" x2="730" y2="117.5" stroke="#3a3227" stroke-width="1"/><text x="60" y="122.5" fill="#b3a58f" font-size="13" text-anchor="end">0,75</text><line x1="70" y1="40.0" x2="730" y2="40.0" stroke="#3a3227" stroke-width="1"/><text x="60" y="45.0" fill="#b3a58f" font-size="13" text-anchor="end">1,0</text><text x="70.0" y="372" fill="#b3a58f" font-size="13" text-anchor="middle">0</text><text x="235.0" y="372" fill="#b3a58f" font-size="13" text-anchor="middle">0,25</text><text x="400.0" y="372" fill="#b3a58f" font-size="13" text-anchor="middle">0,5</text><text x="565.0" y="372" fill="#b3a58f" font-size="13" text-anchor="middle">0,75</text><text x="730.0" y="372" fill="#b3a58f" font-size="13" text-anchor="middle">1,0</text>
+<polyline points="70.0,342.5 83.2,340.8 96.4,338.7 109.6,336.2 122.8,333.2 136.0,329.5 149.2,325.1 162.4,319.8 175.6,313.5 188.8,306.2 202.0,297.7 215.2,287.9 228.4,276.7 241.6,264.3 254.8,250.6 268.0,235.9 281.2,220.4 294.4,204.2 307.6,187.9 320.8,171.8 334.0,156.1 347.2,141.3 360.4,127.5 373.6,114.9 386.8,103.6 400.0,93.6 413.2,84.9 426.4,77.4 439.6,71.0 452.8,65.6 466.0,61.1 479.2,57.3 492.4,54.2 505.6,51.6 518.8,49.4 532.0,47.7 545.2,46.3 558.4,45.1 571.6,44.1 584.8,43.4 598.0,42.7 611.2,42.2 624.4,41.8 637.6,41.5 650.8,41.2 664.0,41.0 677.2,40.8 690.4,40.6 703.6,40.5 716.8,40.4 730.0,40.3" fill="none" stroke="#d97757" stroke-width="2.5"/>
+<circle cx="103.0" cy="344.0" r="4" fill="#a05c4a" opacity="0.85"/><circle cx="106.0" cy="337.0" r="4" fill="#a05c4a" opacity="0.85"/><circle cx="107.9" cy="330.0" r="4" fill="#a05c4a" opacity="0.85"/><circle cx="110.0" cy="323.0" r="4" fill="#a05c4a" opacity="0.85"/><circle cx="110.9" cy="344.0" r="4" fill="#a05c4a" opacity="0.85"/><circle cx="111.9" cy="337.0" r="4" fill="#a05c4a" opacity="0.85"/><circle cx="113.9" cy="330.0" r="4" fill="#a05c4a" opacity="0.85"/><circle cx="114.0" cy="323.0" r="4" fill="#a05c4a" opacity="0.85"/><circle cx="114.5" cy="344.0" r="4" fill="#a05c4a" opacity="0.85"/><circle cx="115.3" cy="337.0" r="4" fill="#a05c4a" opacity="0.85"/><circle cx="115.9" cy="330.0" r="4" fill="#a05c4a" opacity="0.85"/><circle cx="117.5" cy="323.0" r="4" fill="#a05c4a" opacity="0.85"/><circle cx="117.9" cy="344.0" r="4" fill="#a05c4a" opacity="0.85"/><circle cx="119.8" cy="337.0" r="4" fill="#a05c4a" opacity="0.85"/><circle cx="123.2" cy="330.0" r="4" fill="#a05c4a" opacity="0.85"/><circle cx="124.5" cy="323.0" r="4" fill="#a05c4a" opacity="0.85"/><circle cx="128.1" cy="344.0" r="4" fill="#a05c4a" opacity="0.85"/><circle cx="128.8" cy="337.0" r="4" fill="#a05c4a" opacity="0.85"/><circle cx="129.7" cy="330.0" r="4" fill="#a05c4a" opacity="0.85"/><circle cx="131.3" cy="323.0" r="4" fill="#a05c4a" opacity="0.85"/><circle cx="134.5" cy="344.0" r="4" fill="#a05c4a" opacity="0.85"/><circle cx="136.0" cy="337.0" r="4" fill="#a05c4a" opacity="0.85"/><circle cx="382.7" cy="46.0" r="4" fill="#7fa66b" opacity="0.9"/><circle cx="394.3" cy="53.0" r="4" fill="#7fa66b" opacity="0.9"/><circle cx="402.7" cy="60.0" r="4" fill="#7fa66b" opacity="0.9"/><circle cx="411.1" cy="67.0" r="4" fill="#7fa66b" opacity="0.9"/><circle cx="434.7" cy="46.0" r="4" fill="#7fa66b" opacity="0.9"/><circle cx="445.5" cy="53.0" r="4" fill="#7fa66b" opacity="0.9"/><circle cx="456.7" cy="60.0" r="4" fill="#7fa66b" opacity="0.9"/><circle cx="497.2" cy="67.0" r="4" fill="#7fa66b" opacity="0.9"/><circle cx="530.8" cy="46.0" r="4" fill="#7fa66b" opacity="0.9"/><circle cx="726.4" cy="53.0" r="4" fill="#7fa66b" opacity="0.9"/><circle cx="729.2" cy="60.0" r="4" fill="#7fa66b" opacity="0.9"/>
+<line x1="411.2" y1="102.0" x2="411.2" y2="40.0" stroke="#c9a03c" stroke-width="2.5" opacity="0.55"/><rect x="406.2" y="74.2" width="10" height="10" transform="rotate(45 411.2 79.2)" fill="#e8c9a0"/><line x1="394.3" y1="143.3" x2="394.3" y2="40.0" stroke="#c9a03c" stroke-width="2.5" opacity="0.55"/><rect x="389.3" y="84.1" width="10" height="10" transform="rotate(45 394.3 89.1)" fill="#e8c9a0"/><line x1="382.6" y1="195.0" x2="382.6" y2="40.0" stroke="#c9a03c" stroke-width="2.5" opacity="0.55"/><rect x="377.6" y="91.9" width="10" height="10" transform="rotate(45 382.6 96.9)" fill="#e8c9a0"/><line x1="402.7" y1="117.5" x2="402.7" y2="40.0" stroke="#c9a03c" stroke-width="2.5" opacity="0.55"/><rect x="397.7" y="78.9" width="10" height="10" transform="rotate(45 402.7 83.9)" fill="#e8c9a0"/><line x1="530.8" y1="71.0" x2="530.8" y2="40.0" stroke="#c9a03c" stroke-width="2.5" opacity="0.55"/><rect x="525.8" y="41.7" width="10" height="10" transform="rotate(45 530.8 46.7)" fill="#d97757"/><line x1="434.7" y1="91.7" x2="434.7" y2="40.0" stroke="#c9a03c" stroke-width="2.5" opacity="0.55"/><rect x="429.7" y="63.2" width="10" height="10" transform="rotate(45 434.7 68.2)" fill="#e8c9a0"/><line x1="456.8" y1="78.8" x2="456.8" y2="40.0" stroke="#c9a03c" stroke-width="2.5" opacity="0.55"/><rect x="451.8" y="55.5" width="10" height="10" transform="rotate(45 456.8 60.5)" fill="#d97757"/>
+<text x="400.0" y="392" fill="#b3a58f" font-size="14" text-anchor="middle">birlesik skor (fuzyon)</text>
+<text x="20" y="195.0" fill="#b3a58f" font-size="14" text-anchor="middle" transform="rotate(-90 20 195.0)">kalibre olasilik</text>
+<text x="78" y="56" fill="#7fa66b" font-size="13">yesil: pozitif kontroller (11)</text>
+<text x="78" y="74" fill="#a05c4a" font-size="13">kirmizi: negatif kontroller (22)</text>
+<text x="78" y="92" fill="#c9a03c" font-size="13">sari cizgi: Venn-ABERS [p0,p1] araligi</text>
+<text x="78" y="110" fill="#d97757" font-size="13">egri: calisma aninda fit edilen Platt (a=10,5, b=-3,7)</text>
+</svg>
+  <ul style="margin-top:10px">
+    <li>Kontroller mükemmel ayrışıyor (negatifler ≤0,10, pozitifler ≥0,47): yumuşatmasız fit bu yüzden ıraksıyordu. Elmaslar = 7 ilişki (turuncu: consensus); sarı çizgiler = dürüstlük aralıkları.</li>
+    <li>Jackknife: herhangi bir kontrol noktası silindiğinde hiçbir güven 0,037'den fazla oynamıyor (çıktının içinde raporlanır).</li>
+    <li><span class="k">Öncül duyarlılığı ölçüldü (29.08, araştırma tarafı, çevrimdışı yeniden uydurma; teslimatta yok):</span> her sonlu öncül bırak-bir-dışarıda aynı kararlılıkta (jackknife 0,037 sevk edilen, 0,033 yarım güç, 0,029 sklearn L2); öncül keskinliği belirliyor: yarım güç 0,88-0,99 ve daha düşük LOO Brier (0,003 vs 0,0085) ama ayrışık kontrollerde daha zayıf öncül ıraksayan yumuşatmasız MLE'ye kayar; sklearn varsayılan L2 az güvenli (0,53-0,65). Sevk edilen öncül Platt'ın yayımlanmış, parametresiz seçimi. Değer kanalı sıfırlanınca ayrışma bozulur (4 ilişki bayraklı): değer kanalı yük taşıyıcı.</li>
+    <li><span class="k">Yeniden üretilebilir kalibrasyon raporu (v0.10, <code>make calibration</code>):</span> 33 kontrol üzerinde leave-one-out Brier <span class="ok">0,0085</span> (taban oranı 0,222; ham füzyon skoru 0,058). <span class="k">Dürüstlük kaydı:</span> Venn-ABERS aralığı ilişkinin kendi kontrol etiketiyle hesaplanır; etiket çıkarılınca en zayıf bağ [0,50, 1,00] -> [0,00, 1,00], konsensüs [0,90, 1,00] -> [0,89, 1,00]. Aralık bir sıralama aracı ve kontrol seyrekliği beyanıdır, kapsama garantisi değil.</li>
+    <li><span class="k">Büyük modelle GPU çalışması (H100):</span> e5-large + bge-reranker-v2-m3 füzyonu, 38 çift / 7 pozitif, LOO Platt Brier <span class="ok">0,145</span> [0,080-0,226] vs ham CE 0,235; sıralama kusursuz, ama pozitifler 0,19-0,20'de yığılıyor. <span class="k">Darboğaz N, model değil:</span> bu yüzden emek kontrol setine (33) harcandı, modele değil.</li>
+  </ul>
+  <div class="foot"><span>belirsizlik</span><span>10 / 15</span></div>
+</section>
+
+<section class="slide">
+  <h2>Doğrulama: üç grup + dördüncü durum</h2>
+  <div class="sub">Değerlendirilemeyen kontrol not_evaluable der, asla sessizce geçmez</div>
+  <ul>
+    <li><b>Yapısal:</b> dönem sütunları azalan yıl sırasında; referanslar makul dipnot aralığında; bulunan dipnot başlığı doğrulanmış; kalibrasyon kontrol seti raporu.</li>
+    <li><b>Biçimsel:</b> gidiş-dönüş yeniden ayrıştırma; üç-durum geçerliliği; onarım bayrakları; işaret geçerliliği ("(-)" satırı pozitif taşıyamaz); motor uyuşması; yüzde sınırları.</li>
+    <li><b>Finansal:</b> hareket roll-forward (açılış+akışlar=kapanış); satır-içi kategori toplamları; hiyerarşik ebeveyn toplamları; genel toplam <span class="k">hipotez oylaması</span> (ara toplamlı / ara toplamsız üye kümeleri: ÖZKAYNAKLAR çifte sayım tuzağı böyle çözüldü); gelir tablosu akış kaskadı (değer-tabanlı tekilleştirmeyle); ilişki başına değer mutabakatı.</li>
+    <li><b>Mutasyon testli, iki katman:</b> <span class="k">sevk edilen</span> eval/mutations.py: 3 enjekte bozulma, 3/3 adlı yakalayıcıyla (alt kalem rakamı, genel toplam, bağlantı satırı); <span class="dim">geliştirme çerçevesi E21 (sevk edilmedi):</span> temiz veride sıfır yanlış alarm, sütun takası (dönem-yönelim oylama dedektörü dahil), rakam düşmesi 10/10, toplam bozulması 5/5. Tire→0 aritmetik olarak görünmez (toplamlar değişmez): o yüzden üç-durum biçim kontrolü var.</li>
+    <li><b>Yanlış konfigürasyon sessiz kalamaz:</b> STR_SUMMARY_RANGE (tablosuz özet sayfası = kalır) + STR_FOOTNOTE_REFS_PRESENT (dipnota referans veren satır yoksa = kalır).</li>
+    <li>Gerçek dokümanda: <span class="ok">103 geçer / 4 kalır</span>, kalan DÖRDÜN DÖRDÜ de doğrulanmış gerçek kusur. Hiçbir kontrol boşa bağırmıyor.</li>
+  </ul>
+  <div class="foot"><span>doğrulama</span><span>11 / 15</span></div>
+</section>
+
+<section class="slide">
+  <h2>Sonuç panosu (varsayılan çalıştırma, dipnot 11)</h2>
+  <div class="grid">
+    <div class="card"><div class="big ok">199/201</div><div class="dim">hücre birebir doğru (%99,0); 2 yanlış = 2 işaretli gerçek bozulma</div></div>
+    <div class="card"><div class="big ok">7/7</div><div class="dim">ilişki P=1,00 R=1,00; ikiz tablo satırları değer örtüşmesiyle ayrıştırılıyor</div></div>
+    <div class="card"><div class="big">103 / 4 / 6</div><div class="dim">geçer / kalır / değerlendirilemez; kalanların hepsi gerçek kusur</div></div>
+    <div class="card"><div class="big">~30 s · ~140 s</div><div class="dim">dizüstü Apple Silicon sıcak · x86_64 CPU VM sıcak (165 s soğuk, model indirmeleri dahil); GPU yok; 37/37 birim testi (macOS + Linux); paketler uv.lock, ağırlıklar snapshot hash ile sabit</div></div>
+  </div>
+  <ul style="margin-top:16px">
+    <li><span class="k">Yeniden üretilebilirlik bir iddia değil, artefakt:</span> deterministik anlamsal kimlikler (p05.t00.r003.c01), örnekleme yok, karantinalı çalıştırma (run) bloğu → iki çalıştırmanın diff'i boş. İki ayrı sabitleme katmanı: uv.lock PAKETLERİ, konfigürasyondaki HF snapshot hash'leri MODEL AĞIRLIKLARINI sabitler. <span class="k">İkinci platform ölçüldü:</span> aynı zip, taze x86_64 Ubuntu 22.04 (tesseract 4.1.1): 37/37 test, aynı değerlendirme sayıları, çift çalıştırma bayt-özdeş.</li>
+    <li>Değerlendirme paketi teslimatın içinde: elle etiketli 201 referans hücre + 7 referans ilişki + puanlama scripti. Notlandıran kişi bütün sayıları kendisi yeniden üretebilir.</li>
+  </ul>
+  <div class="foot"><span>sonuçlar</span><span>12 / 15</span></div>
+</section>
+
+<section class="slide">
+  <h2>Genellenebilirlik kanıtı: dipnot 12 demosu</h2>
+  <div class="sub">Kod değişmeden, sadece konfigürasyon değişerek</div>
+  <ul>
+    <li><code>configs/alt_footnote.yaml</code>: dipnot 12 → sayfalar 55-57 otomatik bulunuyor; üçü de 270° döndürülmüş taranmış.</li>
+    <li><span class="k">Yön kurtarma:</span> sayfa /Rotate işe yaramıyor (taramanın kendisi yatık); 90/270/180 yeniden render, <b>güvenli çok-karakterli kelime sayısı</b> en yüksek olan yön kazanır (ham kelime sayısı yatık metinde yanıltıcı, ölçüldü).</li>
+    <li>8 tablo / 251 hücre / 1 çapraz-not ilişkisi çıkarılıyor; ekstraksiyon kalitesi düşük ve <span class="k">bunu kendisi söylüyor</span>: roll-forward kontrolleri kalır, güvenler düşük. Dürüst bozulma, sessiz bozulma değil.</li>
+    <li>Kalibrasyon kontrol sayfaları bu konfigde tanımlı değil → 1 pozitif / 7 negatif, fit yok: mod fallback, STR_CALIBRATION_CONTROLS not_evaluable der; tek ilişki 0,5274 ile bayraklı sevk edilir.</li>
+  </ul>
+  <div class="foot"><span>genellik</span><span>13 / 15</span></div>
+</section>
+
+<section class="slide">
+  <h2>Sınırlar ve bilinçli eksikler</h2>
+  <div class="sub">Değerlendirme ölçütleri gereği: üretim tamlığı değil, çekirdek + ölçüm</div>
+  <ul>
+    <li><b>Sınırlar:</b> N=33 kontrolle olasılıklar keskin değil (aralıklar bunu söylüyor); yatık sayfa ekstraksiyonu demo seviyesinde; onarım katmanı kesinlik-öncelikli (geri çağırma 0,53: onarılamayan düşük güvenle işaretlenir, tahmin edilmez).</li>
+    <li><b>Yükseltme yolları tanımlı, takılı değil:</b> TATR v1.1-fin yapı motoru (yerel ön ölçüm E50: algılayıcı 0,7 eşikte 5 hedef sayfanın 1'inde, 0,3'te 4'ünde ateşliyor, s.54 kaçıyor; GriTS karşılaştırması run-01'de; motor arayüzü extract_tables() arkasında izole, takmak bir konfig anahtarı ekler); LLM seçici katman (önbellek tekrarıyla, pakete dahil ama varsayılan kapalı); NLI üçüncü sinyal (bağımsızlık argümanıyla noisy-OR varyantı için).</li>
+    <li><b>Bilinçli eksikler (gerekçeli):</b> CI/CD (lockfile + make test aynı sinyali veriyor), konteyner birincil yol değil (Python+tesseract daha hafif bir gereksinim), veritabanı yok (JSON sözleşme), eğitim yok (şartname yasaklıyor).</li>
+    <li><b>Lisans eşiği:</b> jina reranker/embeddings CC-BY-NC → değerlendirildi ve <i>bilerek</i> dışlandı; paketteki her model Apache-2.0/MIT. Banka gerçekliği bir tasarım girdisidir.</li>
+  </ul>
+  <div class="foot"><span>sınırlar</span><span>14 / 15</span></div>
+</section>
+
+<section class="slide">
+  <h2>Tek cümlelik özet</h2>
+  <div style="margin:auto; max-width:880px">
+    <p style="font-size:28px; line-height:1.5">Her aşaması dokümanın <span class="k">ölçülmüş bir özelliğine</span> dayanan, güvenini <span class="k">dokümanın kendi aritmetiğiyle</span> kalibre eden, hatalarını <span class="k">saklamak yerine işaretleyen</span> ve iki çalıştırması diff ile <span class="k">bayt-özdeş çıkan</span> bir sistem.</p>
+    <p class="dim" style="margin-top:26px; font-size:18px">Sorulara hazırım: kalibrasyon seçimleri, iş bölümü kanıtları, mutasyon matrisi, başka dokümana taşıma stratejisi. Ek slaytlar A1-A9: alternatifler matrisi, değerlendirme yöntemi, ölçekli protokol, Colab kanıtı, altı prova, maliyet eşiği türetimi, yol haritası, üç ek belgede genellik, 2026 sınırı ve kıyaslama planı.</p>
+  </div>
+  <div class="foot"><span>kapanış</span><span>15 / 15</span></div>
+</section>
+
+
+<section class="slide">
+  <h2>Ek A1 · Alternatifler matrisi: her aşamada ne seçildi, ne reddedildi, neden</h2>
+  <div class="sub">Her hücre bir kanıt notuna işaret eder (evidence/); "bekliyor" = Colab run-01</div>
+  <table style="font-size:14px">
+    <tr><th>Aşama</th><th>Seçilen (sevk edildi)</th><th>Alternatifler ve akıbeti</th><th>Ölçüm</th></tr>
+    <tr><td>S1 OCR</td><td>tesseract 5 tur, 300 dpi / psm 4; RapidOCR ikinci motor (rakam kontrolü; oran satırlarında birincil)</td><td>PaddleOCR (TR aksan yok), Apple Vision (tr yok), surya (OpenRAIL: banka-dışı); 400 dpi ölçülebilir kötü</td><td>154/156 rakam birebir; % 0/6 → 6/6; dpi-400 senaryosu %79,6 hücre</td></tr>
+    <tr><td>S3 yapı</td><td>x-kümeleme (deterministik, GPU'suz, kendi kod)</td><td>TATR v1.1-fin (FinTabNet.c; konfigle takılacak, motor anahtarı henüz yok; yerel: algılama 1/5 → 4/5 sayfa, eşik 0,7 → 0,3, s.54 kaçtı; GriTS <span class="warn">bekliyor</span>), docling TableFormer (<span class="warn">bekliyor</span>), VLM katmanı (API; önbellek tekrarı), camelot/pdfplumber (metin katmanı yok)</td><td>%99,0 hücre; 7/7 gerçek başlık</td></tr>
+    <tr><td>S4 sayı</td><td>özel Decimal grameri + onarım katmanı</td><td>zeyrek (çevrimdışı çöker), Zemberek (JVM)</td><td>182/182; onarım P 1,00 / R 0,53</td></tr>
+    <tr><td>S6 aday</td><td>ağırlıklı RRF (k=10): char TF-IDF + token-set fuzzy + e5-small + değer çapası (×3)</td><td>bm25s (0,40/0,50), e5 tek başına (mutabakatta rastgelenin altı), başlık bağlamı (YANLIŞLANDI), jina (CC-BY-NC)</td><td>aday geri çağırma 7/7; eşik/top_k/rrf_k değişimlerine kabul kümesi duyarsız</td></tr>
+    <tr><td>S7 bağlama</td><td>A mmarco CE (etiket|değer) · B değer+rol · C rapidfuzz taban · D LLM seçici (kapalı)</td><td>bge-reranker-v2-m3 ve mxbai (parite, 5× boyut), NLI mDeBERTa (<span class="warn">bekliyor</span>), jina reranker (lisans)</td><td>b_only 5 / consensus 2 / lexical 0; ablasyon 1/7 → 7/7, p = 0,031</td></tr>
+    <tr><td>S8 güven</td><td>yumuşatılmış Platt (çalışma anı kontrolleri 11/22) + Venn-ABERS aralığı</td><td>izotonik (basamağa çöker), yumuşatmasız lojistik (doyar), noisy-OR (bağımsızlık iddia edilemez), ham benzerlik (şartname yasak), conformal (garnitür)</td><td>LOO Brier 0,0085 / taban 0,222; jackknife 0,037; kendi-dışı VA yazıldı</td></tr>
+    <tr><td>S9 doğrulama</td><td>3 grup + not_evaluable dördüncü durum; mutasyon testli</td><td>LLM-hakem doğrulama (reddedildi: Cetvel bulgusu)</td><td>103/4/6; 3/3 mutant adlı yakalayıcıyla</td></tr>
+  </table>
+  <div class="foot"><span>ek · alternatifler</span><span>A1</span></div>
+</section>
+
+<section class="slide">
+  <h2>Ek A2 · Değerlendirme yöntemi: sayıların arkasındaki disiplin</h2>
+  <div class="sub">Referans nasıl kuruldu, puanlayıcı ne sayar, belirsizlik nedir</div>
+  <ul>
+    <li><b>Referans set:</b> 201 hücre + 7 ilişki, sayfa görüntülerinden tek kişi tarafından yazıldı; bir değer ancak katıldığı <span class="k">77 aritmetik özdeşlik</span> tutunca kabul edildi. 28.08: kör ikinci yeniden-yazım geçişi (tohumlu 30 hücre, tüm tire/boş durumları, tüm dipnot-referans sütunu) her kalemde uyuştu.</li>
+    <li><b>Puanlayıcı kuralları (README 9):</b> boş referans hücre + üretilmemiş hücre = doğru; referansa eşlenemeyen tahmini ilişki kesinlik dışında (bu çalıştırmada 7/7 eşleniyor); referans dışı çıkarılmış satır sayısı yazdırılır (0).</li>
+    <li><b>Belirsizlik:</b> hücreler için Clopper-Pearson %95 aralığı <span class="mono">[0,965, 0,999]</span>; 7/7 için tek yanlı %95 alt sınır <span class="mono">0,652</span> (kesinlik ve geri çağırma). Yedi bağ bu bildirimde çalıştığını gösterir, hata oranını tahmin etmez.</li>
+    <li><b>Ablasyon:</b> eşleştirilmiş görünüm, 6 uyumsuz bağ tek yönde, exact McNemar p = 0,031; ikiz-etiket kuralı labels-only lehine (yazıldı).</li>
+    <li><b>Standartlara bağ:</b> hücre birebir eşleşme (GriTS hesaplanmadı, açıkça söylendi); DocILE LIR biçiminde P/R; NTCIR-17 UFO asimetrisi; ECE manşet değil (Roelofs 2022: eşit-genişlik bölmeler küçük N'de yanlı) → Brier + çeyrekler.</li>
+  </ul>
+  <div class="foot"><span>ek · yöntem</span><span>A2</span></div>
+</section>
+
+<section class="slide">
+  <h2>Ek A3 · Ölçekli değerlendirme protokolü (yazılı plan, uygulanmadı)</h2>
+  <div class="sub">"Bunu düzgün nasıl değerlendirirdiniz" sorusunun cevabı</div>
+  <ul>
+    <li><b>Korpus:</b> 30-50 bildirim; tabakalar: şirket türü (GYO/banka/sanayi), yıl bandı (2013 KGK terminoloji değişimi), tarama kalitesi, sayfa yönü, dipnot numarası. Kalibrasyon için 100-200 pozitif bağ (Riley 2021, Collins 2016).</li>
+    <li><b>Etiketleme:</b> iki bağımsız yazıcı + hakem; hücre durumu ve bağ ızgarasında kappa; her bildirimde %15 tohumlu yeniden-yazım.</li>
+    <li><b>Metrikler:</b> birebir hücre + GriTS-Con/Top; P/R/F1 bildirim başına ve mikro; yanlış pozitif terimi; Brier + eşit-kütle güvenilirlik bölmeleri; Venn-ABERS genişlik dağılımı.</li>
+    <li><b>Aralıklar:</b> bildirim düzeyinde küme bootstrap (2000 tekrar); eşleştirilmiş ablasyonlarda McNemar; kalibrasyon için leave-one-DOCUMENT-out.</li>
+    <li><b>Sızıntı kuralları:</b> bir bildirimin kontrol seti o bildirimin kalibrasyon skoru için kullanılmaz; eşik seçim seti ile rapor seti ayrık; model sabitleri çalışma boyunca dondurulur.</li>
+    <li><b>Maliyet ve durma:</b> bildirim başına 2-3 saat çift yazım; 30 bildirim ≈ 8 kişi-hafta; durma: geri çağırma aralığı &lt; 0,10 ve kalibrasyon eğimi LODO hareketi &lt; 0,05.</li>
+  </ul>
+  <div class="foot"><span>ek · protokol</span><span>A3</span></div>
+</section>
+
+<section class="slide">
+  <h2>Ek A4 · Colab ve GPU kanıtı: ne landı, ne bekliyor</h2>
+  <div class="sub">Ağır hesap dizüstünde değil; sonuçlar depoda, katlandı</div>
+  <ul>
+    <li><b>run-04 Linux tatbikatı (landı, katlandı):</b> teslim zip'i taze x86_64 Ubuntu 22.04 VM'de, Python 3.13, tesseract 4.1.1 (Mac: 5.5.3): 37/37 test, aynı değerlendirme sayıları, çift çalıştırma bayt-özdeş. README bölüm 1.</li>
+    <li><b>run-03 GPU kalibrasyon çalışması (landı, katlandı):</b> e5-large + bge-reranker-v2-m3 füzyonu, 38 çift / 7 pozitif, LOO Platt Brier 0,145 [0,080-0,226] vs ham CE 0,235; sıralama kusursuz; pozitifler 0,19-0,20'de yığılıyor (taban Brier 0,150). <span class="k">Darboğaz N, model kapasitesi değil</span>: emek kontrol setine harcandı.</li>
+    <li><b>Üç ek belge ölçüldü (29.08):</b> Özak 2013 (dijital) 4/4 ilişki doğru, bayraksız, 80/8/3; Özak 2011 (tarama) 1/1 doğru, bayraklı, 67/2/4; Emlak Konut 2012 gürültülü düşüş (locator "NOT n" bekler, belge "DİPNOT n" yazar). Sessiz mod: 2013'te 201 sayısal hücrenin 12'si yanlış, 11'i düşen baştaki "1" (iki motor aynı kırpmada uyuşuyor), FIN_PARENT_SUM 9'unu yakaladı: aritmetik kontrolleri kalibrasyondan çıkarmama gerekçesi.</li>
+    <li><b>run-01 ağır kanıt (<span class="warn">bekliyor</span>):</b> TATR yapı motoru GriTS karşılaştırması (ADR-01 revizyon maddesi; yerel ön ölçüm E50 yapıldı: algılayıcı s.54'ü hiç görmüyor), büyük reranker top-1 marjları, NLI üçüncü sinyal. Sevk edilen yığın bunlardan bağımsız; landığında konfigürasyon anahtarıyla takılır.</li>
+    <li><b>Yerel ölçümler (sevk edilen yığın):</b> mmarco 118M = bge 568M = mxbai 0,5B parite (R@5 1,00); 3-8 ms/çift CPU; %99,0 hücre GPU'suz.</li>
+  </ul>
+  <div class="foot"><span>ek · kanıt</span><span>A4</span></div>
+</section>
+
+<section class="slide">
+  <h2>Ek A5 · Altı prova ve "doğrula, sonra kat" disiplini</h2>
+  <div class="sub">Her turda en az bir kendinden emin YANLIŞ bulgu vardı; kanıtsız hiçbir şey katılmadı</div>
+  <table style="font-size:14.5px">
+    <tr><th>Prova</th><th>Biçim</th><th>Bulgu hacmi</th><th>Katılan / çürütülen</th></tr>
+    <tr><td>01</td><td>Teknik inceleme personası, 15 sonda</td><td>Çoklu bulgu</td><td>≤3 puanlı her sonda aynı gece düzeltildi: STR_SUMMARY_RANGE kontrolü, ağırlık duyarlılığı ölçümü (azami 0,02), jackknife çıktıda, HF snapshot sabitleri, maliyet-eşiği paragrafı</td></tr>
+    <tr><td>02</td><td>ikinci tur</td><td>1 kritik + destek bulguları</td><td>beklenen-maliyet formülü ters yazılmıştı: YAKALANDI ve türetimle düzeltildi (p &lt; 1 − c<sub>inceleme</sub>/c<sub>kaçırma</sub>); 4 kanal adlandırıldı; ce_rank çıktıya; fallback modunda zorunlu bayrak; tesseract sürümü run bloğunda</td></tr>
+    <tr><td>03</td><td>panel</td><td>12 bulgu</td><td>gerçek başlıklar 7/7, REL_COVERAGE, kalibrasyon kuralı kodda</td></tr>
+    <tr><td>04</td><td>yeni yüzey</td><td>1 zorunlu düzeltme</td><td>CE yedek yolu uygulandı ve test edildi</td></tr>
+    <tr><td>05</td><td>SOĞUK NOT: yalnız zip + şartname</td><td><span class="ok">Güçlü sonuç</span></td><td>başlık kesildi iddiası bayt düzeyinde ÇÜRÜTÜLDÜ; 3 gerçek bulgu katıldı</td></tr>
+    <tr><td>06</td><td>Çok personalı rol oyunu, 89 kart</td><td>~60 açık nokta</td><td>VA kendi-etiket, LOO Brier, aralıklar, sözlük sınırları katıldı; bir eski-durum iddiası çürütüldü</td></tr>
+  </table>
+  <p class="dim" style="margin-top:8px">Ders: dış inceleme mekanizmayı iyi görür, durumu kötü hatırlar; bu yüzden her bulgu kodda veya ölçümle doğrulanmadan hiçbir artefakta girmedi.</p>
+  <p class="dim" style="margin-top:4px">Kişi veya sayısal öz-not içermez; disiplin (her bulgu koda veya ölçüme bağlanmadan katılmaz) mesajın kendisidir.</p>
+  <div class="foot"><span>ek · süreç</span><span>A5</span></div>
+</section>
+
+<section class="slide">
+  <h2>Ek A6 · Beklenen maliyet eşiği: tahtada türetim</h2>
+  <div class="sub">Kalibre ölçek teslimattır; eşik tüketicinin maliyetinden çıkar</div>
+  <div class="card" style="font-size:22px; line-height:1.7; margin:10px 0 16px">
+    İncele ⇔ beklenen kaçırma maliyeti &gt; inceleme maliyeti<br>
+    (1 − p) · c<sub>kaçırma</sub> &gt; c<sub>inceleme</sub> ⇔ <span class="k">p &lt; 1 − c<sub>inceleme</sub> / c<sub>kaçırma</sub></span>
+  </div>
+  <ul>
+    <li>c = 1 / 20 → p* = 0,95: neredeyse her şey incelenir (kaçırma pahalıysa doğru davranış). c = 1 / 5 → p* = 0,80. <span class="k">Eşik kaçırma maliyetiyle YÜKSELİR.</span></li>
+    <li>Canlı (senaryo laboratuvarı, İnceleme kuyruğu): taban çalıştırmada p* 0,95 ile 7 ilişkinin 6'sı kuyruğa, yalnız konsensüs toplamı (0,979) incelemesiz; beklenen maliyet 6,43 (hepsini incele 7,0; hiçbirini 15,79). p* 0,80: kuyruk boş.</li>
+    <li>Yedek kalibrasyon kuralı: fallback modundaki her ilişki eşikten bağımsız kuyruğa gider (sayı sıralı, olasılık değil).</li>
+    <li>Tek eşik göndermek yerine kalibre ölçek göndermenin farkı: iş birimi maliyetini değiştirince yeniden fit gerekmez.</li>
+  </ul>
+  <div class="foot"><span>ek · eşik</span><span>A6</span></div>
+</section>
+
+<section class="slide">
+  <h2>Ek A7 · Geçerlilik tehditleri, fikrimi ne değiştirir, iki haftalık yol</h2>
+  <div class="grid">
+    <div class="card">
+      <b>Tehditler (açıkça)</b>
+      <ul style="font-size:15px">
+        <li>Tek bildirim; 7 bağ; N=33 kontrol</li>
+        <li>Referans set boru hattıyla aynı sayfa görüntülerinden</li>
+        <li>İkiz-etiket kuralı ablasyonda labels-only lehine</li>
+        <li>Venn-ABERS aralığı örneklem-içi</li>
+        <li>Rol sözlüğü 5 Türkçe ifade; baştaki eksi ayrıştırılmaz</li>
+      </ul>
+    </div>
+    <div class="card">
+      <b>Fikrimi ne değiştirir</b>
+      <ul style="font-size:15px">
+        <li>run-01'de TATR GriTS x-kümelemeyi belirgin geçerse → konfigle birincil</li>
+        <li>İkinci bildirimde rol sözlüğü kırılırsa → sözlük konfigürasyona</li>
+        <li>İnceleyici etiketleri kalibre sıralamayla çelişirse → ağırlıklar yeniden fit</li>
+        <li>Kendi-dışı VA istenirse → eval/calibration_loo.py zaten hesaplıyor; boru hattına taşınır, sayılar yeniden mühürlenir</li>
+      </ul>
+    </div>
+  </div>
+  <p style="margin-top:14px"><b>İki hafta daha olsa, sırayla:</b> (1) ikinci bir bildirim uçtan uca (küçük tutulmuş set); (2) çapraz-tablo özdeşlik kontrolleri (varlık = kaynak, dönem kârı bağı, önceki kapanış = açılış); (3) GPU çalışmasından marj ve NLI sinyalleri; (4) baştaki eksi + rol sözlüğü genelliği, testleriyle; (5) aşama zamanlamaları ve <span class="mono">ftlink doctor</span>. Listede olmayan: önce Docker, veritabanı, LLM-öncelikli yeniden yazım.</p>
+  <div class="foot"><span>ek · yol haritası</span><span>A7</span></div>
+</section>
+
+<section class="slide">
+  <h2>Ek A8 · Genellik: üç ek belge, mühürlü kod, yalnız konfig</h2>
+  <div class="sub">ftlink 1.0.2 değişmeden; belge başına default.yaml'da tam beş anahtar (pdf yolu, özet sayfaları, dipnot no, kontrol sayfaları, çıktı dizini). <span class="warn">Altın yok:</span> doğruluk = sayfa görüntüsüne göz kontrolü, metin katmanı (yalnız 2013) veya aritmetik özdeşlik</div>
+  <table style="font-size:13.5px">
+    <tr><th>Belge</th><th>Tür</th><th>Tablo / hücre</th><th>Dipnot sayfaları</th><th>İlişki (doğru / bayraklı)</th><th>Kontroller (geçer / kalır / değ.)</th><th>Süre</th></tr>
+    <tr><td>Özak GYO 31.12.2013</td><td>dijital, 91 s.</td><td>3 + 3 / 220</td><td>dipnot 12 → 52, 53 (TOC yolu, ofset 5)</td><td><span class="ok">4 / 4 doğru</span>, 0 bayraklı</td><td>80 / 8 / 3</td><td>22,0 s</td></tr>
+    <tr><td>Özak GYO 31.12.2011</td><td>tarama, 83 s., /Rotate 270</td><td>3 + 2 / 159</td><td>dipnot 10 → yalnız 44 (tarama yedeği; not s.43 ortasında başlıyor, o sayfa kaçtı)</td><td><span class="ok">1 / 1 doğru</span>, 1 bayraklı (kalibrasyon fallback: 1 pozitif / 23 negatif)</td><td>67 / 2 / 4</td><td>59,8 s</td></tr>
+    <tr><td>Emlak Konut GYO 31.12.2012</td><td>dijital, 69 s., farklı denetçi</td><td>yok</td><td>dipnot 9 → bulunamadı</td><td>yok</td><td>yok (S5'te durdu, çıkış kodu 2)</td><td>62,3 s</td></tr>
+  </table>
+  <ul style="font-size:14.5px">
+    <li><span class="k">Gürültülü düşüş (Emlak Konut):</span> <code>error: footnote 9 not found (toc and scan both failed)</code>, çıktı dosyası yok. Neden: locator "NOT n" bekler (<code>^NOT</code> çapası; başlıkta yalnız çıplak sayı, "N." veya "N-"), belge "DİPNOT 9 - ..." yazar. Tek satırlık regex genişletmesi yeter; denenmedi, mühür bozulmadı.</li>
+    <li><span class="k">Sessiz mod (2013):</span> 201 sayısal hücrenin 189'u metin katmanında birebir (%94,0); 12 yanlış okumanın 11'i baştaki "1" düşmüş (10.474 → 0.474), hücre güveni 0,98-1,00, iki motor AYNI kırpımda uyuşuyor. Hücre güveni görmedi; <code>FIN_PARENT_SUM</code> 9'unu yakaladı (10.000 ve 400.000.000 farkları), r032'nin 2 hücresi (yanlış ebeveyne eşit çocuk) hiçbir kontrolde değil.</li>
+  </ul>
+  <p style="font-size:15.5px; margin-top:4px">İki aktarılmayan konvansiyon: "DİPNOT n" başlığı ve virgüllü binlik (13,370,000; 2011 s.44: tablo yok, bayrak yok). <span class="k">Okuma:</span> tasarım aktarılıyor, iki konvansiyon aktarılmıyor; 2013 koşusunu kurtaran kontrol tam da kaldırmayacağım kontrol.</p>
+  <div class="foot"><span>ek · genellik · araştırma tarafı, teslimat 1.0.2 değişmedi</span><span>A8</span></div>
+</section>
+
+<section class="slide">
+  <h2>Ek A9 · 2026 sınırı ve kıyaslama planı</h2>
+  <div class="sub"><span class="warn">Araştırma tarafı; teslimat 1.0.2 değişmedi.</span> Sol: 2025-26 literatür ve model taraması (29.08). Orta: kalibratör öncül aileleri (E56, çevrimdışı). Sağ: ön kayıtlı Colab kıyaslamaları</div>
+  <div class="grid" style="grid-template-columns:1fr 1fr 1fr; gap:16px">
+    <div class="card" style="font-size:13.5px">
+      <b>Ne değişti, 2025-26</b>
+      <ul style="padding-left:18px">
+        <li>TATR algılayıcı dağılım dışı DIŞARIDAN ölçüldü: AP 1,00 (eğitim dağılımı) → 0,82 (heterojen PDF), algılama güveni kalibrasyon hatası 0,00 → 0,16. E50 okumasını değiştiren yayın yok: zayıf halka algılayıcı, yapı değil.</li>
+        <li>VLM tablo modelleri TEDS 87-95 (PaddleOCR-VL-1.6 94,8; MinerU2.5-Pro 93,4; dots.ocr 87,2; OmniDocBench v1.6) ama tire / boş / sıfır, dipnot-referans sütunu ve girinti modellenmiyor: hepsi sevk edilen kural katmanının ARKASINDA kalır.</li>
+        <li>Reranker: Qwen3-Reranker-0.6B (Apache-2.0, MMTEB-R 66,36 vs bge-reranker-v2-m3 58,36) ve Türkçe eğitimli <code>modernbert-tr-reranker</code> (150M, 30.06.2026). Çok dilli kartların hiçbiri Türkçe ince-ayar verisi yazmıyor; ölçüt top-1 marjı ve LOO Brier (R@5 zaten 1,00). Yerel E57: konfig değişimi çift sigmoid yüzünden 17 ilişki (10 yanlış, hepsi bayraklı); kimlik aktivasyonuyla yalnız-etiket AUC 0,71 vs 0,45, 8 ilişki (7 altın + 1 bayraklı); düzeltme tek kwarg (DECISIONS 18).</li>
+        <li>OCR: PP-OCRv6 zaten sevk edilen ikinci motor (RapidOCR 3.9.2 varsayılanı; E55: v6 small = v6 medium = v5 latin = v5 ch, 199/201, 0 değer farkı).</li>
+      </ul>
+    </div>
+    <div class="card" style="font-size:13.5px">
+      <b>Öncül aileleri (E56, 33 kontrol)</b>
+      <ul style="padding-left:18px">
+        <li>Platt / Firth (Jeffreys) / Cauchy MAP kontrollerde uyuşur, aralık orta noktasında <b>0,335</b>'te kesişir (0,3368 / 0,3358 / 0,3347), yalnız diklikte ayrılır.</li>
+        <li>En düşük pozitif kontrolde: Platt <b>0,784</b> vs Firth 0,886 / Cauchy 0,932: sevk edilen Platt en muhafazakar sonlu harita.</li>
+        <li>Jackknife 0,037 / 0,029 / 0,023: kararlılık ayırt edici değil. sklearn L2 varsayılanı az güvenli (0,449); yumuşatmasız MLE sonlu çözüm bulamaz.</li>
+        <li>Hiçbir ilişki 0,10-0,4737 boşluğuna düşmüyor: seçim muhafazakarlık seçimi, veri seçimi değil. Brier ile daha keskin öncül seçmek kalibratörü kendi fit setinde ayarlamak olur.</li>
+      </ul>
+    </div>
+    <div class="card" style="font-size:13.5px">
+      <b>Colab run-06 / 07 / 08: karar kuralları sonuçlardan ÖNCE yazıldı</b>
+      <ul style="padding-left:18px">
+        <li><b>run-06 yapı motoru:</b> aynı 5 sayfada ≥199/201 birebir hücre VE 7/7 tablo (s.54 dahil) VE CPU ya da README'de dürüst GPU şartı → konfig anahtarlı yükseltme; aksi "ölçüldü, alınmadı".</li>
+        <li><b>run-07 reranker:</b> yalnız-etiket AUC mmarco'ya karşı en az +0,05 VE füzyon LOO Brier bozulmasın VE model &lt;1 GB. Yeniden oynatma ancak sevk edilen satır a = 10,5259, b = -3,6973, LOO Brier 0,0085 çıkarsa geçerli.</li>
+        <li><b>run-08 OCR:</b> 201 altın değerden ≥199 VE 6 yüzde hücresi VE Türkçe etiket CER tesseract'tan kötü değil. İki gerçek bozulmayı "düzelten" 201/201 sessiz düzeltme olarak raporlanır, kazanım değil.</li>
+        <li>Sürümü yalnız bir README cümlesini yanlışlayan sonuç değiştirir (README-only 1.0.3); gerisi savunma malzemesi.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="foot"><span>ek · sınır ve plan · araştırma tarafı, teslimat 1.0.2 değişmedi</span><span>A9</span></div>
+</section>
+
+<div class="kbd">← → tuşlarıyla gezinin · F ile tam ekran · A ile ek slaytlar · Shift+1..9 ile A1-A9 · H ile başa</div>
+<script>
+  const slides = [...document.querySelectorAll('.slide')];
+  let i = 0;
+  function show(n) { slides[i].classList.remove('on'); i = Math.max(0, Math.min(slides.length - 1, n)); slides[i].classList.add('on'); }
+  addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') show(i + 1);
+    if (e.key === 'ArrowLeft' || e.key === 'PageUp') show(i - 1);
+    if (e.key.toLowerCase() === 'f') document.documentElement.requestFullscreen();
+    if (e.key.toLowerCase() === 'a') show(15);
+    if (e.key.toLowerCase() === 'h') show(0);
+    if (e.shiftKey && /^Digit[1-9]$/.test(e.code)) show(14 + Number(e.code.slice(5)));
+  });
+</script>
+</body>
+</html>

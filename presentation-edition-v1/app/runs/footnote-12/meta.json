@@ -1,0 +1,16 @@
+{
+  "state": "done",
+  "scenario": "footnote-12",
+  "started": "2026-08-29T02:29:55",
+  "duration_s": 30.1,
+  "overrides": {
+    "document": {
+      "footnote_no": 12
+    }
+  },
+  "platform": {
+    "platform": "macOS-15.4-arm64-arm-64bit",
+    "tesseract": "5.5.3",
+    "note": "backfilled 29.08 after the run from the run block; same host"
+  }
+}

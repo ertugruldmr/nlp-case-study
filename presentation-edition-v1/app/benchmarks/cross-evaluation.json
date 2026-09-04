@@ -1,0 +1,583 @@
+{
+  "id": "cross-evaluation",
+  "title_tr": "Çapraz değerlendirme: her başlık sayısının bağımsız yeniden türetilmesi (E60)",
+  "title_en": "Cross-evaluation: every headline number re-derived from raw artifacts by independent code (E60)",
+  "measured_at": "2026-08-29T20:54:38",
+  "source": "evidence/cross-evaluation.md",
+  "scope": "this document",
+  "baseline": null,
+  "columns": [
+    {
+      "key": "group",
+      "label_tr": "küme",
+      "kind": "text"
+    },
+    {
+      "key": "claimed",
+      "label_tr": "iddia edilen",
+      "kind": "text"
+    },
+    {
+      "key": "recomputed",
+      "label_tr": "yeniden hesaplanan",
+      "kind": "text"
+    },
+    {
+      "key": "agree",
+      "label_tr": "uyuşuyor",
+      "kind": "bool"
+    },
+    {
+      "key": "note",
+      "label_tr": "not",
+      "kind": "text"
+    }
+  ],
+  "rows": [
+    {
+      "id": "m01",
+      "label": "cells exact (README s9, ledger S10)",
+      "role": "measured",
+      "source": "research/assets/experiments/cross-evaluation/recompute.out",
+      "group": "Cell exactness (own matcher, scorer convention)",
+      "claimed": "199/201",
+      "recomputed": "199/201",
+      "agree": true,
+      "note": "wrong_val=2; 1 raw-fallback, 8 empty-no-cell"
+    },
+    {
+      "id": "m02",
+      "label": "cells Clopper-Pearson 95%",
+      "role": "measured",
+      "source": "research/assets/experiments/cross-evaluation/recompute.out",
+      "group": "Cell exactness (own matcher, scorer convention)",
+      "claimed": "[0.9645, 0.9988]",
+      "recomputed": "[0.9645, 0.9988]",
+      "agree": true,
+      "note": "own incomplete-beta; scipy cross-check [0.964520, 0.998793]"
+    },
+    {
+      "id": "m03",
+      "label": "unmatched extracted rows on reference pages",
+      "role": "measured",
+      "source": "research/assets/experiments/cross-evaluation/recompute.out",
+      "group": "Cell exactness (own matcher, scorer convention)",
+      "claimed": "0",
+      "recomputed": "0",
+      "agree": true,
+      "note": null
+    },
+    {
+      "id": "m04",
+      "label": "relations P/R (README s9)",
+      "role": "measured",
+      "source": "research/assets/experiments/cross-evaluation/recompute.out",
+      "group": "Relations vs gold pairs",
+      "claimed": "7/7, P=R=1.00",
+      "recomputed": "tp=7 fp=0 fn=0 P=1.00 R=1.00",
+      "agree": true,
+      "note": null
+    },
+    {
+      "id": "m05",
+      "label": "relation period_scope agrees with gold scope",
+      "role": "measured",
+      "source": "research/assets/experiments/cross-evaluation/recompute.out",
+      "group": "Relations vs gold pairs",
+      "claimed": "(not claimed)",
+      "recomputed": "7/7",
+      "agree": true,
+      "note": "extra check"
+    },
+    {
+      "id": "m06",
+      "label": "one-sided exact 95% lower bound for 7/7",
+      "role": "measured",
+      "source": "research/assets/experiments/cross-evaluation/recompute.out",
+      "group": "Relations vs gold pairs",
+      "claimed": "0.652",
+      "recomputed": "0.6518 (closed form 0.05**(1/7) = 0.6518)",
+      "agree": true,
+      "note": null
+    },
+    {
+      "id": "m07",
+      "label": "relations.jsonl agrees with result.json relations",
+      "role": "measured",
+      "source": "research/assets/experiments/cross-evaluation/recompute.out",
+      "group": "Relations vs gold pairs",
+      "claimed": "(implied)",
+      "recomputed": "7 records, shared fields identical: True",
+      "agree": true,
+      "note": "JSONL adds convenience keys ['footnote_label', 'summary_label'] absent from result.json; not a discrepancy"
+    },
+    {
+      "id": "m08",
+      "label": "checks pass/fail/not_evaluable (README s7)",
+      "role": "measured",
+      "source": "research/assets/experiments/cross-evaluation/recompute.out",
+      "group": "Validation checks",
+      "claimed": "103/4/6 of 113",
+      "recomputed": "103/4/6 of 113",
+      "agree": true,
+      "note": null
+    },
+    {
+      "id": "m09",
+      "label": "fail composition (README s7)",
+      "role": "measured",
+      "source": "research/assets/experiments/cross-evaluation/recompute.out",
+      "group": "Validation checks",
+      "claimed": "{'FMT_ENGINE_AGREEMENT': 1, 'FIN_PARENT_SUM': 2, 'FMT_REPAIRED_CELLS': 1}",
+      "recomputed": "{'FMT_ENGINE_AGREEMENT': 1, 'FIN_PARENT_SUM': 2, 'FMT_REPAIRED_CELLS': 1}",
+      "agree": true,
+      "note": null
+    },
+    {
+      "id": "m10",
+      "label": "not_evaluable composition (README s7)",
+      "role": "measured",
+      "source": "research/assets/experiments/cross-evaluation/recompute.out",
+      "group": "Validation checks",
+      "claimed": "{'FIN_GRAND_TOTAL': 4, 'STR_PERIOD_ORDER': 2}",
+      "recomputed": "{'FIN_GRAND_TOTAL': 4, 'STR_PERIOD_ORDER': 2}",
+      "agree": true,
+      "note": null
+    },
+    {
+      "id": "m11",
+      "label": "checks per-group split",
+      "role": "measured",
+      "source": "research/assets/experiments/cross-evaluation/recompute.out",
+      "group": "Validation checks",
+      "claimed": "(not claimed as numbers)",
+      "recomputed": "{'structural': (23, 0, 2), 'format': (28, 2, 0), 'financial': (52, 2, 4)}",
+      "agree": true,
+      "note": "structural 23/0/2, format 28/2/0, financial 52/2/4"
+    },
+    {
+      "id": "m12",
+      "label": "control set 11 pos / 22 neg (README s6)",
+      "role": "measured",
+      "source": "research/assets/experiments/cross-evaluation/recompute.out",
+      "group": "Control set from decisions_33.json",
+      "claimed": "11/22",
+      "recomputed": "11/22",
+      "agree": true,
+      "note": null
+    },
+    {
+      "id": "m13",
+      "label": "fused = 0.4 CE + 0.4 VR + 0.2 LEX for all 33 (4 dp)",
+      "role": "measured",
+      "source": "research/assets/experiments/cross-evaluation/recompute.out",
+      "group": "Control set from decisions_33.json",
+      "claimed": "controls_xy / calibration-controls.json",
+      "recomputed": "max dev 1.1e-16, labels agree True",
+      "agree": true,
+      "note": null
+    },
+    {
+      "id": "m14",
+      "label": "result.json relation components equal decision scores (4 dp rounding)",
+      "role": "measured",
+      "source": "research/assets/experiments/cross-evaluation/recompute.out",
+      "group": "Control set from decisions_33.json",
+      "claimed": "(implied)",
+      "recomputed": "max dev 4.7e-05",
+      "agree": true,
+      "note": null
+    },
+    {
+      "id": "m15",
+      "label": "stored platt_a/platt_b in paper controls file equal check detail",
+      "role": "measured",
+      "source": "research/assets/experiments/cross-evaluation/recompute.out",
+      "group": "Control set from decisions_33.json",
+      "claimed": "10.5259 / -3.6973",
+      "recomputed": "10.5259 / -3.6973",
+      "agree": true,
+      "note": null
+    },
+    {
+      "id": "m16",
+      "label": "platt_a / platt_b (check detail, README s6)",
+      "role": "measured",
+      "source": "research/assets/experiments/cross-evaluation/recompute.out",
+      "group": "Smoothed Platt (own Newton from (0,0))",
+      "claimed": "10.5259 / -3.6973",
+      "recomputed": "10.5259 / -3.6973",
+      "agree": true,
+      "note": null
+    },
+    {
+      "id": "m17",
+      "label": "in-sample Brier (ledger S8)",
+      "role": "measured",
+      "source": "research/assets/experiments/cross-evaluation/recompute.out",
+      "group": "Smoothed Platt (own Newton from (0,0))",
+      "claimed": "0.0067",
+      "recomputed": "0.0067",
+      "agree": true,
+      "note": null
+    },
+    {
+      "id": "m18",
+      "label": "LOO Brier, refit same prior (ledger S8; README says 0.009)",
+      "role": "measured",
+      "source": "research/assets/experiments/cross-evaluation/recompute.out",
+      "group": "Smoothed Platt (own Newton from (0,0))",
+      "claimed": "0.0085",
+      "recomputed": "0.0085 (3 dp: 0.008)",
+      "agree": true,
+      "note": "README 3-dp rounding does not match"
+    },
+    {
+      "id": "m19",
+      "label": "jackknife loo_max_delta_p (check detail, README s6 0.037)",
+      "role": "measured",
+      "source": "research/assets/experiments/cross-evaluation/recompute.out",
+      "group": "Smoothed Platt (own Newton from (0,0))",
+      "claimed": "0.0372",
+      "recomputed": "0.0372",
+      "agree": true,
+      "note": null
+    },
+    {
+      "id": "m20",
+      "label": "base-rate Brier (ledger S8)",
+      "role": "measured",
+      "source": "research/assets/experiments/cross-evaluation/recompute.out",
+      "group": "Smoothed Platt (own Newton from (0,0))",
+      "claimed": "0.2222",
+      "recomputed": "0.2222",
+      "agree": true,
+      "note": null
+    },
+    {
+      "id": "m21",
+      "label": "raw fused Brier (ledger S8; README 0.058)",
+      "role": "measured",
+      "source": "research/assets/experiments/cross-evaluation/recompute.out",
+      "group": "Smoothed Platt (own Newton from (0,0))",
+      "claimed": "0.0579",
+      "recomputed": "0.0579",
+      "agree": true,
+      "note": null
+    },
+    {
+      "id": "m22",
+      "label": "LOO reliability quartiles (ledger S8)",
+      "role": "measured",
+      "source": "research/assets/experiments/cross-evaluation/recompute.out",
+      "group": "Smoothed Platt (own Newton from (0,0))",
+      "claimed": "0/8, 0/8, 2/8, 9/9 @ 0.046/0.053/0.240/0.917",
+      "recomputed": "0/8 @ 0.046, 0/8 @ 0.053, 2/8 @ 0.240, 9/9 @ 0.917",
+      "agree": true,
+      "note": null
+    },
+    {
+      "id": "m23",
+      "label": "text-only CE needed at lexical 0.4 (README s6 ~0.73; results.json 0.7311)",
+      "role": "measured",
+      "source": "research/assets/experiments/cross-evaluation/recompute.out",
+      "group": "Smoothed Platt (own Newton from (0,0))",
+      "claimed": "0.7311",
+      "recomputed": "0.7311",
+      "agree": true,
+      "note": null
+    },
+    {
+      "id": "m24",
+      "label": "Venn-ABERS p0/p1 for 7 relations (result.json)",
+      "role": "measured",
+      "source": "research/assets/experiments/cross-evaluation/recompute.out",
+      "group": "Venn-ABERS (own PAV), shipped construction vs leave-self-out",
+      "claimed": "e.g. rel005 (0.5,1.0), rel008 (0.9,1.0)",
+      "recomputed": "all 7 reproduced",
+      "agree": true,
+      "note": "reproduced only when the relation's own (fused,1) control stays in the isotonic set"
+    },
+    {
+      "id": "m25",
+      "label": "Venn-ABERS leave-self-out (ledger S8 row)",
+      "role": "measured",
+      "source": "research/assets/experiments/cross-evaluation/recompute.out",
+      "group": "Venn-ABERS (own PAV), shipped construction vs leave-self-out",
+      "claimed": "rel005 [0,1] ... rel008 [0.889,1]",
+      "recomputed": "all 7 reproduced",
+      "agree": true,
+      "note": null
+    },
+    {
+      "id": "m26",
+      "label": "relation confidence = feedback(platt(fused)) (README s6)",
+      "role": "measured",
+      "source": "research/assets/experiments/cross-evaluation/recompute.out",
+      "group": "Relation confidence composition",
+      "claimed": "stored confidences",
+      "recomputed": "max |diff| 3.9e-05 (own a,b); 4.1e-05 (rounded shipped a,b)",
+      "agree": true,
+      "note": "validation_factor is p/p_raw, a reporting ratio, not a second multiplier"
+    },
+    {
+      "id": "m27",
+      "label": "validation_factor == p / p_raw",
+      "role": "measured",
+      "source": "research/assets/experiments/cross-evaluation/recompute.out",
+      "group": "Relation confidence composition",
+      "claimed": "(implied)",
+      "recomputed": "max |diff| 4.8e-05",
+      "agree": true,
+      "note": null
+    },
+    {
+      "id": "m28",
+      "label": "low_confidence flags (all False at 0.5)",
+      "role": "measured",
+      "source": "research/assets/experiments/cross-evaluation/recompute.out",
+      "group": "Relation confidence composition",
+      "claimed": "0 flagged",
+      "recomputed": "0 flagged",
+      "agree": true,
+      "note": null
+    },
+    {
+      "id": "m29",
+      "label": "ablation R@5 labels-only vs label+values (README s3)",
+      "role": "measured",
+      "source": "research/assets/experiments/cross-evaluation/recompute.out",
+      "group": "Ablation paired view (McNemar) from run-04 drill artifact",
+      "claimed": "1/7 vs 7/7",
+      "recomputed": "1/7 vs 7/7",
+      "agree": true,
+      "note": "source: colab run-04 nb4_drill_results.json ablation tail (24.08, Linux)"
+    },
+    {
+      "id": "m30",
+      "label": "McNemar exact two-sided p (README s3, ledger)",
+      "role": "measured",
+      "source": "research/assets/experiments/cross-evaluation/recompute.out",
+      "group": "Ablation paired view (McNemar) from run-04 drill artifact",
+      "claimed": "0.031 (6 vs 0)",
+      "recomputed": "0.03125 (6 vs 0)",
+      "agree": true,
+      "note": null
+    },
+    {
+      "id": "m31",
+      "label": "labels-only ranks 9 to 19 (README s3)",
+      "role": "measured",
+      "source": "research/assets/experiments/cross-evaluation/recompute.out",
+      "group": "Ablation paired view (McNemar) from run-04 drill artifact",
+      "claimed": "9..19",
+      "recomputed": "1..19 (rank-1 hit on the fair-value total)",
+      "agree": true,
+      "note": "the README's 'ranks 9 to 19' describes the six misses; the seventh target ranks 1"
+    },
+    {
+      "id": "m32",
+      "label": "second-doc ozak-gyo-2013 (evidence table)",
+      "role": "measured",
+      "source": "research/assets/experiments/cross-evaluation/recompute.out",
+      "group": "Second documents",
+      "claimed": "tables (3, 3) rows 111 cells 220 rel 4(0) checks (80, 8, 3)",
+      "recomputed": "tables (3, 3) rows 111 cells 220 rel 4(0) checks (80, 8, 3)",
+      "agree": true,
+      "note": "per-group split also matches"
+    },
+    {
+      "id": "m33",
+      "label": "second-doc ozak-gyo-2011 (evidence table)",
+      "role": "measured",
+      "source": "research/assets/experiments/cross-evaluation/recompute.out",
+      "group": "Second documents",
+      "claimed": "tables (3, 2) rows 83 cells 159 rel 1(1) checks (67, 2, 4)",
+      "recomputed": "tables (3, 2) rows 83 cells 159 rel 1(1) checks (67, 2, 4)",
+      "agree": true,
+      "note": "per-group split also matches"
+    },
+    {
+      "id": "m34",
+      "label": "second-doc emlak-konut-gyo-2012",
+      "role": "measured",
+      "source": "research/assets/experiments/cross-evaluation/recompute.out",
+      "group": "Second documents",
+      "claimed": "exit 2, no output, 'footnote 9 not found'",
+      "recomputed": "exit2 line True, result.json exists False",
+      "agree": true,
+      "note": null
+    },
+    {
+      "id": "m35",
+      "label": "E48 shipped a/b (results.json)",
+      "role": "measured",
+      "source": "research/assets/experiments/cross-evaluation/recompute.out",
+      "group": "Sensitivity: E48 A-variants and E56 prior family",
+      "claimed": "10.5259 / -3.6973",
+      "recomputed": "10.5259 / -3.6973",
+      "agree": true,
+      "note": null
+    },
+    {
+      "id": "m36",
+      "label": "E48 shipped jackknife max|dp|",
+      "role": "measured",
+      "source": "research/assets/experiments/cross-evaluation/recompute.out",
+      "group": "Sensitivity: E48 A-variants and E56 prior family",
+      "claimed": "0.0372",
+      "recomputed": "0.0372",
+      "agree": true,
+      "note": null
+    },
+    {
+      "id": "m37",
+      "label": "E48 shipped LOO Brier",
+      "role": "measured",
+      "source": "research/assets/experiments/cross-evaluation/recompute.out",
+      "group": "Sensitivity: E48 A-variants and E56 prior family",
+      "claimed": "0.0085",
+      "recomputed": "0.0085",
+      "agree": true,
+      "note": null
+    },
+    {
+      "id": "m38",
+      "label": "E48 half a/b (results.json)",
+      "role": "measured",
+      "source": "research/assets/experiments/cross-evaluation/recompute.out",
+      "group": "Sensitivity: E48 A-variants and E56 prior family",
+      "claimed": "13.4824 / -4.571",
+      "recomputed": "13.4824 / -4.5710",
+      "agree": true,
+      "note": null
+    },
+    {
+      "id": "m39",
+      "label": "E48 half jackknife max|dp|",
+      "role": "measured",
+      "source": "research/assets/experiments/cross-evaluation/recompute.out",
+      "group": "Sensitivity: E48 A-variants and E56 prior family",
+      "claimed": "0.0325",
+      "recomputed": "0.0325",
+      "agree": true,
+      "note": null
+    },
+    {
+      "id": "m40",
+      "label": "E48 half LOO Brier",
+      "role": "measured",
+      "source": "research/assets/experiments/cross-evaluation/recompute.out",
+      "group": "Sensitivity: E48 A-variants and E56 prior family",
+      "claimed": "0.003",
+      "recomputed": "0.0030",
+      "agree": true,
+      "note": null
+    },
+    {
+      "id": "m41",
+      "label": "E48 sklearn_l2 a/b (results.json)",
+      "role": "measured",
+      "source": "research/assets/experiments/cross-evaluation/recompute.out",
+      "group": "Sensitivity: E48 A-variants and E56 prior family",
+      "claimed": "2.5837 / -1.4291",
+      "recomputed": "2.5837 / -1.4291",
+      "agree": true,
+      "note": null
+    },
+    {
+      "id": "m42",
+      "label": "E48 sklearn_l2 jackknife max|dp|",
+      "role": "measured",
+      "source": "research/assets/experiments/cross-evaluation/recompute.out",
+      "group": "Sensitivity: E48 A-variants and E56 prior family",
+      "claimed": "0.0286",
+      "recomputed": "0.0286",
+      "agree": true,
+      "note": null
+    },
+    {
+      "id": "m43",
+      "label": "E48 sklearn_l2 LOO Brier",
+      "role": "measured",
+      "source": "research/assets/experiments/cross-evaluation/recompute.out",
+      "group": "Sensitivity: E48 A-variants and E56 prior family",
+      "claimed": "0.1151",
+      "recomputed": "0.1151",
+      "agree": true,
+      "note": null
+    },
+    {
+      "id": "m44",
+      "label": "E48 unsmoothed MLE",
+      "role": "measured",
+      "source": "research/assets/experiments/cross-evaluation/recompute.out",
+      "group": "Sensitivity: E48 A-variants and E56 prior family",
+      "claimed": "no finite solution",
+      "recomputed": "diverged (None)",
+      "agree": true,
+      "note": null
+    },
+    {
+      "id": "m45",
+      "label": "E56 Firth a/b (prior_family.json)",
+      "role": "measured",
+      "source": "research/assets/experiments/cross-evaluation/recompute.out",
+      "group": "Sensitivity: E48 A-variants and E56 prior family",
+      "claimed": "14.6406 / -4.882",
+      "recomputed": "14.6406 / -4.8820",
+      "agree": true,
+      "note": "generic optimizer vs their Newton; agreement to >= 2 dp required"
+    },
+    {
+      "id": "m46",
+      "label": "E56 Cauchy a/b (prior_family.json)",
+      "role": "measured",
+      "source": "research/assets/experiments/cross-evaluation/recompute.out",
+      "group": "Sensitivity: E48 A-variants and E56 prior family",
+      "claimed": "17.6862 / -5.7603",
+      "recomputed": "17.6862 / -5.7603",
+      "agree": true,
+      "note": null
+    },
+    {
+      "id": "m47",
+      "label": "E56 firth jackknife / LOO Brier",
+      "role": "measured",
+      "source": "research/assets/experiments/cross-evaluation/recompute.out",
+      "group": "Sensitivity: E48 A-variants and E56 prior family",
+      "claimed": "0.0292 / 0.0019",
+      "recomputed": "0.0292 / 0.0019",
+      "agree": true,
+      "note": null
+    },
+    {
+      "id": "m48",
+      "label": "E56 cauchy jackknife / LOO Brier",
+      "role": "measured",
+      "source": "research/assets/experiments/cross-evaluation/recompute.out",
+      "group": "Sensitivity: E48 A-variants and E56 prior family",
+      "claimed": "0.0227 / 0.0006",
+      "recomputed": "0.0227 / 0.0006",
+      "agree": true,
+      "note": null
+    },
+    {
+      "id": "m49",
+      "label": "E56 shipped p at 7 relations before feedback",
+      "role": "measured",
+      "source": "research/assets/experiments/cross-evaluation/recompute.out",
+      "group": "Sensitivity: E48 A-variants and E56 prior family",
+      "claimed": "[0.8511, 0.8137, 0.7839, 0.8332, 0.9747, 0.8928, 0.9221]",
+      "recomputed": "[0.8511, 0.8137, 0.7839, 0.8332, 0.9747, 0.8928, 0.9221]",
+      "agree": true,
+      "note": null
+    }
+  ],
+  "notes_tr": [
+    "Özet satırı: 49 nicelik yeniden hesaplandı, 49 uyuştu, 0 uyuşmadı (research/assets/experiments/cross-evaluation/recompute.py, bağımsız kod; ftlink içe aktarılmadı, boru hattı yeniden çalıştırılmadı, skorlama betikleri çağrılmadı).",
+    "Belgeleme bulgusu 1: LOO Brier'in gerçek değeri 0,008459'dur. Her yerde geçen 4 basamaklı 0,0085 doğrudur, ama README bölüm 6 bunu 3 basamakta 0,009 diye yazıyor; bu çift yuvarlamadır, doğru 3 basamaklı değer 0,008'dir. Denetimde yayımlanmış bir rakamın veriden çıkmadığı tek yer budur.",
+    "Belgeleme bulgusu 2: skorlayıcının açıklanmayan üçüncü kuralı tam olarak bir hücre taşıyor. Ayrıştırılmış değerler farklı olduğunda parantezler atıldıktan sonra ham dizeler eşleşiyorsa hücre doğru sayılıyor; bu yüzde aralığı hücresini kurtarıyor. Çıkarım esasen doğrudur, ama bu geri düşüş olmasaydı aynı koşu 199/201 yerine 198/201 puan alırdı ve kural listesi bunu da saymalıdır."
+  ],
+  "decision_rule": "Denetim, yayımlanan hiçbir başlık sayısının boru hattının kendi değerlendirme betiklerine bağlı olmadığını gösteriyor: bağımsız eşleştirici, kendi Newton'u, kendi PAV'ı ve kendi tam binom toplamıyla her nicelik yeniden türetildi ve tümü uyuştu. Geriye kalan iki iş hesaplama değil belgelemedir; ikisi de aşağıdaki notlarda ve savunmada açıkça söylenir."
+}

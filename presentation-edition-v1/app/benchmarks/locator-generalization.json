@@ -1,0 +1,141 @@
+{
+  "id": "locator-generalization",
+  "title_tr": "Dipnot bulucunun genellenmesi: 'DIPNOT n' başlık düzeni (E59)",
+  "title_en": "Locator generalization: widening S5 for the DIPNOT-n heading convention (E59)",
+  "measured_at": "2026-08-29T20:39:52",
+  "source": "evidence/locator-generalization.md",
+  "scope": "other documents",
+  "baseline": null,
+  "columns": [
+    {
+      "key": "exit",
+      "label_tr": "çıkış kodu",
+      "kind": "number"
+    },
+    {
+      "key": "wall_s",
+      "label_tr": "duvar saati",
+      "kind": "seconds"
+    },
+    {
+      "key": "pipeline_s",
+      "label_tr": "boru hattı süresi",
+      "kind": "seconds"
+    },
+    {
+      "key": "tables",
+      "label_tr": "tablo",
+      "kind": "number"
+    },
+    {
+      "key": "tables_split",
+      "label_tr": "tablo (özet + dipnot)",
+      "kind": "text"
+    },
+    {
+      "key": "rows",
+      "label_tr": "satır",
+      "kind": "number"
+    },
+    {
+      "key": "cells",
+      "label_tr": "hücre",
+      "kind": "number"
+    },
+    {
+      "key": "relations",
+      "label_tr": "ilişki",
+      "kind": "number"
+    },
+    {
+      "key": "flagged",
+      "label_tr": "bayraklı ilişki",
+      "kind": "number"
+    },
+    {
+      "key": "checks",
+      "label_tr": "kontrol geçti / kaldı / değerlendirilemez",
+      "kind": "text"
+    },
+    {
+      "key": "footnote_pages",
+      "label_tr": "bulunan dipnot sayfaları",
+      "kind": "text"
+    },
+    {
+      "key": "identical",
+      "label_tr": "vaka çıktısı aynı (run bloğu dışında)",
+      "kind": "bool"
+    },
+    {
+      "key": "note",
+      "label_tr": "not",
+      "kind": "text"
+    }
+  ],
+  "rows": [
+    {
+      "id": "case-under-patch",
+      "label": "Vaka belgesi, yamalı bulucuyla",
+      "role": "measured",
+      "source": "research/assets/experiments/locator-generalization/case-run.log, research/assets/experiments/locator-generalization/work/outputs/result.json",
+      "exit": 0,
+      "wall_s": 47.0,
+      "pipeline_s": 45.1,
+      "tables": 7,
+      "rows": 95,
+      "cells": 193,
+      "relations": 7,
+      "flagged": 0,
+      "checks": "103 / 4 / 6",
+      "tables_split": "3 + 4",
+      "footnote_pages": "53, 54",
+      "identical": true,
+      "note": "mühürlü çıktıyla karşılaştırıldı"
+    },
+    {
+      "id": "emlak-before",
+      "label": "Emlak Konut GYO 31.12.2012, yamadan önce",
+      "role": "rejected",
+      "source": "evidence/second-document-generality.md (Run outcomes)",
+      "exit": 2,
+      "wall_s": 62.3,
+      "pipeline_s": null,
+      "tables": null,
+      "tables_split": null,
+      "rows": null,
+      "cells": null,
+      "relations": null,
+      "flagged": null,
+      "checks": null,
+      "footnote_pages": "not found",
+      "identical": null,
+      "note": "S5'te durdu, hiç çıktı yok"
+    },
+    {
+      "id": "emlak-after",
+      "label": "Emlak Konut GYO 31.12.2012, yamadan sonra",
+      "role": "measured",
+      "source": "research/assets/experiments/locator-generalization/emlak-run.log, research/assets/experiments/locator-generalization/emlak-outputs/result.json",
+      "exit": 0,
+      "wall_s": 45.0,
+      "pipeline_s": 43.4,
+      "tables": 8,
+      "rows": 114,
+      "cells": 343,
+      "relations": 2,
+      "flagged": 2,
+      "checks": "66 / 25 / 7",
+      "tables_split": "3 + 5",
+      "footnote_pages": "34, 35, 36",
+      "identical": null,
+      "note": "dipnot 9 bulundu, gold küme yok"
+    }
+  ],
+  "notes_tr": [
+    "Yama yalnız S5 kapsamındadır: research/assets/experiments/locator-generalization/locate.diff 3 düzenli ifadeyi genişletir (içindekiler satırı ve iki başlık kalıbı). Önek grubu isteğe bağlı olduğundan önceden eşleşen her dize aynı yakalama grubuyla eşleşmeye devam eder.",
+    "'aynı' sütunu, yamalı çalışma kopyasının result.json'u ile mühürlü çıktının run bloğu çıkarılmış hâllerinin eşitliğidir; bu senkronizasyonda yeniden hesaplanır, not edilmiş bir iddia değildir.",
+    "Bu belgeler için gold küme yoktur; Emlak Konut satırında 98 kontrolün 25'i kalıyor ve iki ilişkinin ikisi de bayraklı, yani boru hattının kendi doğrulaması çıkarımı güvenilmez ilan ediyor."
+  ],
+  "decision_rule": "Genişletme graded belgede atıldır (aynı tablolar, hücreler, ilişkiler ve kontroller) ve daha önce çıkış kodu 2 ile duran dosyayı 45 saniyede tamamlar; ama ürettiği iki ilişkinin ikisi de bayraklı ve kontrollerin dörtte biri kalıyor. Yani genelleme S5'i açar, çıkarımı doğrulamaz: teslimat 1.0.2 değişmedi, benimseme ayrı bir sürüm kararıdır."
+}

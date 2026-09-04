@@ -1,0 +1,545 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1"><title>Source PDF page-by-page guide</title>
+<style>
+:root{--navy:#071d49;--blue:#0b3b82;--ink:#17233d;--muted:#5b6b8c;--line:#d9e1ef;--bg:#f5f8fc}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.6 Inter,ui-sans-serif,system-ui,sans-serif}
+header{background:var(--navy);color:#fff;padding:14px 26px;display:flex;align-items:center;gap:14px;flex-wrap:wrap;position:sticky;top:0;z-index:2}
+header .src{color:#a9c5e9;font-size:12px;word-break:break-all}
+header a{color:#bfeaf4;text-decoration:none;font-size:12px;margin-left:auto;white-space:nowrap}
+main{max-width:860px;margin:0 auto;padding:28px 26px 80px;background:#fff;box-shadow:0 0 0 1px var(--line);min-height:100vh}
+h1,h2,h3,h4{color:var(--navy);line-height:1.25}
+h1{font-size:26px;border-bottom:2px solid var(--line);padding-bottom:10px}
+h2{font-size:20px;margin-top:34px;border-bottom:1px solid var(--line);padding-bottom:6px}
+h3{font-size:16px;margin-top:24px}
+code{background:#eef3fb;padding:1px 5px;border-radius:4px;font:13px/1.4 ui-monospace,SFMono-Regular,monospace}
+pre{background:#091a3b;color:#d7e8ff;padding:14px 16px;border-radius:8px;overflow:auto}
+pre code{background:none;padding:0;color:inherit}
+table{border-collapse:collapse;width:100%;margin:14px 0;font-size:13.5px}
+th,td{border:1px solid var(--line);padding:7px 10px;text-align:left;vertical-align:top}
+th{background:#edf3fb}
+blockquote{border-left:4px solid var(--blue);margin:14px 0;padding:2px 16px;color:var(--muted);background:#f2f7ff}
+a{color:var(--blue)}
+img{max-width:100%}
+</style></head><body>
+<header><b>Source PDF page-by-page guide</b><span class="src">docs/SOURCE-PDF-PAGE-GUIDE.md</span><a href="../docs/SOURCE-PDF-PAGE-GUIDE.md" target="_blank" rel="noopener">View raw source &#8599;</a></header>
+<main><h1 id="source-pdf-page-by-page-guide">Source PDF page-by-page guide</h1>
+<p>This guide is a human map of the supplied 95-page Özak GYO 2012 audited-report PDF. It is not pipeline output and must not be used as hidden ground truth. It exists so a reviewer can understand what is on a page before deciding whether that page belongs to the extraction contract.</p>
+<h2 id="three-scopes-that-must-not-be-conflated">Three scopes that must not be conflated</h2>
+<table>
+<thead>
+<tr>
+<th>Scope</th>
+<th style="text-align: right;">Pages</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Case contract</td>
+<td style="text-align: right;">PDF 5–7 plus automatically located Note 11 (PDF 53–54)</td>
+<td>The requested financial-statement/footnote-linking task and the only authoritative acceptance scope.</td>
+</tr>
+<tr>
+<td>Extended statements</td>
+<td style="text-align: right;">PDF 5–10 plus Note 11</td>
+<td>A defensible research extension covering balance sheet, comprehensive income, equity changes and cash flow. It requires additional table-layout work and new independently authored gold data.</td>
+</tr>
+<tr>
+<td>Full-document visual review</td>
+<td style="text-align: right;">PDF 1–95</td>
+<td>Browse, inspect OCR and collect feedback. This does not mean all 95 pages are equivalent summary tables.</td>
+</tr>
+</tbody>
+</table>
+<p>The PDF is scan/image based. PDF pages 5–95 normally correspond to printed report pages 1–91, so <code>printed page = PDF page − 4</code>. Several dense schedules are physically rotated; the debugger must use the OCR coordinate space and detected rotation for those pages.</p>
+<h2 id="every-pdf-page">Every PDF page</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: right;">PDF</th>
+<th style="text-align: right;">Printed</th>
+<th>Content and review purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">cover</td>
+<td>Report cover: company, reporting date and consolidated-financial-statements title. Metadata only.</td>
+</tr>
+<tr>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">auditor 1</td>
+<td>Independent auditor’s report: addressee, responsibility and audit-scope narrative. Narrative OCR, not a financial table.</td>
+</tr>
+<tr>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">auditor 2</td>
+<td>Audit opinion and emphasis/other reporting text. Narrative OCR, not a summary table.</td>
+</tr>
+<tr>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">contents</td>
+<td>Table of contents. Useful for note discovery and page-range validation, but not financial evidence.</td>
+</tr>
+<tr>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">1</td>
+<td>Consolidated balance sheet — assets. Case-contract summary page; two comparative value columns and footnote references.</td>
+</tr>
+<tr>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">2</td>
+<td>Consolidated balance sheet — liabilities and equity. Case-contract summary page; hierarchical rows, subtotals and totals.</td>
+</tr>
+<tr>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">3</td>
+<td>Consolidated comprehensive income statement. Case-contract summary page; Note 11-linked investment-property rows appear here.</td>
+</tr>
+<tr>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">4</td>
+<td>Consolidated statement of changes in equity. Landscape/rotated multi-column schedule; part of extended statements, not the case contract.</td>
+</tr>
+<tr>
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">5</td>
+<td>Consolidated cash-flow statement, first page: operating activities and reconciliation. Extended-statements candidate.</td>
+</tr>
+<tr>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">6</td>
+<td>Cash-flow statement continuation: investing/financing movements and closing cash. Extended-statements candidate.</td>
+</tr>
+<tr>
+<td style="text-align: right;">11</td>
+<td style="text-align: right;">7</td>
+<td>Note 1, organisation and operations of the Group. Narrative and entity metadata.</td>
+</tr>
+<tr>
+<td style="text-align: right;">12</td>
+<td style="text-align: right;">8</td>
+<td>Note 1 continuation: subsidiaries/ownership and approval of the financial statements.</td>
+</tr>
+<tr>
+<td style="text-align: right;">13</td>
+<td style="text-align: right;">9</td>
+<td>Note 2.1, basis of presentation and SPK reporting framework.</td>
+</tr>
+<tr>
+<td style="text-align: right;">14</td>
+<td style="text-align: right;">10</td>
+<td>Note 2.1 continuation: accounting basis/comparatives and presentation matters.</td>
+</tr>
+<tr>
+<td style="text-align: right;">15</td>
+<td style="text-align: right;">11</td>
+<td>Note 2.1 continuation: consolidation scope and ownership information.</td>
+</tr>
+<tr>
+<td style="text-align: right;">16</td>
+<td style="text-align: right;">12</td>
+<td>Note 2.1 continuation: consolidation principles and subsidiaries/associates.</td>
+</tr>
+<tr>
+<td style="text-align: right;">17</td>
+<td style="text-align: right;">13</td>
+<td>Notes 2.2–2.4: functional currency, accounting changes and new/revised standards introduction.</td>
+</tr>
+<tr>
+<td style="text-align: right;">18</td>
+<td style="text-align: right;">14</td>
+<td>Note 2.4 continuation: standards and interpretations effective for the period.</td>
+</tr>
+<tr>
+<td style="text-align: right;">19</td>
+<td style="text-align: right;">15</td>
+<td>Note 2.4 continuation: issued but not-yet-effective standards.</td>
+</tr>
+<tr>
+<td style="text-align: right;">20</td>
+<td style="text-align: right;">16</td>
+<td>Note 2.4 continuation: financial-instrument standard changes, including IFRS 9 material.</td>
+</tr>
+<tr>
+<td style="text-align: right;">21</td>
+<td style="text-align: right;">17</td>
+<td>Note 2.4 continuation: consolidation/joint-arrangement/disclosure standards.</td>
+</tr>
+<tr>
+<td style="text-align: right;">22</td>
+<td style="text-align: right;">18</td>
+<td>Note 2.4 continuation: IFRS 13 and financial-instrument disclosure changes.</td>
+</tr>
+<tr>
+<td style="text-align: right;">23</td>
+<td style="text-align: right;">19</td>
+<td>Note 2.4 continuation: IAS 19 and other standard amendments.</td>
+</tr>
+<tr>
+<td style="text-align: right;">24</td>
+<td style="text-align: right;">20</td>
+<td>End of Note 2.4 and start of Note 2.5 significant accounting policies; revenue recognition.</td>
+</tr>
+<tr>
+<td style="text-align: right;">25</td>
+<td style="text-align: right;">21</td>
+<td>Note 2.5: significant policies, including tangible fixed assets.</td>
+</tr>
+<tr>
+<td style="text-align: right;">26</td>
+<td style="text-align: right;">22</td>
+<td>Tangible fixed assets continuation, depreciation/disposals and finance leases.</td>
+</tr>
+<tr>
+<td style="text-align: right;">27</td>
+<td style="text-align: right;">23</td>
+<td>Intangible assets and impairment policies.</td>
+</tr>
+<tr>
+<td style="text-align: right;">28</td>
+<td style="text-align: right;">24</td>
+<td>Borrowing-cost material and investment-property accounting policy.</td>
+</tr>
+<tr>
+<td style="text-align: right;">29</td>
+<td style="text-align: right;">25</td>
+<td>Financial instruments: financial-asset classes and measurement.</td>
+</tr>
+<tr>
+<td style="text-align: right;">30</td>
+<td style="text-align: right;">26</td>
+<td>Financial instruments continuation: impairment of financial assets.</td>
+</tr>
+<tr>
+<td style="text-align: right;">31</td>
+<td style="text-align: right;">27</td>
+<td>Financial-asset impairment continuation, including receivables.</td>
+</tr>
+<tr>
+<td style="text-align: right;">32</td>
+<td style="text-align: right;">28</td>
+<td>Derecognition of financial assets and financial liabilities.</td>
+</tr>
+<tr>
+<td style="text-align: right;">33</td>
+<td style="text-align: right;">29</td>
+<td>Financial-instrument/equity classification policy continuation.</td>
+</tr>
+<tr>
+<td style="text-align: right;">34</td>
+<td style="text-align: right;">30</td>
+<td>Accounting-policy continuation, including recognition under applicable IFRS.</td>
+</tr>
+<tr>
+<td style="text-align: right;">35</td>
+<td style="text-align: right;">31</td>
+<td>Significant accounting-policy continuation.</td>
+</tr>
+<tr>
+<td style="text-align: right;">36</td>
+<td style="text-align: right;">32</td>
+<td>Significant accounting-policy continuation.</td>
+</tr>
+<tr>
+<td style="text-align: right;">37</td>
+<td style="text-align: right;">33</td>
+<td>Provisions, contingent assets and contingent liabilities policy.</td>
+</tr>
+<tr>
+<td style="text-align: right;">38</td>
+<td style="text-align: right;">34</td>
+<td>Accounting-policy continuation, including foreign-currency/tax-related material.</td>
+</tr>
+<tr>
+<td style="text-align: right;">39</td>
+<td style="text-align: right;">35</td>
+<td>Employee-benefits policy.</td>
+</tr>
+<tr>
+<td style="text-align: right;">40</td>
+<td style="text-align: right;">36</td>
+<td>Cash-flow statement policy and start of Note 2.6 significant judgments/estimates.</td>
+</tr>
+<tr>
+<td style="text-align: right;">41</td>
+<td style="text-align: right;">37</td>
+<td>Note 2.7 critical assumptions, including investment-property valuation.</td>
+</tr>
+<tr>
+<td style="text-align: right;">42</td>
+<td style="text-align: right;">38</td>
+<td>Note 3 segment reporting: 2012 income/operation information.</td>
+</tr>
+<tr>
+<td style="text-align: right;">43</td>
+<td style="text-align: right;">39</td>
+<td>Note 3 continuation: 2012 segment balance-sheet information.</td>
+</tr>
+<tr>
+<td style="text-align: right;">44</td>
+<td style="text-align: right;">40</td>
+<td>Note 3 continuation: 2011 segment income information.</td>
+</tr>
+<tr>
+<td style="text-align: right;">45</td>
+<td style="text-align: right;">41</td>
+<td>Note 3 continuation: 2011 segment balance-sheet information.</td>
+</tr>
+<tr>
+<td style="text-align: right;">46</td>
+<td style="text-align: right;">42</td>
+<td>Note 4, cash and cash equivalents.</td>
+</tr>
+<tr>
+<td style="text-align: right;">47</td>
+<td style="text-align: right;">43</td>
+<td>Note 5, financial investments, and Note 6, investments accounted for using the equity method.</td>
+</tr>
+<tr>
+<td style="text-align: right;">48</td>
+<td style="text-align: right;">44</td>
+<td>Note 7, financial borrowings — balances and classifications.</td>
+</tr>
+<tr>
+<td style="text-align: right;">49</td>
+<td style="text-align: right;">45</td>
+<td>Note 7 continuation: fair values, currencies and borrowing details.</td>
+</tr>
+<tr>
+<td style="text-align: right;">50</td>
+<td style="text-align: right;">46</td>
+<td>Note 8, trade receivables and trade payables, including related-party references.</td>
+</tr>
+<tr>
+<td style="text-align: right;">51</td>
+<td style="text-align: right;">47</td>
+<td>Note 9, other receivables and other payables.</td>
+</tr>
+<tr>
+<td style="text-align: right;">52</td>
+<td style="text-align: right;">48</td>
+<td>Note 10, inventories.</td>
+</tr>
+<tr>
+<td style="text-align: right;">53</td>
+<td style="text-align: right;">49</td>
+<td>Note 11, investment property: opening/closing balances, additions/transfers and valuation movements. Primary case-contract footnote target.</td>
+</tr>
+<tr>
+<td style="text-align: right;">54</td>
+<td style="text-align: right;">50</td>
+<td>Note 11 continuation: valuation approach, fair-value details and explanatory narrative. Primary case-contract footnote target.</td>
+</tr>
+<tr>
+<td style="text-align: right;">55</td>
+<td style="text-align: right;">51</td>
+<td>Note 12, tangible fixed assets movement schedule, first rotated/landscape page.</td>
+</tr>
+<tr>
+<td style="text-align: right;">56</td>
+<td style="text-align: right;">52</td>
+<td>Note 12 movement schedule continuation, rotated/landscape.</td>
+</tr>
+<tr>
+<td style="text-align: right;">57</td>
+<td style="text-align: right;">53</td>
+<td>End of Note 12 (depreciation lives) and start of Note 13, intangible assets.</td>
+</tr>
+<tr>
+<td style="text-align: right;">58</td>
+<td style="text-align: right;">54</td>
+<td>Note 13 continuation and Note 14, goodwill.</td>
+</tr>
+<tr>
+<td style="text-align: right;">59</td>
+<td style="text-align: right;">55</td>
+<td>Note 15, provisions, contingent assets and liabilities — schedules and cases.</td>
+</tr>
+<tr>
+<td style="text-align: right;">60</td>
+<td style="text-align: right;">56</td>
+<td>Note 15 continuation: litigation/commitment narrative.</td>
+</tr>
+<tr>
+<td style="text-align: right;">61</td>
+<td style="text-align: right;">57</td>
+<td>End of Note 15 and Note 16, commitments and obligations.</td>
+</tr>
+<tr>
+<td style="text-align: right;">62</td>
+<td style="text-align: right;">58</td>
+<td>Note 17, employee benefits and provision calculations.</td>
+</tr>
+<tr>
+<td style="text-align: right;">63</td>
+<td style="text-align: right;">59</td>
+<td>Note 17 continuation and start of Note 18, other assets and liabilities.</td>
+</tr>
+<tr>
+<td style="text-align: right;">64</td>
+<td style="text-align: right;">60</td>
+<td>Note 18 continuation: non-current assets and short-term liabilities.</td>
+</tr>
+<tr>
+<td style="text-align: right;">65</td>
+<td style="text-align: right;">61</td>
+<td>Note 19, equity: capital/share information.</td>
+</tr>
+<tr>
+<td style="text-align: right;">66</td>
+<td style="text-align: right;">62</td>
+<td>Note 19 continuation: capital increase and reserves.</td>
+</tr>
+<tr>
+<td style="text-align: right;">67</td>
+<td style="text-align: right;">63</td>
+<td>Note 19 continuation: reserves, distributable profit and dividend restrictions.</td>
+</tr>
+<tr>
+<td style="text-align: right;">68</td>
+<td style="text-align: right;">64</td>
+<td>Note 20, revenue and cost of sales.</td>
+</tr>
+<tr>
+<td style="text-align: right;">69</td>
+<td style="text-align: right;">65</td>
+<td>Note 21, marketing/selling/distribution and general-administration expenses.</td>
+</tr>
+<tr>
+<td style="text-align: right;">70</td>
+<td style="text-align: right;">66</td>
+<td>Note 22, expenses by nature.</td>
+</tr>
+<tr>
+<td style="text-align: right;">71</td>
+<td style="text-align: right;">67</td>
+<td>Note 23, other operating income and expenses.</td>
+</tr>
+<tr>
+<td style="text-align: right;">72</td>
+<td style="text-align: right;">68</td>
+<td>Notes 24–25, finance income and finance expense.</td>
+</tr>
+<tr>
+<td style="text-align: right;">73</td>
+<td style="text-align: right;">69</td>
+<td>Note 26, tax assets/liabilities and current-tax expense.</td>
+</tr>
+<tr>
+<td style="text-align: right;">74</td>
+<td style="text-align: right;">70</td>
+<td>Note 26 continuation: corporation tax and investment allowance.</td>
+</tr>
+<tr>
+<td style="text-align: right;">75</td>
+<td style="text-align: right;">71</td>
+<td>Note 26 continuation: deferred-tax bases and movements.</td>
+</tr>
+<tr>
+<td style="text-align: right;">76</td>
+<td style="text-align: right;">72</td>
+<td>End of Note 26, tax reconciliation; Note 27, earnings per share.</td>
+</tr>
+<tr>
+<td style="text-align: right;">77</td>
+<td style="text-align: right;">73</td>
+<td>Note 28, related-party disclosures — narrative and balances.</td>
+</tr>
+<tr>
+<td style="text-align: right;">78</td>
+<td style="text-align: right;">74</td>
+<td>Note 28 related-party transaction/balance schedule, rotated/landscape.</td>
+</tr>
+<tr>
+<td style="text-align: right;">79</td>
+<td style="text-align: right;">75</td>
+<td>Note 28 related-party schedule continuation, rotated/landscape.</td>
+</tr>
+<tr>
+<td style="text-align: right;">80</td>
+<td style="text-align: right;">76</td>
+<td>Note 28 related-party schedule continuation, rotated/landscape.</td>
+</tr>
+<tr>
+<td style="text-align: right;">81</td>
+<td style="text-align: right;">77</td>
+<td>Note 28 related-party schedule continuation, rotated/landscape.</td>
+</tr>
+<tr>
+<td style="text-align: right;">82</td>
+<td style="text-align: right;">78</td>
+<td>End of Note 28 and start of Note 29, nature and level of financial risks.</td>
+</tr>
+<tr>
+<td style="text-align: right;">83</td>
+<td style="text-align: right;">79</td>
+<td>Note 29 financial-risk schedule, rotated/landscape.</td>
+</tr>
+<tr>
+<td style="text-align: right;">84</td>
+<td style="text-align: right;">80</td>
+<td>Note 29 financial-risk schedule continuation, rotated/landscape.</td>
+</tr>
+<tr>
+<td style="text-align: right;">85</td>
+<td style="text-align: right;">81</td>
+<td>Note 29 credit-risk narrative and exposure analysis.</td>
+</tr>
+<tr>
+<td style="text-align: right;">86</td>
+<td style="text-align: right;">82</td>
+<td>Note 29 credit-risk/liquidity-risk continuation.</td>
+</tr>
+<tr>
+<td style="text-align: right;">87</td>
+<td style="text-align: right;">83</td>
+<td>Note 29 maturity analysis for financial liabilities.</td>
+</tr>
+<tr>
+<td style="text-align: right;">88</td>
+<td style="text-align: right;">84</td>
+<td>Note 29 foreign-currency position for 2012.</td>
+</tr>
+<tr>
+<td style="text-align: right;">89</td>
+<td style="text-align: right;">85</td>
+<td>Note 29 foreign-currency position for 2011.</td>
+</tr>
+<tr>
+<td style="text-align: right;">90</td>
+<td style="text-align: right;">86</td>
+<td>Note 29 currency sensitivity analysis for 2012.</td>
+</tr>
+<tr>
+<td style="text-align: right;">91</td>
+<td style="text-align: right;">87</td>
+<td>Note 29 currency sensitivity analysis for 2011.</td>
+</tr>
+<tr>
+<td style="text-align: right;">92</td>
+<td style="text-align: right;">88</td>
+<td>Note 29 interest-rate risk and financial-instrument classifications.</td>
+</tr>
+<tr>
+<td style="text-align: right;">93</td>
+<td style="text-align: right;">89</td>
+<td>Note 29 fair-value/classification schedule continuation, rotated/landscape.</td>
+</tr>
+<tr>
+<td style="text-align: right;">94</td>
+<td style="text-align: right;">90</td>
+<td>Note 30 subsequent events and start of Note 31 portfolio-restriction compliance.</td>
+</tr>
+<tr>
+<td style="text-align: right;">95</td>
+<td style="text-align: right;">91</td>
+<td>Note 31 portfolio-restriction compliance continuation and end of report.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="how-to-use-the-guide">How to use the guide</h2>
+<p>Use the debugger’s visual-review mode to verify page identity and orientation. Use a configured pipeline run only when the selected pages share a table contract the extractor actually supports. If a new interviewer PDF is supplied, create a new guide from that exact file hash; do not reuse page numbers or assumptions from this report.</p></main>
+</body></html>

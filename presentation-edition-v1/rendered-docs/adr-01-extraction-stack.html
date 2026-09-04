@@ -1,0 +1,60 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1"><title>ADR-01: Extraction stack = tesseract TSV + deterministic x-clustering (+ RapidOCR digit verify)</title>
+<style>
+:root{--navy:#071d49;--blue:#0b3b82;--ink:#17233d;--muted:#5b6b8c;--line:#d9e1ef;--bg:#f5f8fc}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.6 Inter,ui-sans-serif,system-ui,sans-serif}
+header{background:var(--navy);color:#fff;padding:14px 26px;display:flex;align-items:center;gap:14px;flex-wrap:wrap;position:sticky;top:0;z-index:2}
+header .src{color:#a9c5e9;font-size:12px;word-break:break-all}
+header a{color:#bfeaf4;text-decoration:none;font-size:12px;margin-left:auto;white-space:nowrap}
+main{max-width:860px;margin:0 auto;padding:28px 26px 80px;background:#fff;box-shadow:0 0 0 1px var(--line);min-height:100vh}
+h1,h2,h3,h4{color:var(--navy);line-height:1.25}
+h1{font-size:26px;border-bottom:2px solid var(--line);padding-bottom:10px}
+h2{font-size:20px;margin-top:34px;border-bottom:1px solid var(--line);padding-bottom:6px}
+h3{font-size:16px;margin-top:24px}
+code{background:#eef3fb;padding:1px 5px;border-radius:4px;font:13px/1.4 ui-monospace,SFMono-Regular,monospace}
+pre{background:#091a3b;color:#d7e8ff;padding:14px 16px;border-radius:8px;overflow:auto}
+pre code{background:none;padding:0;color:inherit}
+table{border-collapse:collapse;width:100%;margin:14px 0;font-size:13.5px}
+th,td{border:1px solid var(--line);padding:7px 10px;text-align:left;vertical-align:top}
+th{background:#edf3fb}
+blockquote{border-left:4px solid var(--blue);margin:14px 0;padding:2px 16px;color:var(--muted);background:#f2f7ff}
+a{color:var(--blue)}
+img{max-width:100%}
+</style></head><body>
+<header><b>ADR-01: Extraction stack = tesseract TSV + deterministic x-clustering (+ RapidOCR digit verify)</b><span class="src">docs/decisions/adr-01-extraction-stack.md</span><a href="../docs/decisions/adr-01-extraction-stack.md" target="_blank" rel="noopener">View raw source &#8599;</a></header>
+<main><hr />
+<p>slug: adr-01-extraction-stack
+created: 2026-08-17T06:30:00+03:00
+status: accepted</p>
+<hr />
+<h1 id="adr-01-extraction-stack-tesseract-tsv-deterministic-x-clustering-rapidocr-digit-verify">ADR-01: Extraction stack = tesseract TSV + deterministic x-clustering (+ RapidOCR digit verify)</h1>
+<h2 id="context">Context</h2>
+<p>Source is a 95-page image-only scan; tables are borderless with stacked headers;
+three notes pages are rotated 270°. Requirements: re-runnable by a bank grader on
+CPU, cell-level confidence inputs, page/footnote from config.</p>
+<h2 id="options-considered">Options considered</h2>
+<p>[[decision-matrix]] S1/S3 rows: tesseract-TSV+x-cluster (shipped) vs TATR v1.1-fin
+(pending Colab E5) vs docling/TableFormer (pending E7) vs VLM tier (API) vs
+PP-Structure (rejected: macOS ARM segfaults) vs camelot-class (no text layer) vs
+surya/jina (license-gated).</p>
+<h2 id="decision">Decision</h2>
+<p>Ship tesseract 5 tur TSV (300dpi/psm4, LOCKED by E2 grid: 154/156 values verbatim;
+400dpi worse) + orientation recovery + deterministic x-clustering (columns from
+numeric right edges, dashes second-pass, label-fragment/section-header handling) +
+RapidOCR per-cell digit cross-check (optional extra, flag-over-fix). Measured:
+92.5% exact cells, zero silent errors, both real OCR corruptions flagged.</p>
+<h2 id="consequences">Consequences</h2>
+<p>No GPU, no heavyweight deps, fully deterministic. REVISIT when Colab E5/E7 results
+land: if TATR GriTS beats x-cluster materially on p53/54, add it as configurable
+primary (engine choice already isolated behind extract_tables()).</p>
+<h2 id="update-1708-evening-v03-residual-gaps-closed">Update 17.08 evening (v0.3): residual gaps CLOSED</h2>
+<p>Percent-table degradation and label-less/group-header rows are fixed and measured
+([[percent-rescue]]): S3b swaps engine roles on rate rows (RapidOCR 6/6 vs
+tesseract 0/6 on % glyphs, probe-measured before wiring), and an indent rule
+separates wrapped-label continuations (+18 px) from group headers (aligned).
+Cells 92.5% -&gt; 99.0% exact; the 2 remaining wrongs are the two flagged real
+corruptions (the zero-silent-error contract). rapidocr/onnxruntime promoted to
+base dependencies: <code>uv run</code>'s exact sync uninstalls extras, which would silently
+drop the verification stage on the grader's default path.</p></main>
+</body></html>

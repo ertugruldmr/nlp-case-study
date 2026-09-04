@@ -1,0 +1,100 @@
+{
+  "id": "text-layer-channel",
+  "title_tr": "Metin katmanı üçüncü kanal olarak: OCR hücrelerinin çapraz kontrolü (E58)",
+  "title_en": "PDF text layer as a third per-cell channel, cross-checking the sealed OCR read (E58)",
+  "measured_at": "2026-08-29T20:39:18",
+  "source": "evidence/text-layer-channel.md",
+  "scope": "other documents",
+  "baseline": null,
+  "columns": [
+    {
+      "key": "pages",
+      "label_tr": "kullanılan sayfalar",
+      "kind": "text"
+    },
+    {
+      "key": "words",
+      "label_tr": "metin katmanı kelimesi",
+      "kind": "number"
+    },
+    {
+      "key": "numeric_cells",
+      "label_tr": "sayısal hücre",
+      "kind": "number"
+    },
+    {
+      "key": "agree",
+      "label_tr": "uyuşan",
+      "kind": "number"
+    },
+    {
+      "key": "agree_pct",
+      "label_tr": "uyuşma oranı",
+      "kind": "pct"
+    },
+    {
+      "key": "differ",
+      "label_tr": "ayrışan",
+      "kind": "number"
+    },
+    {
+      "key": "text_missing",
+      "label_tr": "metin yok",
+      "kind": "number"
+    },
+    {
+      "key": "text_nonnumeric",
+      "label_tr": "metin sayı değil",
+      "kind": "number"
+    },
+    {
+      "key": "dropped_leading_1",
+      "label_tr": "baştaki 1 düşmüş",
+      "kind": "number"
+    },
+    {
+      "key": "recovered",
+      "label_tr": "kurtarılan",
+      "kind": "number"
+    }
+  ],
+  "rows": [
+    {
+      "id": "ozak-gyo-2013",
+      "label": "Özak GYO 31.12.2013 (born-digital)",
+      "role": "measured",
+      "source": "research/assets/experiments/text-layer-channel/report-ozak-2013.json",
+      "pages": "6, 7, 8, 52, 53",
+      "words": 1258,
+      "numeric_cells": 201,
+      "agree": 189,
+      "agree_pct": 94.0,
+      "differ": 12,
+      "text_missing": 0,
+      "text_nonnumeric": 0,
+      "dropped_leading_1": 11,
+      "recovered": 11
+    },
+    {
+      "id": "case-document-2012",
+      "label": "Vaka belgesi 31.12.2012 (taranmış)",
+      "role": "measured",
+      "source": "research/assets/experiments/text-layer-channel/report-case-2012.json",
+      "pages": "5, 6, 7, 53, 54",
+      "words": 0,
+      "numeric_cells": 182,
+      "agree": 0,
+      "agree_pct": 0.0,
+      "differ": 0,
+      "text_missing": 182,
+      "text_nonnumeric": 0,
+      "dropped_leading_1": 0,
+      "recovered": 0
+    }
+  ],
+  "notes_tr": [
+    "Kanal boru hattının içinde değildir: research/assets/experiments/text-layer-channel/textlayer_check.py mühürlü çıktının hücre kutularını PDF metin katmanına yansıtır ve sayıyı boru hattının kendi dilbilgisiyle ayrıştırır; ftlink içe aktarılmaz, 1.0.2 çalıştırılmaz.",
+    "Bir hücre kutusuna en az yüzde 50 alanla düşen kelimeler okunur; karşılaştırma ayrıştırılmış sayı üzerindedir, ham dize üzerinde değil."
+  ],
+  "decision_rule": "Metin katmanı yalnız born-digital dosyada bir kanaldır: orada 201 sayısal hücrenin 12'sinde OCR'dan ayrışır ve baştaki 1'i düşen 11 hücrenin 11'ini de kurtarır; taranmış vaka belgesinde 182 hücrenin 182'sinde hiç kelime yoktur, yani kanal atıldır ve teslimatın ölçülen doğruluğunu değiştirmez. Bu yüzden konfigürasyon kapılı bir dördüncü doğrulama adayıdır, 1.0.2'de varsayılan değildir."
+}

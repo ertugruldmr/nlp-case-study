@@ -1,0 +1,42 @@
+{
+  "state": "done",
+  "scenario": "no-percent-rescue",
+  "started": "2026-08-29T02:22:41",
+  "duration_s": 26.2,
+  "overrides": {
+    "ocr": {
+      "percent_rescue": false
+    }
+  },
+  "eval": {
+    "raw": "CELLS: total=201 correct=194 (96.5%) wrong_val=3 wrong_state=0 missing_cell=4 missing_row=1\n    ('stoklar', 'p2012', '77.543.097', '77.943.097')\n    ('finansal_yatirimlar', 'p2012', '4.224', '4,224')\n    ('doluluk_orani', 'p2012', '%86,6', '486,6')\n    missing: ('cell', 'iskonto_orani', 'p2012')\n    missing: ('cell', 'doluluk_orani', 'p2011')\n    missing: ('row', 'kira_artis_orani', 'Kira artış oranı (%)')\nCELLS 95% CI (Clopper-Pearson, n=201, one document): [0.9296, 0.9859]\nEXTRACTED rows on reference pages not matched to any reference row: 0 (their 0 cells are outside the cell metric)\nRELATIONS: gold=7 predicted=7 tp=7 fp=0 fn=0 P=1.00 R=1.00\n  fp: []\n  fn: []\nRELATIONS exact one-sided 95% lower bounds (n=7): precision >= 0.652, recall >= 0.652\nCHECKS: 96 pass / 4 fail / 6 not_evaluable",
+    "cells": {
+      "total": 201,
+      "correct": 194,
+      "pct": 96.5,
+      "wrong_val": 3,
+      "wrong_state": 0,
+      "missing_cell": 4,
+      "missing_row": 1
+    },
+    "relations": {
+      "gold": 7,
+      "predicted": 7,
+      "tp": 7,
+      "fp": 0,
+      "fn": 0,
+      "precision": 1.0,
+      "recall": 1.0
+    },
+    "checks": {
+      "pass": 96,
+      "fail": 4,
+      "not_evaluable": 6
+    }
+  },
+  "platform": {
+    "platform": "macOS-15.4-arm64-arm-64bit",
+    "tesseract": "5.5.3",
+    "note": "backfilled 29.08 after the run from the run block; same host"
+  }
+}

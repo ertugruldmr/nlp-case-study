@@ -1,0 +1,100 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1"><title>Percent rescue + label/header rule: 92.5% -> 99.0% exact cells (E28)</title>
+<style>
+:root{--navy:#071d49;--blue:#0b3b82;--ink:#17233d;--muted:#5b6b8c;--line:#d9e1ef;--bg:#f5f8fc}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.6 Inter,ui-sans-serif,system-ui,sans-serif}
+header{background:var(--navy);color:#fff;padding:14px 26px;display:flex;align-items:center;gap:14px;flex-wrap:wrap;position:sticky;top:0;z-index:2}
+header .src{color:#a9c5e9;font-size:12px;word-break:break-all}
+header a{color:#bfeaf4;text-decoration:none;font-size:12px;margin-left:auto;white-space:nowrap}
+main{max-width:860px;margin:0 auto;padding:28px 26px 80px;background:#fff;box-shadow:0 0 0 1px var(--line);min-height:100vh}
+h1,h2,h3,h4{color:var(--navy);line-height:1.25}
+h1{font-size:26px;border-bottom:2px solid var(--line);padding-bottom:10px}
+h2{font-size:20px;margin-top:34px;border-bottom:1px solid var(--line);padding-bottom:6px}
+h3{font-size:16px;margin-top:24px}
+code{background:#eef3fb;padding:1px 5px;border-radius:4px;font:13px/1.4 ui-monospace,SFMono-Regular,monospace}
+pre{background:#091a3b;color:#d7e8ff;padding:14px 16px;border-radius:8px;overflow:auto}
+pre code{background:none;padding:0;color:inherit}
+table{border-collapse:collapse;width:100%;margin:14px 0;font-size:13.5px}
+th,td{border:1px solid var(--line);padding:7px 10px;text-align:left;vertical-align:top}
+th{background:#edf3fb}
+blockquote{border-left:4px solid var(--blue);margin:14px 0;padding:2px 16px;color:var(--muted);background:#f2f7ff}
+a{color:var(--blue)}
+img{max-width:100%}
+</style></head><body>
+<header><b>Percent rescue + label/header rule: 92.5% -> 99.0% exact cells (E28)</b><span class="src">docs/evidence/percent-rescue.md</span><a href="../docs/evidence/percent-rescue.md" target="_blank" rel="noopener">View raw source &#8599;</a></header>
+<main><hr />
+<p>slug: percent-rescue
+candidate: "S3b percent rescue (engine swap on rate rows) + intra-segment label/header rule + scorer fairness fixes"
+created: 2026-08-17T18:30:00+03:00
+verified: 2026-08-17T18:30:00+03:00
+status: aging
+status_reviewed: 2026-08-29
+claim: "The three residual extraction gaps (percent table, dağılım group headers, wrapped label) are closable without touching the money path"
+verdict: works
+sources:
+  - research/assets/experiments/percent_rescue_probe.py (measured probe)
+  - deliverable/src/ftlink/percent.py · table_structure.py (merge_label_rows)
+  - deliverable/eval/score.py (empty-label + twin-row mapping fixes)
+tags: [implementation, measured, G2, G3]</p>
+<hr />
+<h1 id="percent-rescue-labelheader-rule-925-990-exact-cells-e28">Percent rescue + label/header rule: 92.5% -&gt; 99.0% exact cells (E28)</h1>
+<h2 id="probe-measured-page-54-crops-before-any-code">Probe (measured, page 54 crops, before any code)</h2>
+<p>tesseract CANNOT read the % glyph on this scan class in any configuration:
+psm7+whitelist 300dpi: <code>9, 710,5, 086,6, 80,8, 3, 42-4</code> · 600dpi: <code>49, 10,5,
+086,6, 480,8, 3, 02-4</code>. RapidOCR reads the SAME crops 6/6 verbatim: <code>%9, %10,5,
+%86,6, %80,8, %3, %2-%4</code> (both dpi). Design follows the measurement: for rate
+rows the engines swap roles (RapidOCR reads, tesseract votes). Tesseract's
+corruption is always a digit PREFIX artifact -&gt; vote = exact-or-suffix digit match.</p>
+<h2 id="shipped-deliverable-v03">Shipped (deliverable v0.3)</h2>
+<ul>
+<li><code>percent.py</code>: rate-row cell crops re-read by RapidOCR; tesseract psm7 whitelist
+  vote; dropped rate lines re-collected below the table bbox; phantom footnote refs
+  (%9 -&gt; "49" masqueraded as dipnot ref 49) removed when inside a value window.
+  Measured on default run: 6 cells rescued, 2 exact + 4 suffix votes, 0 mismatch,
+  1 row re-collected (kira artış). Config: <code>ocr.percent_rescue</code> (default true).</li>
+<li><code>merge_label_rows</code> indent rule: intra-segment text-only lines are captured; a
+  continuation row indents past its fragment (+18 px measured), a group header's
+  followers stay at its left edge. Fixes BOTH the truncated wrapped label
+  (Özkaynak ... Paylar) and the two missing Dağılımı group-header rows.</li>
+<li><code>FMT_PERCENT_BOUNDS</code> format check: percents must lie in [0,100], ranges ascend;
+  catches the 486,6 corruption class if the rescue ever regresses.</li>
+<li>Scorer fairness fixes (eval/score.py): empty-label gold rows disambiguated by
+  value overlap (both label-less totals used to map to the same extracted row);
+  twin-table rows with identical labels (2012/2011 movement tables) kept as lists
+  and split by value overlap (the dict used to overwrite one twin, converting a
+  correct prediction into a phantom fn).</li>
+</ul>
+<h2 id="measured-results-make-run-make-eval-1708-evening">Measured results (make run + make eval, 17.08 evening)</h2>
+<ul>
+<li>Cells: <strong>199/201 = 99.0% exact</strong> (was 92.5). The 2 remaining wrongs are the two
+  real OCR corruptions, both flagged (Stoklar digit: engine disagreement cap 0.4 +
+  parent-sum +400.000; separator 4,224: parent-sum .224 residue). ZERO silent errors.</li>
+<li>T3 percent table: <strong>6/6 exact</strong> (was 1/6). G3 closed above target (&gt;=5/6).</li>
+<li>Relations: <strong>P=1.00 R=1.00, no ambiguity asterisk</strong> (was R=0.86 nominal).</li>
+<li>Checks: 96 pass / 4 fail / 6 not_evaluable; all 4 fails genuine catches.
+  Percent-rescue doc check: pass (0 mismatches).</li>
+<li>Determinism: two runs byte-identical ex-run-block. Tests 21/21 (4 new).</li>
+<li>alt_footnote (12) demo: same profile (8 tables / 251 cells / 1 relation);
+  rescue correctly skips rotated pages (unavailable path).</li>
+</ul>
+<h2 id="fresh-clone-bugs-found-fixed-on-the-way-g6-input">Fresh-clone bugs found &amp; fixed on the way (G6 input)</h2>
+<ol>
+<li><code>make test</code> failed on a fresh env: pytest lived in an optional extra and
+   <code>uv run</code>'s exact sync UNINSTALLS extras -&gt; moved to <code>[dependency-groups]</code> dev.</li>
+<li><code>make eval</code> was a silent no-op: target not in .PHONY while an <code>eval/</code> directory
+   exists -&gt; make judged it "up to date". Added to .PHONY.</li>
+<li>rapidocr/onnxruntime were an optional extra, but <code>uv run ftlink</code> removes extras
+   at sync, silently degrading the headline S1b verification -&gt; promoted to base
+   dependencies (the default grader path must carry the flag-over-fix stage).</li>
+</ol>
+<h2 id="defense-framing">Defense framing</h2>
+<ul>
+<li>"The document told us which engine to trust where": engine choice is per-glyph-
+  class and MEASURED (money digits: tesseract wins; % glyphs: RapidOCR 6/6 vs 0/6).</li>
+<li>Flag-over-fix held: the rescue never overrides money cells (only a percent-kind
+  reading may replace a primary read); both engine readings live in the components.</li>
+<li>Accuracy ceiling reached: 99.0% is the maximum consistent with zero silent
+  substitution; the last 2 cells are deliberately wrong-but-flagged.</li>
+</ul></main>
+</body></html>

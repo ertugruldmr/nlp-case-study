@@ -1,0 +1,177 @@
+{
+  "id": "calib-weight-variants",
+  "title_tr": "Kalibrasyon: füzyon ağırlığı varyantları (E49)",
+  "title_en": "Calibration: fusion-weight variants on the 33 captured controls (E49)",
+  "measured_at": "2026-08-29T07:07:28",
+  "source": "research/assets/experiments/calibration-sensitivity/results.json",
+  "scope": "offline refit",
+  "baseline": "shipped_0.4_0.4_0.2",
+  "columns": [
+    {
+      "key": "separated",
+      "label_tr": "kontroller ayrışık",
+      "kind": "bool"
+    },
+    {
+      "key": "min_pos",
+      "label_tr": "min pozitif",
+      "kind": "number"
+    },
+    {
+      "key": "max_neg",
+      "label_tr": "maks negatif",
+      "kind": "number"
+    },
+    {
+      "key": "a",
+      "label_tr": "a (eğim)",
+      "kind": "number"
+    },
+    {
+      "key": "b",
+      "label_tr": "b (kesişim)",
+      "kind": "number"
+    },
+    {
+      "key": "brier_in",
+      "label_tr": "Brier (örneklem içi)",
+      "kind": "number"
+    },
+    {
+      "key": "brier_loo",
+      "label_tr": "Brier (LOO)",
+      "kind": "number"
+    },
+    {
+      "key": "jackknife",
+      "label_tr": "jackknife maks Δp",
+      "kind": "number"
+    },
+    {
+      "key": "rel_min",
+      "label_tr": "ilişki güveni min",
+      "kind": "number"
+    },
+    {
+      "key": "rel_max",
+      "label_tr": "ilişki güveni maks",
+      "kind": "number"
+    },
+    {
+      "key": "flagged",
+      "label_tr": "bayraklı (0,5)",
+      "kind": "number"
+    },
+    {
+      "key": "spearman",
+      "label_tr": "Spearman vs teslimat",
+      "kind": "number"
+    },
+    {
+      "key": "max_abs_delta",
+      "label_tr": "maks |Δgüven| vs teslimat",
+      "kind": "number"
+    }
+  ],
+  "rows": [
+    {
+      "id": "shipped_0.4_0.4_0.2",
+      "label": "shipped 0.4 0.4 0.2",
+      "role": "shipped",
+      "source": "research/assets/experiments/calibration-sensitivity/results.json",
+      "separated": true,
+      "min_pos": 0.4737,
+      "max_neg": 0.1,
+      "a": 10.5259,
+      "b": -3.6973,
+      "brier_in": 0.0067,
+      "brier_loo": 0.0085,
+      "jackknife": 0.0372,
+      "rel_min": 0.8164,
+      "rel_max": 0.9991,
+      "flagged": 0,
+      "spearman": 1.0,
+      "max_abs_delta": 0.0
+    },
+    {
+      "id": "readme_0.5_0.5_0.0",
+      "label": "readme 0.5 0.5 0.0",
+      "role": "measured",
+      "source": "research/assets/experiments/calibration-sensitivity/results.json",
+      "separated": true,
+      "min_pos": 0.51,
+      "max_neg": 0.036,
+      "a": 8.6994,
+      "b": -3.0057,
+      "brier_in": 0.0063,
+      "brier_loo": 0.008,
+      "jackknife": 0.0328,
+      "rel_min": 0.836,
+      "rel_max": 0.9971,
+      "flagged": 0,
+      "spearman": 0.991,
+      "max_abs_delta": 0.0196
+    },
+    {
+      "id": "ce_zeroed_0_0.6_0.4",
+      "label": "ce zeroed 0 0.6 0.4",
+      "role": "measured",
+      "source": "research/assets/experiments/calibration-sensitivity/results.json",
+      "separated": true,
+      "min_pos": 0.6,
+      "max_neg": 0.1733,
+      "a": 8.7435,
+      "b": -4.2232,
+      "brier_in": 0.0054,
+      "brier_loo": 0.0067,
+      "jackknife": 0.0459,
+      "rel_min": 0.7752,
+      "rel_max": 0.9908,
+      "flagged": 0,
+      "spearman": 0.427,
+      "max_abs_delta": 0.2033
+    },
+    {
+      "id": "value_zeroed_0.6_0_0.4",
+      "label": "value zeroed 0.6 0 0.4",
+      "role": "measured",
+      "source": "research/assets/experiments/calibration-sensitivity/results.json",
+      "separated": false,
+      "min_pos": 0.1435,
+      "max_neg": 0.1887,
+      "a": 16.3007,
+      "b": -3.9442,
+      "brier_in": 0.0954,
+      "brier_loo": 0.1077,
+      "jackknife": 0.077,
+      "rel_min": 0.2921,
+      "rel_max": 1.0,
+      "flagged": 4,
+      "spearman": 0.991,
+      "max_abs_delta": 0.5243
+    },
+    {
+      "id": "equal_thirds",
+      "label": "equal thirds",
+      "role": "measured",
+      "source": "research/assets/experiments/calibration-sensitivity/results.json",
+      "separated": true,
+      "min_pos": 0.4496,
+      "max_neg": 0.1516,
+      "a": 12.2971,
+      "b": -4.3565,
+      "brier_in": 0.0071,
+      "brier_loo": 0.009,
+      "jackknife": 0.0403,
+      "rel_min": 0.799,
+      "rel_max": 0.9997,
+      "flagged": 0,
+      "spearman": 0.973,
+      "max_abs_delta": 0.0273
+    }
+  ],
+  "notes_tr": [
+    "Sütun sırası: CE / değer kuralları / sözcüksel ağırlık; 'separated' = en düşük pozitif kontrol en yüksek negatifin üstünde."
+  ],
+  "decision_rule": "Karar: kontroller ayrışık kalmalı ve teslimata göre sıralama (Spearman) korunmalı. Değer kanalı sıfırlanan varyant ayrışmayı kaybeder ve ilişkiler bayraklanır; CE sıfırlanan varyant ayrışmayı korur ama sıralamayı bozar. Teslimat ağırlıkları kalır."
+}

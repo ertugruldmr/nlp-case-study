@@ -1,0 +1,9225 @@
+{
+ "schema_version": "1.0.0",
+ "document": {
+  "company": "ÖZAK GAYRİMENKUL YATIRIM ORTAKLIĞI A.Ş. VE BAĞLI ORTAKLIKLARI",
+  "period_end": "2012-12-31",
+  "currency": "TL",
+  "source_pdf": "data/ozak_gyo_2012.pdf",
+  "source_sha256": "25e4afe4c27bd2b3bb17a943a323e265520e68981c349f300d9248b3f3bfd7e0",
+  "page_offset": 4
+ },
+ "run": {
+  "started_at": "2026-08-28T23:29:01+00:00",
+  "ftlink_version": "1.0.2",
+  "tesseract_version": "tesseract 5.5.3",
+  "models_loaded": {
+   "cross_encoder": true
+  },
+  "config_echo": {
+   "document": {
+    "pdf_path": "data/ozak_gyo_2012.pdf",
+    "summary_pages": [
+     5,
+     7
+    ],
+    "footnote_no": 11,
+    "company": "ÖZAK GAYRİMENKUL YATIRIM ORTAKLIĞI A.Ş. VE BAĞLI ORTAKLIKLARI",
+    "period_end": "2012-12-31",
+    "currency": "TL"
+   },
+   "ocr": {
+    "dpi": 300,
+    "psm": 4,
+    "lang": "tur",
+    "percent_rescue": true
+   },
+   "candidates": {
+    "rrf_k": 10.0,
+    "anchor_weight": 3.0,
+    "top_k": 8,
+    "dense_model": "intfloat/multilingual-e5-small",
+    "dense_model_revision": "614241f622f53c4eeff9890bdc4f31cfecc418b3"
+   },
+   "linking": {
+    "cross_encoder_model": "cross-encoder/mmarco-mMiniLMv2-L12-H384-v1",
+    "cross_encoder_revision": "1427fd652930e4ba29e8149678df786c240d8825",
+    "accept_threshold": 0.5,
+    "rank1_min_score": 0.2,
+    "lexical_threshold": 0.75,
+    "llm": {
+     "enabled": false,
+     "base_url": "http://localhost:11434/v1",
+     "model": "llama3.1:8b",
+     "cache_path": "cache/llm_calls.jsonl"
+    }
+   },
+   "confidence": {
+    "low_confidence_flag": 0.5,
+    "second_engine": false,
+    "extra_control_pages": [
+     9,
+     10
+    ]
+   },
+   "output": {
+    "dir": "runs/no-second-engine/outputs",
+    "emit_report_html": true
+   }
+  }
+ },
+ "tables": [
+  {
+   "table_id": "p05.t00",
+   "page": 5,
+   "title": "BAĞIMSIZ DENETİMDEN GEÇMİŞ 31 ARALIK 2012 TARİHLİ KONSOLİDE BİLANÇO",
+   "statement_hint": "instant",
+   "periods": [
+    {
+     "period_id": "y2012",
+     "label": "2012",
+     "kind": "instant"
+    },
+    {
+     "period_id": "y2011",
+     "label": "2011",
+     "kind": "instant"
+    }
+   ],
+   "confidence": 0.9022,
+   "provenance": {
+    "page": 5,
+    "bbox": [
+     303.0,
+     826.0,
+     2156.0,
+     1691.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "table_id": "p06.t01",
+   "page": 6,
+   "title": "BAĞIMSIZ DENETİMDEN GEÇMİŞ 31 ARALIK 2012 TARİHLİ KONSOLİDE BİLANÇO",
+   "statement_hint": "instant",
+   "periods": [
+    {
+     "period_id": "y2012",
+     "label": "2012",
+     "kind": "instant"
+    },
+    {
+     "period_id": "y2011",
+     "label": "2011",
+     "kind": "instant"
+    }
+   ],
+   "confidence": 0.905,
+   "provenance": {
+    "page": 6,
+    "bbox": [
+     297.0,
+     797.0,
+     2157.0,
+     2357.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "table_id": "p07.t02",
+   "page": 7,
+   "title": "BAĞIMSIZ DENETİMDEN GEÇMİŞ 31 ARALIK 2012 TARİHİNDE SONA EREN YILA AİT KONSOLİDE KAPSAMLI GELİR TABLOSU",
+   "statement_hint": "duration",
+   "periods": [
+    {
+     "period_id": "y2012",
+     "label": "2012",
+     "kind": "duration"
+    },
+    {
+     "period_id": "y2011",
+     "label": "2011",
+     "kind": "duration"
+    }
+   ],
+   "confidence": 0.8667,
+   "provenance": {
+    "page": 7,
+    "bbox": [
+     299.0,
+     889.0,
+     2156.0,
+     2821.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "table_id": "p53.t03",
+   "page": 53,
+   "title": "11. YATIRIM AMAÇLI GAYRİMENKULLER",
+   "statement_hint": "instant",
+   "periods": [
+    {
+     "period_id": "arazi_ve_arsalar",
+     "label": "Arazi ve Arsalar",
+     "kind": "instant"
+    },
+    {
+     "period_id": "binalar",
+     "label": "Binalar",
+     "kind": "instant"
+    },
+    {
+     "period_id": "toplam",
+     "label": "Toplam",
+     "kind": "instant"
+    }
+   ],
+   "confidence": 0.8921,
+   "provenance": {
+    "page": 53,
+    "bbox": [
+     306.0,
+     742.0,
+     2142.0,
+     1213.0
+    ],
+    "dpi": null,
+    "stage": "footnote_extraction"
+   }
+  },
+  {
+   "table_id": "p53.t04",
+   "page": 53,
+   "title": "11. YATIRIM AMAÇLI GAYRİMENKULLER",
+   "statement_hint": "instant",
+   "periods": [
+    {
+     "period_id": "harcamalar_arazi_ve_arsalar",
+     "label": "harcamalar Arazi ve Arsalar",
+     "kind": "instant"
+    },
+    {
+     "period_id": "binalar",
+     "label": "Binalar",
+     "kind": "instant"
+    },
+    {
+     "period_id": "toplam",
+     "label": "Toplam",
+     "kind": "instant"
+    }
+   ],
+   "confidence": 0.8234,
+   "provenance": {
+    "page": 53,
+    "bbox": [
+     300.0,
+     1975.0,
+     2145.0,
+     2389.0
+    ],
+    "dpi": null,
+    "stage": "footnote_extraction"
+   }
+  },
+  {
+   "table_id": "p54.t05",
+   "page": 54,
+   "title": "11. YATIRIM AMAÇLI GAYRİMENKULLER (devamı)",
+   "statement_hint": "instant",
+   "periods": [
+    {
+     "period_id": "y2012",
+     "label": "2012",
+     "kind": "instant"
+    },
+    {
+     "period_id": "y2011",
+     "label": "2011",
+     "kind": "instant"
+    }
+   ],
+   "confidence": 0.931,
+   "provenance": {
+    "page": 54,
+    "bbox": [
+     304.0,
+     924.0,
+     2156.0,
+     1040.0
+    ],
+    "dpi": null,
+    "stage": "footnote_extraction"
+   }
+  },
+  {
+   "table_id": "p54.t06",
+   "page": 54,
+   "title": "11. YATIRIM AMAÇLI GAYRİMENKULLER (devamı)",
+   "statement_hint": "instant",
+   "periods": [
+    {
+     "period_id": "y2012",
+     "label": "2012",
+     "kind": "instant"
+    },
+    {
+     "period_id": "y2011",
+     "label": "2011",
+     "kind": "instant"
+    }
+   ],
+   "confidence": 0.9305,
+   "provenance": {
+    "page": 54,
+    "bbox": [
+     303.0,
+     1653.0,
+     2144.0,
+     1997.0
+    ],
+    "dpi": null,
+    "stage": "footnote_extraction"
+   }
+  }
+ ],
+ "rows": [
+  {
+   "row_id": "p05.t00.r000",
+   "table_id": "p05.t00",
+   "label_raw": "VARLIKLAR",
+   "label_norm": "varlıklar",
+   "indent_level": 0,
+   "role": "group_header",
+   "parent_row_id": null,
+   "dipnot_refs": [],
+   "asterisk_marks": [],
+   "confidence": 0.3,
+   "provenance": {
+    "page": 5,
+    "bbox": [
+     0.0,
+     777.0,
+     0.0,
+     806.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "row_id": "p05.t00.r001",
+   "table_id": "p05.t00",
+   "label_raw": "Dönen Varlıklar",
+   "label_norm": "dönen varlıklar",
+   "indent_level": 0,
+   "role": "item",
+   "parent_row_id": null,
+   "dipnot_refs": [],
+   "asterisk_marks": [],
+   "confidence": 0.9569,
+   "provenance": {
+    "page": 5,
+    "bbox": [
+     0.0,
+     826.0,
+     0.0,
+     863.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "row_id": "p05.t00.r002",
+   "table_id": "p05.t00",
+   "label_raw": "Nakit ve Nakit Benzerleri",
+   "label_norm": "nakit ve nakit benzerleri",
+   "indent_level": 1,
+   "role": "subitem",
+   "parent_row_id": "p05.t00.r001",
+   "dipnot_refs": [
+    4
+   ],
+   "asterisk_marks": [],
+   "confidence": 0.9284,
+   "provenance": {
+    "page": 5,
+    "bbox": [
+     0.0,
+     874.0,
+     0.0,
+     912.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "row_id": "p05.t00.r003",
+   "table_id": "p05.t00",
+   "label_raw": "Ticari Alacaklar",
+   "label_norm": "ticari alacaklar",
+   "indent_level": 1,
+   "role": "subitem",
+   "parent_row_id": "p05.t00.r001",
+   "dipnot_refs": [
+    8
+   ],
+   "asterisk_marks": [],
+   "confidence": 0.9575,
+   "provenance": {
+    "page": 5,
+    "bbox": [
+     0.0,
+     923.0,
+     0.0,
+     962.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "row_id": "p05.t00.r004",
+   "table_id": "p05.t00",
+   "label_raw": "-İlişkili Taraflardan Ticari Alacaklar",
+   "label_norm": "ilişkili taraflardan ticari alacaklar",
+   "indent_level": 2,
+   "role": "subitem",
+   "parent_row_id": "p05.t00.r003",
+   "dipnot_refs": [
+    28
+   ],
+   "asterisk_marks": [],
+   "confidence": 0.9655,
+   "provenance": {
+    "page": 5,
+    "bbox": [
+     0.0,
+     967.0,
+     0.0,
+     1010.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "row_id": "p05.t00.r005",
+   "table_id": "p05.t00",
+   "label_raw": "-Diğer Ticari Alacaklar",
+   "label_norm": "diğer ticari alacaklar",
+   "indent_level": 2,
+   "role": "subitem",
+   "parent_row_id": "p05.t00.r003",
+   "dipnot_refs": [],
+   "asterisk_marks": [],
+   "confidence": 0.9612,
+   "provenance": {
+    "page": 5,
+    "bbox": [
+     0.0,
+     1021.0,
+     0.0,
+     1059.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "row_id": "p05.t00.r006",
+   "table_id": "p05.t00",
+   "label_raw": "Diğer Alacaklar",
+   "label_norm": "diğer alacaklar",
+   "indent_level": 1,
+   "role": "subitem",
+   "parent_row_id": "p05.t00.r001",
+   "dipnot_refs": [
+    9
+   ],
+   "asterisk_marks": [],
+   "confidence": 0.9342,
+   "provenance": {
+    "page": 5,
+    "bbox": [
+     0.0,
+     1071.0,
+     0.0,
+     1109.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "row_id": "p05.t00.r007",
+   "table_id": "p05.t00",
+   "label_raw": "Stoklar",
+   "label_norm": "stoklar",
+   "indent_level": 1,
+   "role": "subitem",
+   "parent_row_id": "p05.t00.r001",
+   "dipnot_refs": [
+    10
+   ],
+   "asterisk_marks": [],
+   "confidence": 0.8176,
+   "provenance": {
+    "page": 5,
+    "bbox": [
+     0.0,
+     1114.0,
+     0.0,
+     1159.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "row_id": "p05.t00.r008",
+   "table_id": "p05.t00",
+   "label_raw": "Diğer Dönen Varlıklar",
+   "label_norm": "diğer dönen varlıklar",
+   "indent_level": 1,
+   "role": "subitem",
+   "parent_row_id": "p05.t00.r001",
+   "dipnot_refs": [
+    18
+   ],
+   "asterisk_marks": [],
+   "confidence": 0.934,
+   "provenance": {
+    "page": 5,
+    "bbox": [
+     0.0,
+     1167.0,
+     0.0,
+     1205.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "row_id": "p05.t00.r009",
+   "table_id": "p05.t00",
+   "label_raw": "Duran Varlıklar",
+   "label_norm": "duran varlıklar",
+   "indent_level": 0,
+   "role": "item",
+   "parent_row_id": null,
+   "dipnot_refs": [],
+   "asterisk_marks": [],
+   "confidence": 0.9583,
+   "provenance": {
+    "page": 5,
+    "bbox": [
+     0.0,
+     1266.0,
+     0.0,
+     1302.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "row_id": "p05.t00.r010",
+   "table_id": "p05.t00",
+   "label_raw": "Finansal Yatırımlar",
+   "label_norm": "finansal yatırımlar",
+   "indent_level": 1,
+   "role": "subitem",
+   "parent_row_id": "p05.t00.r009",
+   "dipnot_refs": [
+    5
+   ],
+   "asterisk_marks": [],
+   "confidence": 0.8635,
+   "provenance": {
+    "page": 5,
+    "bbox": [
+     0.0,
+     1314.0,
+     0.0,
+     1352.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "row_id": "p05.t00.r011",
+   "table_id": "p05.t00",
+   "label_raw": "Özkaynak Yönetimiyle Değerlenen Yatırımlar",
+   "label_norm": "özkaynak yönetimiyle değerlenen yatırımlar",
+   "indent_level": 1,
+   "role": "subitem",
+   "parent_row_id": "p05.t00.r009",
+   "dipnot_refs": [
+    6
+   ],
+   "asterisk_marks": [],
+   "confidence": 0.946,
+   "provenance": {
+    "page": 5,
+    "bbox": [
+     0.0,
+     1357.0,
+     0.0,
+     1400.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "row_id": "p05.t00.r012",
+   "table_id": "p05.t00",
+   "label_raw": "Yatırım Amaçlı Gayrimenkuller",
+   "label_norm": "yatırım amaçlı gayrimenkuller",
+   "indent_level": 1,
+   "role": "subitem",
+   "parent_row_id": "p05.t00.r009",
+   "dipnot_refs": [
+    11
+   ],
+   "asterisk_marks": [],
+   "confidence": 0.9368,
+   "provenance": {
+    "page": 5,
+    "bbox": [
+     0.0,
+     1412.0,
+     0.0,
+     1449.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "row_id": "p05.t00.r013",
+   "table_id": "p05.t00",
+   "label_raw": "Maddi Duran Varlıklar",
+   "label_norm": "maddi duran varlıklar",
+   "indent_level": 1,
+   "role": "subitem",
+   "parent_row_id": "p05.t00.r009",
+   "dipnot_refs": [
+    12
+   ],
+   "asterisk_marks": [],
+   "confidence": 0.9589,
+   "provenance": {
+    "page": 5,
+    "bbox": [
+     0.0,
+     1461.0,
+     0.0,
+     1499.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "row_id": "p05.t00.r014",
+   "table_id": "p05.t00",
+   "label_raw": "Maddi Olmayan Duran Varlıklar",
+   "label_norm": "maddi olmayan duran varlıklar",
+   "indent_level": 1,
+   "role": "subitem",
+   "parent_row_id": "p05.t00.r009",
+   "dipnot_refs": [
+    13
+   ],
+   "asterisk_marks": [],
+   "confidence": 0.9528,
+   "provenance": {
+    "page": 5,
+    "bbox": [
+     0.0,
+     1510.0,
+     0.0,
+     1547.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "row_id": "p05.t00.r015",
+   "table_id": "p05.t00",
+   "label_raw": "Ertelenen Vergi Varlığı",
+   "label_norm": "ertelenen vergi varlığı",
+   "indent_level": 1,
+   "role": "subitem",
+   "parent_row_id": "p05.t00.r009",
+   "dipnot_refs": [
+    26
+   ],
+   "asterisk_marks": [],
+   "confidence": 0.9635,
+   "provenance": {
+    "page": 5,
+    "bbox": [
+     0.0,
+     1558.0,
+     0.0,
+     1596.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "row_id": "p05.t00.r016",
+   "table_id": "p05.t00",
+   "label_raw": "Diğer Duran Varlıklar",
+   "label_norm": "diğer duran varlıklar",
+   "indent_level": 1,
+   "role": "subitem",
+   "parent_row_id": "p05.t00.r009",
+   "dipnot_refs": [
+    18
+   ],
+   "asterisk_marks": [],
+   "confidence": 0.9396,
+   "provenance": {
+    "page": 5,
+    "bbox": [
+     0.0,
+     1608.0,
+     0.0,
+     1646.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "row_id": "p05.t00.r017",
+   "table_id": "p05.t00",
+   "label_raw": "TOPLAM VARLIKLAR",
+   "label_norm": "toplam varlıklar",
+   "indent_level": 0,
+   "role": "total",
+   "parent_row_id": null,
+   "dipnot_refs": [],
+   "asterisk_marks": [],
+   "confidence": 0.9647,
+   "provenance": {
+    "page": 5,
+    "bbox": [
+     0.0,
+     1657.0,
+     0.0,
+     1691.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "row_id": "p06.t01.r000",
+   "table_id": "p06.t01",
+   "label_raw": "KAYNAKLAR",
+   "label_norm": "kaynaklar",
+   "indent_level": 0,
+   "role": "group_header",
+   "parent_row_id": null,
+   "dipnot_refs": [],
+   "asterisk_marks": [],
+   "confidence": 0.3,
+   "provenance": {
+    "page": 6,
+    "bbox": [
+     0.0,
+     746.0,
+     0.0,
+     774.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "row_id": "p06.t01.r001",
+   "table_id": "p06.t01",
+   "label_raw": "Kısa Vadeli Yükümlülükler",
+   "label_norm": "kısa vadeli yükümlülükler",
+   "indent_level": 0,
+   "role": "item",
+   "parent_row_id": null,
+   "dipnot_refs": [],
+   "asterisk_marks": [],
+   "confidence": 0.9641,
+   "provenance": {
+    "page": 6,
+    "bbox": [
+     0.0,
+     797.0,
+     0.0,
+     834.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "row_id": "p06.t01.r002",
+   "table_id": "p06.t01",
+   "label_raw": "Finansal Borçlar",
+   "label_norm": "finansal borçlar",
+   "indent_level": 1,
+   "role": "subitem",
+   "parent_row_id": "p06.t01.r001",
+   "dipnot_refs": [
+    7
+   ],
+   "asterisk_marks": [],
+   "confidence": 0.9611,
+   "provenance": {
+    "page": 6,
+    "bbox": [
+     0.0,
+     849.0,
+     0.0,
+     887.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "row_id": "p06.t01.r003",
+   "table_id": "p06.t01",
+   "label_raw": "Ticari Borçlar",
+   "label_norm": "ticari borçlar",
+   "indent_level": 1,
+   "role": "subitem",
+   "parent_row_id": "p06.t01.r001",
+   "dipnot_refs": [
+    8
+   ],
+   "asterisk_marks": [],
+   "confidence": 0.9256,
+   "provenance": {
+    "page": 6,
+    "bbox": [
+     0.0,
+     900.0,
+     0.0,
+     938.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "row_id": "p06.t01.r004",
+   "table_id": "p06.t01",
+   "label_raw": "-İlişkili Taraflara Ticari Borçlar",
+   "label_norm": "ilişkili taraflara ticari borçlar",
+   "indent_level": 2,
+   "role": "subitem",
+   "parent_row_id": "p06.t01.r003",
+   "dipnot_refs": [
+    28
+   ],
+   "asterisk_marks": [],
+   "confidence": 0.9442,
+   "provenance": {
+    "page": 6,
+    "bbox": [
+     0.0,
+     949.0,
+     0.0,
+     995.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "row_id": "p06.t01.r005",
+   "table_id": "p06.t01",
+   "label_raw": "“Diğer Ticari Borçlar",
+   "label_norm": "“diğer ticari borçlar",
+   "indent_level": 2,
+   "role": "subitem",
+   "parent_row_id": "p06.t01.r003",
+   "dipnot_refs": [],
+   "asterisk_marks": [],
+   "confidence": 0.9401,
+   "provenance": {
+    "page": 6,
+    "bbox": [
+     0.0,
+     1013.0,
+     0.0,
+     1055.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "row_id": "p06.t01.r006",
+   "table_id": "p06.t01",
+   "label_raw": "Diğer Borçlar",
+   "label_norm": "diğer borçlar",
+   "indent_level": 1,
+   "role": "subitem",
+   "parent_row_id": "p06.t01.r001",
+   "dipnot_refs": [
+    9
+   ],
+   "asterisk_marks": [],
+   "confidence": 0.8915,
+   "provenance": {
+    "page": 6,
+    "bbox": [
+     0.0,
+     1067.0,
+     0.0,
+     1104.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "row_id": "p06.t01.r007",
+   "table_id": "p06.t01",
+   "label_raw": "İlişkili Taraflara Diğer Borçlar",
+   "label_norm": "ilişkili taraflara diğer borçlar",
+   "indent_level": 2,
+   "role": "subitem",
+   "parent_row_id": "p06.t01.r006",
+   "dipnot_refs": [
+    28
+   ],
+   "asterisk_marks": [],
+   "confidence": 0.9596,
+   "provenance": {
+    "page": 6,
+    "bbox": [
+     0.0,
+     1114.0,
+     0.0,
+     1161.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "row_id": "p06.t01.r008",
+   "table_id": "p06.t01",
+   "label_raw": "-Diğer Borçlar i",
+   "label_norm": "diğer borçlar i",
+   "indent_level": 2,
+   "role": "subitem",
+   "parent_row_id": "p06.t01.r006",
+   "dipnot_refs": [],
+   "asterisk_marks": [],
+   "confidence": 0.961,
+   "provenance": {
+    "page": 6,
+    "bbox": [
+     0.0,
+     1179.0,
+     0.0,
+     1220.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "row_id": "p06.t01.r009",
+   "table_id": "p06.t01",
+   "label_raw": "Dönem Karı Vergi Yükümlülüğü ,",
+   "label_norm": "dönem karı vergi yükümlülüğü ,",
+   "indent_level": 1,
+   "role": "subitem",
+   "parent_row_id": "p06.t01.r001",
+   "dipnot_refs": [
+    26
+   ],
+   "asterisk_marks": [],
+   "confidence": 0.8613,
+   "provenance": {
+    "page": 6,
+    "bbox": [
+     0.0,
+     1236.0,
+     0.0,
+     1278.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "row_id": "p06.t01.r010",
+   "table_id": "p06.t01",
+   "label_raw": "Borç Katşılıkları",
+   "label_norm": "borç katşılıkları",
+   "indent_level": 1,
+   "role": "subitem",
+   "parent_row_id": "p06.t01.r001",
+   "dipnot_refs": [
+    15
+   ],
+   "asterisk_marks": [],
+   "confidence": 0.8595,
+   "provenance": {
+    "page": 6,
+    "bbox": [
+     0.0,
+     1292.0,
+     0.0,
+     1334.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "row_id": "p06.t01.r011",
+   "table_id": "p06.t01",
+   "label_raw": "Çalışanlara Sağlanan Faydalara İlişkin Karşılıklar",
+   "label_norm": "çalışanlara sağlanan faydalara ilişkin karşılıklar",
+   "indent_level": 1,
+   "role": "subitem",
+   "parent_row_id": "p06.t01.r001",
+   "dipnot_refs": [
+    17
+   ],
+   "asterisk_marks": [],
+   "confidence": 0.9538,
+   "provenance": {
+    "page": 6,
+    "bbox": [
+     0.0,
+     1349.0,
+     0.0,
+     1394.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "row_id": "p06.t01.r012",
+   "table_id": "p06.t01",
+   "label_raw": "Diğer Kısa Vadeli Yükümlülükler",
+   "label_norm": "diğer kısa vadeli yükümlülükler",
+   "indent_level": 1,
+   "role": "subitem",
+   "parent_row_id": "p06.t01.r001",
+   "dipnot_refs": [
+    18
+   ],
+   "asterisk_marks": [],
+   "confidence": 0.8971,
+   "provenance": {
+    "page": 6,
+    "bbox": [
+     0.0,
+     1407.0,
+     0.0,
+     1454.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "row_id": "p06.t01.r013",
+   "table_id": "p06.t01",
+   "label_raw": "Uzun Vadeli Yükümlülükler",
+   "label_norm": "uzun vadeli yükümlülükler",
+   "indent_level": 0,
+   "role": "item",
+   "parent_row_id": null,
+   "dipnot_refs": [],
+   "asterisk_marks": [],
+   "confidence": 0.9576,
+   "provenance": {
+    "page": 6,
+    "bbox": [
+     0.0,
+     1509.0,
+     0.0,
+     1545.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "row_id": "p06.t01.r014",
+   "table_id": "p06.t01",
+   "label_raw": "Finansal Borçlar",
+   "label_norm": "finansal borçlar",
+   "indent_level": 1,
+   "role": "subitem",
+   "parent_row_id": "p06.t01.r013",
+   "dipnot_refs": [
+    7
+   ],
+   "asterisk_marks": [],
+   "confidence": 0.9575,
+   "provenance": {
+    "page": 6,
+    "bbox": [
+     0.0,
+     1560.0,
+     0.0,
+     1596.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "row_id": "p06.t01.r015",
+   "table_id": "p06.t01",
+   "label_raw": "Diğer Uzun Vadeli Yükümlülükler",
+   "label_norm": "diğer uzun vadeli yükümlülükler",
+   "indent_level": 1,
+   "role": "subitem",
+   "parent_row_id": "p06.t01.r013",
+   "dipnot_refs": [
+    18
+   ],
+   "asterisk_marks": [],
+   "confidence": 0.8976,
+   "provenance": {
+    "page": 6,
+    "bbox": [
+     0.0,
+     1610.0,
+     0.0,
+     1659.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "row_id": "p06.t01.r016",
+   "table_id": "p06.t01",
+   "label_raw": "Çalışanlara Sağlanan Faydalara İlişkin Karşılıklar",
+   "label_norm": "çalışanlara sağlanan faydalara ilişkin karşılıklar",
+   "indent_level": 1,
+   "role": "subitem",
+   "parent_row_id": "p06.t01.r013",
+   "dipnot_refs": [
+    17
+   ],
+   "asterisk_marks": [],
+   "confidence": 0.9643,
+   "provenance": {
+    "page": 6,
+    "bbox": [
+     0.0,
+     1659.0,
+     0.0,
+     1700.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "row_id": "p06.t01.r017",
+   "table_id": "p06.t01",
+   "label_raw": "Ertelenmiş Vergi Yükümlülüğü",
+   "label_norm": "ertelenmiş vergi yükümlülüğü",
+   "indent_level": 1,
+   "role": "subitem",
+   "parent_row_id": "p06.t01.r013",
+   "dipnot_refs": [
+    26
+   ],
+   "asterisk_marks": [],
+   "confidence": 0.9574,
+   "provenance": {
+    "page": 6,
+    "bbox": [
+     0.0,
+     1713.0,
+     0.0,
+     1751.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "row_id": "p06.t01.r018",
+   "table_id": "p06.t01",
+   "label_raw": "ÖZKAYNAKLAR",
+   "label_norm": "özkaynaklar",
+   "indent_level": 0,
+   "role": "item",
+   "parent_row_id": null,
+   "dipnot_refs": [],
+   "asterisk_marks": [],
+   "confidence": 0.9608,
+   "provenance": {
+    "page": 6,
+    "bbox": [
+     0.0,
+     1804.0,
+     0.0,
+     1855.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "row_id": "p06.t01.r019",
+   "table_id": "p06.t01",
+   "label_raw": "Ana Ortaklığa Ait Özkaynaklar",
+   "label_norm": "ana ortaklığa ait özkaynaklar",
+   "indent_level": 0,
+   "role": "item",
+   "parent_row_id": null,
+   "dipnot_refs": [],
+   "asterisk_marks": [],
+   "confidence": 0.96,
+   "provenance": {
+    "page": 6,
+    "bbox": [
+     0.0,
+     1860.0,
+     0.0,
+     1902.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "row_id": "p06.t01.r020",
+   "table_id": "p06.t01",
+   "label_raw": "Çıkarılmış Sermaye",
+   "label_norm": "çıkarılmış sermaye",
+   "indent_level": 1,
+   "role": "subitem",
+   "parent_row_id": "p06.t01.r019",
+   "dipnot_refs": [
+    19
+   ],
+   "asterisk_marks": [],
+   "confidence": 0.9628,
+   "provenance": {
+    "page": 6,
+    "bbox": [
+     0.0,
+     1916.0,
+     0.0,
+     1953.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "row_id": "p06.t01.r021",
+   "table_id": "p06.t01",
+   "label_raw": "Hisse Senedi İhraç Primleri",
+   "label_norm": "hisse senedi ihraç primleri",
+   "indent_level": 1,
+   "role": "subitem",
+   "parent_row_id": "p06.t01.r019",
+   "dipnot_refs": [],
+   "asterisk_marks": [],
+   "confidence": 0.9324,
+   "provenance": {
+    "page": 6,
+    "bbox": [
+     0.0,
+     1962.0,
+     0.0,
+     2001.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "row_id": "p06.t01.r022",
+   "table_id": "p06.t01",
+   "label_raw": "Sermaye Rezervleri",
+   "label_norm": "sermaye rezervleri",
+   "indent_level": 1,
+   "role": "subitem",
+   "parent_row_id": "p06.t01.r019",
+   "dipnot_refs": [],
+   "asterisk_marks": [],
+   "confidence": 0.9462,
+   "provenance": {
+    "page": 6,
+    "bbox": [
+     0.0,
+     2016.0,
+     0.0,
+     2052.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "row_id": "p06.t01.r023",
+   "table_id": "p06.t01",
+   "label_raw": "Maddi Duran Varlık Yeniden Değerleme Fonu",
+   "label_norm": "maddi duran varlık yeniden değerleme fonu",
+   "indent_level": 1,
+   "role": "subitem",
+   "parent_row_id": "p06.t01.r019",
+   "dipnot_refs": [],
+   "asterisk_marks": [],
+   "confidence": 0.9547,
+   "provenance": {
+    "page": 6,
+    "bbox": [
+     0.0,
+     2064.0,
+     0.0,
+     2102.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "row_id": "p06.t01.r024",
+   "table_id": "p06.t01",
+   "label_raw": "Kardan Ayrılan Kısıtlanmış Yedekler",
+   "label_norm": "kardan ayrılan kısıtlanmış yedekler",
+   "indent_level": 1,
+   "role": "subitem",
+   "parent_row_id": "p06.t01.r019",
+   "dipnot_refs": [],
+   "asterisk_marks": [],
+   "confidence": 0.9627,
+   "provenance": {
+    "page": 6,
+    "bbox": [
+     0.0,
+     2114.0,
+     0.0,
+     2153.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "row_id": "p06.t01.r025",
+   "table_id": "p06.t01",
+   "label_raw": "Geçmiş Yıllar Karları / (Zararları)",
+   "label_norm": "geçmiş yıllar karları / (zararları)",
+   "indent_level": 1,
+   "role": "subitem",
+   "parent_row_id": "p06.t01.r019",
+   "dipnot_refs": [],
+   "asterisk_marks": [],
+   "confidence": 0.8878,
+   "provenance": {
+    "page": 6,
+    "bbox": [
+     0.0,
+     2166.0,
+     0.0,
+     2211.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "row_id": "p06.t01.r026",
+   "table_id": "p06.t01",
+   "label_raw": "Net Dönem Karı",
+   "label_norm": "net dönem karı",
+   "indent_level": 1,
+   "role": "subitem",
+   "parent_row_id": "p06.t01.r019",
+   "dipnot_refs": [],
+   "asterisk_marks": [],
+   "confidence": 0.9559,
+   "provenance": {
+    "page": 6,
+    "bbox": [
+     0.0,
+     2220.0,
+     0.0,
+     2258.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "row_id": "p06.t01.r027",
+   "table_id": "p06.t01",
+   "label_raw": "Kontrol Gücü Olmayan Paylar",
+   "label_norm": "kontrol gücü olmayan paylar",
+   "indent_level": 0,
+   "role": "item",
+   "parent_row_id": null,
+   "dipnot_refs": [],
+   "asterisk_marks": [],
+   "confidence": 0.9627,
+   "provenance": {
+    "page": 6,
+    "bbox": [
+     0.0,
+     2273.0,
+     0.0,
+     2310.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "row_id": "p06.t01.r028",
+   "table_id": "p06.t01",
+   "label_raw": "TOPLAM KAYNAKLAR",
+   "label_norm": "toplam kaynaklar",
+   "indent_level": 0,
+   "role": "total",
+   "parent_row_id": null,
+   "dipnot_refs": [],
+   "asterisk_marks": [],
+   "confidence": 0.6049,
+   "provenance": {
+    "page": 6,
+    "bbox": [
+     0.0,
+     2324.0,
+     0.0,
+     2357.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "row_id": "p07.t02.r000",
+   "table_id": "p07.t02",
+   "label_raw": "Satış Gelirleri",
+   "label_norm": "satış gelirleri",
+   "indent_level": 0,
+   "role": "flow",
+   "parent_row_id": null,
+   "dipnot_refs": [
+    20
+   ],
+   "asterisk_marks": [],
+   "confidence": 0.8745,
+   "provenance": {
+    "page": 7,
+    "bbox": [
+     0.0,
+     889.0,
+     0.0,
+     928.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "row_id": "p07.t02.r001",
+   "table_id": "p07.t02",
+   "label_raw": "Satışların Maliyeti (-)",
+   "label_norm": "satışların maliyeti (-)",
+   "indent_level": 0,
+   "role": "flow",
+   "parent_row_id": null,
+   "dipnot_refs": [
+    20
+   ],
+   "asterisk_marks": [],
+   "confidence": 0.9376,
+   "provenance": {
+    "page": 7,
+    "bbox": [
+     0.0,
+     940.0,
+     0.0,
+     992.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "row_id": "p07.t02.r002",
+   "table_id": "p07.t02",
+   "label_raw": "BRÜT KAR",
+   "label_norm": "brüt kar",
+   "indent_level": 0,
+   "role": "flow",
+   "parent_row_id": null,
+   "dipnot_refs": [],
+   "asterisk_marks": [],
+   "confidence": 0.8828,
+   "provenance": {
+    "page": 7,
+    "bbox": [
+     0.0,
+     1015.0,
+     0.0,
+     1059.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "row_id": "p07.t02.r003",
+   "table_id": "p07.t02",
+   "label_raw": "Pazarlama, Satış ve Dağıtım Giderleri (<9)",
+   "label_norm": "pazarlama, satış ve dağıtım giderleri (<9)",
+   "indent_level": 0,
+   "role": "flow",
+   "parent_row_id": null,
+   "dipnot_refs": [
+    21
+   ],
+   "asterisk_marks": [],
+   "confidence": 0.9636,
+   "provenance": {
+    "page": 7,
+    "bbox": [
+     0.0,
+     1092.0,
+     0.0,
+     1139.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "row_id": "p07.t02.r004",
+   "table_id": "p07.t02",
+   "label_raw": "Genel Yönetim Giderleri (-)",
+   "label_norm": "genel yönetim giderleri (-)",
+   "indent_level": 0,
+   "role": "flow",
+   "parent_row_id": null,
+   "dipnot_refs": [
+    21
+   ],
+   "asterisk_marks": [],
+   "confidence": 0.9669,
+   "provenance": {
+    "page": 7,
+    "bbox": [
+     0.0,
+     1143.0,
+     0.0,
+     1191.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "row_id": "p07.t02.r005",
+   "table_id": "p07.t02",
+   "label_raw": "Yatırım Amaçlı Gayrimenkul Değerleme Farkları",
+   "label_norm": "yatırım amaçlı gayrimenkul değerleme farkları",
+   "indent_level": 0,
+   "role": "flow",
+   "parent_row_id": null,
+   "dipnot_refs": [
+    11
+   ],
+   "asterisk_marks": [],
+   "confidence": 0.949,
+   "provenance": {
+    "page": 7,
+    "bbox": [
+     0.0,
+     1194.0,
+     0.0,
+     1230.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "row_id": "p07.t02.r006",
+   "table_id": "p07.t02",
+   "label_raw": "Diğer Faaliyet Gelirleri",
+   "label_norm": "diğer faaliyet gelirleri",
+   "indent_level": 0,
+   "role": "flow",
+   "parent_row_id": null,
+   "dipnot_refs": [
+    23
+   ],
+   "asterisk_marks": [],
+   "confidence": 0.9633,
+   "provenance": {
+    "page": 7,
+    "bbox": [
+     0.0,
+     1242.0,
+     0.0,
+     1281.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "row_id": "p07.t02.r007",
+   "table_id": "p07.t02",
+   "label_raw": "Diğer Faaliyet Giderleri (-)",
+   "label_norm": "diğer faaliyet giderleri (-)",
+   "indent_level": 0,
+   "role": "flow",
+   "parent_row_id": null,
+   "dipnot_refs": [
+    23
+   ],
+   "asterisk_marks": [],
+   "confidence": 0.908,
+   "provenance": {
+    "page": 7,
+    "bbox": [
+     0.0,
+     1293.0,
+     0.0,
+     1340.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "row_id": "p07.t02.r008",
+   "table_id": "p07.t02",
+   "label_raw": "FAALİYET KARI",
+   "label_norm": "faaliyet karı",
+   "indent_level": 0,
+   "role": "flow",
+   "parent_row_id": null,
+   "dipnot_refs": [],
+   "asterisk_marks": [],
+   "confidence": 0.9193,
+   "provenance": {
+    "page": 7,
+    "bbox": [
+     0.0,
+     1368.0,
+     0.0,
+     1412.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "row_id": "p07.t02.r009",
+   "table_id": "p07.t02",
+   "label_raw": "Özkaynak Yöntemiyle Değerlenen Yatırımların Kar/Zararlarındaki Paylar",
+   "label_norm": "özkaynak yöntemiyle değerlenen yatırımların kar/zararlarındaki paylar",
+   "indent_level": 0,
+   "role": "flow",
+   "parent_row_id": null,
+   "dipnot_refs": [
+    6
+   ],
+   "asterisk_marks": [],
+   "confidence": 0.9401,
+   "provenance": {
+    "page": 7,
+    "bbox": [
+     0.0,
+     1519.0,
+     0.0,
+     1556.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "row_id": "p07.t02.r010",
+   "table_id": "p07.t02",
+   "label_raw": "(Esas Faaliyet Dışı) Finansal Gelirler",
+   "label_norm": "(esas faaliyet dışı) finansal gelirler",
+   "indent_level": 0,
+   "role": "flow",
+   "parent_row_id": null,
+   "dipnot_refs": [
+    24
+   ],
+   "asterisk_marks": [],
+   "confidence": 0.9576,
+   "provenance": {
+    "page": 7,
+    "bbox": [
+     0.0,
+     1569.0,
+     0.0,
+     1607.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "row_id": "p07.t02.r011",
+   "table_id": "p07.t02",
+   "label_raw": "(Esas Faaliyet Dışı) Finansal Giderler (-)",
+   "label_norm": "(esas faaliyet dışı) finansal giderler (-)",
+   "indent_level": 0,
+   "role": "flow",
+   "parent_row_id": null,
+   "dipnot_refs": [
+    25
+   ],
+   "asterisk_marks": [],
+   "confidence": 0.9361,
+   "provenance": {
+    "page": 7,
+    "bbox": [
+     0.0,
+     1620.0,
+     0.0,
+     1665.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "row_id": "p07.t02.r012",
+   "table_id": "p07.t02",
+   "label_raw": "VERGİ ÖNCESİ KAR",
+   "label_norm": "vergi öncesi kar",
+   "indent_level": 0,
+   "role": "flow",
+   "parent_row_id": null,
+   "dipnot_refs": [],
+   "asterisk_marks": [],
+   "confidence": 0.9045,
+   "provenance": {
+    "page": 7,
+    "bbox": [
+     0.0,
+     1727.0,
+     0.0,
+     1784.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "row_id": "p07.t02.r013",
+   "table_id": "p07.t02",
+   "label_raw": "Vergi Gelir / (Gideri)",
+   "label_norm": "vergi gelir / (gideri)",
+   "indent_level": 0,
+   "role": "flow",
+   "parent_row_id": null,
+   "dipnot_refs": [],
+   "asterisk_marks": [],
+   "confidence": 0.9082,
+   "provenance": {
+    "page": 7,
+    "bbox": [
+     0.0,
+     1832.0,
+     0.0,
+     1879.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "row_id": "p07.t02.r014",
+   "table_id": "p07.t02",
+   "label_raw": "Dönem Vergi Gideri",
+   "label_norm": "dönem vergi gideri",
+   "indent_level": 0,
+   "role": "flow",
+   "parent_row_id": null,
+   "dipnot_refs": [
+    26
+   ],
+   "asterisk_marks": [],
+   "confidence": 0.955,
+   "provenance": {
+    "page": 7,
+    "bbox": [
+     0.0,
+     1883.0,
+     0.0,
+     1929.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "row_id": "p07.t02.r015",
+   "table_id": "p07.t02",
+   "label_raw": "Ertelenmiş Vergi Geliri",
+   "label_norm": "ertelenmiş vergi geliri",
+   "indent_level": 0,
+   "role": "flow",
+   "parent_row_id": null,
+   "dipnot_refs": [
+    26
+   ],
+   "asterisk_marks": [],
+   "confidence": 0.9526,
+   "provenance": {
+    "page": 7,
+    "bbox": [
+     0.0,
+     1934.0,
+     0.0,
+     1977.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "row_id": "p07.t02.r016",
+   "table_id": "p07.t02",
+   "label_raw": "DÖNEM KARI",
+   "label_norm": "dönem karı",
+   "indent_level": 0,
+   "role": "flow",
+   "parent_row_id": null,
+   "dipnot_refs": [],
+   "asterisk_marks": [],
+   "confidence": 0.9488,
+   "provenance": {
+    "page": 7,
+    "bbox": [
+     0.0,
+     2027.0,
+     0.0,
+     2067.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "row_id": "p07.t02.r017",
+   "table_id": "p07.t02",
+   "label_raw": "Dönem Karı Dağılımı",
+   "label_norm": "dönem karı dağılımı",
+   "indent_level": 0,
+   "role": "group_header",
+   "parent_row_id": null,
+   "dipnot_refs": [],
+   "asterisk_marks": [],
+   "confidence": 0.3,
+   "provenance": {
+    "page": 7,
+    "bbox": [
+     0.0,
+     2099.0,
+     0.0,
+     2135.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "row_id": "p07.t02.r018",
+   "table_id": "p07.t02",
+   "label_raw": "Kontrol Gücü Olmayan Paylar",
+   "label_norm": "kontrol gücü olmayan paylar",
+   "indent_level": 0,
+   "role": "flow",
+   "parent_row_id": null,
+   "dipnot_refs": [],
+   "asterisk_marks": [],
+   "confidence": 0.9548,
+   "provenance": {
+    "page": 7,
+    "bbox": [
+     0.0,
+     2150.0,
+     0.0,
+     2187.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "row_id": "p07.t02.r019",
+   "table_id": "p07.t02",
+   "label_raw": "Ana Ortaklık Payları",
+   "label_norm": "ana ortaklık payları",
+   "indent_level": 0,
+   "role": "flow",
+   "parent_row_id": null,
+   "dipnot_refs": [],
+   "asterisk_marks": [],
+   "confidence": 0.9505,
+   "provenance": {
+    "page": 7,
+    "bbox": [
+     0.0,
+     2199.0,
+     0.0,
+     2238.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "row_id": "p07.t02.r020",
+   "table_id": "p07.t02",
+   "label_raw": "",
+   "label_norm": "",
+   "indent_level": 0,
+   "role": "flow",
+   "parent_row_id": null,
+   "dipnot_refs": [],
+   "asterisk_marks": [],
+   "confidence": 0.8148,
+   "provenance": {
+    "page": 7,
+    "bbox": [
+     0.0,
+     2253.0,
+     0.0,
+     2283.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "row_id": "p07.t02.r021",
+   "table_id": "p07.t02",
+   "label_raw": "Hisse başına kazanç",
+   "label_norm": "hisse başına kazanç",
+   "indent_level": 0,
+   "role": "flow",
+   "parent_row_id": null,
+   "dipnot_refs": [
+    27
+   ],
+   "asterisk_marks": [],
+   "confidence": 0.6363,
+   "provenance": {
+    "page": 7,
+    "bbox": [
+     0.0,
+     2309.0,
+     0.0,
+     2351.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "row_id": "p07.t02.r022",
+   "table_id": "p07.t02",
+   "label_raw": "Diğer Kapsamlı (Gider) / Gelir",
+   "label_norm": "diğer kapsamlı (gider) / gelir",
+   "indent_level": 0,
+   "role": "flow",
+   "parent_row_id": null,
+   "dipnot_refs": [],
+   "asterisk_marks": [],
+   "confidence": 0.9629,
+   "provenance": {
+    "page": 7,
+    "bbox": [
+     0.0,
+     2408.0,
+     0.0,
+     2448.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "row_id": "p07.t02.r023",
+   "table_id": "p07.t02",
+   "label_raw": "Duran Varlıklar Değer Artış Fonundaki Değişim",
+   "label_norm": "duran varlıklar değer artış fonundaki değişim",
+   "indent_level": 0,
+   "role": "flow",
+   "parent_row_id": null,
+   "dipnot_refs": [],
+   "asterisk_marks": [],
+   "confidence": 0.9582,
+   "provenance": {
+    "page": 7,
+    "bbox": [
+     0.0,
+     2454.0,
+     0.0,
+     2496.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "row_id": "p07.t02.r024",
+   "table_id": "p07.t02",
+   "label_raw": "TOPLAM KAPSAMLI (GİDER) / GELİR",
+   "label_norm": "toplam kapsamlı (gider) / gelir",
+   "indent_level": 0,
+   "role": "total",
+   "parent_row_id": null,
+   "dipnot_refs": [],
+   "asterisk_marks": [],
+   "confidence": 0.8451,
+   "provenance": {
+    "page": 7,
+    "bbox": [
+     0.0,
+     2547.0,
+     0.0,
+     2597.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "row_id": "p07.t02.r025",
+   "table_id": "p07.t02",
+   "label_raw": "Toplam Kapsamlı (Giderin) / Gelirin Dağılımı",
+   "label_norm": "toplam kapsamlı (giderin) / gelirin dağılımı",
+   "indent_level": 0,
+   "role": "group_header",
+   "parent_row_id": null,
+   "dipnot_refs": [],
+   "asterisk_marks": [],
+   "confidence": 0.3,
+   "provenance": {
+    "page": 7,
+    "bbox": [
+     0.0,
+     2622.0,
+     0.0,
+     2660.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "row_id": "p07.t02.r026",
+   "table_id": "p07.t02",
+   "label_raw": "Kontrol Gücü Olmayan Paylar",
+   "label_norm": "kontrol gücü olmayan paylar",
+   "indent_level": 0,
+   "role": "flow",
+   "parent_row_id": null,
+   "dipnot_refs": [],
+   "asterisk_marks": [],
+   "confidence": 0.9463,
+   "provenance": {
+    "page": 7,
+    "bbox": [
+     0.0,
+     2672.0,
+     0.0,
+     2719.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "row_id": "p07.t02.r027",
+   "table_id": "p07.t02",
+   "label_raw": "Ana Ortaklık Payları",
+   "label_norm": "ana ortaklık payları",
+   "indent_level": 0,
+   "role": "flow",
+   "parent_row_id": null,
+   "dipnot_refs": [],
+   "asterisk_marks": [],
+   "confidence": 0.8563,
+   "provenance": {
+    "page": 7,
+    "bbox": [
+     0.0,
+     2723.0,
+     0.0,
+     2776.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "row_id": "p07.t02.r028",
+   "table_id": "p07.t02",
+   "label_raw": "",
+   "label_norm": "",
+   "indent_level": 0,
+   "role": "total",
+   "parent_row_id": null,
+   "dipnot_refs": [],
+   "asterisk_marks": [],
+   "confidence": 0.7405,
+   "provenance": {
+    "page": 7,
+    "bbox": [
+     0.0,
+     2774.0,
+     0.0,
+     2821.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "row_id": "p53.t03.r000",
+   "table_id": "p53.t03",
+   "label_raw": "Il Ocak 2012 itibari ile açılış bakiyesi",
+   "label_norm": "ıl ocak 2012 itibari ile açılış bakiyesi",
+   "indent_level": 0,
+   "role": "opening",
+   "parent_row_id": null,
+   "dipnot_refs": [],
+   "asterisk_marks": [],
+   "confidence": 0.9387,
+   "provenance": {
+    "page": 53,
+    "bbox": [
+     0.0,
+     742.0,
+     0.0,
+     786.0
+    ],
+    "dpi": null,
+    "stage": "footnote_extraction"
+   }
+  },
+  {
+   "row_id": "p53.t03.r001",
+   "table_id": "p53.t03",
+   "label_raw": "Alım sonrası yapılan harcamalar",
+   "label_norm": "alım sonrası yapılan harcamalar",
+   "indent_level": 0,
+   "role": "flow",
+   "parent_row_id": null,
+   "dipnot_refs": [],
+   "asterisk_marks": [],
+   "confidence": 0.9109,
+   "provenance": {
+    "page": 53,
+    "bbox": [
+     0.0,
+     802.0,
+     0.0,
+     846.0
+    ],
+    "dpi": null,
+    "stage": "footnote_extraction"
+   }
+  },
+  {
+   "row_id": "p53.t03.r002",
+   "table_id": "p53.t03",
+   "label_raw": "Makul değer değişikliğinden kaynaklanan kazanç",
+   "label_norm": "makul değer değişikliğinden kaynaklanan kazanç",
+   "indent_level": 0,
+   "role": "flow",
+   "parent_row_id": null,
+   "dipnot_refs": [],
+   "asterisk_marks": [],
+   "confidence": 0.9393,
+   "provenance": {
+    "page": 53,
+    "bbox": [
+     0.0,
+     864.0,
+     0.0,
+     910.0
+    ],
+    "dpi": null,
+    "stage": "footnote_extraction"
+   }
+  },
+  {
+   "row_id": "p53.t03.r003",
+   "table_id": "p53.t03",
+   "label_raw": "Stoklara transferler (*)",
+   "label_norm": "stoklara transferler",
+   "indent_level": 0,
+   "role": "flow",
+   "parent_row_id": null,
+   "dipnot_refs": [],
+   "asterisk_marks": [
+    "*"
+   ],
+   "confidence": 0.9306,
+   "provenance": {
+    "page": 53,
+    "bbox": [
+     0.0,
+     940.0,
+     0.0,
+     992.0
+    ],
+    "dpi": null,
+    "stage": "footnote_extraction"
+   }
+  },
+  {
+   "row_id": "p53.t03.r004",
+   "table_id": "p53.t03",
+   "label_raw": "31 Aralık 2012 itibari ile kapanış bakiyesi",
+   "label_norm": "31 aralık 2012 itibari ile kapanış bakiyesi",
+   "indent_level": 0,
+   "role": "closing",
+   "parent_row_id": null,
+   "dipnot_refs": [],
+   "asterisk_marks": [],
+   "confidence": 0.789,
+   "provenance": {
+    "page": 53,
+    "bbox": [
+     0.0,
+     1030.0,
+     0.0,
+     1084.0
+    ],
+    "dpi": null,
+    "stage": "footnote_extraction"
+   }
+  },
+  {
+   "row_id": "p53.t03.r005",
+   "table_id": "p53.t03",
+   "label_raw": "31 Aralık 2012 itibari ile net defter değeri",
+   "label_norm": "31 aralık 2012 itibari ile net defter değeri",
+   "indent_level": 0,
+   "role": "closing_equiv",
+   "parent_row_id": null,
+   "dipnot_refs": [],
+   "asterisk_marks": [],
+   "confidence": 0.8443,
+   "provenance": {
+    "page": 53,
+    "bbox": [
+     0.0,
+     1159.0,
+     0.0,
+     1213.0
+    ],
+    "dpi": null,
+    "stage": "footnote_extraction"
+   }
+  },
+  {
+   "row_id": "p53.t04.r000",
+   "table_id": "p53.t04",
+   "label_raw": "1 Ocak 2011 itibari ile açılış bakiyesi (Yeniden Düzenlenmiş)",
+   "label_norm": "1 ocak 2011 itibari ile açılış bakiyesi (yeniden düzenlenmiş)",
+   "indent_level": 0,
+   "role": "opening",
+   "parent_row_id": null,
+   "dipnot_refs": [],
+   "asterisk_marks": [],
+   "confidence": 0.8083,
+   "provenance": {
+    "page": 53,
+    "bbox": [
+     0.0,
+     1975.0,
+     0.0,
+     2038.0
+    ],
+    "dpi": null,
+    "stage": "footnote_extraction"
+   }
+  },
+  {
+   "row_id": "p53.t04.r001",
+   "table_id": "p53.t04",
+   "label_raw": "Alımlar (*)",
+   "label_norm": "alımlar",
+   "indent_level": 0,
+   "role": "flow",
+   "parent_row_id": null,
+   "dipnot_refs": [],
+   "asterisk_marks": [
+    "*"
+   ],
+   "confidence": 0.948,
+   "provenance": {
+    "page": 53,
+    "bbox": [
+     0.0,
+     2043.0,
+     0.0,
+     2087.0
+    ],
+    "dpi": null,
+    "stage": "footnote_extraction"
+   }
+  },
+  {
+   "row_id": "p53.t04.r002",
+   "table_id": "p53.t04",
+   "label_raw": "Çıkışlar (**)",
+   "label_norm": "çıkışlar",
+   "indent_level": 0,
+   "role": "flow",
+   "parent_row_id": null,
+   "dipnot_refs": [],
+   "asterisk_marks": [
+    "**"
+   ],
+   "confidence": 0.6821,
+   "provenance": {
+    "page": 53,
+    "bbox": [
+     0.0,
+     2105.0,
+     0.0,
+     2175.0
+    ],
+    "dpi": null,
+    "stage": "footnote_extraction"
+   }
+  },
+  {
+   "row_id": "p53.t04.r003",
+   "table_id": "p53.t04",
+   "label_raw": "Makul değer değişikliğinden kaynaklanan kazanç",
+   "label_norm": "makul değer değişikliğinden kaynaklanan kazanç",
+   "indent_level": 0,
+   "role": "flow",
+   "parent_row_id": null,
+   "dipnot_refs": [],
+   "asterisk_marks": [],
+   "confidence": 0.9207,
+   "provenance": {
+    "page": 53,
+    "bbox": [
+     0.0,
+     2238.0,
+     0.0,
+     2285.0
+    ],
+    "dpi": null,
+    "stage": "footnote_extraction"
+   }
+  },
+  {
+   "row_id": "p53.t04.r004",
+   "table_id": "p53.t04",
+   "label_raw": "31 Aralık 2011 itibari ile kapanış bakiyesi",
+   "label_norm": "31 aralık 2011 itibari ile kapanış bakiyesi",
+   "indent_level": 0,
+   "role": "closing",
+   "parent_row_id": null,
+   "dipnot_refs": [],
+   "asterisk_marks": [],
+   "confidence": 0.7577,
+   "provenance": {
+    "page": 53,
+    "bbox": [
+     0.0,
+     2333.0,
+     0.0,
+     2389.0
+    ],
+    "dpi": null,
+    "stage": "footnote_extraction"
+   }
+  },
+  {
+   "row_id": "p54.t05.r000",
+   "table_id": "p54.t05",
+   "label_raw": "İskonto oranı (©)",
+   "label_norm": "iskonto oranı",
+   "indent_level": 0,
+   "role": "item",
+   "parent_row_id": null,
+   "dipnot_refs": [],
+   "asterisk_marks": [],
+   "confidence": 0.9357,
+   "provenance": {
+    "page": 54,
+    "bbox": [
+     0.0,
+     924.0,
+     0.0,
+     980.0
+    ],
+    "dpi": null,
+    "stage": "footnote_extraction"
+   }
+  },
+  {
+   "row_id": "p54.t05.r001",
+   "table_id": "p54.t05",
+   "label_raw": "Doluluk oranı (90)(*)",
+   "label_norm": "doluluk oranı",
+   "indent_level": 0,
+   "role": "item",
+   "parent_row_id": null,
+   "dipnot_refs": [],
+   "asterisk_marks": [
+    "*"
+   ],
+   "confidence": 0.9215,
+   "provenance": {
+    "page": 54,
+    "bbox": [
+     0.0,
+     991.0,
+     0.0,
+     1040.0
+    ],
+    "dpi": null,
+    "stage": "footnote_extraction"
+   }
+  },
+  {
+   "row_id": "p54.t05.r002",
+   "table_id": "p54.t05",
+   "label_raw": "Kira artış oranı (0)",
+   "label_norm": "kira artış oranı",
+   "indent_level": 0,
+   "role": "item",
+   "parent_row_id": null,
+   "dipnot_refs": [],
+   "asterisk_marks": [],
+   "confidence": 0.9357,
+   "provenance": {
+    "page": 54,
+    "bbox": [
+     0.0,
+     1053.0,
+     0.0,
+     1097.0
+    ],
+    "dpi": null,
+    "stage": "footnote_extraction"
+   }
+  },
+  {
+   "row_id": "p54.t06.r000",
+   "table_id": "p54.t06",
+   "label_raw": "Bağcılar Arsa",
+   "label_norm": "bağcılar arsa",
+   "indent_level": 0,
+   "role": "item",
+   "parent_row_id": null,
+   "dipnot_refs": [],
+   "asterisk_marks": [],
+   "confidence": 0.9603,
+   "provenance": {
+    "page": 54,
+    "bbox": [
+     0.0,
+     1653.0,
+     0.0,
+     1695.0
+    ],
+    "dpi": null,
+    "stage": "footnote_extraction"
+   }
+  },
+  {
+   "row_id": "p54.t06.r001",
+   "table_id": "p54.t06",
+   "label_raw": "Bayrampaşa Arsa (*)",
+   "label_norm": "bayrampaşa arsa",
+   "indent_level": 0,
+   "role": "item",
+   "parent_row_id": null,
+   "dipnot_refs": [],
+   "asterisk_marks": [
+    "*"
+   ],
+   "confidence": 0.9604,
+   "provenance": {
+    "page": 54,
+    "bbox": [
+     0.0,
+     1715.0,
+     0.0,
+     1757.0
+    ],
+    "dpi": null,
+    "stage": "footnote_extraction"
+   }
+  },
+  {
+   "row_id": "p54.t06.r002",
+   "table_id": "p54.t06",
+   "label_raw": "Güneşli Bina",
+   "label_norm": "güneşli bina",
+   "indent_level": 0,
+   "role": "item",
+   "parent_row_id": null,
+   "dipnot_refs": [],
+   "asterisk_marks": [],
+   "confidence": 0.9625,
+   "provenance": {
+    "page": 54,
+    "bbox": [
+     0.0,
+     1775.0,
+     0.0,
+     1817.0
+    ],
+    "dpi": null,
+    "stage": "footnote_extraction"
+   }
+  },
+  {
+   "row_id": "p54.t06.r003",
+   "table_id": "p54.t06",
+   "label_raw": "İkitelli Bina",
+   "label_norm": "ikitelli bina",
+   "indent_level": 0,
+   "role": "item",
+   "parent_row_id": null,
+   "dipnot_refs": [],
+   "asterisk_marks": [],
+   "confidence": 0.9546,
+   "provenance": {
+    "page": 54,
+    "bbox": [
+     0.0,
+     1830.0,
+     0.0,
+     1877.0
+    ],
+    "dpi": null,
+    "stage": "footnote_extraction"
+   }
+  },
+  {
+   "row_id": "p54.t06.r004",
+   "table_id": "p54.t06",
+   "label_raw": "",
+   "label_norm": "",
+   "indent_level": 0,
+   "role": "total",
+   "parent_row_id": null,
+   "dipnot_refs": [],
+   "asterisk_marks": [],
+   "confidence": 0.8146,
+   "provenance": {
+    "page": 54,
+    "bbox": [
+     0.0,
+     1962.0,
+     0.0,
+     1997.0
+    ],
+    "dpi": null,
+    "stage": "footnote_extraction"
+   }
+  }
+ ],
+ "cells": [
+  {
+   "cell_id": "p05.t00.r001.c00",
+   "row_id": "p05.t00.r001",
+   "period_id": "y2012",
+   "value": {
+    "state": "number",
+    "raw": "134.557.729",
+    "value": "134557729",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.95,
+   "confidence_components": {
+    "ocr": 0.95,
+    "parse": 1.0
+   },
+   "provenance": {
+    "page": 5,
+    "bbox": [
+     1629.0,
+     834.0,
+     1814.0,
+     861.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p05.t00.r001.c01",
+   "row_id": "p05.t00.r001",
+   "period_id": "y2011",
+   "value": {
+    "state": "number",
+    "raw": "21.380.946",
+    "value": "21380946",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.9638,
+   "confidence_components": {
+    "ocr": 0.9638,
+    "parse": 1.0
+   },
+   "provenance": {
+    "page": 5,
+    "bbox": [
+     1986.0,
+     835.0,
+     2156.0,
+     863.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p05.t00.r002.c00",
+   "row_id": "p05.t00.r002",
+   "period_id": "y2012",
+   "value": {
+    "state": "number",
+    "raw": "41.854.579",
+    "value": "41854579",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.9655,
+   "confidence_components": {
+    "ocr": 0.9655,
+    "parse": 1.0
+   },
+   "provenance": {
+    "page": 5,
+    "bbox": [
+     1645.0,
+     882.0,
+     1814.0,
+     911.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p05.t00.r002.c01",
+   "row_id": "p05.t00.r002",
+   "period_id": "y2011",
+   "value": {
+    "state": "number",
+    "raw": "7.726.696",
+    "value": "7726696",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.8914,
+   "confidence_components": {
+    "ocr": 0.8914,
+    "parse": 1.0
+   },
+   "provenance": {
+    "page": 5,
+    "bbox": [
+     2007.0,
+     883.0,
+     2156.0,
+     912.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p05.t00.r003.c00",
+   "row_id": "p05.t00.r003",
+   "period_id": "y2012",
+   "value": {
+    "state": "number",
+    "raw": "6.281.458",
+    "value": "6281458",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.9537,
+   "confidence_components": {
+    "ocr": 0.9537,
+    "parse": 1.0
+   },
+   "provenance": {
+    "page": 5,
+    "bbox": [
+     1665.0,
+     931.0,
+     1814.0,
+     959.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p05.t00.r003.c01",
+   "row_id": "p05.t00.r003",
+   "period_id": "y2011",
+   "value": {
+    "state": "number",
+    "raw": "7.801.336",
+    "value": "7801336",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.9612,
+   "confidence_components": {
+    "ocr": 0.9612,
+    "parse": 1.0
+   },
+   "provenance": {
+    "page": 5,
+    "bbox": [
+     2007.0,
+     933.0,
+     2156.0,
+     962.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p05.t00.r004.c00",
+   "row_id": "p05.t00.r004",
+   "period_id": "y2012",
+   "value": {
+    "state": "number",
+    "raw": "170.966",
+    "value": "170966",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.9675,
+   "confidence_components": {
+    "ocr": 0.9675,
+    "parse": 1.0
+   },
+   "provenance": {
+    "page": 5,
+    "bbox": [
+     1698.0,
+     981.0,
+     1814.0,
+     1008.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p05.t00.r004.c01",
+   "row_id": "p05.t00.r004",
+   "period_id": "y2011",
+   "value": {
+    "state": "number",
+    "raw": "2.082.986",
+    "value": "2082986",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.9635,
+   "confidence_components": {
+    "ocr": 0.9635,
+    "parse": 1.0
+   },
+   "provenance": {
+    "page": 5,
+    "bbox": [
+     2006.0,
+     982.0,
+     2156.0,
+     1010.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p05.t00.r005.c00",
+   "row_id": "p05.t00.r005",
+   "period_id": "y2012",
+   "value": {
+    "state": "number",
+    "raw": "6.110.492",
+    "value": "6110492",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.9644,
+   "confidence_components": {
+    "ocr": 0.9644,
+    "parse": 1.0
+   },
+   "provenance": {
+    "page": 5,
+    "bbox": [
+     1665.0,
+     1029.0,
+     1814.0,
+     1058.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p05.t00.r005.c01",
+   "row_id": "p05.t00.r005",
+   "period_id": "y2011",
+   "value": {
+    "state": "number",
+    "raw": "5.718.350",
+    "value": "5718350",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.958,
+   "confidence_components": {
+    "ocr": 0.958,
+    "parse": 1.0
+   },
+   "provenance": {
+    "page": 5,
+    "bbox": [
+     2007.0,
+     1032.0,
+     2154.0,
+     1059.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p05.t00.r006.c00",
+   "row_id": "p05.t00.r006",
+   "period_id": "y2012",
+   "value": {
+    "state": "number",
+    "raw": "3.993",
+    "value": "3993",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.9667,
+   "confidence_components": {
+    "ocr": 0.9667,
+    "parse": 1.0
+   },
+   "provenance": {
+    "page": 5,
+    "bbox": [
+     1731.0,
+     1079.0,
+     1812.0,
+     1107.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p05.t00.r006.c01",
+   "row_id": "p05.t00.r006",
+   "period_id": "y2011",
+   "value": {
+    "state": "number",
+    "raw": "56.956",
+    "value": "56956",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.9017,
+   "confidence_components": {
+    "ocr": 0.9017,
+    "parse": 1.0
+   },
+   "provenance": {
+    "page": 5,
+    "bbox": [
+     2055.0,
+     1080.0,
+     2156.0,
+     1109.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p05.t00.r007.c00",
+   "row_id": "p05.t00.r007",
+   "period_id": "y2012",
+   "value": {
+    "state": "number",
+    "raw": "77.943.097",
+    "value": "77943097",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.7051,
+   "confidence_components": {
+    "ocr": 0.7051,
+    "parse": 1.0
+   },
+   "provenance": {
+    "page": 5,
+    "bbox": [
+     1645.0,
+     1128.0,
+     1814.0,
+     1155.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p05.t00.r007.c01",
+   "row_id": "p05.t00.r007",
+   "period_id": "y2011",
+   "value": {
+    "state": "number",
+    "raw": "1.083.886",
+    "value": "1083886",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.9301,
+   "confidence_components": {
+    "ocr": 0.9301,
+    "parse": 1.0
+   },
+   "provenance": {
+    "page": 5,
+    "bbox": [
+     2010.0,
+     1129.0,
+     2154.0,
+     1158.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p05.t00.r008.c00",
+   "row_id": "p05.t00.r008",
+   "period_id": "y2012",
+   "value": {
+    "state": "number",
+    "raw": "8.874.602",
+    "value": "8874602",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.9439,
+   "confidence_components": {
+    "ocr": 0.9439,
+    "parse": 1.0
+   },
+   "provenance": {
+    "page": 5,
+    "bbox": [
+     1666.0,
+     1176.0,
+     1814.0,
+     1203.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p05.t00.r008.c01",
+   "row_id": "p05.t00.r008",
+   "period_id": "y2011",
+   "value": {
+    "state": "number",
+    "raw": "4.712.072",
+    "value": "4712072",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.924,
+   "confidence_components": {
+    "ocr": 0.924,
+    "parse": 1.0
+   },
+   "provenance": {
+    "page": 5,
+    "bbox": [
+     2006.0,
+     1177.0,
+     2156.0,
+     1205.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p05.t00.r009.c00",
+   "row_id": "p05.t00.r009",
+   "period_id": "y2012",
+   "value": {
+    "state": "number",
+    "raw": "717.592.075",
+    "value": "717592075",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.957,
+   "confidence_components": {
+    "ocr": 0.957,
+    "parse": 1.0
+   },
+   "provenance": {
+    "page": 5,
+    "bbox": [
+     1627.0,
+     1273.0,
+     1814.0,
+     1301.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p05.t00.r009.c01",
+   "row_id": "p05.t00.r009",
+   "period_id": "y2011",
+   "value": {
+    "state": "number",
+    "raw": "760.027.331",
+    "value": "760027331",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.9596,
+   "confidence_components": {
+    "ocr": 0.9596,
+    "parse": 1.0
+   },
+   "provenance": {
+    "page": 5,
+    "bbox": [
+     1968.0,
+     1275.0,
+     2154.0,
+     1302.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p05.t00.r010.c00",
+   "row_id": "p05.t00.r010",
+   "period_id": "y2012",
+   "value": {
+    "state": "number",
+    "raw": "4,224",
+    "value": "4.224",
+    "kind": "decimal",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.8122,
+   "confidence_components": {
+    "ocr": 0.8122,
+    "parse": 1.0
+   },
+   "provenance": {
+    "page": 5,
+    "bbox": [
+     1730.0,
+     1323.0,
+     1814.0,
+     1350.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p05.t00.r010.c01",
+   "row_id": "p05.t00.r010",
+   "period_id": "y2011",
+   "value": {
+    "state": "number",
+    "raw": "4.224",
+    "value": "4224",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.9148,
+   "confidence_components": {
+    "ocr": 0.9148,
+    "parse": 1.0
+   },
+   "provenance": {
+    "page": 5,
+    "bbox": [
+     2072.0,
+     1324.0,
+     2156.0,
+     1352.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p05.t00.r011.c00",
+   "row_id": "p05.t00.r011",
+   "period_id": "y2012",
+   "value": {
+    "state": "number",
+    "raw": "28.785.840",
+    "value": "28785840",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.9679,
+   "confidence_components": {
+    "ocr": 0.9679,
+    "parse": 1.0
+   },
+   "provenance": {
+    "page": 5,
+    "bbox": [
+     1645.0,
+     1371.0,
+     1814.0,
+     1398.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p05.t00.r011.c01",
+   "row_id": "p05.t00.r011",
+   "period_id": "y2011",
+   "value": {
+    "state": "dash",
+    "raw": "-"
+   },
+   "confidence": 0.924,
+   "confidence_components": {
+    "ocr": 0.924,
+    "parse": 1.0
+   },
+   "provenance": {
+    "page": 5,
+    "bbox": [
+     2145.0,
+     1389.0,
+     2156.0,
+     1394.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p05.t00.r012.c00",
+   "row_id": "p05.t00.r012",
+   "period_id": "y2012",
+   "value": {
+    "state": "number",
+    "raw": "373.992.222",
+    "value": "373992222",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.9108,
+   "confidence_components": {
+    "ocr": 0.9108,
+    "parse": 1.0
+   },
+   "provenance": {
+    "page": 5,
+    "bbox": [
+     1626.0,
+     1420.0,
+     1814.0,
+     1448.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p05.t00.r012.c01",
+   "row_id": "p05.t00.r012",
+   "period_id": "y2011",
+   "value": {
+    "state": "number",
+    "raw": "423.580.000",
+    "value": "423580000",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.9628,
+   "confidence_components": {
+    "ocr": 0.9628,
+    "parse": 1.0
+   },
+   "provenance": {
+    "page": 5,
+    "bbox": [
+     1968.0,
+     1422.0,
+     2154.0,
+     1449.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p05.t00.r013.c00",
+   "row_id": "p05.t00.r013",
+   "period_id": "y2012",
+   "value": {
+    "state": "number",
+    "raw": "285.161.777",
+    "value": "285161777",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.9549,
+   "confidence_components": {
+    "ocr": 0.9549,
+    "parse": 1.0
+   },
+   "provenance": {
+    "page": 5,
+    "bbox": [
+     1626.0,
+     1468.0,
+     1814.0,
+     1497.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p05.t00.r013.c01",
+   "row_id": "p05.t00.r013",
+   "period_id": "y2011",
+   "value": {
+    "state": "number",
+    "raw": "313.618.867",
+    "value": "313618867",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.9629,
+   "confidence_components": {
+    "ocr": 0.9629,
+    "parse": 1.0
+   },
+   "provenance": {
+    "page": 5,
+    "bbox": [
+     1968.0,
+     1470.0,
+     2156.0,
+     1499.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p05.t00.r014.c00",
+   "row_id": "p05.t00.r014",
+   "period_id": "y2012",
+   "value": {
+    "state": "number",
+    "raw": "14.557.878",
+    "value": "14557878",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.9593,
+   "confidence_components": {
+    "ocr": 0.9593,
+    "parse": 1.0
+   },
+   "provenance": {
+    "page": 5,
+    "bbox": [
+     1648.0,
+     1518.0,
+     1812.0,
+     1545.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p05.t00.r014.c01",
+   "row_id": "p05.t00.r014",
+   "period_id": "y2011",
+   "value": {
+    "state": "number",
+    "raw": "14.526.075",
+    "value": "14526075",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.9464,
+   "confidence_components": {
+    "ocr": 0.9464,
+    "parse": 1.0
+   },
+   "provenance": {
+    "page": 5,
+    "bbox": [
+     1991.0,
+     1519.0,
+     2154.0,
+     1547.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p05.t00.r015.c00",
+   "row_id": "p05.t00.r015",
+   "period_id": "y2012",
+   "value": {
+    "state": "number",
+    "raw": "4.065.781",
+    "value": "4065781",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.9662,
+   "confidence_components": {
+    "ocr": 0.9662,
+    "parse": 1.0
+   },
+   "provenance": {
+    "page": 5,
+    "bbox": [
+     1663.0,
+     1566.0,
+     1809.0,
+     1595.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p05.t00.r015.c01",
+   "row_id": "p05.t00.r015",
+   "period_id": "y2011",
+   "value": {
+    "state": "number",
+    "raw": "8.262.684",
+    "value": "8262684",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.9608,
+   "confidence_components": {
+    "ocr": 0.9608,
+    "parse": 1.0
+   },
+   "provenance": {
+    "page": 5,
+    "bbox": [
+     2007.0,
+     1569.0,
+     2156.0,
+     1596.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p05.t00.r016.c00",
+   "row_id": "p05.t00.r016",
+   "period_id": "y2012",
+   "value": {
+    "state": "number",
+    "raw": "11.024.353",
+    "value": "11024353",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.9262,
+   "confidence_components": {
+    "ocr": 0.9262,
+    "parse": 1.0
+   },
+   "provenance": {
+    "page": 5,
+    "bbox": [
+     1648.0,
+     1615.0,
+     1811.0,
+     1643.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p05.t00.r016.c01",
+   "row_id": "p05.t00.r016",
+   "period_id": "y2011",
+   "value": {
+    "state": "number",
+    "raw": "35.481",
+    "value": "35481",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.953,
+   "confidence_components": {
+    "ocr": 0.953,
+    "parse": 1.0
+   },
+   "provenance": {
+    "page": 5,
+    "bbox": [
+     2054.0,
+     1617.0,
+     2151.0,
+     1646.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p05.t00.r017.c00",
+   "row_id": "p05.t00.r017",
+   "period_id": "y2012",
+   "value": {
+    "state": "number",
+    "raw": "852.149.804",
+    "value": "852149804",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.9648,
+   "confidence_components": {
+    "ocr": 0.9648,
+    "parse": 1.0
+   },
+   "provenance": {
+    "page": 5,
+    "bbox": [
+     1626.0,
+     1660.0,
+     1812.0,
+     1689.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p05.t00.r017.c01",
+   "row_id": "p05.t00.r017",
+   "period_id": "y2011",
+   "value": {
+    "state": "number",
+    "raw": "781.408.277",
+    "value": "781408277",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.9645,
+   "confidence_components": {
+    "ocr": 0.9645,
+    "parse": 1.0
+   },
+   "provenance": {
+    "page": 5,
+    "bbox": [
+     1968.0,
+     1662.0,
+     2156.0,
+     1691.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p06.t01.r001.c00",
+   "row_id": "p06.t01.r001",
+   "period_id": "y2012",
+   "value": {
+    "state": "number",
+    "raw": "63.553.798",
+    "value": "63553798",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.9622,
+   "confidence_components": {
+    "ocr": 0.9622,
+    "parse": 1.0
+   },
+   "provenance": {
+    "page": 6,
+    "bbox": [
+     1636.0,
+     804.0,
+     1805.0,
+     833.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p06.t01.r001.c01",
+   "row_id": "p06.t01.r001",
+   "period_id": "y2011",
+   "value": {
+    "state": "number",
+    "raw": "107.356.816",
+    "value": "107356816",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.9659,
+   "confidence_components": {
+    "ocr": 0.9659,
+    "parse": 1.0
+   },
+   "provenance": {
+    "page": 6,
+    "bbox": [
+     1959.0,
+     807.0,
+     2147.0,
+     834.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p06.t01.r002.c00",
+   "row_id": "p06.t01.r002",
+   "period_id": "y2012",
+   "value": {
+    "state": "number",
+    "raw": "38.216.987",
+    "value": "38216987",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.959,
+   "confidence_components": {
+    "ocr": 0.959,
+    "parse": 1.0
+   },
+   "provenance": {
+    "page": 6,
+    "bbox": [
+     1635.0,
+     856.0,
+     1805.0,
+     885.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p06.t01.r002.c01",
+   "row_id": "p06.t01.r002",
+   "period_id": "y2011",
+   "value": {
+    "state": "number",
+    "raw": "93.250.501",
+    "value": "93250501",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.9632,
+   "confidence_components": {
+    "ocr": 0.9632,
+    "parse": 1.0
+   },
+   "provenance": {
+    "page": 6,
+    "bbox": [
+     1977.0,
+     858.0,
+     2142.0,
+     887.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p06.t01.r003.c00",
+   "row_id": "p06.t01.r003",
+   "period_id": "y2012",
+   "value": {
+    "state": "number",
+    "raw": "7.932.336",
+    "value": "7932336",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.903,
+   "confidence_components": {
+    "ocr": 0.903,
+    "parse": 1.0
+   },
+   "provenance": {
+    "page": 6,
+    "bbox": [
+     1656.0,
+     907.0,
+     1805.0,
+     936.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p06.t01.r003.c01",
+   "row_id": "p06.t01.r003",
+   "period_id": "y2011",
+   "value": {
+    "state": "number",
+    "raw": "4.232.740",
+    "value": "4232740",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.9481,
+   "confidence_components": {
+    "ocr": 0.9481,
+    "parse": 1.0
+   },
+   "provenance": {
+    "page": 6,
+    "bbox": [
+     1995.0,
+     910.0,
+     2145.0,
+     938.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p06.t01.r004.c00",
+   "row_id": "p06.t01.r004",
+   "period_id": "y2012",
+   "value": {
+    "state": "number",
+    "raw": "4.993.230",
+    "value": "4993230",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.9573,
+   "confidence_components": {
+    "ocr": 0.9573,
+    "parse": 1.0
+   },
+   "provenance": {
+    "page": 6,
+    "bbox": [
+     1654.0,
+     966.0,
+     1805.0,
+     995.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p06.t01.r004.c01",
+   "row_id": "p06.t01.r004",
+   "period_id": "y2011",
+   "value": {
+    "state": "dash",
+    "raw": "-"
+   },
+   "confidence": 0.931,
+   "confidence_components": {
+    "ocr": 0.931,
+    "parse": 1.0
+   },
+   "provenance": {
+    "page": 6,
+    "bbox": [
+     2135.0,
+     984.0,
+     2147.0,
+     989.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p06.t01.r005.c00",
+   "row_id": "p06.t01.r005",
+   "period_id": "y2012",
+   "value": {
+    "state": "number",
+    "raw": "2.939.106",
+    "value": "2939106",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.9527,
+   "confidence_components": {
+    "ocr": 0.9527,
+    "parse": 1.0
+   },
+   "provenance": {
+    "page": 6,
+    "bbox": [
+     1654.0,
+     1024.0,
+     1805.0,
+     1053.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p06.t01.r005.c01",
+   "row_id": "p06.t01.r005",
+   "period_id": "y2011",
+   "value": {
+    "state": "number",
+    "raw": "4.232.740",
+    "value": "4232740",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.9275,
+   "confidence_components": {
+    "ocr": 0.9275,
+    "parse": 1.0
+   },
+   "provenance": {
+    "page": 6,
+    "bbox": [
+     1995.0,
+     1026.0,
+     2145.0,
+     1055.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p06.t01.r006.c00",
+   "row_id": "p06.t01.r006",
+   "period_id": "y2012",
+   "value": {
+    "state": "number",
+    "raw": "2.784.832",
+    "value": "2784832",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.8453,
+   "confidence_components": {
+    "ocr": 0.8453,
+    "parse": 1.0
+   },
+   "provenance": {
+    "page": 6,
+    "bbox": [
+     1654.0,
+     1074.0,
+     1805.0,
+     1101.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p06.t01.r006.c01",
+   "row_id": "p06.t01.r006",
+   "period_id": "y2011",
+   "value": {
+    "state": "number",
+    "raw": "3.244.930",
+    "value": "3244930",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.9377,
+   "confidence_components": {
+    "ocr": 0.9377,
+    "parse": 1.0
+   },
+   "provenance": {
+    "page": 6,
+    "bbox": [
+     1995.0,
+     1075.0,
+     2145.0,
+     1104.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p06.t01.r007.c00",
+   "row_id": "p06.t01.r007",
+   "period_id": "y2012",
+   "value": {
+    "state": "number",
+    "raw": "1.500.000",
+    "value": "1500000",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.9621,
+   "confidence_components": {
+    "ocr": 0.9621,
+    "parse": 1.0
+   },
+   "provenance": {
+    "page": 6,
+    "bbox": [
+     1659.0,
+     1131.0,
+     1805.0,
+     1160.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p06.t01.r007.c01",
+   "row_id": "p06.t01.r007",
+   "period_id": "y2011",
+   "value": {
+    "state": "number",
+    "raw": "1.887.911",
+    "value": "1887911",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.9571,
+   "confidence_components": {
+    "ocr": 0.9571,
+    "parse": 1.0
+   },
+   "provenance": {
+    "page": 6,
+    "bbox": [
+     2000.0,
+     1134.0,
+     2142.0,
+     1161.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p06.t01.r008.c00",
+   "row_id": "p06.t01.r008",
+   "period_id": "y2012",
+   "value": {
+    "state": "number",
+    "raw": "1.284.832",
+    "value": "1284832",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.9649,
+   "confidence_components": {
+    "ocr": 0.9649,
+    "parse": 1.0
+   },
+   "provenance": {
+    "page": 6,
+    "bbox": [
+     1658.0,
+     1189.0,
+     1805.0,
+     1217.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p06.t01.r008.c01",
+   "row_id": "p06.t01.r008",
+   "period_id": "y2011",
+   "value": {
+    "state": "number",
+    "raw": "1.357.019",
+    "value": "1357019",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.9571,
+   "confidence_components": {
+    "ocr": 0.9571,
+    "parse": 1.0
+   },
+   "provenance": {
+    "page": 6,
+    "bbox": [
+     1998.0,
+     1191.0,
+     2145.0,
+     1220.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p06.t01.r009.c00",
+   "row_id": "p06.t01.r009",
+   "period_id": "y2012",
+   "value": {
+    "state": "dash",
+    "raw": "-"
+   },
+   "confidence": 0.9296,
+   "confidence_components": {
+    "ocr": 0.9296,
+    "parse": 1.0
+   },
+   "provenance": {
+    "page": 6,
+    "bbox": [
+     1794.0,
+     1263.0,
+     1805.0,
+     1268.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p06.t01.r009.c01",
+   "row_id": "p06.t01.r009",
+   "period_id": "y2011",
+   "value": {
+    "state": "number",
+    "raw": "776.915",
+    "value": "776915",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.793,
+   "confidence_components": {
+    "ocr": 0.793,
+    "parse": 1.0
+   },
+   "provenance": {
+    "page": 6,
+    "bbox": [
+     2025.0,
+     1249.0,
+     2144.0,
+     1278.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p06.t01.r010.c00",
+   "row_id": "p06.t01.r010",
+   "period_id": "y2012",
+   "value": {
+    "state": "number",
+    "raw": "504.851",
+    "value": "504851",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.7968,
+   "confidence_components": {
+    "ocr": 0.7968,
+    "parse": 1.0
+   },
+   "provenance": {
+    "page": 6,
+    "bbox": [
+     1683.0,
+     1305.0,
+     1800.0,
+     1334.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p06.t01.r010.c01",
+   "row_id": "p06.t01.r010",
+   "period_id": "y2011",
+   "value": {
+    "state": "dash",
+    "raw": "-"
+   },
+   "confidence": 0.9221,
+   "confidence_components": {
+    "ocr": 0.9221,
+    "parse": 1.0
+   },
+   "provenance": {
+    "page": 6,
+    "bbox": [
+     2135.0,
+     1323.0,
+     2147.0,
+     1328.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p06.t01.r011.c00",
+   "row_id": "p06.t01.r011",
+   "period_id": "y2012",
+   "value": {
+    "state": "number",
+    "raw": "1.016.352",
+    "value": "1016352",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.9501,
+   "confidence_components": {
+    "ocr": 0.9501,
+    "parse": 1.0
+   },
+   "provenance": {
+    "page": 6,
+    "bbox": [
+     1658.0,
+     1363.0,
+     1805.0,
+     1391.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p06.t01.r011.c01",
+   "row_id": "p06.t01.r011",
+   "period_id": "y2011",
+   "value": {
+    "state": "number",
+    "raw": "628.306",
+    "value": "628306",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.9576,
+   "confidence_components": {
+    "ocr": 0.9576,
+    "parse": 1.0
+   },
+   "provenance": {
+    "page": 6,
+    "bbox": [
+     2025.0,
+     1365.0,
+     2145.0,
+     1394.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p06.t01.r012.c00",
+   "row_id": "p06.t01.r012",
+   "period_id": "y2012",
+   "value": {
+    "state": "number",
+    "raw": "13.098.440",
+    "value": "13098440",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.9593,
+   "confidence_components": {
+    "ocr": 0.9593,
+    "parse": 1.0
+   },
+   "provenance": {
+    "page": 6,
+    "bbox": [
+     1639.0,
+     1409.0,
+     1803.0,
+     1454.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p06.t01.r012.c01",
+   "row_id": "p06.t01.r012",
+   "period_id": "y2011",
+   "value": {
+    "state": "number",
+    "raw": "5.223.424",
+    "value": "5223424",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.8348,
+   "confidence_components": {
+    "ocr": 0.8348,
+    "parse": 1.0
+   },
+   "provenance": {
+    "page": 6,
+    "bbox": [
+     1995.0,
+     1416.0,
+     2145.0,
+     1445.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p06.t01.r013.c00",
+   "row_id": "p06.t01.r013",
+   "period_id": "y2012",
+   "value": {
+    "state": "number",
+    "raw": "136.150.924",
+    "value": "136150924",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.9607,
+   "confidence_components": {
+    "ocr": 0.9607,
+    "parse": 1.0
+   },
+   "provenance": {
+    "page": 6,
+    "bbox": [
+     1618.0,
+     1515.0,
+     1805.0,
+     1544.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p06.t01.r013.c01",
+   "row_id": "p06.t01.r013",
+   "period_id": "y2011",
+   "value": {
+    "state": "number",
+    "raw": "54.471.741",
+    "value": "54471741",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.9545,
+   "confidence_components": {
+    "ocr": 0.9545,
+    "parse": 1.0
+   },
+   "provenance": {
+    "page": 6,
+    "bbox": [
+     1977.0,
+     1518.0,
+     2144.0,
+     1545.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p06.t01.r014.c00",
+   "row_id": "p06.t01.r014",
+   "period_id": "y2012",
+   "value": {
+    "state": "number",
+    "raw": "71.554.357",
+    "value": "71554357",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.9529,
+   "confidence_components": {
+    "ocr": 0.9529,
+    "parse": 1.0
+   },
+   "provenance": {
+    "page": 6,
+    "bbox": [
+     1635.0,
+     1567.0,
+     1805.0,
+     1595.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p06.t01.r014.c01",
+   "row_id": "p06.t01.r014",
+   "period_id": "y2011",
+   "value": {
+    "state": "number",
+    "raw": "1.180.562",
+    "value": "1180562",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.9621,
+   "confidence_components": {
+    "ocr": 0.9621,
+    "parse": 1.0
+   },
+   "provenance": {
+    "page": 6,
+    "bbox": [
+     1998.0,
+     1569.0,
+     2145.0,
+     1596.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p06.t01.r015.c00",
+   "row_id": "p06.t01.r015",
+   "period_id": "y2012",
+   "value": {
+    "state": "number",
+    "raw": "20.384.859",
+    "value": "20384859",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.9551,
+   "confidence_components": {
+    "ocr": 0.9551,
+    "parse": 1.0
+   },
+   "provenance": {
+    "page": 6,
+    "bbox": [
+     1635.0,
+     1613.0,
+     1803.0,
+     1659.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p06.t01.r015.c01",
+   "row_id": "p06.t01.r015",
+   "period_id": "y2011",
+   "value": {
+    "state": "dash",
+    "raw": "-"
+   },
+   "confidence": 0.8401,
+   "confidence_components": {
+    "ocr": 0.8401,
+    "parse": 1.0
+   },
+   "provenance": {
+    "page": 6,
+    "bbox": [
+     2135.0,
+     1635.0,
+     2145.0,
+     1640.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p06.t01.r016.c00",
+   "row_id": "p06.t01.r016",
+   "period_id": "y2012",
+   "value": {
+    "state": "number",
+    "raw": "100.330",
+    "value": "100330",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.9628,
+   "confidence_components": {
+    "ocr": 0.9628,
+    "parse": 1.0
+   },
+   "provenance": {
+    "page": 6,
+    "bbox": [
+     1688.0,
+     1669.0,
+     1803.0,
+     1697.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p06.t01.r016.c01",
+   "row_id": "p06.t01.r016",
+   "period_id": "y2011",
+   "value": {
+    "state": "number",
+    "raw": "122.730",
+    "value": "122730",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.9657,
+   "confidence_components": {
+    "ocr": 0.9657,
+    "parse": 1.0
+   },
+   "provenance": {
+    "page": 6,
+    "bbox": [
+     2028.0,
+     1671.0,
+     2145.0,
+     1698.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p06.t01.r017.c00",
+   "row_id": "p06.t01.r017",
+   "period_id": "y2012",
+   "value": {
+    "state": "number",
+    "raw": "44.111.378",
+    "value": "44111378",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.9479,
+   "confidence_components": {
+    "ocr": 0.9479,
+    "parse": 1.0
+   },
+   "provenance": {
+    "page": 6,
+    "bbox": [
+     1634.0,
+     1719.0,
+     1803.0,
+     1748.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p06.t01.r017.c01",
+   "row_id": "p06.t01.r017",
+   "period_id": "y2011",
+   "value": {
+    "state": "number",
+    "raw": "53.168.449",
+    "value": "53168449",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.9669,
+   "confidence_components": {
+    "ocr": 0.9669,
+    "parse": 1.0
+   },
+   "provenance": {
+    "page": 6,
+    "bbox": [
+     1977.0,
+     1722.0,
+     2145.0,
+     1751.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p06.t01.r018.c00",
+   "row_id": "p06.t01.r018",
+   "period_id": "y2012",
+   "value": {
+    "state": "number",
+    "raw": "652.445.082",
+    "value": "652445082",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.9575,
+   "confidence_components": {
+    "ocr": 0.9575,
+    "parse": 1.0
+   },
+   "provenance": {
+    "page": 6,
+    "bbox": [
+     1617.0,
+     1820.0,
+     1803.0,
+     1848.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p06.t01.r018.c01",
+   "row_id": "p06.t01.r018",
+   "period_id": "y2011",
+   "value": {
+    "state": "number",
+    "raw": "619.579.720",
+    "value": "619579720",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.9642,
+   "confidence_components": {
+    "ocr": 0.9642,
+    "parse": 1.0
+   },
+   "provenance": {
+    "page": 6,
+    "bbox": [
+     1959.0,
+     1823.0,
+     2145.0,
+     1851.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p06.t01.r019.c00",
+   "row_id": "p06.t01.r019",
+   "period_id": "y2012",
+   "value": {
+    "state": "number",
+    "raw": "527.217.933",
+    "value": "527217933",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.9633,
+   "confidence_components": {
+    "ocr": 0.9633,
+    "parse": 1.0
+   },
+   "provenance": {
+    "page": 6,
+    "bbox": [
+     1617.0,
+     1872.0,
+     1802.0,
+     1901.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p06.t01.r019.c01",
+   "row_id": "p06.t01.r019",
+   "period_id": "y2011",
+   "value": {
+    "state": "number",
+    "raw": "492.663.853",
+    "value": "492663853",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.9567,
+   "confidence_components": {
+    "ocr": 0.9567,
+    "parse": 1.0
+   },
+   "provenance": {
+    "page": 6,
+    "bbox": [
+     1958.0,
+     1874.0,
+     2144.0,
+     1902.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p06.t01.r020.c00",
+   "row_id": "p06.t01.r020",
+   "period_id": "y2012",
+   "value": {
+    "state": "number",
+    "raw": "157.000.000",
+    "value": "157000000",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.964,
+   "confidence_components": {
+    "ocr": 0.964,
+    "parse": 1.0
+   },
+   "provenance": {
+    "page": 6,
+    "bbox": [
+     1620.0,
+     1923.0,
+     1803.0,
+     1952.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p06.t01.r020.c01",
+   "row_id": "p06.t01.r020",
+   "period_id": "y2011",
+   "value": {
+    "state": "number",
+    "raw": "141.483.500",
+    "value": "141483500",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.9616,
+   "confidence_components": {
+    "ocr": 0.9616,
+    "parse": 1.0
+   },
+   "provenance": {
+    "page": 6,
+    "bbox": [
+     1962.0,
+     1926.0,
+     2145.0,
+     1953.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p06.t01.r021.c00",
+   "row_id": "p06.t01.r021",
+   "period_id": "y2012",
+   "value": {
+    "state": "number",
+    "raw": "22.322.361",
+    "value": "22322361",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.9374,
+   "confidence_components": {
+    "ocr": 0.9374,
+    "parse": 1.0
+   },
+   "provenance": {
+    "page": 6,
+    "bbox": [
+     1635.0,
+     1973.0,
+     1800.0,
+     2001.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p06.t01.r021.c01",
+   "row_id": "p06.t01.r021",
+   "period_id": "y2011",
+   "value": {
+    "state": "dash",
+    "raw": "-"
+   },
+   "confidence": 0.9274,
+   "confidence_components": {
+    "ocr": 0.9274,
+    "parse": 1.0
+   },
+   "provenance": {
+    "page": 6,
+    "bbox": [
+     2135.0,
+     1991.0,
+     2147.0,
+     1995.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p06.t01.r022.c00",
+   "row_id": "p06.t01.r022",
+   "period_id": "y2012",
+   "value": {
+    "state": "number",
+    "raw": "124.390.608",
+    "value": "124390608",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.942,
+   "confidence_components": {
+    "ocr": 0.942,
+    "parse": 1.0
+   },
+   "provenance": {
+    "page": 6,
+    "bbox": [
+     1619.0,
+     2022.0,
+     1803.0,
+     2049.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p06.t01.r022.c01",
+   "row_id": "p06.t01.r022",
+   "period_id": "y2011",
+   "value": {
+    "state": "number",
+    "raw": "124.390.608",
+    "value": "124390608",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.9504,
+   "confidence_components": {
+    "ocr": 0.9504,
+    "parse": 1.0
+   },
+   "provenance": {
+    "page": 6,
+    "bbox": [
+     1962.0,
+     2024.0,
+     2144.0,
+     2052.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p06.t01.r023.c00",
+   "row_id": "p06.t01.r023",
+   "period_id": "y2012",
+   "value": {
+    "state": "number",
+    "raw": "100.574.161",
+    "value": "100574161",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.9476,
+   "confidence_components": {
+    "ocr": 0.9476,
+    "parse": 1.0
+   },
+   "provenance": {
+    "page": 6,
+    "bbox": [
+     1620.0,
+     2070.0,
+     1800.0,
+     2099.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p06.t01.r023.c01",
+   "row_id": "p06.t01.r023",
+   "period_id": "y2011",
+   "value": {
+    "state": "number",
+    "raw": "111.878.913",
+    "value": "111878913",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.9618,
+   "confidence_components": {
+    "ocr": 0.9618,
+    "parse": 1.0
+   },
+   "provenance": {
+    "page": 6,
+    "bbox": [
+     1962.0,
+     2073.0,
+     2144.0,
+     2100.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p06.t01.r024.c00",
+   "row_id": "p06.t01.r024",
+   "period_id": "y2012",
+   "value": {
+    "state": "number",
+    "raw": "2.569.141",
+    "value": "2569141",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.9608,
+   "confidence_components": {
+    "ocr": 0.9608,
+    "parse": 1.0
+   },
+   "provenance": {
+    "page": 6,
+    "bbox": [
+     1653.0,
+     2123.0,
+     1800.0,
+     2151.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p06.t01.r024.c01",
+   "row_id": "p06.t01.r024",
+   "period_id": "y2011",
+   "value": {
+    "state": "number",
+    "raw": "53.036",
+    "value": "53036",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.9647,
+   "confidence_components": {
+    "ocr": 0.9647,
+    "parse": 1.0
+   },
+   "provenance": {
+    "page": 6,
+    "bbox": [
+     2043.0,
+     2124.0,
+     2145.0,
+     2153.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p06.t01.r025.c00",
+   "row_id": "p06.t01.r025",
+   "period_id": "y2012",
+   "value": {
+    "state": "number",
+    "raw": "111.301.075",
+    "value": "111301075",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.8558,
+   "confidence_components": {
+    "ocr": 0.8558,
+    "parse": 1.0
+   },
+   "provenance": {
+    "page": 6,
+    "bbox": [
+     1620.0,
+     2174.0,
+     1803.0,
+     2201.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p06.t01.r025.c01",
+   "row_id": "p06.t01.r025",
+   "period_id": "y2011",
+   "value": {
+    "state": "number",
+    "raw": "(46.784.714)",
+    "value": "-46784714",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.9197,
+   "confidence_components": {
+    "ocr": 0.9197,
+    "parse": 1.0
+   },
+   "provenance": {
+    "page": 6,
+    "bbox": [
+     1964.0,
+     2175.0,
+     2157.0,
+     2211.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p06.t01.r026.c00",
+   "row_id": "p06.t01.r026",
+   "period_id": "y2012",
+   "value": {
+    "state": "number",
+    "raw": "9.060.587",
+    "value": "9060587",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.9554,
+   "confidence_components": {
+    "ocr": 0.9554,
+    "parse": 1.0
+   },
+   "provenance": {
+    "page": 6,
+    "bbox": [
+     1654.0,
+     2228.0,
+     1803.0,
+     2256.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p06.t01.r026.c01",
+   "row_id": "p06.t01.r026",
+   "period_id": "y2011",
+   "value": {
+    "state": "number",
+    "raw": "161.642.510",
+    "value": "161642510",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.9564,
+   "confidence_components": {
+    "ocr": 0.9564,
+    "parse": 1.0
+   },
+   "provenance": {
+    "page": 6,
+    "bbox": [
+     1962.0,
+     2231.0,
+     2145.0,
+     2258.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p06.t01.r027.c00",
+   "row_id": "p06.t01.r027",
+   "period_id": "y2012",
+   "value": {
+    "state": "number",
+    "raw": "125.227.149",
+    "value": "125227149",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.9645,
+   "confidence_components": {
+    "ocr": 0.9645,
+    "parse": 1.0
+   },
+   "provenance": {
+    "page": 6,
+    "bbox": [
+     1617.0,
+     2279.0,
+     1803.0,
+     2307.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p06.t01.r027.c01",
+   "row_id": "p06.t01.r027",
+   "period_id": "y2011",
+   "value": {
+    "state": "number",
+    "raw": "126.915.867",
+    "value": "126915867",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.961,
+   "confidence_components": {
+    "ocr": 0.961,
+    "parse": 1.0
+   },
+   "provenance": {
+    "page": 6,
+    "bbox": [
+     1959.0,
+     2280.0,
+     2145.0,
+     2309.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p06.t01.r028.c00",
+   "row_id": "p06.t01.r028",
+   "period_id": "y2012",
+   "value": {
+    "state": "number",
+    "raw": "852.149.804",
+    "value": "852149804",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.2494,
+   "confidence_components": {
+    "ocr": 0.2494,
+    "parse": 1.0
+   },
+   "provenance": {
+    "page": 6,
+    "bbox": [
+     1615.0,
+     2325.0,
+     1803.0,
+     2354.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p06.t01.r028.c01",
+   "row_id": "p06.t01.r028",
+   "period_id": "y2011",
+   "value": {
+    "state": "number",
+    "raw": "781.408.277",
+    "value": "781408277",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.9604,
+   "confidence_components": {
+    "ocr": 0.9604,
+    "parse": 1.0
+   },
+   "provenance": {
+    "page": 6,
+    "bbox": [
+     1958.0,
+     2328.0,
+     2145.0,
+     2357.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p07.t02.r000.c00",
+   "row_id": "p07.t02.r000",
+   "period_id": "y2012",
+   "value": {
+    "state": "number",
+    "raw": "77.043.573",
+    "value": "77043573",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.7824,
+   "confidence_components": {
+    "ocr": 0.7824,
+    "parse": 1.0
+   },
+   "provenance": {
+    "page": 7,
+    "bbox": [
+     1704.0,
+     897.0,
+     1869.0,
+     926.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p07.t02.r000.c01",
+   "row_id": "p07.t02.r000",
+   "period_id": "y2011",
+   "value": {
+    "state": "number",
+    "raw": "76.431.595",
+    "value": "76431595",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.9666,
+   "confidence_components": {
+    "ocr": 0.9666,
+    "parse": 1.0
+   },
+   "provenance": {
+    "page": 7,
+    "bbox": [
+     1976.0,
+     898.0,
+     2144.0,
+     928.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p07.t02.r001.c00",
+   "row_id": "p07.t02.r001",
+   "period_id": "y2012",
+   "value": {
+    "state": "number",
+    "raw": "(49.167.330)",
+    "value": "-49167330",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.9501,
+   "confidence_components": {
+    "ocr": 0.9501,
+    "parse": 1.0
+   },
+   "provenance": {
+    "page": 7,
+    "bbox": [
+     1692.0,
+     948.0,
+     1884.0,
+     983.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p07.t02.r001.c01",
+   "row_id": "p07.t02.r001",
+   "period_id": "y2011",
+   "value": {
+    "state": "number",
+    "raw": "(44.411.839)",
+    "value": "-44411839",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.9251,
+   "confidence_components": {
+    "ocr": 0.9251,
+    "parse": 1.0
+   },
+   "provenance": {
+    "page": 7,
+    "bbox": [
+     1962.0,
+     949.0,
+     2156.0,
+     992.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p07.t02.r002.c00",
+   "row_id": "p07.t02.r002",
+   "period_id": "y2012",
+   "value": {
+    "state": "number",
+    "raw": "27.876.243",
+    "value": "27876243",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.8077,
+   "confidence_components": {
+    "ocr": 0.8077,
+    "parse": 1.0
+   },
+   "provenance": {
+    "page": 7,
+    "bbox": [
+     1703.0,
+     1029.0,
+     1871.0,
+     1058.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p07.t02.r002.c01",
+   "row_id": "p07.t02.r002",
+   "period_id": "y2011",
+   "value": {
+    "state": "number",
+    "raw": "32.019.756",
+    "value": "32019756",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.9579,
+   "confidence_components": {
+    "ocr": 0.9579,
+    "parse": 1.0
+   },
+   "provenance": {
+    "page": 7,
+    "bbox": [
+     1974.0,
+     1032.0,
+     2144.0,
+     1059.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p07.t02.r003.c00",
+   "row_id": "p07.t02.r003",
+   "period_id": "y2012",
+   "value": {
+    "state": "number",
+    "raw": "(10.043.970)",
+    "value": "-10043970",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.9627,
+   "confidence_components": {
+    "ocr": 0.9627,
+    "parse": 1.0
+   },
+   "provenance": {
+    "page": 7,
+    "bbox": [
+     1692.0,
+     1101.0,
+     1884.0,
+     1137.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p07.t02.r003.c01",
+   "row_id": "p07.t02.r003",
+   "period_id": "y2011",
+   "value": {
+    "state": "number",
+    "raw": "(9.733.892)",
+    "value": "-9733892",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.9644,
+   "confidence_components": {
+    "ocr": 0.9644,
+    "parse": 1.0
+   },
+   "provenance": {
+    "page": 7,
+    "bbox": [
+     1982.0,
+     1102.0,
+     2156.0,
+     1139.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p07.t02.r004.c00",
+   "row_id": "p07.t02.r004",
+   "period_id": "y2012",
+   "value": {
+    "state": "number",
+    "raw": "(13.500.342)",
+    "value": "-13500342",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.9685,
+   "confidence_components": {
+    "ocr": 0.9685,
+    "parse": 1.0
+   },
+   "provenance": {
+    "page": 7,
+    "bbox": [
+     1692.0,
+     1152.0,
+     1884.0,
+     1191.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p07.t02.r004.c01",
+   "row_id": "p07.t02.r004",
+   "period_id": "y2011",
+   "value": {
+    "state": "number",
+    "raw": "(2.680.177)",
+    "value": "-2680177",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.9653,
+   "confidence_components": {
+    "ocr": 0.9653,
+    "parse": 1.0
+   },
+   "provenance": {
+    "page": 7,
+    "bbox": [
+     1982.0,
+     1153.0,
+     2156.0,
+     1190.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p07.t02.r005.c00",
+   "row_id": "p07.t02.r005",
+   "period_id": "y2012",
+   "value": {
+    "state": "number",
+    "raw": "3.896.434",
+    "value": "3896434",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.9564,
+   "confidence_components": {
+    "ocr": 0.9564,
+    "parse": 1.0
+   },
+   "provenance": {
+    "page": 7,
+    "bbox": [
+     1722.0,
+     1200.0,
+     1872.0,
+     1229.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p07.t02.r005.c01",
+   "row_id": "p07.t02.r005",
+   "period_id": "y2011",
+   "value": {
+    "state": "number",
+    "raw": "151.350.000",
+    "value": "151350000",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.9417,
+   "confidence_components": {
+    "ocr": 0.9417,
+    "parse": 1.0
+   },
+   "provenance": {
+    "page": 7,
+    "bbox": [
+     1959.0,
+     1201.0,
+     2144.0,
+     1230.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p07.t02.r006.c00",
+   "row_id": "p07.t02.r006",
+   "period_id": "y2012",
+   "value": {
+    "state": "number",
+    "raw": "105.590",
+    "value": "105590",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.9627,
+   "confidence_components": {
+    "ocr": 0.9627,
+    "parse": 1.0
+   },
+   "provenance": {
+    "page": 7,
+    "bbox": [
+     1754.0,
+     1251.0,
+     1872.0,
+     1280.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p07.t02.r006.c01",
+   "row_id": "p07.t02.r006",
+   "period_id": "y2011",
+   "value": {
+    "state": "number",
+    "raw": "5.030.355",
+    "value": "5030355",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.964,
+   "confidence_components": {
+    "ocr": 0.964,
+    "parse": 1.0
+   },
+   "provenance": {
+    "page": 7,
+    "bbox": [
+     1995.0,
+     1252.0,
+     2144.0,
+     1281.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p07.t02.r007.c00",
+   "row_id": "p07.t02.r007",
+   "period_id": "y2012",
+   "value": {
+    "state": "number",
+    "raw": "(346.564)",
+    "value": "-346564",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.9574,
+   "confidence_components": {
+    "ocr": 0.9574,
+    "parse": 1.0
+   },
+   "provenance": {
+    "page": 7,
+    "bbox": [
+     1739.0,
+     1302.0,
+     1884.0,
+     1337.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p07.t02.r007.c01",
+   "row_id": "p07.t02.r007",
+   "period_id": "y2011",
+   "value": {
+    "state": "number",
+    "raw": "(561.989)",
+    "value": "-561989",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.8585,
+   "confidence_components": {
+    "ocr": 0.8585,
+    "parse": 1.0
+   },
+   "provenance": {
+    "page": 7,
+    "bbox": [
+     2010.0,
+     1303.0,
+     2156.0,
+     1340.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p07.t02.r008.c00",
+   "row_id": "p07.t02.r008",
+   "period_id": "y2012",
+   "value": {
+    "state": "number",
+    "raw": "7.987.391",
+    "value": "7987391",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.8793,
+   "confidence_components": {
+    "ocr": 0.8793,
+    "parse": 1.0
+   },
+   "provenance": {
+    "page": 7,
+    "bbox": [
+     1722.0,
+     1383.0,
+     1871.0,
+     1410.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p07.t02.r008.c01",
+   "row_id": "p07.t02.r008",
+   "period_id": "y2011",
+   "value": {
+    "state": "number",
+    "raw": "175.424.053",
+    "value": "175424053",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.9593,
+   "confidence_components": {
+    "ocr": 0.9593,
+    "parse": 1.0
+   },
+   "provenance": {
+    "page": 7,
+    "bbox": [
+     1958.0,
+     1384.0,
+     2144.0,
+     1412.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p07.t02.r009.c00",
+   "row_id": "p07.t02.r009",
+   "period_id": "y2012",
+   "value": {
+    "state": "number",
+    "raw": "71.896",
+    "value": "71896",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.961,
+   "confidence_components": {
+    "ocr": 0.961,
+    "parse": 1.0
+   },
+   "provenance": {
+    "page": 7,
+    "bbox": [
+     1770.0,
+     1527.0,
+     1871.0,
+     1554.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p07.t02.r009.c01",
+   "row_id": "p07.t02.r009",
+   "period_id": "y2011",
+   "value": {
+    "state": "dash",
+    "raw": "-"
+   },
+   "confidence": 0.9192,
+   "confidence_components": {
+    "ocr": 0.9192,
+    "parse": 1.0
+   },
+   "provenance": {
+    "page": 7,
+    "bbox": [
+     2132.0,
+     1545.0,
+     2145.0,
+     1550.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p07.t02.r010.c00",
+   "row_id": "p07.t02.r010",
+   "period_id": "y2012",
+   "value": {
+    "state": "number",
+    "raw": "19.727.437",
+    "value": "19727437",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.9579,
+   "confidence_components": {
+    "ocr": 0.9579,
+    "parse": 1.0
+   },
+   "provenance": {
+    "page": 7,
+    "bbox": [
+     1707.0,
+     1576.0,
+     1872.0,
+     1605.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p07.t02.r010.c01",
+   "row_id": "p07.t02.r010",
+   "period_id": "y2011",
+   "value": {
+    "state": "number",
+    "raw": "13.834.817",
+    "value": "13834817",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.9573,
+   "confidence_components": {
+    "ocr": 0.9573,
+    "parse": 1.0
+   },
+   "provenance": {
+    "page": 7,
+    "bbox": [
+     1979.0,
+     1579.0,
+     2145.0,
+     1607.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p07.t02.r011.c00",
+   "row_id": "p07.t02.r011",
+   "period_id": "y2012",
+   "value": {
+    "state": "number",
+    "raw": "(16.289.551)",
+    "value": "-16289551",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.9071,
+   "confidence_components": {
+    "ocr": 0.9071,
+    "parse": 1.0
+   },
+   "provenance": {
+    "page": 7,
+    "bbox": [
+     1691.0,
+     1627.0,
+     1884.0,
+     1664.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p07.t02.r011.c01",
+   "row_id": "p07.t02.r011",
+   "period_id": "y2011",
+   "value": {
+    "state": "number",
+    "raw": "(24.329.214)",
+    "value": "-24329214",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.9651,
+   "confidence_components": {
+    "ocr": 0.9651,
+    "parse": 1.0
+   },
+   "provenance": {
+    "page": 7,
+    "bbox": [
+     1962.0,
+     1629.0,
+     2156.0,
+     1665.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p07.t02.r012.c00",
+   "row_id": "p07.t02.r012",
+   "period_id": "y2012",
+   "value": {
+    "state": "number",
+    "raw": "11.497.173",
+    "value": "11497173",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.921,
+   "confidence_components": {
+    "ocr": 0.921,
+    "parse": 1.0
+   },
+   "provenance": {
+    "page": 7,
+    "bbox": [
+     1704.0,
+     1742.0,
+     1871.0,
+     1769.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p07.t02.r012.c01",
+   "row_id": "p07.t02.r012",
+   "period_id": "y2011",
+   "value": {
+    "state": "number",
+    "raw": "164.929.656",
+    "value": "164929656",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.8881,
+   "confidence_components": {
+    "ocr": 0.8881,
+    "parse": 1.0
+   },
+   "provenance": {
+    "page": 7,
+    "bbox": [
+     1958.0,
+     1743.0,
+     2145.0,
+     1772.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p07.t02.r013.c00",
+   "row_id": "p07.t02.r013",
+   "period_id": "y2012",
+   "value": {
+    "state": "number",
+    "raw": "(778.217)",
+    "value": "-778217",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.8541,
+   "confidence_components": {
+    "ocr": 0.8541,
+    "parse": 1.0
+   },
+   "provenance": {
+    "page": 7,
+    "bbox": [
+     1739.0,
+     1835.0,
+     1883.0,
+     1879.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p07.t02.r013.c01",
+   "row_id": "p07.t02.r013",
+   "period_id": "y2011",
+   "value": {
+    "state": "number",
+    "raw": "(3.015.405)",
+    "value": "-3015405",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.9622,
+   "confidence_components": {
+    "ocr": 0.9622,
+    "parse": 1.0
+   },
+   "provenance": {
+    "page": 7,
+    "bbox": [
+     1982.0,
+     1842.0,
+     2156.0,
+     1878.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p07.t02.r014.c00",
+   "row_id": "p07.t02.r014",
+   "period_id": "y2012",
+   "value": {
+    "state": "number",
+    "raw": "(676.668)",
+    "value": "-676668",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.9647,
+   "confidence_components": {
+    "ocr": 0.9647,
+    "parse": 1.0
+   },
+   "provenance": {
+    "page": 7,
+    "bbox": [
+     1739.0,
+     1890.0,
+     1883.0,
+     1926.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p07.t02.r014.c01",
+   "row_id": "p07.t02.r014",
+   "period_id": "y2011",
+   "value": {
+    "state": "number",
+    "raw": "(3.742.633)",
+    "value": "-3742633",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.9453,
+   "confidence_components": {
+    "ocr": 0.9453,
+    "parse": 1.0
+   },
+   "provenance": {
+    "page": 7,
+    "bbox": [
+     1982.0,
+     1892.0,
+     2156.0,
+     1929.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p07.t02.r015.c00",
+   "row_id": "p07.t02.r015",
+   "period_id": "y2012",
+   "value": {
+    "state": "number",
+    "raw": "(101.549)",
+    "value": "-101549",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.9547,
+   "confidence_components": {
+    "ocr": 0.9547,
+    "parse": 1.0
+   },
+   "provenance": {
+    "page": 7,
+    "bbox": [
+     1737.0,
+     1941.0,
+     1884.0,
+     1977.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p07.t02.r015.c01",
+   "row_id": "p07.t02.r015",
+   "period_id": "y2011",
+   "value": {
+    "state": "number",
+    "raw": "727.228",
+    "value": "727228",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.9504,
+   "confidence_components": {
+    "ocr": 0.9504,
+    "parse": 1.0
+   },
+   "provenance": {
+    "page": 7,
+    "bbox": [
+     2024.0,
+     1944.0,
+     2144.0,
+     1973.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p07.t02.r016.c00",
+   "row_id": "p07.t02.r016",
+   "period_id": "y2012",
+   "value": {
+    "state": "number",
+    "raw": "10.718.956",
+    "value": "10718956",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.9552,
+   "confidence_components": {
+    "ocr": 0.9552,
+    "parse": 1.0
+   },
+   "provenance": {
+    "page": 7,
+    "bbox": [
+     1704.0,
+     2037.0,
+     1871.0,
+     2066.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p07.t02.r016.c01",
+   "row_id": "p07.t02.r016",
+   "period_id": "y2011",
+   "value": {
+    "state": "number",
+    "raw": "161.914.251",
+    "value": "161914251",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.9424,
+   "confidence_components": {
+    "ocr": 0.9424,
+    "parse": 1.0
+   },
+   "provenance": {
+    "page": 7,
+    "bbox": [
+     1958.0,
+     2039.0,
+     2142.0,
+     2067.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p07.t02.r018.c00",
+   "row_id": "p07.t02.r018",
+   "period_id": "y2012",
+   "value": {
+    "state": "number",
+    "raw": "1.658.369",
+    "value": "1658369",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.9679,
+   "confidence_components": {
+    "ocr": 0.9679,
+    "parse": 1.0
+   },
+   "provenance": {
+    "page": 7,
+    "bbox": [
+     1725.0,
+     2157.0,
+     1871.0,
+     2186.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p07.t02.r018.c01",
+   "row_id": "p07.t02.r018",
+   "period_id": "y2011",
+   "value": {
+    "state": "number",
+    "raw": "271.741",
+    "value": "271741",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.9417,
+   "confidence_components": {
+    "ocr": 0.9417,
+    "parse": 1.0
+   },
+   "provenance": {
+    "page": 7,
+    "bbox": [
+     2022.0,
+     2160.0,
+     2141.0,
+     2187.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p07.t02.r019.c00",
+   "row_id": "p07.t02.r019",
+   "period_id": "y2012",
+   "value": {
+    "state": "number",
+    "raw": "9.060.587",
+    "value": "9060587",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.9509,
+   "confidence_components": {
+    "ocr": 0.9509,
+    "parse": 1.0
+   },
+   "provenance": {
+    "page": 7,
+    "bbox": [
+     1722.0,
+     2208.0,
+     1871.0,
+     2237.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p07.t02.r019.c01",
+   "row_id": "p07.t02.r019",
+   "period_id": "y2011",
+   "value": {
+    "state": "number",
+    "raw": "161.642.510",
+    "value": "161642510",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.95,
+   "confidence_components": {
+    "ocr": 0.95,
+    "parse": 1.0
+   },
+   "provenance": {
+    "page": 7,
+    "bbox": [
+     1959.0,
+     2210.0,
+     2144.0,
+     2238.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p07.t02.r020.c00",
+   "row_id": "p07.t02.r020",
+   "period_id": "y2012",
+   "value": {
+    "state": "number",
+    "raw": "10.718.956",
+    "value": "10718956",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.9666,
+   "confidence_components": {
+    "ocr": 0.9666,
+    "parse": 1.0
+   },
+   "provenance": {
+    "page": 7,
+    "bbox": [
+     1704.0,
+     2253.0,
+     1871.0,
+     2280.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p07.t02.r020.c01",
+   "row_id": "p07.t02.r020",
+   "period_id": "y2011",
+   "value": {
+    "state": "number",
+    "raw": "161.914.251",
+    "value": "161914251",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.9505,
+   "confidence_components": {
+    "ocr": 0.9505,
+    "parse": 1.0
+   },
+   "provenance": {
+    "page": 7,
+    "bbox": [
+     1956.0,
+     2253.0,
+     2142.0,
+     2283.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p07.t02.r021.c00",
+   "row_id": "p07.t02.r021",
+   "period_id": "y2012",
+   "value": {
+    "state": "number",
+    "raw": "0,058",
+    "value": "0.058",
+    "kind": "decimal",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.3555,
+   "confidence_components": {
+    "ocr": 0.3555,
+    "parse": 1.0
+   },
+   "provenance": {
+    "page": 7,
+    "bbox": [
+     1788.0,
+     2316.0,
+     1871.0,
+     2349.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p07.t02.r021.c01",
+   "row_id": "p07.t02.r021",
+   "period_id": "y2011",
+   "value": {
+    "state": "number",
+    "raw": "1,191",
+    "value": "1.191",
+    "kind": "decimal",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.9172,
+   "confidence_components": {
+    "ocr": 0.9172,
+    "parse": 1.0
+   },
+   "provenance": {
+    "page": 7,
+    "bbox": [
+     2061.0,
+     2319.0,
+     2142.0,
+     2351.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p07.t02.r022.c00",
+   "row_id": "p07.t02.r022",
+   "period_id": "y2012",
+   "value": {
+    "state": "number",
+    "raw": "(19.846.865)",
+    "value": "-19846865",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.9599,
+   "confidence_components": {
+    "ocr": 0.9599,
+    "parse": 1.0
+   },
+   "provenance": {
+    "page": 7,
+    "bbox": [
+     1691.0,
+     2412.0,
+     1883.0,
+     2448.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p07.t02.r022.c01",
+   "row_id": "p07.t02.r022",
+   "period_id": "y2011",
+   "value": {
+    "state": "number",
+    "raw": "196.292.383",
+    "value": "196292383",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.966,
+   "confidence_components": {
+    "ocr": 0.966,
+    "parse": 1.0
+   },
+   "provenance": {
+    "page": 7,
+    "bbox": [
+     1959.0,
+     2414.0,
+     2142.0,
+     2442.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p07.t02.r023.c00",
+   "row_id": "p07.t02.r023",
+   "period_id": "y2012",
+   "value": {
+    "state": "number",
+    "raw": "(19.846.865)",
+    "value": "-19846865",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.9544,
+   "confidence_components": {
+    "ocr": 0.9544,
+    "parse": 1.0
+   },
+   "provenance": {
+    "page": 7,
+    "bbox": [
+     1691.0,
+     2460.0,
+     1883.0,
+     2496.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p07.t02.r023.c01",
+   "row_id": "p07.t02.r023",
+   "period_id": "y2011",
+   "value": {
+    "state": "number",
+    "raw": "196.292.383",
+    "value": "196292383",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.962,
+   "confidence_components": {
+    "ocr": 0.962,
+    "parse": 1.0
+   },
+   "provenance": {
+    "page": 7,
+    "bbox": [
+     1959.0,
+     2462.0,
+     2142.0,
+     2492.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p07.t02.r024.c00",
+   "row_id": "p07.t02.r024",
+   "period_id": "y2012",
+   "value": {
+    "state": "number",
+    "raw": "(9.127.909)",
+    "value": "-9127909",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.9509,
+   "confidence_components": {
+    "ocr": 0.9509,
+    "parse": 1.0
+   },
+   "provenance": {
+    "page": 7,
+    "bbox": [
+     1709.0,
+     2556.0,
+     1883.0,
+     2591.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p07.t02.r024.c01",
+   "row_id": "p07.t02.r024",
+   "period_id": "y2011",
+   "value": {
+    "state": "number",
+    "raw": "358.206.634",
+    "value": "358206634",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.7394,
+   "confidence_components": {
+    "ocr": 0.7394,
+    "parse": 1.0
+   },
+   "provenance": {
+    "page": 7,
+    "bbox": [
+     1955.0,
+     2558.0,
+     2144.0,
+     2586.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p07.t02.r026.c00",
+   "row_id": "p07.t02.r026",
+   "period_id": "y2012",
+   "value": {
+    "state": "number",
+    "raw": "(6.883.744)",
+    "value": "-6883744",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.9577,
+   "confidence_components": {
+    "ocr": 0.9577,
+    "parse": 1.0
+   },
+   "provenance": {
+    "page": 7,
+    "bbox": [
+     1709.0,
+     2675.0,
+     1883.0,
+     2719.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p07.t02.r026.c01",
+   "row_id": "p07.t02.r026",
+   "period_id": "y2011",
+   "value": {
+    "state": "number",
+    "raw": "84.685.211",
+    "value": "84685211",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.9348,
+   "confidence_components": {
+    "ocr": 0.9348,
+    "parse": 1.0
+   },
+   "provenance": {
+    "page": 7,
+    "bbox": [
+     1976.0,
+     2682.0,
+     2141.0,
+     2711.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p07.t02.r027.c00",
+   "row_id": "p07.t02.r027",
+   "period_id": "y2012",
+   "value": {
+    "state": "number",
+    "raw": "(2.244.165)",
+    "value": "-2244165",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.8283,
+   "confidence_components": {
+    "ocr": 0.8283,
+    "parse": 1.0
+   },
+   "provenance": {
+    "page": 7,
+    "bbox": [
+     1709.0,
+     2732.0,
+     1883.0,
+     2772.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p07.t02.r027.c01",
+   "row_id": "p07.t02.r027",
+   "period_id": "y2011",
+   "value": {
+    "state": "number",
+    "raw": "273.521.423",
+    "value": "273521423",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.8843,
+   "confidence_components": {
+    "ocr": 0.8843,
+    "parse": 1.0
+   },
+   "provenance": {
+    "page": 7,
+    "bbox": [
+     1955.0,
+     2733.0,
+     2141.0,
+     2762.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p07.t02.r028.c00",
+   "row_id": "p07.t02.r028",
+   "period_id": "y2012",
+   "value": {
+    "state": "number",
+    "raw": "(9.127.909)",
+    "value": "-9127909",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.9111,
+   "confidence_components": {
+    "ocr": 0.9111,
+    "parse": 1.0
+   },
+   "provenance": {
+    "page": 7,
+    "bbox": [
+     1709.0,
+     2778.0,
+     1883.0,
+     2814.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p07.t02.r028.c01",
+   "row_id": "p07.t02.r028",
+   "period_id": "y2011",
+   "value": {
+    "state": "number",
+    "raw": "358.206.634",
+    "value": "358206634",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.8312,
+   "confidence_components": {
+    "ocr": 0.8312,
+    "parse": 1.0
+   },
+   "provenance": {
+    "page": 7,
+    "bbox": [
+     1955.0,
+     2780.0,
+     2144.0,
+     2808.0
+    ],
+    "dpi": null,
+    "stage": "summary_extraction"
+   }
+  },
+  {
+   "cell_id": "p53.t03.r000.c00",
+   "row_id": "p53.t03.r000",
+   "period_id": "arazi_ve_arsalar",
+   "value": {
+    "state": "number",
+    "raw": "227.317.822",
+    "value": "227317822",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.8908,
+   "confidence_components": {
+    "ocr": 0.8908,
+    "parse": 1.0
+   },
+   "provenance": {
+    "page": 53,
+    "bbox": [
+     1276.0,
+     747.0,
+     1502.0,
+     780.0
+    ],
+    "dpi": null,
+    "stage": "footnote_extraction"
+   }
+  },
+  {
+   "cell_id": "p53.t03.r000.c01",
+   "row_id": "p53.t03.r000",
+   "period_id": "binalar",
+   "value": {
+    "state": "number",
+    "raw": "196.262.178",
+    "value": "196262178",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.9626,
+   "confidence_components": {
+    "ocr": 0.9626,
+    "parse": 1.0
+   },
+   "provenance": {
+    "page": 53,
+    "bbox": [
+     1590.0,
+     748.0,
+     1812.0,
+     782.0
+    ],
+    "dpi": null,
+    "stage": "footnote_extraction"
+   }
+  },
+  {
+   "cell_id": "p53.t03.r000.c02",
+   "row_id": "p53.t03.r000",
+   "period_id": "toplam",
+   "value": {
+    "state": "number",
+    "raw": "423.580.000",
+    "value": "423580000",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.9627,
+   "confidence_components": {
+    "ocr": 0.9627,
+    "parse": 1.0
+   },
+   "provenance": {
+    "page": 53,
+    "bbox": [
+     1899.0,
+     750.0,
+     2126.0,
+     785.0
+    ],
+    "dpi": null,
+    "stage": "footnote_extraction"
+   }
+  },
+  {
+   "cell_id": "p53.t03.r001.c00",
+   "row_id": "p53.t03.r001",
+   "period_id": "arazi_ve_arsalar",
+   "value": {
+    "state": "number",
+    "raw": "19.197.311",
+    "value": "19197311",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.8988,
+   "confidence_components": {
+    "ocr": 0.8988,
+    "parse": 1.0
+   },
+   "provenance": {
+    "page": 53,
+    "bbox": [
+     1303.0,
+     807.0,
+     1497.0,
+     842.0
+    ],
+    "dpi": null,
+    "stage": "footnote_extraction"
+   }
+  },
+  {
+   "cell_id": "p53.t03.r001.c01",
+   "row_id": "p53.t03.r001",
+   "period_id": "binalar",
+   "value": {
+    "state": "dash",
+    "raw": "-"
+   },
+   "confidence": 0.9032,
+   "confidence_components": {
+    "ocr": 0.9032,
+    "parse": 1.0
+   },
+   "provenance": {
+    "page": 53,
+    "bbox": [
+     1802.0,
+     829.0,
+     1814.0,
+     834.0
+    ],
+    "dpi": null,
+    "stage": "footnote_extraction"
+   }
+  },
+  {
+   "cell_id": "p53.t03.r001.c02",
+   "row_id": "p53.t03.r001",
+   "period_id": "toplam",
+   "value": {
+    "state": "number",
+    "raw": "19.197.311",
+    "value": "19197311",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.9306,
+   "confidence_components": {
+    "ocr": 0.9306,
+    "parse": 1.0
+   },
+   "provenance": {
+    "page": 53,
+    "bbox": [
+     1926.0,
+     811.0,
+     2123.0,
+     845.0
+    ],
+    "dpi": null,
+    "stage": "footnote_extraction"
+   }
+  },
+  {
+   "cell_id": "p53.t03.r002.c00",
+   "row_id": "p53.t03.r002",
+   "period_id": "arazi_ve_arsalar",
+   "value": {
+    "state": "number",
+    "raw": "3.896.434",
+    "value": "3896434",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.959,
+   "confidence_components": {
+    "ocr": 0.959,
+    "parse": 1.0
+   },
+   "provenance": {
+    "page": 53,
+    "bbox": [
+     1323.0,
+     868.0,
+     1502.0,
+     902.0
+    ],
+    "dpi": null,
+    "stage": "footnote_extraction"
+   }
+  },
+  {
+   "cell_id": "p53.t03.r002.c01",
+   "row_id": "p53.t03.r002",
+   "period_id": "binalar",
+   "value": {
+    "state": "dash",
+    "raw": "-"
+   },
+   "confidence": 0.9074,
+   "confidence_components": {
+    "ocr": 0.9074,
+    "parse": 1.0
+   },
+   "provenance": {
+    "page": 53,
+    "bbox": [
+     1802.0,
+     891.0,
+     1814.0,
+     896.0
+    ],
+    "dpi": null,
+    "stage": "footnote_extraction"
+   }
+  },
+  {
+   "cell_id": "p53.t03.r002.c02",
+   "row_id": "p53.t03.r002",
+   "period_id": "toplam",
+   "value": {
+    "state": "number",
+    "raw": "3.896.434",
+    "value": "3896434",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.9514,
+   "confidence_components": {
+    "ocr": 0.9514,
+    "parse": 1.0
+   },
+   "provenance": {
+    "page": 53,
+    "bbox": [
+     1946.0,
+     873.0,
+     2127.0,
+     906.0
+    ],
+    "dpi": null,
+    "stage": "footnote_extraction"
+   }
+  },
+  {
+   "cell_id": "p53.t03.r003.c00",
+   "row_id": "p53.t03.r003",
+   "period_id": "arazi_ve_arsalar",
+   "value": {
+    "state": "number",
+    "raw": "(72.681.523)",
+    "value": "-72681523",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.9431,
+   "confidence_components": {
+    "ocr": 0.9431,
+    "parse": 1.0
+   },
+   "provenance": {
+    "page": 53,
+    "bbox": [
+     1284.0,
+     943.0,
+     1515.0,
+     988.0
+    ],
+    "dpi": null,
+    "stage": "footnote_extraction"
+   }
+  },
+  {
+   "cell_id": "p53.t03.r003.c01",
+   "row_id": "p53.t03.r003",
+   "period_id": "binalar",
+   "value": {
+    "state": "dash",
+    "raw": "-"
+   },
+   "confidence": 0.914,
+   "confidence_components": {
+    "ocr": 0.914,
+    "parse": 1.0
+   },
+   "provenance": {
+    "page": 53,
+    "bbox": [
+     1802.0,
+     967.0,
+     1814.0,
+     972.0
+    ],
+    "dpi": null,
+    "stage": "footnote_extraction"
+   }
+  },
+  {
+   "cell_id": "p53.t03.r003.c02",
+   "row_id": "p53.t03.r003",
+   "period_id": "toplam",
+   "value": {
+    "state": "number",
+    "raw": "(72.681.523)",
+    "value": "-72681523",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.9346,
+   "confidence_components": {
+    "ocr": 0.9346,
+    "parse": 1.0
+   },
+   "provenance": {
+    "page": 53,
+    "bbox": [
+     1908.0,
+     948.0,
+     2142.0,
+     992.0
+    ],
+    "dpi": null,
+    "stage": "footnote_extraction"
+   }
+  },
+  {
+   "cell_id": "p53.t03.r004.c00",
+   "row_id": "p53.t03.r004",
+   "period_id": "arazi_ve_arsalar",
+   "value": {
+    "state": "number",
+    "raw": "177.730.044",
+    "value": "177730044",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.9562,
+   "confidence_components": {
+    "ocr": 0.9562,
+    "parse": 1.0
+   },
+   "provenance": {
+    "page": 53,
+    "bbox": [
+     1280.0,
+     1035.0,
+     1502.0,
+     1068.0
+    ],
+    "dpi": null,
+    "stage": "footnote_extraction"
+   }
+  },
+  {
+   "cell_id": "p53.t03.r004.c01",
+   "row_id": "p53.t03.r004",
+   "period_id": "binalar",
+   "value": {
+    "state": "number",
+    "raw": "196.262.178",
+    "value": "196262178",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.8689,
+   "confidence_components": {
+    "ocr": 0.8689,
+    "parse": 1.0
+   },
+   "provenance": {
+    "page": 53,
+    "bbox": [
+     1590.0,
+     1036.0,
+     1812.0,
+     1071.0
+    ],
+    "dpi": null,
+    "stage": "footnote_extraction"
+   }
+  },
+  {
+   "cell_id": "p53.t03.r004.c02",
+   "row_id": "p53.t03.r004",
+   "period_id": "toplam",
+   "value": {
+    "state": "number",
+    "raw": "373.992.222",
+    "value": "373992222",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.5419,
+   "confidence_components": {
+    "ocr": 0.5419,
+    "parse": 1.0
+   },
+   "provenance": {
+    "page": 53,
+    "bbox": [
+     1901.0,
+     1039.0,
+     2127.0,
+     1073.0
+    ],
+    "dpi": null,
+    "stage": "footnote_extraction"
+   }
+  },
+  {
+   "cell_id": "p53.t03.r005.c00",
+   "row_id": "p53.t03.r005",
+   "period_id": "arazi_ve_arsalar",
+   "value": {
+    "state": "number",
+    "raw": "177.730.044",
+    "value": "177730044",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.9399,
+   "confidence_components": {
+    "ocr": 0.9399,
+    "parse": 1.0
+   },
+   "provenance": {
+    "page": 53,
+    "bbox": [
+     1279.0,
+     1164.0,
+     1502.0,
+     1197.0
+    ],
+    "dpi": null,
+    "stage": "footnote_extraction"
+   }
+  },
+  {
+   "cell_id": "p53.t03.r005.c01",
+   "row_id": "p53.t03.r005",
+   "period_id": "binalar",
+   "value": {
+    "state": "number",
+    "raw": "196.262.178",
+    "value": "196262178",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.8885,
+   "confidence_components": {
+    "ocr": 0.8885,
+    "parse": 1.0
+   },
+   "provenance": {
+    "page": 53,
+    "bbox": [
+     1590.0,
+     1165.0,
+     1812.0,
+     1199.0
+    ],
+    "dpi": null,
+    "stage": "footnote_extraction"
+   }
+  },
+  {
+   "cell_id": "p53.t03.r005.c02",
+   "row_id": "p53.t03.r005",
+   "period_id": "toplam",
+   "value": {
+    "state": "number",
+    "raw": "373.992.222",
+    "value": "373992222",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.7045,
+   "confidence_components": {
+    "ocr": 0.7045,
+    "parse": 1.0
+   },
+   "provenance": {
+    "page": 53,
+    "bbox": [
+     1901.0,
+     1167.0,
+     2127.0,
+     1200.0
+    ],
+    "dpi": null,
+    "stage": "footnote_extraction"
+   }
+  },
+  {
+   "cell_id": "p53.t04.r000.c00",
+   "row_id": "p53.t04.r000",
+   "period_id": "harcamalar_arazi_ve_arsalar",
+   "value": {
+    "state": "number",
+    "raw": "82.097.790",
+    "value": "82097790",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.9491,
+   "confidence_components": {
+    "ocr": 0.9491,
+    "parse": 1.0
+   },
+   "provenance": {
+    "page": 53,
+    "bbox": [
+     1299.0,
+     1986.0,
+     1499.0,
+     2021.0
+    ],
+    "dpi": null,
+    "stage": "footnote_extraction"
+   }
+  },
+  {
+   "cell_id": "p53.t04.r000.c01",
+   "row_id": "p53.t04.r000",
+   "period_id": "binalar",
+   "value": {
+    "state": "number",
+    "raw": "122937.178",
+    "value": "122937178",
+    "kind": "int",
+    "value_high": null,
+    "repaired": true
+   },
+   "confidence": 0.6362,
+   "confidence_components": {
+    "ocr": 0.9089,
+    "parse": 0.7
+   },
+   "provenance": {
+    "page": 53,
+    "bbox": [
+     1589.0,
+     1989.0,
+     1815.0,
+     2024.0
+    ],
+    "dpi": null,
+    "stage": "footnote_extraction"
+   }
+  },
+  {
+   "cell_id": "p53.t04.r000.c02",
+   "row_id": "p53.t04.r000",
+   "period_id": "toplam",
+   "value": {
+    "state": "number",
+    "raw": "205.034.968",
+    "value": "205034968",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.8395,
+   "confidence_components": {
+    "ocr": 0.8395,
+    "parse": 1.0
+   },
+   "provenance": {
+    "page": 53,
+    "bbox": [
+     1899.0,
+     1991.0,
+     2127.0,
+     2025.0
+    ],
+    "dpi": null,
+    "stage": "footnote_extraction"
+   }
+  },
+  {
+   "cell_id": "p53.t04.r001.c00",
+   "row_id": "p53.t04.r001",
+   "period_id": "harcamalar_arazi_ve_arsalar",
+   "value": {
+    "state": "number",
+    "raw": "64.046.943",
+    "value": "64046943",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.957,
+   "confidence_components": {
+    "ocr": 0.957,
+    "parse": 1.0
+   },
+   "provenance": {
+    "page": 53,
+    "bbox": [
+     1297.0,
+     2048.0,
+     1497.0,
+     2082.0
+    ],
+    "dpi": null,
+    "stage": "footnote_extraction"
+   }
+  },
+  {
+   "cell_id": "p53.t04.r001.c01",
+   "row_id": "p53.t04.r001",
+   "period_id": "binalar",
+   "value": {
+    "state": "number",
+    "raw": "13.598.089",
+    "value": "13598089",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.9527,
+   "confidence_components": {
+    "ocr": 0.9527,
+    "parse": 1.0
+   },
+   "provenance": {
+    "page": 53,
+    "bbox": [
+     1612.0,
+     2051.0,
+     1815.0,
+     2085.0
+    ],
+    "dpi": null,
+    "stage": "footnote_extraction"
+   }
+  },
+  {
+   "cell_id": "p53.t04.r001.c02",
+   "row_id": "p53.t04.r001",
+   "period_id": "toplam",
+   "value": {
+    "state": "number",
+    "raw": "77.645.032",
+    "value": "77645032",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.9343,
+   "confidence_components": {
+    "ocr": 0.9343,
+    "parse": 1.0
+   },
+   "provenance": {
+    "page": 53,
+    "bbox": [
+     1923.0,
+     2052.0,
+     2129.0,
+     2087.0
+    ],
+    "dpi": null,
+    "stage": "footnote_extraction"
+   }
+  },
+  {
+   "cell_id": "p53.t04.r002.c00",
+   "row_id": "p53.t04.r002",
+   "period_id": "harcamalar_arazi_ve_arsalar",
+   "value": {
+    "state": "dash",
+    "raw": "-"
+   },
+   "confidence": 0.8353,
+   "confidence_components": {
+    "ocr": 0.8353,
+    "parse": 1.0
+   },
+   "provenance": {
+    "page": 53,
+    "bbox": [
+     1486.0,
+     2142.0,
+     1500.0,
+     2147.0
+    ],
+    "dpi": null,
+    "stage": "footnote_extraction"
+   }
+  },
+  {
+   "cell_id": "p53.t04.r002.c01",
+   "row_id": "p53.t04.r002",
+   "period_id": "binalar",
+   "value": {
+    "state": "number",
+    "raw": "(10450000)",
+    "value": "-10450000",
+    "kind": "int",
+    "value_high": null,
+    "repaired": true
+   },
+   "confidence": 0.2655,
+   "confidence_components": {
+    "ocr": 0.5311,
+    "parse": 0.5
+   },
+   "provenance": {
+    "page": 53,
+    "bbox": [
+     1593.0,
+     2123.0,
+     1830.0,
+     2168.0
+    ],
+    "dpi": null,
+    "stage": "footnote_extraction"
+   }
+  },
+  {
+   "cell_id": "p53.t04.r002.c02",
+   "row_id": "p53.t04.r002",
+   "period_id": "toplam",
+   "value": {
+    "state": "number",
+    "raw": "(10.450.000)",
+    "value": "-10450000",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.9455,
+   "confidence_components": {
+    "ocr": 0.9455,
+    "parse": 1.0
+   },
+   "provenance": {
+    "page": 53,
+    "bbox": [
+     1908.0,
+     2126.0,
+     2145.0,
+     2171.0
+    ],
+    "dpi": null,
+    "stage": "footnote_extraction"
+   }
+  },
+  {
+   "cell_id": "p53.t04.r003.c00",
+   "row_id": "p53.t04.r003",
+   "period_id": "harcamalar_arazi_ve_arsalar",
+   "value": {
+    "state": "number",
+    "raw": "81.173.089",
+    "value": "81173089",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.9614,
+   "confidence_components": {
+    "ocr": 0.9614,
+    "parse": 1.0
+   },
+   "provenance": {
+    "page": 53,
+    "bbox": [
+     1298.0,
+     2246.0,
+     1499.0,
+     2280.0
+    ],
+    "dpi": null,
+    "stage": "footnote_extraction"
+   }
+  },
+  {
+   "cell_id": "p53.t04.r003.c01",
+   "row_id": "p53.t04.r003",
+   "period_id": "binalar",
+   "value": {
+    "state": "number",
+    "raw": "70.176.911",
+    "value": "70176911",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.8426,
+   "confidence_components": {
+    "ocr": 0.8426,
+    "parse": 1.0
+   },
+   "provenance": {
+    "page": 53,
+    "bbox": [
+     1608.0,
+     2247.0,
+     1812.0,
+     2282.0
+    ],
+    "dpi": null,
+    "stage": "footnote_extraction"
+   }
+  },
+  {
+   "cell_id": "p53.t04.r003.c02",
+   "row_id": "p53.t04.r003",
+   "period_id": "toplam",
+   "value": {
+    "state": "number",
+    "raw": "151.350.000",
+    "value": "151350000",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.9581,
+   "confidence_components": {
+    "ocr": 0.9581,
+    "parse": 1.0
+   },
+   "provenance": {
+    "page": 53,
+    "bbox": [
+     1904.0,
+     2250.0,
+     2127.0,
+     2285.0
+    ],
+    "dpi": null,
+    "stage": "footnote_extraction"
+   }
+  },
+  {
+   "cell_id": "p53.t04.r004.c00",
+   "row_id": "p53.t04.r004",
+   "period_id": "harcamalar_arazi_ve_arsalar",
+   "value": {
+    "state": "number",
+    "raw": "227.317.822",
+    "value": "227317822",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.8761,
+   "confidence_components": {
+    "ocr": 0.8761,
+    "parse": 1.0
+   },
+   "provenance": {
+    "page": 53,
+    "bbox": [
+     1273.0,
+     2337.0,
+     1501.0,
+     2372.0
+    ],
+    "dpi": null,
+    "stage": "footnote_extraction"
+   }
+  },
+  {
+   "cell_id": "p53.t04.r004.c01",
+   "row_id": "p53.t04.r004",
+   "period_id": "binalar",
+   "value": {
+    "state": "number",
+    "raw": "196262.178",
+    "value": "196262178",
+    "kind": "int",
+    "value_high": null,
+    "repaired": true
+   },
+   "confidence": 0.6077,
+   "confidence_components": {
+    "ocr": 0.8681,
+    "parse": 0.7
+   },
+   "provenance": {
+    "page": 53,
+    "bbox": [
+     1588.0,
+     2339.0,
+     1814.0,
+     2373.0
+    ],
+    "dpi": null,
+    "stage": "footnote_extraction"
+   }
+  },
+  {
+   "cell_id": "p53.t04.r004.c02",
+   "row_id": "p53.t04.r004",
+   "period_id": "toplam",
+   "value": {
+    "state": "number",
+    "raw": "423.580.000",
+    "value": "423580000",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.7894,
+   "confidence_components": {
+    "ocr": 0.7894,
+    "parse": 1.0
+   },
+   "provenance": {
+    "page": 53,
+    "bbox": [
+     1899.0,
+     2342.0,
+     2127.0,
+     2376.0
+    ],
+    "dpi": null,
+    "stage": "footnote_extraction"
+   }
+  },
+  {
+   "cell_id": "p54.t05.r000.c00",
+   "row_id": "p54.t05.r000",
+   "period_id": "y2012",
+   "value": {
+    "state": "number",
+    "raw": "%9",
+    "value": "9",
+    "kind": "percent",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.95,
+   "confidence_components": {
+    "ocr": 0.95,
+    "parse": 1.0,
+    "percent_rescue": 1.0,
+    "engine_agreement": 1.0
+   },
+   "provenance": {
+    "page": 54,
+    "bbox": [
+     1533.495,
+     924.0,
+     1833.696,
+     980.0
+    ],
+    "dpi": null,
+    "stage": "percent_rescue"
+   }
+  },
+  {
+   "cell_id": "p54.t05.r000.c01",
+   "row_id": "p54.t05.r000",
+   "period_id": "y2011",
+   "value": {
+    "state": "number",
+    "raw": "%10,5",
+    "value": "10.5",
+    "kind": "percent",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.9215,
+   "confidence_components": {
+    "ocr": 0.9215,
+    "parse": 1.0,
+    "percent_rescue": 1.0,
+    "engine_agreement": 0.7
+   },
+   "provenance": {
+    "page": 54,
+    "bbox": [
+     1975.0,
+     924.0,
+     2195.696,
+     980.0
+    ],
+    "dpi": null,
+    "stage": "percent_rescue"
+   }
+  },
+  {
+   "cell_id": "p54.t05.r001.c00",
+   "row_id": "p54.t05.r001",
+   "period_id": "y2012",
+   "value": {
+    "state": "number",
+    "raw": "%86,6",
+    "value": "86.6",
+    "kind": "percent",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.9215,
+   "confidence_components": {
+    "ocr": 0.9215,
+    "parse": 1.0,
+    "percent_rescue": 1.0,
+    "engine_agreement": 0.7
+   },
+   "provenance": {
+    "page": 54,
+    "bbox": [
+     1533.495,
+     991.0,
+     1833.696,
+     1040.0
+    ],
+    "dpi": null,
+    "stage": "percent_rescue"
+   }
+  },
+  {
+   "cell_id": "p54.t05.r001.c01",
+   "row_id": "p54.t05.r001",
+   "period_id": "y2011",
+   "value": {
+    "state": "number",
+    "raw": "%80,8",
+    "value": "80.8",
+    "kind": "percent",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.9215,
+   "confidence_components": {
+    "ocr": 0.9215,
+    "parse": 1.0,
+    "percent_rescue": 1.0,
+    "engine_agreement": 0.7
+   },
+   "provenance": {
+    "page": 54,
+    "bbox": [
+     1975.0,
+     991.0,
+     2195.696,
+     1040.0
+    ],
+    "dpi": null,
+    "stage": "percent_rescue"
+   }
+  },
+  {
+   "cell_id": "p54.t05.r002.c00",
+   "row_id": "p54.t05.r002",
+   "period_id": "y2012",
+   "value": {
+    "state": "number",
+    "raw": "%3",
+    "value": "3",
+    "kind": "percent",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.95,
+   "confidence_components": {
+    "ocr": 0.95,
+    "parse": 1.0,
+    "percent_rescue": 1.0,
+    "engine_agreement": 1.0
+   },
+   "provenance": {
+    "page": 54,
+    "bbox": [
+     1533.495,
+     1053.0,
+     1833.696,
+     1097.0
+    ],
+    "dpi": null,
+    "stage": "percent_rescue"
+   }
+  },
+  {
+   "cell_id": "p54.t05.r002.c01",
+   "row_id": "p54.t05.r002",
+   "period_id": "y2011",
+   "value": {
+    "state": "number",
+    "raw": "%2-%4",
+    "value": "2",
+    "kind": "percent_range",
+    "value_high": "4",
+    "repaired": false
+   },
+   "confidence": 0.9215,
+   "confidence_components": {
+    "ocr": 0.9215,
+    "parse": 1.0,
+    "percent_rescue": 1.0,
+    "engine_agreement": 0.7
+   },
+   "provenance": {
+    "page": 54,
+    "bbox": [
+     1975.0,
+     1053.0,
+     2195.696,
+     1097.0
+    ],
+    "dpi": null,
+    "stage": "percent_rescue"
+   }
+  },
+  {
+   "cell_id": "p54.t06.r000.c00",
+   "row_id": "p54.t06.r000",
+   "period_id": "y2012",
+   "value": {
+    "state": "number",
+    "raw": "22.719.446",
+    "value": "22719446",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.9611,
+   "confidence_components": {
+    "ocr": 0.9611,
+    "parse": 1.0
+   },
+   "provenance": {
+    "page": 54,
+    "bbox": [
+     1576.0,
+     1659.0,
+     1779.0,
+     1692.0
+    ],
+    "dpi": null,
+    "stage": "footnote_extraction"
+   }
+  },
+  {
+   "cell_id": "p54.t06.r000.c01",
+   "row_id": "p54.t06.r000",
+   "period_id": "y2011",
+   "value": {
+    "state": "number",
+    "raw": "21.717.000",
+    "value": "21717000",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.9595,
+   "confidence_components": {
+    "ocr": 0.9595,
+    "parse": 1.0
+   },
+   "provenance": {
+    "page": 54,
+    "bbox": [
+     1937.0,
+     1660.0,
+     2142.0,
+     1694.0
+    ],
+    "dpi": null,
+    "stage": "footnote_extraction"
+   }
+  },
+  {
+   "cell_id": "p54.t06.r001.c00",
+   "row_id": "p54.t06.r001",
+   "period_id": "y2012",
+   "value": {
+    "state": "number",
+    "raw": "81.026.895",
+    "value": "81026895",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.9651,
+   "confidence_components": {
+    "ocr": 0.9651,
+    "parse": 1.0
+   },
+   "provenance": {
+    "page": 54,
+    "bbox": [
+     1578.0,
+     1719.0,
+     1779.0,
+     1754.0
+    ],
+    "dpi": null,
+    "stage": "footnote_extraction"
+   }
+  },
+  {
+   "cell_id": "p54.t06.r001.c01",
+   "row_id": "p54.t06.r001",
+   "period_id": "y2011",
+   "value": {
+    "state": "number",
+    "raw": "138.538.000",
+    "value": "138538000",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.9556,
+   "confidence_components": {
+    "ocr": 0.9556,
+    "parse": 1.0
+   },
+   "provenance": {
+    "page": 54,
+    "bbox": [
+     1917.0,
+     1721.0,
+     2142.0,
+     1755.0
+    ],
+    "dpi": null,
+    "stage": "footnote_extraction"
+   }
+  },
+  {
+   "cell_id": "p54.t06.r002.c00",
+   "row_id": "p54.t06.r002",
+   "period_id": "y2012",
+   "value": {
+    "state": "number",
+    "raw": "83.586.353",
+    "value": "83586353",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.964,
+   "confidence_components": {
+    "ocr": 0.964,
+    "parse": 1.0
+   },
+   "provenance": {
+    "page": 54,
+    "bbox": [
+     1578.0,
+     1779.0,
+     1778.0,
+     1814.0
+    ],
+    "dpi": null,
+    "stage": "footnote_extraction"
+   }
+  },
+  {
+   "cell_id": "p54.t06.r002.c01",
+   "row_id": "p54.t06.r002",
+   "period_id": "y2011",
+   "value": {
+    "state": "number",
+    "raw": "81.890.000",
+    "value": "81890000",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.961,
+   "confidence_components": {
+    "ocr": 0.961,
+    "parse": 1.0
+   },
+   "provenance": {
+    "page": 54,
+    "bbox": [
+     1940.0,
+     1782.0,
+     2142.0,
+     1815.0
+    ],
+    "dpi": null,
+    "stage": "footnote_extraction"
+   }
+  },
+  {
+   "cell_id": "p54.t06.r003.c00",
+   "row_id": "p54.t06.r003",
+   "period_id": "y2012",
+   "value": {
+    "state": "number",
+    "raw": "186.659.528",
+    "value": "186659528",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.9452,
+   "confidence_components": {
+    "ocr": 0.9452,
+    "parse": 1.0
+   },
+   "provenance": {
+    "page": 54,
+    "bbox": [
+     1557.0,
+     1841.0,
+     1779.0,
+     1874.0
+    ],
+    "dpi": null,
+    "stage": "footnote_extraction"
+   }
+  },
+  {
+   "cell_id": "p54.t06.r003.c01",
+   "row_id": "p54.t06.r003",
+   "period_id": "y2011",
+   "value": {
+    "state": "number",
+    "raw": "181.435.000",
+    "value": "181435000",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.9641,
+   "confidence_components": {
+    "ocr": 0.9641,
+    "parse": 1.0
+   },
+   "provenance": {
+    "page": 54,
+    "bbox": [
+     1919.0,
+     1842.0,
+     2144.0,
+     1877.0
+    ],
+    "dpi": null,
+    "stage": "footnote_extraction"
+   }
+  },
+  {
+   "cell_id": "p54.t06.r004.c00",
+   "row_id": "p54.t06.r004",
+   "period_id": "y2012",
+   "value": {
+    "state": "number",
+    "raw": "373.992.222",
+    "value": "373992222",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.9569,
+   "confidence_components": {
+    "ocr": 0.9569,
+    "parse": 1.0
+   },
+   "provenance": {
+    "page": 54,
+    "bbox": [
+     1553.0,
+     1962.0,
+     1781.0,
+     1995.0
+    ],
+    "dpi": null,
+    "stage": "footnote_extraction"
+   }
+  },
+  {
+   "cell_id": "p54.t06.r004.c01",
+   "row_id": "p54.t06.r004",
+   "period_id": "y2011",
+   "value": {
+    "state": "number",
+    "raw": "423.580.000",
+    "value": "423580000",
+    "kind": "int",
+    "value_high": null,
+    "repaired": false
+   },
+   "confidence": 0.9598,
+   "confidence_components": {
+    "ocr": 0.9598,
+    "parse": 1.0
+   },
+   "provenance": {
+    "page": 54,
+    "bbox": [
+     1914.0,
+     1964.0,
+     2144.0,
+     1997.0
+    ],
+    "dpi": null,
+    "stage": "footnote_extraction"
+   }
+  }
+ ],
+ "relations": [
+  {
+   "relation_id": "rel000",
+   "summary_row_id": "p05.t00.r012",
+   "footnote_row_id": "p53.t03.r000",
+   "period_scope": "y2011",
+   "relation_type": "balance_reconciliation",
+   "approaches": [
+    {
+     "name": "cross_encoder",
+     "raw_score": 0.0893,
+     "rank": 2,
+     "accepted": false
+    },
+    {
+     "name": "lexical",
+     "raw_score": 0.4058,
+     "rank": null,
+     "accepted": false
+    },
+    {
+     "name": "value_rules",
+     "raw_score": 1.0,
+     "rank": null,
+     "accepted": true
+    }
+   ],
+   "agreement": "b_only",
+   "confidence": 0.8734,
+   "confidence_components": {
+    "cross_encoder": 0.0893,
+    "value_rules": 1.0,
+    "lexical": 0.4058,
+    "fused": 0.5169,
+    "reconciliation": 1.0,
+    "validation_factor": 1.0262,
+    "venn_abers_p0": 0.8,
+    "venn_abers_p1": 1.0,
+    "calibration_fitted": 1.0
+   },
+   "low_confidence": false,
+   "evidence": "value match [('y2011', 'toplam')]; footnote row role=opening"
+  },
+  {
+   "relation_id": "rel004",
+   "summary_row_id": "p05.t00.r012",
+   "footnote_row_id": "p53.t03.r004",
+   "period_scope": "y2012",
+   "relation_type": "balance_reconciliation",
+   "approaches": [
+    {
+     "name": "cross_encoder",
+     "raw_score": 0.0338,
+     "rank": 4,
+     "accepted": false
+    },
+    {
+     "name": "lexical",
+     "raw_score": 0.3889,
+     "rank": null,
+     "accepted": false
+    },
+    {
+     "name": "value_rules",
+     "raw_score": 1.0,
+     "rank": null,
+     "accepted": true
+    }
+   ],
+   "agreement": "b_only",
+   "confidence": 0.8416,
+   "confidence_components": {
+    "cross_encoder": 0.0338,
+    "value_rules": 1.0,
+    "lexical": 0.3889,
+    "fused": 0.4913,
+    "reconciliation": 1.0,
+    "validation_factor": 1.0343,
+    "venn_abers_p0": 0.6667,
+    "venn_abers_p1": 1.0,
+    "calibration_fitted": 1.0
+   },
+   "low_confidence": false,
+   "evidence": "value match [('y2012', 'toplam')]; footnote row role=closing"
+  },
+  {
+   "relation_id": "rel005",
+   "summary_row_id": "p05.t00.r012",
+   "footnote_row_id": "p53.t03.r005",
+   "period_scope": "y2012",
+   "relation_type": "balance_reconciliation",
+   "approaches": [
+    {
+     "name": "cross_encoder",
+     "raw_score": 0.0199,
+     "rank": 5,
+     "accepted": false
+    },
+    {
+     "name": "lexical",
+     "raw_score": 0.3288,
+     "rank": null,
+     "accepted": false
+    },
+    {
+     "name": "value_rules",
+     "raw_score": 1.0,
+     "rank": null,
+     "accepted": true
+    }
+   ],
+   "agreement": "b_only",
+   "confidence": 0.8164,
+   "confidence_components": {
+    "cross_encoder": 0.0199,
+    "value_rules": 1.0,
+    "lexical": 0.3288,
+    "fused": 0.4737,
+    "reconciliation": 1.0,
+    "validation_factor": 1.0413,
+    "venn_abers_p0": 0.5,
+    "venn_abers_p1": 1.0,
+    "calibration_fitted": 1.0
+   },
+   "low_confidence": false,
+   "evidence": "value match [('y2012', 'toplam')]; footnote row role=closing_equiv"
+  },
+  {
+   "relation_id": "rel007",
+   "summary_row_id": "p05.t00.r012",
+   "footnote_row_id": "p53.t04.r004",
+   "period_scope": "y2011",
+   "relation_type": "balance_reconciliation",
+   "approaches": [
+    {
+     "name": "cross_encoder",
+     "raw_score": 0.0659,
+     "rank": 3,
+     "accepted": false
+    },
+    {
+     "name": "lexical",
+     "raw_score": 0.3889,
+     "rank": null,
+     "accepted": false
+    },
+    {
+     "name": "value_rules",
+     "raw_score": 1.0,
+     "rank": null,
+     "accepted": true
+    }
+   ],
+   "agreement": "b_only",
+   "confidence": 0.8583,
+   "confidence_components": {
+    "cross_encoder": 0.0659,
+    "value_rules": 1.0,
+    "lexical": 0.3889,
+    "fused": 0.5041,
+    "reconciliation": 1.0,
+    "validation_factor": 1.03,
+    "venn_abers_p0": 0.75,
+    "venn_abers_p1": 1.0,
+    "calibration_fitted": 1.0
+   },
+   "low_confidence": false,
+   "evidence": "value match [('y2011', 'toplam')]; footnote row role=closing"
+  },
+  {
+   "relation_id": "rel008",
+   "summary_row_id": "p05.t00.r012",
+   "footnote_row_id": "p54.t06.r004",
+   "period_scope": "both",
+   "relation_type": "total_reconciliation",
+   "approaches": [
+    {
+     "name": "cross_encoder",
+     "raw_score": 0.7456,
+     "rank": 1,
+     "accepted": true
+    },
+    {
+     "name": "lexical",
+     "raw_score": 0.0,
+     "rank": null,
+     "accepted": false
+    },
+    {
+     "name": "value_rules",
+     "raw_score": 1.0,
+     "rank": null,
+     "accepted": true
+    }
+   ],
+   "agreement": "consensus",
+   "confidence": 0.9785,
+   "confidence_components": {
+    "cross_encoder": 0.7456,
+    "value_rules": 1.0,
+    "lexical": 0.0,
+    "fused": 0.6982,
+    "reconciliation": 1.0,
+    "validation_factor": 1.0039,
+    "venn_abers_p0": 0.9,
+    "venn_abers_p1": 1.0,
+    "calibration_fitted": 1.0
+   },
+   "low_confidence": false,
+   "evidence": "value match [('y2012', 'y2012'), ('y2011', 'y2011')]; footnote row role=total"
+  },
+  {
+   "relation_id": "rel011",
+   "summary_row_id": "p07.t02.r005",
+   "footnote_row_id": "p53.t03.r002",
+   "period_scope": "y2012",
+   "relation_type": "flow_match",
+   "approaches": [
+    {
+     "name": "cross_encoder",
+     "raw_score": 0.1836,
+     "rank": 2,
+     "accepted": false
+    },
+    {
+     "name": "lexical",
+     "raw_score": 0.3956,
+     "rank": null,
+     "accepted": false
+    },
+    {
+     "name": "value_rules",
+     "raw_score": 1.0,
+     "rank": null,
+     "accepted": true
+    }
+   ],
+   "agreement": "b_only",
+   "confidence": 0.9088,
+   "confidence_components": {
+    "cross_encoder": 0.1836,
+    "value_rules": 1.0,
+    "lexical": 0.3956,
+    "fused": 0.5526,
+    "reconciliation": 1.0,
+    "validation_factor": 1.018,
+    "venn_abers_p0": 0.8333,
+    "venn_abers_p1": 1.0,
+    "calibration_fitted": 1.0
+   },
+   "low_confidence": false,
+   "evidence": "value match [('y2012', 'arazi_ve_arsalar'), ('y2012', 'toplam')]; footnote row role=flow"
+  },
+  {
+   "relation_id": "rel016",
+   "summary_row_id": "p07.t02.r005",
+   "footnote_row_id": "p53.t04.r003",
+   "period_scope": "y2011",
+   "relation_type": "flow_match",
+   "approaches": [
+    {
+     "name": "cross_encoder",
+     "raw_score": 0.2671,
+     "rank": 1,
+     "accepted": true
+    },
+    {
+     "name": "lexical",
+     "raw_score": 0.3956,
+     "rank": null,
+     "accepted": false
+    },
+    {
+     "name": "value_rules",
+     "raw_score": 1.0,
+     "rank": null,
+     "accepted": true
+    }
+   ],
+   "agreement": "consensus",
+   "confidence": 0.9337,
+   "confidence_components": {
+    "cross_encoder": 0.2671,
+    "value_rules": 1.0,
+    "lexical": 0.3956,
+    "fused": 0.586,
+    "reconciliation": 1.0,
+    "validation_factor": 1.0127,
+    "venn_abers_p0": 0.875,
+    "venn_abers_p1": 1.0,
+    "calibration_fitted": 1.0
+   },
+   "low_confidence": false,
+   "evidence": "value match [('y2011', 'toplam')]; footnote row role=flow"
+  }
+ ],
+ "checks": [
+  {
+   "check_id": "STR_SUMMARY_RANGE",
+   "group": "structural",
+   "scope": "page_5",
+   "status": "pass",
+   "detail": "1 coherent financial table(s) on configured page 5"
+  },
+  {
+   "check_id": "STR_SUMMARY_RANGE",
+   "group": "structural",
+   "scope": "page_6",
+   "status": "pass",
+   "detail": "1 coherent financial table(s) on configured page 6"
+  },
+  {
+   "check_id": "STR_SUMMARY_RANGE",
+   "group": "structural",
+   "scope": "page_7",
+   "status": "pass",
+   "detail": "1 coherent financial table(s) on configured page 7"
+  },
+  {
+   "check_id": "STR_FOOTNOTE_REFS_PRESENT",
+   "group": "structural",
+   "scope": "document",
+   "status": "pass",
+   "detail": "2 summary row(s) reference footnote 11"
+  },
+  {
+   "check_id": "FMT_ENGINE_AGREEMENT",
+   "group": "format",
+   "scope": "document",
+   "status": "not_evaluable",
+   "detail": "{'checked': 0, 'disagree': 0, 'unavailable': 193}"
+  },
+  {
+   "check_id": "FMT_PERCENT_RESCUE",
+   "group": "format",
+   "scope": "document",
+   "status": "pass",
+   "detail": "{'rows_added': 1, 'cells': 6, 'exact': 2, 'suffix': 4, 'mismatch': 0, 'unavailable': 0, 'overrides': [\"row 'İskonto oranı (©)' col1: primary=10,5 -> %10,5\", \"row 'Doluluk oranı (90)(*)' col0: primary=486,6 -> %86,6\"]}"
+  },
+  {
+   "check_id": "STR_PERIOD_ORDER",
+   "group": "structural",
+   "scope": "p05.t00",
+   "status": "pass",
+   "detail": "periods=[2012, 2011]"
+  },
+  {
+   "check_id": "STR_REF_RANGE",
+   "group": "structural",
+   "scope": "p05.t00",
+   "status": "pass",
+   "detail": "bad=[]"
+  },
+  {
+   "check_id": "FMT_REPAIRED_CELLS",
+   "group": "format",
+   "scope": "p05.t00",
+   "status": "pass",
+   "detail": "0 repaired numeric cells (flagged, values kept)"
+  },
+  {
+   "check_id": "FMT_THREE_STATE",
+   "group": "format",
+   "scope": "p05.t00",
+   "status": "pass",
+   "detail": "bad=[]"
+  },
+  {
+   "check_id": "FIN_PARENT_SUM",
+   "group": "financial",
+   "scope": "p05.t00.p05.t00.r001.y2012",
+   "status": "fail",
+   "detail": "children_sum=134957729 parent=134557729"
+  },
+  {
+   "check_id": "FIN_PARENT_SUM",
+   "group": "financial",
+   "scope": "p05.t00.p05.t00.r001.y2011",
+   "status": "pass",
+   "detail": "children_sum=21380946 parent=21380946"
+  },
+  {
+   "check_id": "FIN_PARENT_SUM",
+   "group": "financial",
+   "scope": "p05.t00.p05.t00.r003.y2012",
+   "status": "pass",
+   "detail": "children_sum=6281458 parent=6281458"
+  },
+  {
+   "check_id": "FIN_PARENT_SUM",
+   "group": "financial",
+   "scope": "p05.t00.p05.t00.r003.y2011",
+   "status": "pass",
+   "detail": "children_sum=7801336 parent=7801336"
+  },
+  {
+   "check_id": "FIN_PARENT_SUM",
+   "group": "financial",
+   "scope": "p05.t00.p05.t00.r009.y2012",
+   "status": "fail",
+   "detail": "children_sum=717587855.224 parent=717592075"
+  },
+  {
+   "check_id": "FIN_PARENT_SUM",
+   "group": "financial",
+   "scope": "p05.t00.p05.t00.r009.y2011",
+   "status": "pass",
+   "detail": "children_sum=760027331 parent=760027331"
+  },
+  {
+   "check_id": "FIN_GRAND_TOTAL",
+   "group": "financial",
+   "scope": "p05.t00.p05.t00.r017.y2012",
+   "status": "pass",
+   "detail": "2/2 member-set hypotheses match"
+  },
+  {
+   "check_id": "FIN_GRAND_TOTAL",
+   "group": "financial",
+   "scope": "p05.t00.p05.t00.r017.y2011",
+   "status": "pass",
+   "detail": "2/2 member-set hypotheses match"
+  },
+  {
+   "check_id": "STR_PERIOD_ORDER",
+   "group": "structural",
+   "scope": "p06.t01",
+   "status": "pass",
+   "detail": "periods=[2012, 2011]"
+  },
+  {
+   "check_id": "STR_REF_RANGE",
+   "group": "structural",
+   "scope": "p06.t01",
+   "status": "pass",
+   "detail": "bad=[]"
+  },
+  {
+   "check_id": "FMT_REPAIRED_CELLS",
+   "group": "format",
+   "scope": "p06.t01",
+   "status": "pass",
+   "detail": "0 repaired numeric cells (flagged, values kept)"
+  },
+  {
+   "check_id": "FMT_THREE_STATE",
+   "group": "format",
+   "scope": "p06.t01",
+   "status": "pass",
+   "detail": "bad=[]"
+  },
+  {
+   "check_id": "FIN_PARENT_SUM",
+   "group": "financial",
+   "scope": "p06.t01.p06.t01.r001.y2012",
+   "status": "pass",
+   "detail": "children_sum=63553798 parent=63553798"
+  },
+  {
+   "check_id": "FIN_PARENT_SUM",
+   "group": "financial",
+   "scope": "p06.t01.p06.t01.r001.y2011",
+   "status": "pass",
+   "detail": "children_sum=107356816 parent=107356816"
+  },
+  {
+   "check_id": "FIN_PARENT_SUM",
+   "group": "financial",
+   "scope": "p06.t01.p06.t01.r003.y2012",
+   "status": "pass",
+   "detail": "children_sum=7932336 parent=7932336"
+  },
+  {
+   "check_id": "FIN_PARENT_SUM",
+   "group": "financial",
+   "scope": "p06.t01.p06.t01.r003.y2011",
+   "status": "pass",
+   "detail": "children_sum=4232740 parent=4232740"
+  },
+  {
+   "check_id": "FIN_PARENT_SUM",
+   "group": "financial",
+   "scope": "p06.t01.p06.t01.r006.y2012",
+   "status": "pass",
+   "detail": "children_sum=2784832 parent=2784832"
+  },
+  {
+   "check_id": "FIN_PARENT_SUM",
+   "group": "financial",
+   "scope": "p06.t01.p06.t01.r006.y2011",
+   "status": "pass",
+   "detail": "children_sum=3244930 parent=3244930"
+  },
+  {
+   "check_id": "FIN_PARENT_SUM",
+   "group": "financial",
+   "scope": "p06.t01.p06.t01.r013.y2012",
+   "status": "pass",
+   "detail": "children_sum=136150924 parent=136150924"
+  },
+  {
+   "check_id": "FIN_PARENT_SUM",
+   "group": "financial",
+   "scope": "p06.t01.p06.t01.r013.y2011",
+   "status": "pass",
+   "detail": "children_sum=54471741 parent=54471741"
+  },
+  {
+   "check_id": "FIN_PARENT_SUM",
+   "group": "financial",
+   "scope": "p06.t01.p06.t01.r019.y2012",
+   "status": "pass",
+   "detail": "children_sum=527217933 parent=527217933"
+  },
+  {
+   "check_id": "FIN_PARENT_SUM",
+   "group": "financial",
+   "scope": "p06.t01.p06.t01.r019.y2011",
+   "status": "pass",
+   "detail": "children_sum=492663853 parent=492663853"
+  },
+  {
+   "check_id": "FIN_GRAND_TOTAL",
+   "group": "financial",
+   "scope": "p06.t01.p06.t01.r028.y2012",
+   "status": "pass",
+   "detail": "1/3 member-set hypotheses match"
+  },
+  {
+   "check_id": "FIN_GRAND_TOTAL",
+   "group": "financial",
+   "scope": "p06.t01.p06.t01.r028.y2011",
+   "status": "pass",
+   "detail": "1/3 member-set hypotheses match"
+  },
+  {
+   "check_id": "STR_PERIOD_ORDER",
+   "group": "structural",
+   "scope": "p07.t02",
+   "status": "pass",
+   "detail": "periods=[2012, 2011]"
+  },
+  {
+   "check_id": "STR_REF_RANGE",
+   "group": "structural",
+   "scope": "p07.t02",
+   "status": "pass",
+   "detail": "bad=[]"
+  },
+  {
+   "check_id": "FMT_REPAIRED_CELLS",
+   "group": "format",
+   "scope": "p07.t02",
+   "status": "pass",
+   "detail": "0 repaired numeric cells (flagged, values kept)"
+  },
+  {
+   "check_id": "FMT_THREE_STATE",
+   "group": "format",
+   "scope": "p07.t02",
+   "status": "pass",
+   "detail": "bad=[]"
+  },
+  {
+   "check_id": "FIN_GRAND_TOTAL",
+   "group": "financial",
+   "scope": "p07.t02.p07.t02.r024.y2012",
+   "status": "not_evaluable",
+   "detail": "2 hypotheses enumerated, none evaluable (0 with missing member cells, 2 with mixed per-share units)"
+  },
+  {
+   "check_id": "FIN_GRAND_TOTAL",
+   "group": "financial",
+   "scope": "p07.t02.p07.t02.r024.y2011",
+   "status": "not_evaluable",
+   "detail": "2 hypotheses enumerated, none evaluable (0 with missing member cells, 2 with mixed per-share units)"
+  },
+  {
+   "check_id": "FIN_GRAND_TOTAL",
+   "group": "financial",
+   "scope": "p07.t02.p07.t02.r028.y2012",
+   "status": "not_evaluable",
+   "detail": "2 hypotheses enumerated, none evaluable (0 with missing member cells, 2 with mixed per-share units)"
+  },
+  {
+   "check_id": "FIN_GRAND_TOTAL",
+   "group": "financial",
+   "scope": "p07.t02.p07.t02.r028.y2011",
+   "status": "not_evaluable",
+   "detail": "2 hypotheses enumerated, none evaluable (0 with missing member cells, 2 with mixed per-share units)"
+  },
+  {
+   "check_id": "FMT_SIGN_LEGALITY",
+   "group": "format",
+   "scope": "p07.t02.p07.t02.r001.y2012",
+   "status": "pass",
+   "detail": "value=-49167330 for a (-) labeled row"
+  },
+  {
+   "check_id": "FMT_SIGN_LEGALITY",
+   "group": "format",
+   "scope": "p07.t02.p07.t02.r001.y2011",
+   "status": "pass",
+   "detail": "value=-44411839 for a (-) labeled row"
+  },
+  {
+   "check_id": "FMT_SIGN_LEGALITY",
+   "group": "format",
+   "scope": "p07.t02.p07.t02.r004.y2012",
+   "status": "pass",
+   "detail": "value=-13500342 for a (-) labeled row"
+  },
+  {
+   "check_id": "FMT_SIGN_LEGALITY",
+   "group": "format",
+   "scope": "p07.t02.p07.t02.r004.y2011",
+   "status": "pass",
+   "detail": "value=-2680177 for a (-) labeled row"
+  },
+  {
+   "check_id": "FMT_SIGN_LEGALITY",
+   "group": "format",
+   "scope": "p07.t02.p07.t02.r007.y2012",
+   "status": "pass",
+   "detail": "value=-346564 for a (-) labeled row"
+  },
+  {
+   "check_id": "FMT_SIGN_LEGALITY",
+   "group": "format",
+   "scope": "p07.t02.p07.t02.r007.y2011",
+   "status": "pass",
+   "detail": "value=-561989 for a (-) labeled row"
+  },
+  {
+   "check_id": "FMT_SIGN_LEGALITY",
+   "group": "format",
+   "scope": "p07.t02.p07.t02.r011.y2012",
+   "status": "pass",
+   "detail": "value=-16289551 for a (-) labeled row"
+  },
+  {
+   "check_id": "FMT_SIGN_LEGALITY",
+   "group": "format",
+   "scope": "p07.t02.p07.t02.r011.y2011",
+   "status": "pass",
+   "detail": "value=-24329214 for a (-) labeled row"
+  },
+  {
+   "check_id": "FIN_FLOW_CASCADE",
+   "group": "financial",
+   "scope": "p07.t02.p07.t02.r002.y2012",
+   "status": "pass",
+   "detail": "prev=0 segment=27876243 milestone=27876243"
+  },
+  {
+   "check_id": "FIN_FLOW_CASCADE",
+   "group": "financial",
+   "scope": "p07.t02.p07.t02.r008.y2012",
+   "status": "pass",
+   "detail": "prev=27876243 segment=-19888852 milestone=7987391"
+  },
+  {
+   "check_id": "FIN_FLOW_CASCADE",
+   "group": "financial",
+   "scope": "p07.t02.p07.t02.r012.y2012",
+   "status": "pass",
+   "detail": "prev=7987391 segment=3509782 milestone=11497173"
+  },
+  {
+   "check_id": "FIN_FLOW_CASCADE",
+   "group": "financial",
+   "scope": "p07.t02.p07.t02.r016.y2012",
+   "status": "pass",
+   "detail": "prev=11497173 segment=-778217 milestone=10718956"
+  },
+  {
+   "check_id": "FIN_FLOW_CASCADE",
+   "group": "financial",
+   "scope": "p07.t02.p07.t02.r024.y2012",
+   "status": "pass",
+   "detail": "prev=10718956 segment=-19846865 milestone=-9127909"
+  },
+  {
+   "check_id": "FIN_FLOW_CASCADE",
+   "group": "financial",
+   "scope": "p07.t02.p07.t02.r002.y2011",
+   "status": "pass",
+   "detail": "prev=0 segment=32019756 milestone=32019756"
+  },
+  {
+   "check_id": "FIN_FLOW_CASCADE",
+   "group": "financial",
+   "scope": "p07.t02.p07.t02.r008.y2011",
+   "status": "pass",
+   "detail": "prev=32019756 segment=143404297 milestone=175424053"
+  },
+  {
+   "check_id": "FIN_FLOW_CASCADE",
+   "group": "financial",
+   "scope": "p07.t02.p07.t02.r012.y2011",
+   "status": "pass",
+   "detail": "prev=175424053 segment=-10494397 milestone=164929656"
+  },
+  {
+   "check_id": "FIN_FLOW_CASCADE",
+   "group": "financial",
+   "scope": "p07.t02.p07.t02.r016.y2011",
+   "status": "pass",
+   "detail": "prev=164929656 segment=-3015405 milestone=161914251"
+  },
+  {
+   "check_id": "FIN_FLOW_CASCADE",
+   "group": "financial",
+   "scope": "p07.t02.p07.t02.r024.y2011",
+   "status": "pass",
+   "detail": "prev=161914251 segment=196292383 milestone=358206634"
+  },
+  {
+   "check_id": "STR_PERIOD_ORDER",
+   "group": "structural",
+   "scope": "p53.t03",
+   "status": "not_evaluable",
+   "detail": "periods=['Arazi ve Arsalar', 'Binalar', 'Toplam']"
+  },
+  {
+   "check_id": "STR_REF_RANGE",
+   "group": "structural",
+   "scope": "p53.t03",
+   "status": "pass",
+   "detail": "bad=[]"
+  },
+  {
+   "check_id": "STR_FOOTNOTE_HEADING",
+   "group": "structural",
+   "scope": "p53.t03",
+   "status": "pass",
+   "detail": ""
+  },
+  {
+   "check_id": "FMT_REPAIRED_CELLS",
+   "group": "format",
+   "scope": "p53.t03",
+   "status": "pass",
+   "detail": "0 repaired numeric cells (flagged, values kept)"
+  },
+  {
+   "check_id": "FMT_THREE_STATE",
+   "group": "format",
+   "scope": "p53.t03",
+   "status": "pass",
+   "detail": "bad=[]"
+  },
+  {
+   "check_id": "FIN_ROLLFORWARD",
+   "group": "financial",
+   "scope": "p53.t03.arazi_ve_arsalar",
+   "status": "pass",
+   "detail": "opening=227317822 flows=-49587778 closing=177730044 residual=0"
+  },
+  {
+   "check_id": "FIN_ROLLFORWARD",
+   "group": "financial",
+   "scope": "p53.t03.binalar",
+   "status": "pass",
+   "detail": "opening=196262178 flows=0 closing=196262178 residual=0"
+  },
+  {
+   "check_id": "FIN_ROLLFORWARD",
+   "group": "financial",
+   "scope": "p53.t03.toplam",
+   "status": "pass",
+   "detail": "opening=423580000 flows=-49587778 closing=373992222 residual=0"
+  },
+  {
+   "check_id": "FIN_ROW_SUM",
+   "group": "financial",
+   "scope": "p53.t03.p53.t03.r000",
+   "status": "pass",
+   "detail": "sum=423580000 total=423580000"
+  },
+  {
+   "check_id": "FIN_ROW_SUM",
+   "group": "financial",
+   "scope": "p53.t03.p53.t03.r001",
+   "status": "pass",
+   "detail": "sum=19197311 total=19197311"
+  },
+  {
+   "check_id": "FIN_ROW_SUM",
+   "group": "financial",
+   "scope": "p53.t03.p53.t03.r002",
+   "status": "pass",
+   "detail": "sum=3896434 total=3896434"
+  },
+  {
+   "check_id": "FIN_ROW_SUM",
+   "group": "financial",
+   "scope": "p53.t03.p53.t03.r003",
+   "status": "pass",
+   "detail": "sum=-72681523 total=-72681523"
+  },
+  {
+   "check_id": "FIN_ROW_SUM",
+   "group": "financial",
+   "scope": "p53.t03.p53.t03.r004",
+   "status": "pass",
+   "detail": "sum=373992222 total=373992222"
+  },
+  {
+   "check_id": "FIN_ROW_SUM",
+   "group": "financial",
+   "scope": "p53.t03.p53.t03.r005",
+   "status": "pass",
+   "detail": "sum=373992222 total=373992222"
+  },
+  {
+   "check_id": "STR_PERIOD_ORDER",
+   "group": "structural",
+   "scope": "p53.t04",
+   "status": "not_evaluable",
+   "detail": "periods=['harcamalar Arazi ve Arsalar', 'Binalar', 'Toplam']"
+  },
+  {
+   "check_id": "STR_REF_RANGE",
+   "group": "structural",
+   "scope": "p53.t04",
+   "status": "pass",
+   "detail": "bad=[]"
+  },
+  {
+   "check_id": "STR_FOOTNOTE_HEADING",
+   "group": "structural",
+   "scope": "p53.t04",
+   "status": "pass",
+   "detail": ""
+  },
+  {
+   "check_id": "FMT_REPAIRED_CELLS",
+   "group": "format",
+   "scope": "p53.t04",
+   "status": "fail",
+   "detail": "3 repaired numeric cells (flagged, values kept)"
+  },
+  {
+   "check_id": "FMT_THREE_STATE",
+   "group": "format",
+   "scope": "p53.t04",
+   "status": "pass",
+   "detail": "bad=[]"
+  },
+  {
+   "check_id": "FIN_ROLLFORWARD",
+   "group": "financial",
+   "scope": "p53.t04.harcamalar_arazi_ve_arsalar",
+   "status": "pass",
+   "detail": "opening=82097790 flows=145220032 closing=227317822 residual=0"
+  },
+  {
+   "check_id": "FIN_ROLLFORWARD",
+   "group": "financial",
+   "scope": "p53.t04.binalar",
+   "status": "pass",
+   "detail": "opening=122937178 flows=73325000 closing=196262178 residual=0"
+  },
+  {
+   "check_id": "FIN_ROLLFORWARD",
+   "group": "financial",
+   "scope": "p53.t04.toplam",
+   "status": "pass",
+   "detail": "opening=205034968 flows=218545032 closing=423580000 residual=0"
+  },
+  {
+   "check_id": "FIN_ROW_SUM",
+   "group": "financial",
+   "scope": "p53.t04.p53.t04.r000",
+   "status": "pass",
+   "detail": "sum=205034968 total=205034968"
+  },
+  {
+   "check_id": "FIN_ROW_SUM",
+   "group": "financial",
+   "scope": "p53.t04.p53.t04.r001",
+   "status": "pass",
+   "detail": "sum=77645032 total=77645032"
+  },
+  {
+   "check_id": "FIN_ROW_SUM",
+   "group": "financial",
+   "scope": "p53.t04.p53.t04.r002",
+   "status": "pass",
+   "detail": "sum=-10450000 total=-10450000"
+  },
+  {
+   "check_id": "FIN_ROW_SUM",
+   "group": "financial",
+   "scope": "p53.t04.p53.t04.r003",
+   "status": "pass",
+   "detail": "sum=151350000 total=151350000"
+  },
+  {
+   "check_id": "FIN_ROW_SUM",
+   "group": "financial",
+   "scope": "p53.t04.p53.t04.r004",
+   "status": "pass",
+   "detail": "sum=423580000 total=423580000"
+  },
+  {
+   "check_id": "STR_PERIOD_ORDER",
+   "group": "structural",
+   "scope": "p54.t05",
+   "status": "pass",
+   "detail": "periods=[2012, 2011]"
+  },
+  {
+   "check_id": "STR_REF_RANGE",
+   "group": "structural",
+   "scope": "p54.t05",
+   "status": "pass",
+   "detail": "bad=[]"
+  },
+  {
+   "check_id": "STR_FOOTNOTE_HEADING",
+   "group": "structural",
+   "scope": "p54.t05",
+   "status": "pass",
+   "detail": ""
+  },
+  {
+   "check_id": "FMT_REPAIRED_CELLS",
+   "group": "format",
+   "scope": "p54.t05",
+   "status": "pass",
+   "detail": "0 repaired numeric cells (flagged, values kept)"
+  },
+  {
+   "check_id": "FMT_THREE_STATE",
+   "group": "format",
+   "scope": "p54.t05",
+   "status": "pass",
+   "detail": "bad=[]"
+  },
+  {
+   "check_id": "FMT_PERCENT_BOUNDS",
+   "group": "format",
+   "scope": "p54.t05.r000.c00",
+   "status": "pass",
+   "detail": "%9"
+  },
+  {
+   "check_id": "FMT_PERCENT_BOUNDS",
+   "group": "format",
+   "scope": "p54.t05.r000.c01",
+   "status": "pass",
+   "detail": "%10,5"
+  },
+  {
+   "check_id": "FMT_PERCENT_BOUNDS",
+   "group": "format",
+   "scope": "p54.t05.r001.c00",
+   "status": "pass",
+   "detail": "%86,6"
+  },
+  {
+   "check_id": "FMT_PERCENT_BOUNDS",
+   "group": "format",
+   "scope": "p54.t05.r001.c01",
+   "status": "pass",
+   "detail": "%80,8"
+  },
+  {
+   "check_id": "FMT_PERCENT_BOUNDS",
+   "group": "format",
+   "scope": "p54.t05.r002.c00",
+   "status": "pass",
+   "detail": "%3"
+  },
+  {
+   "check_id": "FMT_PERCENT_BOUNDS",
+   "group": "format",
+   "scope": "p54.t05.r002.c01",
+   "status": "pass",
+   "detail": "%2-%4"
+  },
+  {
+   "check_id": "STR_PERIOD_ORDER",
+   "group": "structural",
+   "scope": "p54.t06",
+   "status": "pass",
+   "detail": "periods=[2012, 2011]"
+  },
+  {
+   "check_id": "STR_REF_RANGE",
+   "group": "structural",
+   "scope": "p54.t06",
+   "status": "pass",
+   "detail": "bad=[]"
+  },
+  {
+   "check_id": "STR_FOOTNOTE_HEADING",
+   "group": "structural",
+   "scope": "p54.t06",
+   "status": "pass",
+   "detail": ""
+  },
+  {
+   "check_id": "FMT_REPAIRED_CELLS",
+   "group": "format",
+   "scope": "p54.t06",
+   "status": "pass",
+   "detail": "0 repaired numeric cells (flagged, values kept)"
+  },
+  {
+   "check_id": "FMT_THREE_STATE",
+   "group": "format",
+   "scope": "p54.t06",
+   "status": "pass",
+   "detail": "bad=[]"
+  },
+  {
+   "check_id": "STR_CALIBRATION_CONTROLS",
+   "group": "structural",
+   "scope": "document",
+   "status": "pass",
+   "detail": "mode=fitted positives=11 negatives=22 control_pages=[9, 10] separated=true loo_max_delta_p=0.0372 platt_a=10.5259 platt_b=-3.6973"
+  },
+  {
+   "check_id": "FIN_RECONCILE",
+   "group": "financial",
+   "scope": "rel000",
+   "status": "pass",
+   "detail": "matched [('y2011', 'toplam')]"
+  },
+  {
+   "check_id": "FIN_RECONCILE",
+   "group": "financial",
+   "scope": "rel004",
+   "status": "pass",
+   "detail": "matched [('y2012', 'toplam')]"
+  },
+  {
+   "check_id": "FIN_RECONCILE",
+   "group": "financial",
+   "scope": "rel005",
+   "status": "pass",
+   "detail": "matched [('y2012', 'toplam')]"
+  },
+  {
+   "check_id": "FIN_RECONCILE",
+   "group": "financial",
+   "scope": "rel007",
+   "status": "pass",
+   "detail": "matched [('y2011', 'toplam')]"
+  },
+  {
+   "check_id": "FIN_RECONCILE",
+   "group": "financial",
+   "scope": "rel008",
+   "status": "pass",
+   "detail": "matched [('y2012', 'y2012'), ('y2011', 'y2011')]"
+  },
+  {
+   "check_id": "FIN_RECONCILE",
+   "group": "financial",
+   "scope": "rel011",
+   "status": "pass",
+   "detail": "matched [('y2012', 'arazi_ve_arsalar'), ('y2012', 'toplam')]"
+  },
+  {
+   "check_id": "FIN_RECONCILE",
+   "group": "financial",
+   "scope": "rel016",
+   "status": "pass",
+   "detail": "matched [('y2011', 'toplam')]"
+  },
+  {
+   "check_id": "REL_COVERAGE",
+   "group": "structural",
+   "scope": "p05.t00.r012",
+   "status": "pass",
+   "detail": "5 relation(s) from row referencing footnote 11"
+  },
+  {
+   "check_id": "REL_COVERAGE",
+   "group": "structural",
+   "scope": "p07.t02.r005",
+   "status": "pass",
+   "detail": "2 relation(s) from row referencing footnote 11"
+  }
+ ]
+}

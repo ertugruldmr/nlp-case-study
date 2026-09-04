@@ -1,0 +1,42 @@
+{
+  "state": "done",
+  "scenario": "dpi-400",
+  "started": "2026-08-29T02:25:59",
+  "duration_s": 101.0,
+  "overrides": {
+    "ocr": {
+      "dpi": 400
+    }
+  },
+  "eval": {
+    "raw": "CELLS: total=201 correct=160 (79.6%) wrong_val=3 wrong_state=0 missing_cell=38 missing_row=12\n    ('diger_alacaklar', 'p2011', '56.956', '56.936')\n    ('stoklar', 'p2012', '77.543.097', '71.543.097')\n    ('finansal_yatirimlar', 'p2012', '4.224', '4,224')\n    missing: ('cell', 'tkd_ana_ortaklik', 'p2012')\n    missing: ('row', 'acilis', '1 Ocak 2012 itibari ile açılış bakiyesi')\n    missing: ('row', 'alim_sonrasi_harcamalar', 'Alım sonrası yapılan harcamalar')\n    missing: ('row', 'makul_deger_kazanc', 'Makul değer değişikliğinden kaynaklanan kazanç')\n    missing: ('row', 'stoklara_transferler', 'Stoklara transferler (*)')\n    missing: ('row', 'kapanis', '31 Aralık 2012 itibari ile kapanış bakiyesi')\n    missing: ('row', 'net_defter_degeri', '31 Aralık 2012 itibari ile net defter değeri')\n    missing: ('row', 'acilis', '1 Ocak 2011 itibari ile açılış bakiyesi (Yeniden Düzenlenmiş)')\n    missing: ('row', 'alimlar', 'Alımlar (*)')\n    missing: ('row', 'cikislar', 'Çıkışlar (**)')\n    missing: ('row', 'makul_deger_kazanc', 'Makul değer değişikliğinden kaynaklanan kazanç')\n    missing: ('row', 'kapanis', '31 Aralık 2011 itibari ile kapanış bakiyesi')\n    missing: ('cell', 'iskonto_orani', 'p2012')\n    missing: ('cell', 'doluluk_orani', 'p2012')\n    missing: ('row', 'kira_artis_orani', 'Kira artış oranı (%)')\nCELLS 95% CI (Clopper-Pearson, n=201, one document): [0.7336, 0.8495]\nEXTRACTED rows on reference pages not matched to any reference row: 1 (their 0 cells are outside the cell metric)\n    unmatched: p54.t03.r002 Kira\nRELATIONS: gold=7 predicted=1 tp=1 fp=0 fn=6 P=1.00 R=0.14\n  fp: []\n  fn: [('bilanco_varlik.yatirim_amacli_gayrimenkuller', 'dipnot11_t1.acilis'), ('bilanco_varlik.yatirim_amacli_gayrimenkuller', 'dipnot11_t1.kapanis'), ('bilanco_varlik.yatirim_amacli_gayrimenkuller', 'dipnot11_t1.net_defter_degeri'), ('bilanco_varlik.yatirim_amacli_gayrimenkuller', 'dipnot11_t2.kapanis'), ('gelir.yatirim_amacli_degerleme_farklari', 'dipnot11_t1.makul_deger_kazanc'), ('gelir.yatirim_amacli_degerleme_farklari', 'dipnot11_t2.makul_deger_kazanc')]\nRELATIONS exact one-sided 95% lower bounds (n=7): precision >= 0.050, recall >= 0.007\nCHECKS: 65 pass / 17 fail / 2 not_evaluable",
+    "cells": {
+      "total": 201,
+      "correct": 160,
+      "pct": 79.6,
+      "wrong_val": 3,
+      "wrong_state": 0,
+      "missing_cell": 38,
+      "missing_row": 12
+    },
+    "relations": {
+      "gold": 7,
+      "predicted": 1,
+      "tp": 1,
+      "fp": 0,
+      "fn": 6,
+      "precision": 1.0,
+      "recall": 0.14
+    },
+    "checks": {
+      "pass": 65,
+      "fail": 17,
+      "not_evaluable": 2
+    }
+  },
+  "platform": {
+    "platform": "macOS-15.4-arm64-arm-64bit",
+    "tesseract": "5.5.3",
+    "note": "backfilled 29.08 after the run from the run block; same host"
+  }
+}

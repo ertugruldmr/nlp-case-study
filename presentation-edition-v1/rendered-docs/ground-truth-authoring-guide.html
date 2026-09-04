@@ -1,0 +1,189 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1"><title>Ground-truth authoring and adjudication guide</title>
+<style>
+:root{--navy:#071d49;--blue:#0b3b82;--ink:#17233d;--muted:#5b6b8c;--line:#d9e1ef;--bg:#f5f8fc}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.6 Inter,ui-sans-serif,system-ui,sans-serif}
+header{background:var(--navy);color:#fff;padding:14px 26px;display:flex;align-items:center;gap:14px;flex-wrap:wrap;position:sticky;top:0;z-index:2}
+header .src{color:#a9c5e9;font-size:12px;word-break:break-all}
+header a{color:#bfeaf4;text-decoration:none;font-size:12px;margin-left:auto;white-space:nowrap}
+main{max-width:860px;margin:0 auto;padding:28px 26px 80px;background:#fff;box-shadow:0 0 0 1px var(--line);min-height:100vh}
+h1,h2,h3,h4{color:var(--navy);line-height:1.25}
+h1{font-size:26px;border-bottom:2px solid var(--line);padding-bottom:10px}
+h2{font-size:20px;margin-top:34px;border-bottom:1px solid var(--line);padding-bottom:6px}
+h3{font-size:16px;margin-top:24px}
+code{background:#eef3fb;padding:1px 5px;border-radius:4px;font:13px/1.4 ui-monospace,SFMono-Regular,monospace}
+pre{background:#091a3b;color:#d7e8ff;padding:14px 16px;border-radius:8px;overflow:auto}
+pre code{background:none;padding:0;color:inherit}
+table{border-collapse:collapse;width:100%;margin:14px 0;font-size:13.5px}
+th,td{border:1px solid var(--line);padding:7px 10px;text-align:left;vertical-align:top}
+th{background:#edf3fb}
+blockquote{border-left:4px solid var(--blue);margin:14px 0;padding:2px 16px;color:var(--muted);background:#f2f7ff}
+a{color:var(--blue)}
+img{max-width:100%}
+</style></head><body>
+<header><b>Ground-truth authoring and adjudication guide</b><span class="src">docs/GROUND-TRUTH-AUTHORING-GUIDE.md</span><a href="../docs/GROUND-TRUTH-AUTHORING-GUIDE.md" target="_blank" rel="noopener">View raw source &#8599;</a></header>
+<main><h1 id="ground-truth-authoring-and-adjudication-guide">Ground-truth authoring and adjudication guide</h1>
+<p>This is the protocol for producing independent evidence against which the extractor can be evaluated. The current repository contains a useful reference set, but it must not be presented as employer-provided truth. A result copied from the model or corrected while looking at model predictions is an annotation, not independent gold.</p>
+<h2 id="1-freeze-the-annotation-unit">1. Freeze the annotation unit</h2>
+<p>Before transcription, record:</p>
+<ul>
+<li>source PDF SHA-256, page count and file name;</li>
+<li>PDF page number and printed page number;</li>
+<li>300-DPI rendered-image dimensions and any applied rotation;</li>
+<li>configuration contract: summary-page range, target note number and control pages;</li>
+<li>annotation-schema version and annotator/adjudicator IDs.</li>
+</ul>
+<p>For the supplied case, the authoritative unit is PDF pages 5–7 plus Note 11 on PDF pages 53–54. Pages 9–10 can be a separately named extension. “All pages” must be a separately versioned dataset because it introduces narrative pages and different table families.</p>
+<h2 id="2-annotate-six-layers-independently">2. Annotate six layers independently</h2>
+<h3 id="a-page-and-table-regions">A. Page and table regions</h3>
+<p>For every in-scope table record <code>table_id</code>, title, statement type, page, <code>[x0,y0,x1,y1]</code> in the frozen OCR coordinate space, and confidence only if confidence itself is being labelled. A box encloses the complete logical table, not merely numeric columns.</p>
+<h3 id="b-columnperiod-contract">B. Column/period contract</h3>
+<p>For every value column record a stable <code>period_id</code>, exact visible header, semantic kind, currency/unit and date interpretation. Do not call every <code>2012</code> cell the same period: opening balance, closing balance, current-year flow, comparative closing and note-specific columns are different semantic periods.</p>
+<h3 id="c-rows-and-hierarchy">C. Rows and hierarchy</h3>
+<p>Record exact visible label, normalized label, role, indentation level, parent row, note references, asterisk/marker text and row box. Roles should come from a closed set such as <code>group_header</code>, <code>item</code>, <code>subitem</code>, <code>subtotal</code>, <code>total</code> and <code>memo</code>.</p>
+<p>Hierarchy decision rules:</p>
+<ol>
+<li>typography and left indentation are primary evidence;</li>
+<li>subtotal lines and arithmetic are supporting evidence, not a substitute for layout;</li>
+<li>repeated labels in different sections receive different row IDs;</li>
+<li>do not infer a parent solely because the current system predicted one;</li>
+<li>if hierarchy is genuinely ambiguous, mark <code>needs_adjudication</code> instead of silently choosing.</li>
+</ol>
+<h3 id="d-logical-cells">D. Logical cells</h3>
+<p>Create the complete row × period grid, including visually empty positions. Each cell must distinguish:</p>
+<ul>
+<li><code>number</code>: a printed numeric value;</li>
+<li><code>zero</code>: an explicit zero;</li>
+<li><code>dash</code>: a printed dash/no-value mark;</li>
+<li><code>empty</code>: no printed value in the logical position;</li>
+<li><code>unreadable</code>: evidence exists but cannot be transcribed reliably.</li>
+</ul>
+<p>Store raw text, normalized decimal value, sign/parentheses, repaired flag, cell box and source token IDs. Missing/empty cells are required gold objects; otherwise a system can omit difficult cells without penalty.</p>
+<h3 id="e-summary-to-footnote-relations">E. Summary-to-footnote relations</h3>
+<p>Author relations without viewing predicted edges. Each relation contains:</p>
+<ul>
+<li>exact source summary row;</li>
+<li>exact target footnote row;</li>
+<li><code>relation_type</code> such as value match, reconciliation, roll-forward or narrative support;</li>
+<li>exact <code>period_scope</code> using the column semantics above;</li>
+<li>evidence values or narrative excerpt location;</li>
+<li>ambiguity/adjudication state.</li>
+</ul>
+<p>Value equality alone is not sufficient for a relation when the same amount occurs more than once. Note reference, row meaning, period and roll-forward role must agree. One relation may cover both periods only if the footnote row genuinely supports both.</p>
+<h3 id="f-validation-identities">F. Validation identities</h3>
+<p>Record each expected identity separately: operands, signs, scope, tolerance, expected status and reason. Examples are assets = liabilities + equity, subtotals, cash roll-forwards and Note 11 opening + flows = closing. <code>not_evaluable</code> is not the same as <code>fail</code>.</p>
+<h2 id="3-two-pass-transcription-and-adjudication">3. Two-pass transcription and adjudication</h2>
+<ol>
+<li>Annotator A transcribes from the rendered PDF with predictions hidden.</li>
+<li>Annotator B independently transcribes the same pilot pages with predictions hidden.</li>
+<li>Compare object counts, labels, hierarchy, cell states/values/boxes, period semantics and relations.</li>
+<li>An adjudicator resolves every disagreement while viewing the source PDF, never by majority vote with a model output.</li>
+<li>Freeze the adjudicated file; only then run the extractor and scorer.</li>
+<li>Corrections create a new gold version with a changelog. Never silently edit the frozen benchmark after seeing a score.</li>
+</ol>
+<p>For a time-limited case, double-annotate all pages 5–7 and 53–54. For a larger corpus, double-annotate the pilot and a statistically meaningful sample, then require targeted review for low-quality scans, rotated pages and every relation.</p>
+<h2 id="4-minimal-json-shape">4. Minimal JSON shape</h2>
+<div class="codehilite" style="background: #f8f8f8"><pre style="line-height: 125%;"><span></span><code>{
+<span style="color: #BBB">  </span><span style="color: #008000; font-weight: bold">&quot;schema_version&quot;</span>:<span style="color: #BBB"> </span><span style="color: #BA2121">&quot;ftlink.gold.v2&quot;</span>,
+<span style="color: #BBB">  </span><span style="color: #008000; font-weight: bold">&quot;document&quot;</span>:<span style="color: #BBB"> </span>{
+<span style="color: #BBB">    </span><span style="color: #008000; font-weight: bold">&quot;sha256&quot;</span>:<span style="color: #BBB"> </span><span style="color: #BA2121">&quot;…&quot;</span>,
+<span style="color: #BBB">    </span><span style="color: #008000; font-weight: bold">&quot;page_count&quot;</span>:<span style="color: #BBB"> </span><span style="color: #666">95</span>,
+<span style="color: #BBB">    </span><span style="color: #008000; font-weight: bold">&quot;render_dpi&quot;</span>:<span style="color: #BBB"> </span><span style="color: #666">300</span>
+<span style="color: #BBB">  </span>},
+<span style="color: #BBB">  </span><span style="color: #008000; font-weight: bold">&quot;scope&quot;</span>:<span style="color: #BBB"> </span>{
+<span style="color: #BBB">    </span><span style="color: #008000; font-weight: bold">&quot;name&quot;</span>:<span style="color: #BBB"> </span><span style="color: #BA2121">&quot;case-contract&quot;</span>,
+<span style="color: #BBB">    </span><span style="color: #008000; font-weight: bold">&quot;summary_pages&quot;</span>:<span style="color: #BBB"> </span>[<span style="color: #666">5</span>,<span style="color: #BBB"> </span><span style="color: #666">7</span>],
+<span style="color: #BBB">    </span><span style="color: #008000; font-weight: bold">&quot;footnote_no&quot;</span>:<span style="color: #BBB"> </span><span style="color: #666">11</span>,
+<span style="color: #BBB">    </span><span style="color: #008000; font-weight: bold">&quot;footnote_pages&quot;</span>:<span style="color: #BBB"> </span>[<span style="color: #666">53</span>,<span style="color: #BBB"> </span><span style="color: #666">54</span>]
+<span style="color: #BBB">  </span>},
+<span style="color: #BBB">  </span><span style="color: #008000; font-weight: bold">&quot;tables&quot;</span>:<span style="color: #BBB"> </span>[
+<span style="color: #BBB">    </span>{
+<span style="color: #BBB">      </span><span style="color: #008000; font-weight: bold">&quot;table_id&quot;</span>:<span style="color: #BBB"> </span><span style="color: #BA2121">&quot;p05.t01&quot;</span>,
+<span style="color: #BBB">      </span><span style="color: #008000; font-weight: bold">&quot;page&quot;</span>:<span style="color: #BBB"> </span><span style="color: #666">5</span>,
+<span style="color: #BBB">      </span><span style="color: #008000; font-weight: bold">&quot;bbox&quot;</span>:<span style="color: #BBB"> </span>[<span style="color: #666">0</span>,<span style="color: #BBB"> </span><span style="color: #666">0</span>,<span style="color: #BBB"> </span><span style="color: #666">0</span>,<span style="color: #BBB"> </span><span style="color: #666">0</span>],
+<span style="color: #BBB">      </span><span style="color: #008000; font-weight: bold">&quot;periods&quot;</span>:<span style="color: #BBB"> </span>[
+<span style="color: #BBB">        </span>{<span style="color: #008000; font-weight: bold">&quot;period_id&quot;</span>:<span style="color: #BBB"> </span><span style="color: #BA2121">&quot;closing_2012&quot;</span>,<span style="color: #BBB"> </span><span style="color: #008000; font-weight: bold">&quot;header_raw&quot;</span>:<span style="color: #BBB"> </span><span style="color: #BA2121">&quot;31 Aralık 2012&quot;</span>,<span style="color: #BBB"> </span><span style="color: #008000; font-weight: bold">&quot;kind&quot;</span>:<span style="color: #BBB"> </span><span style="color: #BA2121">&quot;closing&quot;</span>}
+<span style="color: #BBB">      </span>]
+<span style="color: #BBB">    </span>}
+<span style="color: #BBB">  </span>],
+<span style="color: #BBB">  </span><span style="color: #008000; font-weight: bold">&quot;rows&quot;</span>:<span style="color: #BBB"> </span>[
+<span style="color: #BBB">    </span>{
+<span style="color: #BBB">      </span><span style="color: #008000; font-weight: bold">&quot;row_id&quot;</span>:<span style="color: #BBB"> </span><span style="color: #BA2121">&quot;p05.t01.r000&quot;</span>,
+<span style="color: #BBB">      </span><span style="color: #008000; font-weight: bold">&quot;table_id&quot;</span>:<span style="color: #BBB"> </span><span style="color: #BA2121">&quot;p05.t01&quot;</span>,
+<span style="color: #BBB">      </span><span style="color: #008000; font-weight: bold">&quot;label_raw&quot;</span>:<span style="color: #BBB"> </span><span style="color: #BA2121">&quot;…&quot;</span>,
+<span style="color: #BBB">      </span><span style="color: #008000; font-weight: bold">&quot;role&quot;</span>:<span style="color: #BBB"> </span><span style="color: #BA2121">&quot;item&quot;</span>,
+<span style="color: #BBB">      </span><span style="color: #008000; font-weight: bold">&quot;indent_level&quot;</span>:<span style="color: #BBB"> </span><span style="color: #666">0</span>,
+<span style="color: #BBB">      </span><span style="color: #008000; font-weight: bold">&quot;parent_row_id&quot;</span>:<span style="color: #BBB"> </span><span style="color: #008000; font-weight: bold">null</span>,
+<span style="color: #BBB">      </span><span style="color: #008000; font-weight: bold">&quot;note_refs&quot;</span>:<span style="color: #BBB"> </span>[<span style="color: #666">11</span>],
+<span style="color: #BBB">      </span><span style="color: #008000; font-weight: bold">&quot;bbox&quot;</span>:<span style="color: #BBB"> </span>[<span style="color: #666">0</span>,<span style="color: #BBB"> </span><span style="color: #666">0</span>,<span style="color: #BBB"> </span><span style="color: #666">0</span>,<span style="color: #BBB"> </span><span style="color: #666">0</span>]
+<span style="color: #BBB">    </span>}
+<span style="color: #BBB">  </span>],
+<span style="color: #BBB">  </span><span style="color: #008000; font-weight: bold">&quot;cells&quot;</span>:<span style="color: #BBB"> </span>[
+<span style="color: #BBB">    </span>{
+<span style="color: #BBB">      </span><span style="color: #008000; font-weight: bold">&quot;cell_id&quot;</span>:<span style="color: #BBB"> </span><span style="color: #BA2121">&quot;p05.t01.r000.c00&quot;</span>,
+<span style="color: #BBB">      </span><span style="color: #008000; font-weight: bold">&quot;row_id&quot;</span>:<span style="color: #BBB"> </span><span style="color: #BA2121">&quot;p05.t01.r000&quot;</span>,
+<span style="color: #BBB">      </span><span style="color: #008000; font-weight: bold">&quot;period_id&quot;</span>:<span style="color: #BBB"> </span><span style="color: #BA2121">&quot;closing_2012&quot;</span>,
+<span style="color: #BBB">      </span><span style="color: #008000; font-weight: bold">&quot;state&quot;</span>:<span style="color: #BBB"> </span><span style="color: #BA2121">&quot;number&quot;</span>,
+<span style="color: #BBB">      </span><span style="color: #008000; font-weight: bold">&quot;raw&quot;</span>:<span style="color: #BBB"> </span><span style="color: #BA2121">&quot;1.234&quot;</span>,
+<span style="color: #BBB">      </span><span style="color: #008000; font-weight: bold">&quot;value&quot;</span>:<span style="color: #BBB"> </span><span style="color: #666">1234</span>,
+<span style="color: #BBB">      </span><span style="color: #008000; font-weight: bold">&quot;bbox&quot;</span>:<span style="color: #BBB"> </span>[<span style="color: #666">0</span>,<span style="color: #BBB"> </span><span style="color: #666">0</span>,<span style="color: #BBB"> </span><span style="color: #666">0</span>,<span style="color: #BBB"> </span><span style="color: #666">0</span>]
+<span style="color: #BBB">    </span>}
+<span style="color: #BBB">  </span>],
+<span style="color: #BBB">  </span><span style="color: #008000; font-weight: bold">&quot;relations&quot;</span>:<span style="color: #BBB"> </span>[
+<span style="color: #BBB">    </span>{
+<span style="color: #BBB">      </span><span style="color: #008000; font-weight: bold">&quot;relation_id&quot;</span>:<span style="color: #BBB"> </span><span style="color: #BA2121">&quot;rel.001&quot;</span>,
+<span style="color: #BBB">      </span><span style="color: #008000; font-weight: bold">&quot;summary_row_id&quot;</span>:<span style="color: #BBB"> </span><span style="color: #BA2121">&quot;…&quot;</span>,
+<span style="color: #BBB">      </span><span style="color: #008000; font-weight: bold">&quot;footnote_row_id&quot;</span>:<span style="color: #BBB"> </span><span style="color: #BA2121">&quot;…&quot;</span>,
+<span style="color: #BBB">      </span><span style="color: #008000; font-weight: bold">&quot;relation_type&quot;</span>:<span style="color: #BBB"> </span><span style="color: #BA2121">&quot;roll_forward&quot;</span>,
+<span style="color: #BBB">      </span><span style="color: #008000; font-weight: bold">&quot;period_scope&quot;</span>:<span style="color: #BBB"> </span>[<span style="color: #BA2121">&quot;closing_2012&quot;</span>],
+<span style="color: #BBB">      </span><span style="color: #008000; font-weight: bold">&quot;evidence&quot;</span>:<span style="color: #BBB"> </span>{<span style="color: #008000; font-weight: bold">&quot;summary_cell_ids&quot;</span>:<span style="color: #BBB"> </span>[<span style="color: #BA2121">&quot;…&quot;</span>],<span style="color: #BBB"> </span><span style="color: #008000; font-weight: bold">&quot;footnote_cell_ids&quot;</span>:<span style="color: #BBB"> </span>[<span style="color: #BA2121">&quot;…&quot;</span>]}
+<span style="color: #BBB">    </span>}
+<span style="color: #BBB">  </span>],
+<span style="color: #BBB">  </span><span style="color: #008000; font-weight: bold">&quot;checks&quot;</span>:<span style="color: #BBB"> </span>[],
+<span style="color: #BBB">  </span><span style="color: #008000; font-weight: bold">&quot;adjudication&quot;</span>:<span style="color: #BBB"> </span>{<span style="color: #008000; font-weight: bold">&quot;status&quot;</span>:<span style="color: #BBB"> </span><span style="color: #BA2121">&quot;frozen&quot;</span>,<span style="color: #BBB"> </span><span style="color: #008000; font-weight: bold">&quot;version&quot;</span>:<span style="color: #BBB"> </span><span style="color: #BA2121">&quot;2.0.0&quot;</span>,<span style="color: #BBB"> </span><span style="color: #008000; font-weight: bold">&quot;changes&quot;</span>:<span style="color: #BBB"> </span>[]}
+}
+</code></pre></div>
+
+<p>Coordinates in the example are placeholders and must be replaced by measured boxes. Never use placeholder zero boxes in a frozen file.</p>
+<h2 id="5-scoring-rules-to-freeze-before-evaluation">5. Scoring rules to freeze before evaluation</h2>
+<ul>
+<li>Match tables by page and geometry/title evidence, not by copied values.</li>
+<li>Match rows inside an already matched table using label and geometry; values must not decide row alignment.</li>
+<li>Count unmatched predictions as false positives and unmatched gold objects as false negatives.</li>
+<li>Score the full logical cell grid, including <code>empty</code>, <code>dash</code> and <code>zero</code> as distinct states.</li>
+<li>Score hierarchy (<code>role</code>, <code>indent_level</code>, <code>parent_row_id</code>) separately from value accuracy.</li>
+<li>Score relation source, target, type and period scope separately. A correct amount with the wrong period is not a fully correct edge.</li>
+<li>Penalize duplicate predictions rather than allowing multiple attempts to match one gold object.</li>
+<li>Report rotated-page and low-quality-scan slices separately.</li>
+<li>Calibrate confidence against adjudicated correctness. Agreement among OCR engines is an input signal, not proof of accuracy.</li>
+</ul>
+<p>Required metrics should include table/row/cell precision-recall-F1, numeric exact/tolerance accuracy, cell-state accuracy, hierarchy accuracy, relation precision-recall-F1, period/type accuracy, validation coverage and calibration error. Always publish counts beside percentages.</p>
+<h2 id="6-known-audit-points-for-the-current-reference-data">6. Known audit points for the current reference data</h2>
+<p>The existing reference set is a starting point, not a final <code>v2</code> gold set. Before claiming benchmark quality, re-audit:</p>
+<ul>
+<li>logical empty cells that may not have been emitted;</li>
+<li>hierarchy roles, indentation and parent links;</li>
+<li>period semantics beyond simple <code>y2012</code>/<code>y2011</code> labels;</li>
+<li>relation period scope and relation type;</li>
+<li>row boxes that were stored with zero horizontal width;</li>
+<li>two previously identified numeric discrepancies and all OCR repairs;</li>
+<li>any score/calibration claim derived from the same predictions being evaluated.</li>
+</ul>
+<p>The debugger’s annotations are intentionally stored separately from canonical <code>result.json</code>. Export them for adjudication; do not mutate pipeline output in place.</p>
+<h2 id="7-fast-human-annotation-checklist">7. Fast human annotation checklist</h2>
+<p>For each page, the reviewer should be able to answer yes/no:</p>
+<ul>
+<li>Is page identity and rotation correct?</li>
+<li>Does every table box enclose the full table?</li>
+<li>Are all visible row labels present exactly once?</li>
+<li>Is each hierarchy decision supported by layout?</li>
+<li>Does every row have every logical period position, including empties?</li>
+<li>Are dash, zero, parentheses and blank states preserved?</li>
+<li>Are note references and asterisks preserved?</li>
+<li>Does every relation point to independently verified source and target rows?</li>
+<li>Are type and period scope correct?</li>
+<li>Can another reviewer reproduce the annotation from the source alone?</li>
+</ul>
+<p>If any answer is “no” or “uncertain,” the page stays unfrozen and enters adjudication.</p></main>
+</body></html>

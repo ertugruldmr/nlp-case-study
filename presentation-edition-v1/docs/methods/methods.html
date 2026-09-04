@@ -1,0 +1,408 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<title>ftlink kapsanan yöntemler</title>
+<style>
+  :root { --bg:#14100b; --card:#1e1812; --ink:#f0e9df; --dim:#b3a58f; --acc:#d97757; --ok:#7fa66b; --warn:#c9a03c; --lit:#8f9fb3; --line:#3a3227; }
+  * { box-sizing:border-box; margin:0; }
+  body { background:var(--bg); color:var(--ink); font:17px/1.55 "Avenir Next",Seravek,system-ui,sans-serif; }
+  .slide { display:none; min-height:100vh; padding:44px 60px; flex-direction:column; }
+  .slide.on { display:flex; }
+  .cover { padding:56px 72px; }
+  .k { color:var(--acc); font-weight:600; }
+  .dim { color:var(--dim); }
+  h1 { font-size:40px; line-height:1.16; margin-bottom:14px; }
+  h2 { font-size:27px; margin-bottom:4px; }
+  h2 + .sub { color:var(--dim); margin-bottom:12px; font-size:15px; }
+  code, .mono { font-family:"SF Mono",Menlo,monospace; font-size:14px; color:#e8c9a0; }
+  .card { background:var(--card); border:1px solid var(--line); border-radius:10px; padding:20px 26px; }
+  .foot { margin-top:auto; padding-top:14px; color:var(--dim); font-size:12.5px; display:flex; justify-content:space-between; }
+  .kbd { position:fixed; right:16px; bottom:12px; color:var(--dim); font-size:12px; }
+  .legend { display:grid; grid-template-columns:auto 1fr; gap:8px 14px; align-items:center; margin-top:30px; font-size:15px; max-width:820px; }
+  .grid2 { display:grid; grid-template-columns:1.05fr 0.95fr; gap:26px; align-items:start; }
+  table.cov { border-collapse:collapse; width:100%; font-size:11.5px; line-height:1.34; table-layout:fixed; }
+  table.cov th, table.cov td { border:1px solid var(--line); padding:3.5px 7px; text-align:left; vertical-align:top; overflow-wrap:anywhere; }
+  table.cov th { background:var(--card); color:var(--dim); font-weight:600; }
+  table.cov td.tech { font-weight:600; }
+  table.cov.four th:nth-child(1) { width:23%; }
+  table.cov.four th:nth-child(2) { width:11%; }
+  table.cov.four th:nth-child(3) { width:34%; }
+  table.cov.four th:nth-child(4) { width:32%; }
+  table.cov.gaps th:nth-child(1) { width:19%; }
+  table.cov.gaps th:nth-child(2) { width:55%; }
+  table.cov.gaps th:nth-child(3) { width:26%; }
+  table.cov.rules th:nth-child(1) { width:17%; }
+  table.cov.rules th:nth-child(2) { width:83%; }
+  .slide.tight table.cov { font-size:10.3px; line-height:1.3; }
+  .slide.tight table.cov th, .slide.tight table.cov td { padding:2.5px 6px; }
+  table.cov.small { font-size:11.5px; table-layout:auto; }
+  table.cov.small td.num, table.cov.small th { text-align:right; }
+  table.cov.small td:first-child, table.cov.small th:first-child { text-align:left; }
+  table.cov.small td.tot { font-weight:700; }
+  .stcol { white-space:nowrap; }
+  .chip { display:inline-block; border-radius:5px; padding:1px 6px; font-size:10.5px; font-weight:600; border:1px solid; white-space:nowrap; }
+  .st-ship  { color:var(--ok);   border-color:var(--ok); }
+  .st-meas  { color:var(--warn); border-color:var(--warn); }
+  .st-colab { color:var(--acc);  border-color:var(--acc); }
+  .st-rej   { color:var(--dim);  border-color:var(--line); }
+  .st-lit   { color:var(--lit);  border-color:var(--lit); }
+  #gaps-tables { }
+  @page { size: 13.333in 7.5in; margin: 0; }
+  @media print {
+    .slide { display:flex !important; width:13.333in; height:7.5in; min-height:0; page-break-after:always; break-after:page; padding:34px 52px; overflow:hidden; }
+    .slide:last-of-type { page-break-after:auto; }
+    .kbd { display:none; }
+    body { background:var(--bg); -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+  }
+</style>
+</head>
+<body>
+
+<section class="slide on cover">
+  <div style="margin:auto; max-width:960px">
+    <div class="dim" style="font-size:20px">Finansal Tablo ve Dipnot İlişkilendirme · ftlink 1.0.2</div>
+    <h1>Kapsanan yöntemler: her aşamada ne denendi, ne sevk edildi, ne neden edilmedi</h1>
+    <p class="dim" style="font-size:18px">13 aşama · 134 teknik satırı · her sayı bir kanıt notundan, karar matrisinden, ADR'den ya da README'den kopyalandı</p>
+    <div class="legend">
+      <span class="chip st-ship">sevk edildi</span><span class="dim">ftlink 1.0.2 içinde çalışıyor</span>
+      <span class="chip st-meas">ölçüldü, alınmadı</span><span class="dim">sayısı var, sevk edilen seçim yerinde duruyor</span>
+      <span class="chip st-colab">Colab kuyruğunda</span><span class="dim">ön kayıtlı Colab koşusu bekliyor</span>
+      <span class="chip st-rej">reddedildi</span><span class="dim">ölçüm, lisans, şartname ya da bilinçli yapmama</span>
+      <span class="chip st-lit">yalnız literatür</span><span class="dim">yalnız literatürde incelendi, yerel ölçüm yok</span>
+    </div>
+    <p style="margin-top:26px; font-size:16px" class="dim">Kaynaklar: decisions/decision-matrix.md · adr-01..03 · evidence/*.md · research/105-109 · research/94.fact-ledger.md · deliverable/README.md 2-6 ve 11 · handoff/RUN0678-FOLDIN-PLAN.md. Tam rapor: <span class="mono">research/110.methods-covered-report.md</span></p>
+  </div>
+  <div class="foot"><span>Ertuğrul Demir</span><span>1 / 16</span></div>
+</section>
+<section class="slide">
+  <h2>S0 konfigürasyon ve S2 sayfa doğrulama</h2>
+  <div class="sub">Sayfa aralığı ve dipnot numarası koddan değil YAML'dan (gereklilik 4) <span class="dim">· 7 teknik</span></div>
+  <table class="cov four">
+    <tr><th>teknik</th><th>durum</th><th>ölçüm / kanıt</th><th>neden bu durum, nerede ayrışıyor</th></tr>
+    <tr><td class="tech">YAML document.summary_pages + footnote_no (+ extra_control_pages, model id/revizyon)</td><td class="stcol"><span class="chip st-ship">sevk edildi</span></td><td>3 dipnot + fn13 konfigle koştu; 17 lab senaryosu; 3 dış PDF'te yalnız 5 anahtar değişti</td><td>gereklilik 4 ve genellik hikâyesi buna dayanıyor</td></tr>
+    <tr><td class="tech">Sabit kodlanmış sayfa aralığı / dipnot numarası</td><td class="stcol"><span class="chip st-rej">reddedildi</span></td><td>ölçülmedi (şartname yasaklıyor)</td><td>gereklilik 4; konfig-only genellik koşularını imkânsız kılardı</td></tr>
+    <tr><td class="tech">Özet tablo sayfalarının otomatik tespiti</td><td class="stcol"><span class="chip st-rej">reddedildi</span></td><td>ölçülmedi; README 11 kasıtlı yapılmadı listesinde</td><td>aralık konfigüre edilip STR_SUMMARY_RANGE ile doğrulanıyor; otomatik tespit gürültülü hatayı kaldırırdı</td></tr>
+    <tr><td class="tech">FUSION_WEIGHTS'in konfig anahtarı olması</td><td class="stcol"><span class="chip st-rej">reddedildi</span></td><td>confidence.py:33 modül sabiti; 0,5/0,5/0 senaryosu konfig farkı olarak kurulamıyor (E57)</td><td>ağırlıkları çalışma anı Platt yeniden fiti emiyor (azami sapma 0,0196); çevrimdışı aritmetik yeterli</td></tr>
+    <tr><td class="tech">STR_SUMMARY_RANGE + STR_FOOTNOTE_REFS_PRESENT</td><td class="stcol"><span class="chip st-ship">sevk edildi</span></td><td>E29/E30 S2 kontrolleri; 3 dış PDF'te de konfigüre aralık 3'er özet tablo verdi</td><td>yanlış konfigürasyon sessiz kalamaz, gürültülü düşer</td></tr>
+    <tr><td class="tech">Tablo algılayıcıyı sayfa bulucu olarak kullanmak (TATR detection head)</td><td class="stcol"><span class="chip st-meas">ölçüldü, alınmadı</span></td><td>E50: eşik 0,7'de 5 sayfanın 1'i, 0,3'te 4'ü (kopya kutular: s.5 x2, s.53 x4); s.54 ikisinde de yok</td><td>algılama darboğaz, yapı değil; NMS + s.54 için yedek yol gerekirdi</td></tr>
+    <tr><td class="tech">Öğrenilmiş sayfa sınıflandırıcı</td><td class="stcol"><span class="chip st-rej">reddedildi</span></td><td>ölçülmedi (README 11)</td><td>tek süreç, tek belge; aralık konfigürasyondan</td></tr>
+  </table>
+  <div class="foot"><span>S0 · S2</span><span>2 / 16</span></div>
+</section>
+<section class="slide tight">
+  <h2>S1 OCR ve S1b ikinci motor</h2>
+  <div class="sub">Birincil motor kilitli (300 dpi / psm 4); ikinci motor doğrular, düzeltmez <span class="dim">· 14 teknik</span></div>
+  <table class="cov four">
+    <tr><th>teknik</th><th>durum</th><th>ölçüm / kanıt</th><th>neden bu durum, nerede ayrışıyor</th></tr>
+    <tr><td class="tech">tesseract 5 tur TSV, 300 dpi, psm 4 (E2 ızgarasıyla kilitli)</td><td class="stcol"><span class="chip st-ship">sevk edildi</span></td><td>154/156 değer birebir; 0,6-0,7 s/sayfa OCR, boru hattında 2-4 s/sayfa, 120 s zaman aşımı</td><td>bu tarama sınıfında en iyi hücre birebirliği; Apache-2.0, brew/apt ile kurulur</td></tr>
+    <tr><td class="tech">400 dpi render</td><td class="stcol"><span class="chip st-meas">ölçüldü, alınmadı</span></td><td>E2: 149/156 (daha kötü); lab dpi-400: %79,6 hücre, ilişki geri çağırma 0,14, yeni bozulma 71.543.097</td><td>her seviyede ölçülebilir şekilde kötü; daha çok piksel, daha çok rakam bölünmesi</td></tr>
+    <tr><td class="tech">psm 6 (tek blok)</td><td class="stcol"><span class="chip st-meas">ölçüldü, alınmadı</span></td><td>lab psm-6: içindekiler ve başlık okumaları bozuk, locate iki yoldan da düşüyor, RuntimeError</td><td>gürültülü iptal, kademeli bozulma değil; sütun modu okuma sırasını koruyor</td></tr>
+    <tr><td class="tech">Yön kurtarma: 90/180/270 arasında güvenli-kelime maksimumu</td><td class="stcol"><span class="chip st-ship">sevk edildi</span></td><td>fn12 sayfaları 55-57 (270 derece) bulundu ve çıkarıldı</td><td>döndürülmüş dipnot sayfaları belgede var; ham kelime sayısı sinyali yanlışlandı (yan metin çöp kelime üretiyor)</td></tr>
+    <tr><td class="tech">RapidOCR ile her sayısal kırpımın rakam kontrolü (S1b)</td><td class="stcol"><span class="chip st-ship">sevk edildi</span></td><td>FMT_ENGINE_AGREEMENT 176 kontrol / 175 uyum / 1 uyuşmazlık = gerçek Stoklar bozulması; lab no-second-engine: kontrol not_evaluable</td><td>düzeltme değil işaretle: uyuşmazlık güveni 0,4'e sabitler; ayırıcı sınıfı doğası gereği geçer, FIN_PARENT_SUM yakalar</td></tr>
+    <tr><td class="tech">PP-OCRv6 small (RapidOCR 3.9.2 varsayılanı, wheel içinde)</td><td class="stcol"><span class="chip st-ship">sevk edildi</span></td><td>koşu kaydı PP-OCRv6_rec_small.onnx yüklüyor; 199/201, 176/175/1, 6/6 yüzde, 103/4/6 (E55)</td><td>zaten sevk edilen model; research/106'nın önerdiği pin yükseltmesi işlevsiz</td></tr>
+    <tr><td class="tech">PP-OCRv6 medium / PP-OCRv5 latin / PP-OCRv5 ch (ikinci motor varyantları)</td><td class="stcol"><span class="chip st-meas">ölçüldü, alınmadı</span></td><td>üçü de 199/201, 176/175/1, 6/6, 7/7, 103/4/6; 0 ham değer farkı; v5'lerde 3 yüzde hücresi güveni oynuyor (%9: 0,579 vs 0,95)</td><td>değerlerde boş sonuç; rakam kontrolü tanıyıcı kuşağına duyarsız; v6 medium 73 MB indirmeyi boşuna ekliyor</td></tr>
+    <tr><td class="tech">PaddleOCR tam yığın (birincil olarak)</td><td class="stcol"><span class="chip st-rej">reddedildi</span></td><td>kaynaklı: v5 modelinde TR aksanı yok (bakımcı, #16482); PP-OCRv6 sözlüğü 12 Türkçe harfi taşıyor (research/106)</td><td>macOS ARM riski; etiket CER'i henüz ölçülmedi, o ölçüm run-08'in işi</td></tr>
+    <tr><td class="tech">Apple Vision</td><td class="stcol"><span class="chip st-rej">reddedildi</span></td><td>ölçüldü: bu makinede desteklenen diller arasında tr yok</td><td>yalnız mac; yeniden çalıştırılabilirliği bozar</td></tr>
+    <tr><td class="tech">surya / Chandra 2 / Nanonets-OCR / HunyuanOCR / Mistral OCR</td><td class="stcol"><span class="chip st-rej">reddedildi</span></td><td>lisans kapısı: OpenRAIL-M gelir tavanı, Qwen research (ticari değil), Tencent community (AB hariç), ücretli API (research/106)</td><td>bir bankaya teslim edilecek pakette yer alamaz</td></tr>
+    <tr><td class="tech">TrOCR / docTR / EasyOCR</td><td class="stcol"><span class="chip st-lit">yalnız literatür</span></td><td>Hub'da Türkçe TrOCR yok; docTR'de turkish sözlük var ama ön eğitimli tanıyıcı yok; EasyOCR son sürüm 1.7.2 (24.09.2024)</td><td>Türkçe taramalar için çıkmaz sokak</td></tr>
+    <tr><td class="tech">OCRTurk kıyaslama modelleri (PaddleOCR-VL, HunyuanOCR, Nemotron)</td><td class="stcol"><span class="chip st-lit">yalnız literatür</span></td><td>SIGTURK 2026, 180 sayfa: PaddleOCR-VL NED 0,08 / TEDS 0,87; HunyuanOCR Türkçe karakter 0,88; Nemotron 0,47</td><td>kıyaslama sayfa düzeyi metrik veriyor, sayısal hücre birebirliği vermiyor</td></tr>
+    <tr><td class="tech">VLM'i uyuşmazlık hücrelerinde üçüncü oy olarak (Qwen3-VL-8B, dots.ocr, DeepSeek-OCR-2)</td><td class="stcol"><span class="chip st-colab">Colab kuyruğunda</span></td><td>ölçülmedi; run-08 kuralı: 201 altın değerde en az 199 VE 6 yüzde hücresi VE etiket CER'i tesseract'tan kötü değil VE CPU</td><td>GPU gerekiyor; iki gerçek bozulmayı düzelten 201/201 sessiz düzeltme olarak raporlanır, kazanım değil</td></tr>
+    <tr><td class="tech">Dijital doğan PDF'ler için metin katmanı hızlı yolu</td><td class="stcol"><span class="chip st-rej">reddedildi</span></td><td>README 11: her sayfa OCR'lanıyor; Özak 2013 (dijital) yine de 22,0 s'de koştu</td><td>notlanan tarama için gereksiz; ironik olarak baştaki 1 düşmesi tam da dijital dosyanın render'ında çıktı</td></tr>
+  </table>
+  <div class="foot"><span>S1 · S1b</span><span>3 / 16</span></div>
+</section>
+<section class="slide tight">
+  <h2>S3 tablo yapısı ve S3b yüzde kurtarma</h2>
+  <div class="sub">Çizgisiz tabloda yapı geometriden; oran satırlarında motorlar rol değiştiriyor <span class="dim">· 13 teknik</span></div>
+  <table class="cov four">
+    <tr><th>teknik</th><th>durum</th><th>ölçüm / kanıt</th><th>neden bu durum, nerede ayrışıyor</th></tr>
+    <tr><td class="tech">Sayısal token sağ kenarlarında x-kümeleme + tire ikinci geçişi + girinti hiyerarşisi</td><td class="stcol"><span class="chip st-ship">sevk edildi</span></td><td>199/201 birebir hücre (%99,0), CI [0,9645, 0,9988]; eşleşmeyen çıkarılmış satır 0</td><td>GPU yok, deterministik, kalan 2 yanlış işaretli (ADR-01); başlık metninin kontrolü yok (p53.t04, README 8)</td></tr>
+    <tr><td class="tech">Girinti kuralı: sarmalanan etiket (+18 px) vs grup başlığı (hizalı)</td><td class="stcol"><span class="chip st-ship">sevk edildi</span></td><td>Özkaynak etiketi + 2 Dağılımı başlığı kurtarıldı; S3b ile birlikte hücreler %92,5'ten %99,0'a</td><td>etiketsiz satır boşluğunu kapattı (ADR-01 güncellemesi); metin-only satırları atmak etiket ve başlık kaybettiriyordu</td></tr>
+    <tr><td class="tech">derive_title: not-başlığı deseni, yoksa en üstteki büyük harf bloğu</td><td class="stcol"><span class="chip st-ship">sevk edildi</span></td><td>7/7 gerçek başlık, döndürülmüş 12. MADDI DURAN VARLIKLAR dahil</td><td>gereklilik 1; header_lines[0] 7 başlığın 6'sında çöp veriyordu (mock-03 F1)</td></tr>
+    <tr><td class="tech">S3b oran satırlarında motor değişimi (RapidOCR okur, tesseract oylar)</td><td class="stcol"><span class="chip st-ship">sevk edildi</span></td><td>tesseract her dpi/psm'de 0/6 yüzde glifi, RapidOCR 6/6; T3 1/6'dan 6/6'ya; kurtarma olmadan hücreler %96,5 (%86,6 -&gt; 486,6)</td><td>birincil motorun ölçülmüş kör noktası; roller yalnız glif sınıfına göre değişiyor</td></tr>
+    <tr><td class="tech">TATR v1.1-fin yapı başlığı (FinTabNet.c)</td><td class="stcol"><span class="chip st-meas">ölçüldü, alınmadı</span></td><td>E50 CPU: algılanan yerde gerçek 4 sütun, satırlar aşırı bölünmüş (s.6 36 vs 29, s.7 35 vs 29), s.53'te 3 sütun vs altın 2; dışarıdan AP 1,00 -&gt; 0,82, D-ECE 0,16 (dağılım dışı) vs 0,00 (dağılım içi)</td><td>GriTS altına karşı hâlâ run-01/06'nın işi; ADR-01 revizyon şartı s.53/54'te belirgin üstünlük istiyor, s.54 hiç algılanmıyor</td></tr>
+    <tr><td class="tech">docling TableFormer (E7 run-01, E63 in run-06)</td><td class="stcol"><span class="chip st-colab">Colab kuyruğunda</span></td><td>yerel ölçüm yok; kaynaklı 400 ms/tablo L4, 1,74 s x86 (AAAI'25); v1'e pinle, v2 gerilemeleri #3158/#3553</td><td>run-06 kuralı: &gt;=199/201 VE 7/7 tablo (s.54 dahil) VE CPU ya da README'de dürüst GPU şartı</td></tr>
+    <tr><td class="tech">RapidTable unitable / SLANet-plus (onnx, bizim kelime kutularını tüketir)</td><td class="stcol"><span class="chip st-colab">Colab kuyruğunda</span></td><td>ölçülmedi; kaynaklı wireless 78,4 TEDS (v1.0), EN/ZH eğitimli</td><td>sevk edilen kelime kutularını yeniden kullanan en ucuz karşılaştırma</td></tr>
+    <tr><td class="tech">Yerel VLM tablo-to-HTML (dots.ocr MIT, Qwen3-VL / olmOCR-2 Apache)</td><td class="stcol"><span class="chip st-colab">Colab kuyruğunda</span></td><td>ölçülmedi; OmniDocBench v1.6 TEDS 87-95 (PaddleOCR-VL-1.6 94,8; MinerU2.5-Pro 93,4; dots.ocr 87,2)</td><td>hiçbiri tire/boş/sıfır, dipnot referans sütunu ve girinti derinliği modellemiyor: kural katmanının arkasında kalır</td></tr>
+    <tr><td class="tech">Sayfa başına VLM API katmanı, önbellekli (E8)</td><td class="stcol"><span class="chip st-colab">Colab kuyruğunda</span></td><td>ölçülmedi; kaynaklı sayfa başına 0,01 dolardan az, önbeleksiz %95-99 koşu özdeşliği</td><td>barındırılan model; bayt özdeşliği için önbellek şart</td></tr>
+    <tr><td class="tech">camelot / pdfplumber / tabula / gmft</td><td class="stcol"><span class="chip st-rej">reddedildi</span></td><td>ölçüldü: okunacak metin katmanı yok</td><td>görüntü-only tarama; ancak ocrmypdf katmanıyla dirilir</td></tr>
+    <tr><td class="tech">PP-StructureV3</td><td class="stcol"><span class="chip st-rej">reddedildi</span></td><td>kaynaklı: macOS ARM'de segfault (resmî izleyici)</td><td>yeniden çalıştırılabilirlik riski</td></tr>
+    <tr><td class="tech">Nanonets / Marker</td><td class="stcol"><span class="chip st-rej">reddedildi</span></td><td>Qwen research lisansı (ticari değil) / OpenRAIL-M ağırlıklar</td><td>lisans kapısı</td></tr>
+    <tr><td class="tech">GriTS yapı metriği</td><td class="stcol"><span class="chip st-colab">Colab kuyruğunda</span></td><td>hesaplanmadı (README 9, kart 100); run-01 sahibi</td><td>yerel TATR paketinde hücre düzeyi altın yok; hücre metriğinin görmediği başlık/hiyerarşi hatalarını puanlardı</td></tr>
+  </table>
+  <div class="foot"><span>S3 · S3b</span><span>4 / 16</span></div>
+</section>
+<section class="slide">
+  <h2>S4 normalizasyon</h2>
+  <div class="sub">Türkçe sayı grameri, üç durumlu hücreler, morfoloji kütüphanesiz <span class="dim">· 11 teknik</span></div>
+  <table class="cov four">
+    <tr><th>teknik</th><th>durum</th><th>ölçüm / kanıt</th><th>neden bu durum, nerede ayrışıyor</th></tr>
+    <tr><td class="tech">Özel Decimal grameri, üç durum (number / dash / empty)</td><td class="stcol"><span class="chip st-ship">sevk edildi</span></td><td>E9: 182/182 altın token birebir, 19/19 durum, 175/176 OCR değeri kurtarıldı</td><td>gereklilik 2; yanlış rakam OCR'ı tasarım gereği doğrulamanın işi</td></tr>
+    <tr><td class="tech">Onarım katmanı (kaybolan nokta yeniden gruplama, 0,7 / 0,5 tavan)</td><td class="stcol"><span class="chip st-ship">sevk edildi</span></td><td>kesinlik 1,00, geri çağırma 0,53</td><td>kesinlik önce; onarılamayan hücre işaretlenir, tahmin edilmez (DECISIONS 8)</td></tr>
+    <tr><td class="tech">tr_lower (NFC sonra I/İ çevirisi)</td><td class="stcol"><span class="chip st-ship">sevk edildi</span></td><td>İLİŞKİN -&gt; ilişkin doğrulandı; Python lower() noktalı/noktasız i'yi bozuyor (ölçüldü)</td><td>Türkçe küçük harf Unicode varsayılanı değil</td></tr>
+    <tr><td class="tech">Lemmatizer yerine char_wb 2-4 n-gram</td><td class="stcol"><span class="chip st-ship">sevk edildi</span></td><td>sevk edilen Il Ocak bozulmasından sağ çıkıyor; değer morfem örtüşmesini taşıyor</td><td>çalışma anında morfolojik çözümleyici bağımlılığı yok</td></tr>
+    <tr><td class="tech">zeyrek</td><td class="stcol"><span class="chip st-rej">reddedildi</span></td><td>ölçüldü: çevrimdışı çöküyor</td><td>yeniden çalıştırma tuzağı</td></tr>
+    <tr><td class="tech">Zemberek</td><td class="stcol"><span class="chip st-rej">reddedildi</span></td><td>JVM bağımlılığı</td><td>yeniden çalıştırma tuzağı</td></tr>
+    <tr><td class="tech">Snowball / lucene gövdeleme (sözcüksel katman için)</td><td class="stcol"><span class="chip st-meas">ölçüldü, alınmadı</span></td><td>bm25s lucene+stem: tip (a) 0,40 / tip (b) 0,50 R@5; degerle vs deger kaybı ölçüldü</td><td>yalnız ayrışma taban çizgisi olarak tutuluyor; gövde sınırı morfem eşleşmesini kırıyor</td></tr>
+    <tr><td class="tech">Beş deterministik satır-rol etiketi kuralı</td><td class="stcol"><span class="chip st-ship">sevk edildi</span></td><td>11/11 hareket satırı (E25); stok tablolarında anlamsal roller (v0.5)</td><td>tam açıklanabilir, ML yok; bu N'de ML rol sınıflandırıcı gereksiz</td></tr>
+    <tr><td class="tech">label_norm ile oran satırı etiketlerinde OCR çöpü temizliği ((©)/(90)/(0))</td><td class="stcol"><span class="chip st-ship">sevk edildi</span></td><td>mock-05 F2, v0.8'de düzeltildi; rel011/rel016 güvenleri 0,0001 oynadı, kabul kümesi değişmedi</td><td>ham etiket yanında saklanıyor</td></tr>
+    <tr><td class="tech">Baştaki eksi ile negatifler (-1.234)</td><td class="stcol"><span class="chip st-rej">reddedildi</span></td><td>README 11: bugün ayrıştırılmıyor; bu bildirim her negatifi parantezle basıyor</td><td>notlanan belge için kapsam dışı; başka bir bildirim gerektirir</td></tr>
+    <tr><td class="tech">Virgüllü binlik ayırıcı (13,370,000)</td><td class="stcol"><span class="chip st-rej">reddedildi</span></td><td>Özak 2011 s.44: tablo da bayrak da üretmedi (sessiz atlama)</td><td>vaka belgesinde yok; boşluk olarak kaydedildi</td></tr>
+  </table>
+  <div class="foot"><span>S4</span><span>5 / 16</span></div>
+</section>
+<section class="slide">
+  <h2>S5 dipnot bulma</h2>
+  <div class="sub">İçindekiler + ofset + başlık doğrulama; üç ölçülmüş OCR hasarına üç karşı önlem <span class="dim">· 7 teknik</span></div>
+  <table class="cov four">
+    <tr><th>teknik</th><th>durum</th><th>ölçüm / kanıt</th><th>neden bu durum, nerede ayrışıyor</th></tr>
+    <tr><td class="tech">TOC ayrıştırma + basılı-PDF ofseti + başlık doğrulama + sınırlı tarama onarımı + (devamı) yürüyüşü</td><td class="stcol"><span class="chip st-ship">sevk edildi</span></td><td>fn11 sayfa 53-54 (sınırlı tarama, ~14 s); fn12 55-57 (TOC isabeti, ~17 s); fn10 sayfa 52</td><td>üç ölçülmüş TOC hasar modunun her birinin karşı önlemi var</td></tr>
+    <tr><td class="tech">Yalnız tarama ile bulma</td><td class="stcol"><span class="chip st-meas">ölçüldü, alınmadı</span></td><td>Özak 2011: parse_toc 0 girdi döndü, tarama yedeği 11. sayfadan koştu, page_offset null</td><td>daha yavaş; yedek yol olarak tutuluyor; sayfa ortasında başlayan notu kaçırıyor</td></tr>
+    <tr><td class="tech">TOC'a doğrulamasız güvenmek</td><td class="stcol"><span class="chip st-rej">reddedildi</span></td><td>ölçülmüş hasar: NOT 11 -&gt; NOT1lI; nokta öncüleri rakam yiyor 49-50 -&gt; 9-50</td><td>bu taramada kırılıyor</td></tr>
+    <tr><td class="tech">Sıra-pozisyonu ile yeniden numaralama + monotonluk onarımı</td><td class="stcol"><span class="chip st-ship">sevk edildi</span></td><td>yukarıdaki iki hasar modunu düzeltiyor (README 2)</td><td>glif hasarına bağışık</td></tr>
+    <tr><td class="tech">DİPNOT n başlık konvansiyonu</td><td class="stcol"><span class="chip st-rej">reddedildi</span></td><td>Emlak Konut 2012: 62,3 s sonra çıkış 2, footnote 9 not found; RE_TOC_LINE ^NOT çapası (locate.py:52), başlık regex'i yalnız çıplak sayı / N. / N-</td><td>bilinen boşluk, DECISIONS 17(c): tek satırlık regex genişletmesi, denenmedi</td></tr>
+    <tr><td class="tech">Sayfa altı dipnot bölütleme (sayfa ortasında başlayan not)</td><td class="stcol"><span class="chip st-rej">reddedildi</span></td><td>fn13 s.57'de not 12'nin altında başlıyor (2012 tarafı yok); Özak 2011 not 10 s.43'te 9. STOKLAR altında, hareket tablosu kayıp, REL_COVERAGE yandı</td><td>sayfa düzeyi kapsam beyan edilmiş bir sınır (README 8, 1.0.2'den beri)</td></tr>
+    <tr><td class="tech">Dipnotlar arası çapraz referans takibi (bkz. Not X)</td><td class="stcol"><span class="chip st-rej">reddedildi</span></td><td>README 11: yapılmadı</td><td>kapsam dışı</td></tr>
+  </table>
+  <div class="foot"><span>S5</span><span>6 / 16</span></div>
+</section>
+<section class="slide">
+  <h2>S6 aday üretimi</h2>
+  <div class="sub">Dört kanal, ağırlıklı RRF; iki ölçülmüş ilişki fiziği farklı kanallar istiyor <span class="dim">· 11 teknik</span></div>
+  <table class="cov four">
+    <tr><th>teknik</th><th>durum</th><th>ölçüm / kanıt</th><th>neden bu durum, nerede ayrışıyor</th></tr>
+    <tr><td class="tech">Değer çapası kanalı (ağırlık 3, dönem kapsamlı, rol kapılı)</td><td class="stcol"><span class="chip st-ship">sevk edildi</span></td><td>her iki ilişki tipinde R@5 1,00 / 1,00 (N=19); çapa 0: kabul kümesi aynı, güven farkı en fazla 0,002</td><td>mutabakat ilişkileri için yük taşıyıcı; çakışmalarda sahte çapa (423.580.000 x3), stop-list yanlışlandı, kapı = dönem + rol + hiyerarşi</td></tr>
+    <tr><td class="tech">char_wb 2-4 TF-IDF kosinüs</td><td class="stcol"><span class="chip st-ship">sevk edildi</span></td><td>tip (b) 1,00 / tip (a) 0,00</td><td>değer n-gram'ı sıfıra yakın sözcük örtüşmeli çifti taşıyor; tarih-rol etiketlerinde işe yaramıyor</td></tr>
+    <tr><td class="tech">rapidfuzz token-set oranı (aday oylayıcı)</td><td class="stcol"><span class="chip st-ship">sevk edildi</span></td><td>tip (a) 0,60 / tip (b) 1,00</td><td>en iyi çıplak etiket genelcisi; tip (a) kuyruklarını kaçırıyor</td></tr>
+    <tr><td class="tech">multilingual-e5-small (iki tarafta query öneki)</td><td class="stcol"><span class="chip st-ship">sevk edildi</span></td><td>tip (b) 1,00 / tip (a) rastgeleden kötü, sıralar [14-19]; lab dense-swap: kabul kümesi aynı, azami dconf 0,0009</td><td>yalnız anlamsal kanal, asla tek başına; gömücünün kendisi yük taşımıyor</td></tr>
+    <tr><td class="tech">Ağırlıklı RRF k=10 + çapa birleşimi, ilk 8</td><td class="stcol"><span class="chip st-ship">sevk edildi</span></td><td>k=5-10 ve anchor_w=3 en iyi: bilanço [1,3,4,7,8], gelir [1,2]; aday geri çağırma 7/7; k=60 aynı, azami dconf 0,0001</td><td>ekibin yayımlanmış RRF zevkiyle aynı; top_k 2: negatif havuz 22'den 2'ye, kalibrasyon fallback, 7 ilişki bayraklı, güvenler 0,278'e kadar düşüyor</td></tr>
+    <tr><td class="tech">bm25s lucene + gövdeleme</td><td class="stcol"><span class="chip st-meas">ölçüldü, alınmadı</span></td><td>tip (a) 0,40 / tip (b) 0,50</td><td>yalnız ayrışma taban çizgisi</td></tr>
+    <tr><td class="tech">Aday metnine tablo başlığı / bağlam eklemek</td><td class="stcol"><span class="chip st-rej">reddedildi</span></td><td>yanlışlandı: başlık adaylar arasında sabit; kolay çifti [1,2]'den [9,10]'a bozuyor</td><td>S5 sonrası etiket merkezli kalınıyor</td></tr>
+    <tr><td class="tech">jina-embeddings-v3</td><td class="stcol"><span class="chip st-rej">reddedildi</span></td><td>CC-BY-NC, trust_remote_code</td><td>lisans kapısı</td></tr>
+    <tr><td class="tech">Qwen3-Embedding-0.6B (e5-small'a rakip)</td><td class="stcol"><span class="chip st-colab">Colab kuyruğunda</span></td><td>ölçülmedi; Apache-2.0, 1,2 GB fp16 (research/107); run-07 bi-encoder satırı</td><td>E41 dersi: N=33'te darboğaz kapasite değil</td></tr>
+    <tr><td class="tech">Belge düzeyi sayısal eşitlik taraması (üçüncü aday kanalı)</td><td class="stcol"><span class="chip st-lit">yalnız literatür</span></td><td>Pang ve ark. denetim raporu çapraz kontrolcüsü: 0,5 kaba gömme filtresi + ince sınıflandırıcı, F1 87-92 (research/109)</td><td>değer çapası kanalıyla örtüşüyor, sayfalar arası erişim ekliyor</td></tr>
+    <tr><td class="tech">Tüm dipnot vs top-k aday penceresi (E12)</td><td class="stcol"><span class="chip st-colab">Colab kuyruğunda</span></td><td>ölçülmedi (kanıt backlog E10-E12)</td><td>RRF demeti zaten 7/7 geri çağırma veriyor</td></tr>
+  </table>
+  <div class="foot"><span>S6</span><span>7 / 16</span></div>
+</section>
+<section class="slide tight">
+  <h2>S7 ilişkilendirme yaklaşımları</h2>
+  <div class="sub">A çapraz kodlayıcı + B değer/rol kuralları + C sözcüksel taban + D LLM seçici (kapalı) <span class="dim">· 13 teknik</span></div>
+  <table class="cov four">
+    <tr><th>teknik</th><th>durum</th><th>ölçüm / kanıt</th><th>neden bu durum, nerede ayrışıyor</th></tr>
+    <tr><td class="tech">A: cross-encoder/mmarco-mMiniLMv2-L12-H384-v1 (118M), etiket|değer;değer, sıra duyarlı kabul</td><td class="stcol"><span class="chip st-ship">sevk edildi</span></td><td>R@5 1,00/1,00; yalnız-etiket 1/7 (sıra 9-19) vs 7/7 (sıra 1-5), exact McNemar p=0,031, top-1 marj 3,3974/0,4824 vs 0,2106/0,0402; 3 ms toplu / 8 ms tek; eşik 0,2-0,8 kabul kümesi aynı</td><td>568M ile parite, 1/5 boyut, Apache-2.0 (ADR-02); Türkçe mMARCO'da yok, XLM-R sırtından sıfır atış</td></tr>
+    <tr><td class="tech">A: BAAI/bge-reranker-v2-m3 (568M)</td><td class="stcol"><span class="chip st-meas">ölçüldü, alınmadı</span></td><td>R@5 1,00/1,00 etiket+değer, yalnız-etiket 0,20; 11-31 ms/çift CPU; config'inde aktivasyon anahtarı yok</td><td>sıra düzeyinde eşitlendi, geçilmedi; README 181 konfig takası ifadesi uçtan uca doğrulanmadı</td></tr>
+    <tr><td class="tech">A: mixedbread-ai/mxbai-rerank-base-v2 (0,5B)</td><td class="stcol"><span class="chip st-meas">ölçüldü, alınmadı</span></td><td>R@5 1,00/1,00; 54 ms/çift; trust_remote_code</td><td>4 kat boyutta parite</td></tr>
+    <tr><td class="tech">A: ytu-ce-cosmos/modernbert-tr-reranker (149M, Türkçe eğitimli, Apache-2.0)</td><td class="stcol"><span class="chip st-meas">ölçüldü, alınmadı</span></td><td>E57 konfig takası: 17 ilişki (7 doğru, 10 yanlış), P 0,41 R 1,00, hepsi bayraklı, kalibrasyon fallback, 102/14/7; identity zorlanınca 8 ilişki P 0,88; yalnız-etiket AUC 0,7149 vs 0,4504; füzyon LOO Brier 0,0076 vs 0,0085</td><td>run-07 kuralı yanıyor ama 1.0.2'de yalnız konfigle sevk edilemez (çift sigmoid); ADR-02 değişmedi, DECISIONS 18</td></tr>
+    <tr><td class="tech">A: Qwen/Qwen3-Reranker-0.6B (Apache-2.0, 596M)</td><td class="stcol"><span class="chip st-colab">Colab kuyruğunda</span></td><td>ölçülmedi; MMTEB-R 66,36 vs bge-v2-m3 58,36 (Qwen3 raporu Tablo 4); run-07</td><td>temel LLM Türkçe listeliyor, reranker ince ayar verisi belirtilmemiş; 1,2 GB fp16</td></tr>
+    <tr><td class="tech">A: jina-reranker-v2 / v3 / v3.5</td><td class="stcol"><span class="chip st-rej">reddedildi</span></td><td>CC-BY-NC-4.0; run-07'de yalnız ölçüm</td><td>banka teslimatı için lisans kapısı</td></tr>
+    <tr><td class="tech">B: değer + rol kuralları (dönem kapsamlı eşleşme VE rol tutarlılığı)</td><td class="stcol"><span class="chip st-ship">sevk edildi</span></td><td>roller 11/11 (E25); b_only x5 ilişkiyi taşıyor (4 bilanço mutabakatı + 1 ikiz tablo akışı)</td><td>mutabakat fiziği değer güdümlü, metin modelleri kaçırıyor; yalnız-değer çakışmalarda aşırı ateşliyor</td></tr>
+    <tr><td class="tech">C: rapidfuzz token-set sözcüksel taban çizgisi, bar 0,75</td><td class="stcol"><span class="chip st-ship">sevk edildi</span></td><td>0,75'te hiçbir şey kabul etmiyor; lab lenient-lexical 0,4: 3 yanlış bağ, P 0,70, üçü de 0,044-0,048 güvenle bayraklı</td><td>sözcük eşlemenin yetersizliği iki yönde de ölçüldü: gevşetilince çöp enjekte ediyor</td></tr>
+    <tr><td class="tech">D: OpenAI uyumlu uç nokta ile LLM seçici + commit'li yanıt önbelleği (varsayılan kapalı)</td><td class="stcol"><span class="chip st-ship">sevk edildi</span></td><td>E15 yerel 35B, sıcaklık 0: P 1,00 iki kalemde, R 1,00 gelir / 0,20 bilanço, 2-5 s/çağrı; E15b kaçak üretim iptal edildi</td><td>notlandırma sürtünmesi için kapalı (DECISIONS 4); d_only ilişkiler hep bayraklı, kalibratörü asla beslemiyor</td></tr>
+    <tr><td class="tech">D: Ollama / Llama-3.1-8B yerel tarama (E15-ext, run-02)</td><td class="stcol"><span class="chip st-colab">Colab kuyruğunda</span></td><td>ölçülmedi (run-02 opsiyonel)</td><td>katman kapalı sevk ediliyor</td></tr>
+    <tr><td class="tech">NLI mDeBERTa üçüncü sinyal (E17)</td><td class="stcol"><span class="chip st-colab">Colab kuyruğunda</span></td><td>ölçülmedi; 279M, MIT; run-01</td><td>ADR-02/03 revizyon şartı: noisy-OR varyantı için bağımsız kanıt</td></tr>
+    <tr><td class="tech">CE yüklenemezse gürültülü yedek (A sıfır puanlar, B/C ile devam, hepsi zorla bayraklı)</td><td class="stcol"><span class="chip st-ship">sevk edildi</span></td><td>import araya girmesiyle birim testli (tests/test_ce_fallback.py)</td><td>v0.7 öncesi README var olmayan bir yedeği anlatıyordu (mock-04 F1)</td></tr>
+    <tr><td class="tech">Tüm belgeyi tek LLM çağrısıyla ilişkilendirmek</td><td class="stcol"><span class="chip st-rej">reddedildi</span></td><td>şartname reddediyor; FinTagging kavram bağlama doğruluğu 0,19 vs çıkarım F1 0,69 (research/109)</td><td>gereklilik 6</td></tr>
+  </table>
+  <div class="foot"><span>S7</span><span>8 / 16</span></div>
+</section>
+<section class="slide tight">
+  <h2>S8 güven: harita, öncüller, kararlılık</h2>
+  <div class="sub">Ham benzerlik hiçbir seviyede güven değil; ilişki seviyesi çalışma anında kalibre ediliyor <span class="dim">· 13 teknik</span></div>
+  <table class="cov four">
+    <tr><th>teknik</th><th>durum</th><th>ölçüm / kanıt</th><th>neden bu durum, nerede ayrışıyor</th></tr>
+    <tr><td class="tech">Hücre = OCR güveni x ayrıştırma güveni; uyumda x1,05 (tavan 1,0), uyuşmazlıkta 0,4 tavan, onarım 0,7/0,5; satır/tablo sıralı toplamlar</td><td class="stcol"><span class="chip st-ship">sevk edildi</span></td><td>2 yanlış hücre 193 içinde en düşük 4. ve 17.; 0,5 altındaki 3 doğru hücre: grup toplamı 0,26, onarılmış dipnot hücresi 0,28, hisse başına 0,37</td><td>ADR-03; hücre bayrakları geri çağırma yönelimli, kesinlik kontrol gruplarından gelir</td></tr>
+    <tr><td class="tech">İlişki = füzyon 0,4 CE / 0,4 kural / 0,2 sözcüksel, sonra çalışma anı yumuşatılmış Platt</td><td class="stcol"><span class="chip st-ship">sevk edildi</span></td><td>11 pozitif / 22 negatif, fitted; a 10,5259, b -3,6973; jackknife 0,0372; LOO Brier 0,0085 (örneklem içi 0,0067, taban 0,2222, ham füzyon 0,0579); LOO çeyrekleri 0/8, 0/8, 2/8, 9/9; ilişkiler 0,816-0,979</td><td>ayrışık kontrollerde en muhafazakâr sonlu harita (en düşük pozitifte 0,784); kendi kontrollerinde tutarlı, aktarım iddiası değil</td></tr>
+    <tr><td class="tech">Yumuşatmasız lojistik (MLE)</td><td class="stcol"><span class="chip st-rej">reddedildi</span></td><td>ayrışık kontrollerde sonlu çözüm yok; v0.2 bu yüzden sessizce fallback koşuyordu</td><td>ıraksıyor</td></tr>
+    <tr><td class="tech">33 kontrol üzerinde izotonik regresyon</td><td class="stcol"><span class="chip st-meas">ölçüldü, alınmadı</span></td><td>{0,1} basamağına çöküyor (ilişkiler 1,0'a sabitleniyor); LOO 0,0449 vs Platt 0,0372</td><td>1,0 şartnamece yasak; bırak-bir-dışarıda daha çok oynuyor</td></tr>
+    <tr><td class="tech">Yarım güç yumuşatma</td><td class="stcol"><span class="chip st-meas">ölçüldü, alınmadı</span></td><td>a 13,4824, b -4,571; LOO Brier 0,0030; jackknife 0,0325; ilişkiler 0,8811-0,9934</td><td>yapısı gereği daha keskin; Brier ile seçmek kalibratörü kendi fit setinde ayarlamak olur</td></tr>
+    <tr><td class="tech">sklearn L2, C = 1 (GPU çalışması protokolü)</td><td class="stcol"><span class="chip st-meas">ölçüldü, alınmadı</span></td><td>a 2,5837, b -1,4291; LOO Brier 0,1151; jackknife 0,0286; ilişkiler 0,5316-0,6538</td><td>az güvenli: en düşük pozitifte 0,449 her ilişkiyi incelemeye gönderirdi; E41'deki yassılaşmanın aynısı</td></tr>
+    <tr><td class="tech">Jeffreys / Firth cezalı lojistik</td><td class="stcol"><span class="chip st-meas">ölçüldü, alınmadı</span></td><td>a 14,6406, b -4,882; en düşük pozitifte 0,8863; jackknife 0,0292; LOO Brier 0,0019; boşluk orta noktası 0,3358</td><td>her kontrolde uyuşuyor; muhafazakârlık seçimi, veri seçimi değil</td></tr>
+    <tr><td class="tech">Cauchy MAP (Gelman 2008 varsayılan öncülü)</td><td class="stcol"><span class="chip st-meas">ölçüldü, alınmadı</span></td><td>a 17,6862, b -5,7603; en düşük pozitifte 0,932; jackknife 0,0227; LOO Brier 0,0006; kesişme 0,3347</td><td>en cesur sonlu harita; eşit derecede savunulabilir, daha az muhafazakâr</td></tr>
+    <tr><td class="tech">CORP / PAV Brier ayrıştırması</td><td class="stcol"><span class="chip st-meas">ölçüldü, alınmadı</span></td><td>her sonlu harita için DSC = UNC = 0,2222, MCB = BS (örneklem içi ve LOO)</td><td>ayrışmayı betimliyor, kalibrasyon kalitesini değil; raporlanıyor, sevk edilmiyor</td></tr>
+    <tr><td class="tech">Bölünmüş conformal / SGR risk sınırı</td><td class="stcol"><span class="chip st-lit">yalnız literatür</span></td><td>alfa tabanı 1/(n+1); 33'te sıfır hata -&gt; %95 güvenle %8,7 risk; risk ifadesinde 0,03-0,09 aralık genişliği</td><td>bilgi değil, bir garanti cümlesi ekliyor</td></tr>
+    <tr><td class="tech">Kutulanmış ECE</td><td class="stcol"><span class="chip st-rej">reddedildi</span></td><td>küçük N'de yanlı; yerine Brier + PAV ayrıştırması (research/108)</td><td>kestirici hijyeni</td></tr>
+    <tr><td class="tech">Ham benzerliği güven olarak kullanmak</td><td class="stcol"><span class="chip st-rej">reddedildi</span></td><td>ölçülmedi; gereklilik 7 yasaklıyor</td><td>şartname</td></tr>
+    <tr><td class="tech">Hücre düzeyi izotonik kalibrasyon (E18)</td><td class="stcol"><span class="chip st-colab">Colab kuyruğunda</span></td><td>ölçülmedi; 200'den fazla belgelenmiş hücre gerekiyor</td><td>hasat denenmedi; hücre güvenleri sıralı kalıyor</td></tr>
+  </table>
+  <div class="foot"><span>S8 · 1/2</span><span>9 / 16</span></div>
+</section>
+<section class="slide tight">
+  <h2>S8 güven: ağırlıklar, dürüstlük katmanı, eşikler</h2>
+  <div class="sub">Ağırlık duyarlılığı, Venn-ABERS aralıkları ve eşik türetimi ölçüldü, iddia edilmedi <span class="dim">· 13 teknik</span></div>
+  <table class="cov four">
+    <tr><th>teknik</th><th>durum</th><th>ölçüm / kanıt</th><th>neden bu durum, nerede ayrışıyor</th></tr>
+    <tr><td class="tech">Füzyon ağırlıkları 0,5 / 0,5 / 0 (README varyantı)</td><td class="stcol"><span class="chip st-meas">ölçüldü, alınmadı</span></td><td>kabul kümesi ve sıralama aynı, azami sapma 0,0196, Spearman 0,991</td><td>çalışma anı yeniden fit el ağırlıklarını emiyor</td></tr>
+    <tr><td class="tech">CE sıfırlanmış (0 / 0,6 / 0,4)</td><td class="stcol"><span class="chip st-meas">ölçüldü, alınmadı</span></td><td>ayrışma korunuyor; konsensüs bağı 0,9785'ten 0,7752'ye; Spearman 0,427</td><td>A'nın katkısı anlamsal bağlardaki uzlaşma primi; sıralama değişiyor</td></tr>
+    <tr><td class="tech">Değer kanalı sıfırlanmış (0,6 / 0 / 0,4)</td><td class="stcol"><span class="chip st-meas">ölçüldü, alınmadı</span></td><td>ayrışma bozuluyor (min pozitif 0,1435 &lt; maks negatif 0,1887), Brier 0,0954, 4 ilişki bayraklı</td><td>değer kanalı yük taşıyıcı (README 6 yapısal ayrışma beyanı)</td></tr>
+    <tr><td class="tech">Eşit üçte birler</td><td class="stcol"><span class="chip st-meas">ölçüldü, alınmadı</span></td><td>ayrışık; azami sapma 0,0273; Spearman 0,973</td><td>sevk edilen ağırlıklar gibi davranıyor</td></tr>
+    <tr><td class="tech">Üç kanallı noisy-OR füzyonu</td><td class="stcol"><span class="chip st-rej">reddedildi</span></td><td>birincil olarak ölçülmedi; bağımsızlık iddia edilemez, değer kanalı çifte sayıyor (ADR-03)</td><td>sabit ağırlıklar çifte saymayı sınırlıyor; sıfır örtüşmeli çiftte ayrışıyor</td></tr>
+    <tr><td class="tech">Mutabakat geri beslemesi: boşluk daraltma 1 - 0,85(1-p), başarısızda x0,6, değerlendirilemezde x0,9</td><td class="stcol"><span class="chip st-ship">sevk edildi</span></td><td>3 ilişkiyi 1,000'de doyuran x1,15 primi bunun yerine geldi; güvenler artık 0,816-0,979, hepsi farklı</td><td>monoton, asla 1,0'a ulaşmıyor</td></tr>
+    <tr><td class="tech">Ek kontrol sayfaları (nakit akış 9, 10)</td><td class="stcol"><span class="chip st-ship">sevk edildi</span></td><td>7'den 11 pozitife + 22 negatif, fitted; lab fallback-calibration: yine fitted 7/10 ama güvenler 0,022'ye kadar oynuyor</td><td>yalnız kalibratörü besliyor, çıktıya girmiyor</td></tr>
+    <tr><td class="tech">İlişki başına Venn-ABERS aralığı (IVAP / SVA)</td><td class="stcol"><span class="chip st-ship">sevk edildi</span></td><td>en zayıf [0,50, 1,00], konsensüs [0,90, 1,00]; kendi etiketi çıkınca (E45) [0,00, 1,00] ve [0,89, 1,00]; 3/3 kontrolün altında hiç yazılmıyor</td><td>dürüstlük katmanı; N=33'te p1 = 1,0 beklenir; sıralama aracı ve seyreklik beyanı, kapsama garantisi değil</td></tr>
+    <tr><td class="tech">Fallback harita a = 6, b = -3 (sıralı, her ilişkiyi bayraklar)</td><td class="stcol"><span class="chip st-ship">sevk edildi</span></td><td>fn12 alt koşu: 1 poz / 7 neg, ilişki 0,5274 bayraklı; Özak 2011: 1 poz / 23 neg, ilişki 0,7771 bayraklı</td><td>fallback sayısı olasılık değil, her zaman bir inceleyiciye ulaşmalı</td></tr>
+    <tr><td class="tech">Beklenen maliyet eşiği p* = 1 - c_review / c_miss</td><td class="stcol"><span class="chip st-ship">sevk edildi</span></td><td>1:20 maliyette 0,95; lab triyaj: 6/7 incelemeye, beklenen maliyet 6,43 vs hepsini incele 7,0 vs hiçbirini inceleme 15,79; 1:5'te p* 0,80, kuyruk boş</td><td>kalibre ölçek taşınabilir, tek ayarlı eşik değil</td></tr>
+    <tr><td class="tech">Yalnız metin eşiği (birebir)</td><td class="stcol"><span class="chip st-meas">ölçüldü, alınmadı</span></td><td>0,5'i geçmek için gereken CE: sözcüksel 0 / 0,4 / 0,75'te 0,9311 / 0,7311 / 0,5561</td><td>README'nin kabaca 0,73 ifadesi iki ondalığa kadar doğru; metin-only bağlarda tasarım gereği muhafazakâr</td></tr>
+    <tr><td class="tech">GPU çalışması: e5-large + bge-reranker-v2-m3 füzyonu, LOO Platt (run-03)</td><td class="stcol"><span class="chip st-meas">ölçüldü, alınmadı</span></td><td>Brier 0,145 [0,080, 0,226] vs ham CE 0,235; VA genişliği 0,174; 7 pozitif + varsayılan L2 ile pozitifler 0,19-0,20'de yassılaşıyor; taban 0,150</td><td>darboğaz N, model boyutu değil; W2 kapandı (şekil değişmedi); popülasyon farklı (38/7 vs 33/11)</td></tr>
+    <tr><td class="tech">Biçim uyumu güven özniteliği</td><td class="stcol"><span class="chip st-lit">yalnız literatür</span></td><td>ölçülmedi (research/109 benimsenebilir fikir; kayıtta E66)</td><td>ölçülene kadar sevk edilen kalibratörün altında</td></tr>
+  </table>
+  <div class="foot"><span>S8 · 2/2</span><span>10 / 16</span></div>
+</section>
+<section class="slide">
+  <h2>S9 doğrulama</h2>
+  <div class="sub">Üç kontrol grubu + dördüncü durum; doğrulayıcılar mutasyonla test edildi <span class="dim">· 9 teknik</span></div>
+  <table class="cov four">
+    <tr><th>teknik</th><th>durum</th><th>ölçüm / kanıt</th><th>neden bu durum, nerede ayrışıyor</th></tr>
+    <tr><td class="tech">Üç kontrol grubu (yapısal / biçimsel / finansal) + not_evaluable dördüncü durum</td><td class="stcol"><span class="chip st-ship">sevk edildi</span></td><td>103 geçer / 4 kalır / 6 değerlendirilemez; 4 kalanın dördü de doğrulanmış gerçek kusur</td><td>gereklilik 8; LLM-yargıç doğrulaması reddedildi (Cetvel s.5)</td></tr>
+    <tr><td class="tech">İş bölümü: rakam takasını motor kontrolü, ayırıcı hatasını ebeveyn toplamı yakalar</td><td class="stcol"><span class="chip st-ship">sevk edildi</span></td><td>Stoklar iki kez yakalandı (uyuşmazlık + FIN_PARENT_SUM +400.000); 4,224 yalnız ,224 kalıntısıyla</td><td>gerçek hücrelerde ölçüldü; tek mekanizma bir sınıfı kaçırır</td></tr>
+    <tr><td class="tech">Referans veren satır başına REL_COVERAGE</td><td class="stcol"><span class="chip st-ship">sevk edildi</span></td><td>fn11 2/2 geçer; Özak 2011 p07.t02.r006'da yandı (hedef kaçan sayfada)</td><td>sessiz kayıp yolunu kapatıyor (mock-03 F4)</td></tr>
+    <tr><td class="tech">Boru hattı içi mutasyon çerçevesi eval/mutations.py (3 enjeksiyon, adlı yakalayıcılar)</td><td class="stcol"><span class="chip st-ship">sevk edildi</span></td><td>3/3 yakalandı: üye rakamı -&gt; 2 seviyede FIN_PARENT_SUM, genel toplam -&gt; FIN_GRAND_TOTAL, bağlantı satırı -&gt; ilişkiler 7'den 2'ye + REL_COVERAGE; E21: 0 yanlış alarm, rakam 10/10, toplam 5/5</td><td>doğrulayıcılar test edildi, iddia edilmedi; 3 elle tasarlanmış mutant, operatör kümesi değil</td></tr>
+    <tr><td class="tech">Dönem takasının yönelim oylamasıyla tespiti (E20)</td><td class="stcol"><span class="chip st-ship">sevk edildi</span></td><td>takas yakalandı, dönem oylaması dahil</td><td>yapısal grup</td></tr>
+    <tr><td class="tech">FMT_PERCENT_BOUNDS [0, 100]</td><td class="stcol"><span class="chip st-ship">sevk edildi</span></td><td>S3b gerilerse 486,6 sınıfını yeniden yakalar</td><td>biçim grubu</td></tr>
+    <tr><td class="tech">Tablolar arası özdeşlikler (varlık = kaynak; dönem kârı bağı; önceki kapanış = açılış)</td><td class="stcol"><span class="chip st-rej">reddedildi</span></td><td>uygulanmadı; üçü de basılı sayılarda tutuyor (altın denetimi); README 11 beyan edilmiş hedef-değil; DECISIONS 14 (1-2 saatlik değişiklik)</td><td>gönderim öncesi kararlılık bir kontrol grubundan üstün; bu belgede geçen kontrol eklerdi</td></tr>
+    <tr><td class="tech">LLM-yargıç doğrulaması</td><td class="stcol"><span class="chip st-rej">reddedildi</span></td><td>FinVerBench: 14 LLM koşusunun 9'u temiz tabloların %95-100'ünü hatalı işaretliyor (research/109)</td><td>kurallar doğrular, modeller sıralar</td></tr>
+    <tr><td class="tech">Doğrulama aşaması için temiz-küme yanlış pozitif testi</td><td class="stcol"><span class="chip st-lit">yalnız literatür</span></td><td>ölçülmedi (research/109 benimsenebilir fikir); yerel vekil E21'in temiz koşuda 0 yanlış alarmı</td><td>-</td></tr>
+  </table>
+  <div class="foot"><span>S9</span><span>11 / 16</span></div>
+</section>
+<section class="slide tight">
+  <h2>S10 çıktı ve değerlendirme / yeniden çalıştırılabilirlik</h2>
+  <div class="sub">Şema gerekçeli, ölçüm paketi teslimatın içinde, ikinci platformda doğrulandı <span class="dim">· 15 teknik</span></div>
+  <table class="cov four">
+    <tr><th>teknik</th><th>durum</th><th>ölçüm / kanıt</th><th>neden bu durum, nerede ayrışıyor</th></tr>
+    <tr><td class="tech">Düz kimlik referanslı result.json + relations.jsonl + report.html; Decimal string, üç durumlu birlik, ilişki başına confidence_components</td><td class="stcol"><span class="chip st-ship">sevk edildi</span></td><td>run bloğu dışında bayt özdeş; 37/37 test; document.source_sha256 (25e4afe4...); platt_a / platt_b / loo_max_delta_p çıktıda</td><td>gereklilik 9; şema README 10'da gerekçelendirildi</td></tr>
+    <tr><td class="tech">İç içe şema / float tutarlar</td><td class="stcol"><span class="chip st-rej">reddedildi</span></td><td>0,058 bir float'ta yaşayamaz</td><td>kimlikle izlenebilirlik</td></tr>
+    <tr><td class="tech">Birincil yol olarak Dockerfile / CI</td><td class="stcol"><span class="chip st-rej">reddedildi</span></td><td>README 11: kilit dosyası + make test aynı sinyali veriyor; Docker/CI yazıldı ama test edilmedi (W6)</td><td>notlandırana daemon bağımlılığı yüklemek</td></tr>
+    <tr><td class="tech">Veritabanı, kimlik doğrulama, Kubernetes / IaC</td><td class="stcol"><span class="chip st-rej">reddedildi</span></td><td>README 11</td><td>tek süreç, tek belge; sunulan bir şey yok</td></tr>
+    <tr><td class="tech">Senaryo laboratuvarı app/ (17-18 konfig senaryosu, matris sekmesi, triyaj paneli)</td><td class="stcol"><span class="chip st-ship">sevk edildi</span></td><td>38 test; 16 saklı koşu dizini; matris 8 aşama / 39-40 seçenek</td><td>savunma varlığı, notlandırılmıyor</td></tr>
+    <tr><td class="tech">Elle yazılmış referans (201 hücre, 7 bağ) + 77 özdeşlik + kör ikinci geçiş</td><td class="stcol"><span class="chip st-ship">sevk edildi</span></td><td>30/30 örneklenen hücre, 6/6 tire-boş, dipnot-11 işaret taraması 76 satırda tam 2, 53/53 özdeşlik, 201/201 ikincil</td><td>tek bildirim, boru hattıyla aynı render'lar</td></tr>
+    <tr><td class="tech">eval/score.py: Clopper-Pearson CI ve tek yönlü alt sınırlar</td><td class="stcol"><span class="chip st-ship">sevk edildi</span></td><td>199/201, CI [0,9645, 0,9988]; P ve R alt sınırı 0,652 (7/7); eşleşmeyen satır 0</td><td>hücre metriğinde yanlış pozitif terimi yok (beyan edildi)</td></tr>
+    <tr><td class="tech">eval/ablation.py: eşleşmiş McNemar</td><td class="stcol"><span class="chip st-ship">sevk edildi</span></td><td>6 uyumsuz / 0 ters, p = 0,031; ikiz etiket kuralı yalnız-etiket lehine (beyan edildi)</td><td>tek belgede yönlü kanıt</td></tr>
+    <tr><td class="tech">eval/determinism.py çıkış kodu</td><td class="stcol"><span class="chip st-ship">sevk edildi</span></td><td>macOS'ta True; Linux'ta çift koşu True (run-04)</td><td>bayt özdeşliği OCR yapısına bağlı</td></tr>
+    <tr><td class="tech">eval/calibration_loo.py</td><td class="stcol"><span class="chip st-ship">sevk edildi</span></td><td>LOO Brier 0,0085; ~40 s</td><td>kendi kontrollerinde tutarlı</td></tr>
+    <tr><td class="tech">Taze klon + Linux notlandırıcı tatbikatı</td><td class="stcol"><span class="chip st-ship">sevk edildi</span></td><td>25/25 test, 332,6 s soğuk (macOS); x86_64 Ubuntu 22.04 / Python 3.13 / tesseract 4.1.1: 37/37, aynı değerlendirme, determinizm True</td><td>iki pin katmanı: uv.lock paketleri, HF snapshot hash'leri ağırlıkları; 27-32 s sıcak Mac, 138/165 s Colab CPU</td></tr>
+    <tr><td class="tech">GriTS-Content / GriTS-Top</td><td class="stcol"><span class="chip st-colab">Colab kuyruğunda</span></td><td>hesaplanmadı (run-01)</td><td>hücre metriğinin görmediği başlık/hiyerarşi hatalarını puanlardı</td></tr>
+    <tr><td class="tech">Colab run-01 / 02 / 05 / 06 / 07 / 08</td><td class="stcol"><span class="chip st-colab">Colab kuyruğunda</span></td><td>run-03 ve run-04 indi ve katlandı; diğerleri OAuth onayına bağlı (DECISIONS 12, 16); kurallar RUN0678'de ön kayıtlı</td><td>yalnız bir README cümlesini yanlışlayan sonuç README-only 1.0.3 tetikler</td></tr>
+    <tr><td class="tech">Ölçekte değerlendirme protokolü (külliyat, iki etiketçi + kappa, bildirim bazlı küme bootstrap, belge-dışı kalibrasyon)</td><td class="stcol"><span class="chip st-lit">yalnız literatür</span></td><td>yazılı plan, sayı yok (research/101)</td><td>ölçekte nasıl değerlendirirsin sorusunun cevabı</td></tr>
+    <tr><td class="tech">Soğuk notlar ve sahte savunmalar (süreç)</td><td class="stcol"><span class="chip st-ship">sevk edildi</span></td><td>soğuk not: olumlu genel değerlendirme; doktora tarzı sahte savunma: koşullu ilerle</td><td>README 1.0.1 beyanlarını doğurdu</td></tr>
+  </table>
+  <div class="foot"><span>S10 · eval</span><span>12 / 16</span></div>
+</section>
+<section class="slide">
+  <h2>Genellik: aynı kod, yalnız konfigürasyon</h2>
+  <div class="sub">Vaka belgesinde üç ek dipnot, dışarıda üç public bildirim; altın yok, doğruluk göz kontrolü / metin katmanı / aritmetik <span class="dim">· 8 teknik</span></div>
+  <table class="cov four">
+    <tr><th>teknik</th><th>durum</th><th>ölçüm / kanıt</th><th>neden bu durum, nerede ayrışıyor</th></tr>
+    <tr><td class="tech">Dipnot 10 konfigle (vaka PDF'i)</td><td class="stcol"><span class="chip st-meas">ölçüldü, alınmadı</span></td><td>24 hücrenin 21'i (%87,5 düzeltilmiş; fn11 biçimli skorlayıcıyla %54,2); yeni 7-to-1 bozulması 71.543.097 ikinci motorca yakalandı; gerçek bağ erişilemez (aynı basılı sayı her sayfada farklı bozuluyor); üretilen bağların hepsi bayraklı</td><td>ikinci referans noktası, notlandırılmıyor</td></tr>
+    <tr><td class="tech">Dipnot 12 konfigle (döndürülmüş)</td><td class="stcol"><span class="chip st-meas">ölçüldü, alınmadı</span></td><td>sayfa 55-57 bulundu; 1 ilişki 0,5274, fallback altında bayraklı (1 poz / 7 neg)</td><td>dürüst bozulma demosu (DECISIONS 8)</td></tr>
+    <tr><td class="tech">Dipnot 13 konfigle</td><td class="stcol"><span class="chip st-meas">ölçüldü, alınmadı</span></td><td>birebir çapa 14.526.075, mutabakat 1,0, CE 0,135, b_only, güven 0,5871 bayraklı (2 poz / 14 neg); 5 tablo, 87 satır, 168 hücre, 68/7/8</td><td>dördüncü genellik noktası; 2012 tarafı sayfa düzeyi kapsam sınırı yüzünden yok</td></tr>
+    <tr><td class="tech">Özak GYO 31.12.2013 (dijital doğan, 91 s.)</td><td class="stcol"><span class="chip st-meas">ölçüldü, alınmadı</span></td><td>çıkış 0, 22,0 s; 4/4 ilişki doğru, 0 bayraklı, kontroller 80/8/3; 201 sayısal hücrenin 189'u birebir (%94,0); 11 hücrede baştaki 1 düşmüş (güven 0,98-1,00), FIN_PARENT_SUM 9'unu yakaladı</td><td>tasarım aile içinde aktarılıyor; savunma-only (DECISIONS 17); sessiz mod hücrede değil satırda yakalanıyor</td></tr>
+    <tr><td class="tech">Özak GYO 31.12.2011 (tarama, /Rotate 270, 83 s.)</td><td class="stcol"><span class="chip st-meas">ölçüldü, alınmadı</span></td><td>çıkış 0, 59,8 s; 1/1 ilişki doğru, bayraklı (fallback 1 poz / 23 neg); kontroller 67/2/4; not 10'un s.43'ü kaçtı; virgüllü 2010 tablosu çıkarılmadı</td><td>vaka PDF'i ile aynı sınıf</td></tr>
+    <tr><td class="tech">Emlak Konut GYO 31.12.2012 (PwC, dijital, 69 s.)</td><td class="stcol"><span class="chip st-meas">ölçüldü, alınmadı</span></td><td>62,3 s sonra çıkış 2, footnote 9 not found; DİPNOT n başlık konvansiyonu</td><td>gürültülü düşüş, sıfır sessiz çıktı; binlik TL ve 3 dönem sütunu hiç görülmedi</td></tr>
+    <tr><td class="tech">Beş Türkçe ifadenin ötesinde rol sözlüğü</td><td class="stcol"><span class="chip st-rej">reddedildi</span></td><td>README 11: dönem başı / dönem sonu yazan bir bildirim sözlük girdisi ister</td><td>bu bildirimde yok; ikinci bildirim kırarsa sözlük konfigürasyona taşınır (Ek A7)</td></tr>
+    <tr><td class="tech">SPK/KGK standart tablo formatları (31.03.2013 sonrası dönemler)</td><td class="stcol"><span class="chip st-lit">yalnız literatür</span></td><td>vaka belgesi bunlardan önce (research/109)</td><td>genelleme hikâyesini yeniden çerçeveliyor</td></tr>
+  </table>
+  <div class="foot"><span>genellik</span><span>13 / 16</span></div>
+</section>
+<section class="slide">
+  <h2>Durum toplamları: 134 teknik satırının dağılımı</h2>
+  <div class="sub">Sevk edilen 50, ölçülüp alınmayan 29, Colab kuyruğunda 14, reddedilen 33, yalnız literatür 8</div>
+  <div class="grid2">
+    <div>
+<svg viewBox="0 0 760 286" role="img" aria-label="Durum başına teknik sayısı" style="width:100%;max-width:760px;background:#1e1812;border:1px solid #3a3227;border-radius:10px" xmlns="http://www.w3.org/2000/svg">
+<line x1="210.0" y1="14" x2="210.0" y2="242" stroke="#3a3227" stroke-width="1"/><text x="210.0" y="260" fill="#b3a58f" font-size="12" text-anchor="middle">0</text>
+<line x1="306.0" y1="14" x2="306.0" y2="242" stroke="#3a3227" stroke-width="1"/><text x="306.0" y="260" fill="#b3a58f" font-size="12" text-anchor="middle">10</text>
+<line x1="402.0" y1="14" x2="402.0" y2="242" stroke="#3a3227" stroke-width="1"/><text x="402.0" y="260" fill="#b3a58f" font-size="12" text-anchor="middle">20</text>
+<line x1="498.0" y1="14" x2="498.0" y2="242" stroke="#3a3227" stroke-width="1"/><text x="498.0" y="260" fill="#b3a58f" font-size="12" text-anchor="middle">30</text>
+<line x1="594.0" y1="14" x2="594.0" y2="242" stroke="#3a3227" stroke-width="1"/><text x="594.0" y="260" fill="#b3a58f" font-size="12" text-anchor="middle">40</text>
+<line x1="690.0" y1="14" x2="690.0" y2="242" stroke="#3a3227" stroke-width="1"/><text x="690.0" y="260" fill="#b3a58f" font-size="12" text-anchor="middle">50</text>
+<path d="M 210 22 H 686.0 A 4.0 4.0 0 0 1 690.0 26.0 V 48.0 A 4.0 4.0 0 0 1 686.0 52 H 210 Z" fill="#d97757"/>
+<text x="198" y="41.5" fill="#f0e9df" font-size="13.5" text-anchor="end">sevk edildi</text>
+<text x="700.0" y="41.5" fill="#f0e9df" font-size="14" font-weight="600">50</text>
+<path d="M 210 68 H 484.4 A 4.0 4.0 0 0 1 488.4 72.0 V 94.0 A 4.0 4.0 0 0 1 484.4 98 H 210 Z" fill="#d97757"/>
+<text x="198" y="87.5" fill="#f0e9df" font-size="13.5" text-anchor="end">ölçüldü, alınmadı</text>
+<text x="498.4" y="87.5" fill="#f0e9df" font-size="14" font-weight="600">29</text>
+<path d="M 210 114 H 340.4 A 4.0 4.0 0 0 1 344.4 118.0 V 140.0 A 4.0 4.0 0 0 1 340.4 144 H 210 Z" fill="#d97757"/>
+<text x="198" y="133.5" fill="#f0e9df" font-size="13.5" text-anchor="end">Colab kuyruğunda</text>
+<text x="354.4" y="133.5" fill="#f0e9df" font-size="14" font-weight="600">14</text>
+<path d="M 210 160 H 522.8 A 4.0 4.0 0 0 1 526.8 164.0 V 186.0 A 4.0 4.0 0 0 1 522.8 190 H 210 Z" fill="#d97757"/>
+<text x="198" y="179.5" fill="#f0e9df" font-size="13.5" text-anchor="end">reddedildi</text>
+<text x="536.8" y="179.5" fill="#f0e9df" font-size="14" font-weight="600">33</text>
+<path d="M 210 206 H 282.8 A 4.0 4.0 0 0 1 286.8 210.0 V 232.0 A 4.0 4.0 0 0 1 282.8 236 H 210 Z" fill="#d97757"/>
+<text x="198" y="225.5" fill="#f0e9df" font-size="13.5" text-anchor="end">yalnız literatür</text>
+<text x="296.8" y="225.5" fill="#f0e9df" font-size="14" font-weight="600">8</text>
+<text x="450.0" y="279" fill="#b3a58f" font-size="12" text-anchor="middle">teknik sayısı (toplam 134)</text>
+</svg>
+      <p class="dim" style="font-size:14px;margin-top:12px">Reddedilenlerin çoğu lisans kapısı (surya, jina, Nanonets, Marker, HunyuanOCR) ya da bilinçli yapmama kararı (README 11); ölçülüp alınmayanların yarısından fazlası S8'de, çünkü kalibratör her alternatif öncül ve ağırlıkla yeniden fit edildi.</p>
+    </div>
+    <table class="cov small">
+      <tr><th>aşama</th><th>sevk</th><th>ölçüldü</th><th>Colab</th><th>red</th><th>lit.</th><th>satır</th></tr>
+    <tr><td>S0 config</td><td class="num">1</td><td class="num">0</td><td class="num">0</td><td class="num">3</td><td class="num">0</td><td class="num tot">4</td></tr>
+    <tr><td>S1 OCR + S1b</td><td class="num">4</td><td class="num">3</td><td class="num">1</td><td class="num">4</td><td class="num">2</td><td class="num tot">14</td></tr>
+    <tr><td>S2 sayfa doğrulama</td><td class="num">1</td><td class="num">1</td><td class="num">0</td><td class="num">1</td><td class="num">0</td><td class="num tot">3</td></tr>
+    <tr><td>S3 yapı + S3b</td><td class="num">4</td><td class="num">1</td><td class="num">5</td><td class="num">3</td><td class="num">0</td><td class="num tot">13</td></tr>
+    <tr><td>S4 normalizasyon</td><td class="num">6</td><td class="num">1</td><td class="num">0</td><td class="num">4</td><td class="num">0</td><td class="num tot">11</td></tr>
+    <tr><td>S5 dipnot bulma</td><td class="num">2</td><td class="num">1</td><td class="num">0</td><td class="num">4</td><td class="num">0</td><td class="num tot">7</td></tr>
+    <tr><td>S6 aday üretimi</td><td class="num">5</td><td class="num">1</td><td class="num">2</td><td class="num">2</td><td class="num">1</td><td class="num tot">11</td></tr>
+    <tr><td>S7 ilişkilendirme</td><td class="num">5</td><td class="num">3</td><td class="num">3</td><td class="num">2</td><td class="num">0</td><td class="num tot">13</td></tr>
+    <tr><td>S8 güven</td><td class="num">7</td><td class="num">12</td><td class="num">1</td><td class="num">4</td><td class="num">2</td><td class="num tot">26</td></tr>
+    <tr><td>S9 doğrulama</td><td class="num">6</td><td class="num">0</td><td class="num">0</td><td class="num">2</td><td class="num">1</td><td class="num tot">9</td></tr>
+    <tr><td>S10 çıktı</td><td class="num">2</td><td class="num">0</td><td class="num">0</td><td class="num">3</td><td class="num">0</td><td class="num tot">5</td></tr>
+    <tr><td>Değerlendirme</td><td class="num">7</td><td class="num">0</td><td class="num">2</td><td class="num">0</td><td class="num">1</td><td class="num tot">10</td></tr>
+    <tr><td>Genellik</td><td class="num">0</td><td class="num">6</td><td class="num">0</td><td class="num">1</td><td class="num">1</td><td class="num tot">8</td></tr>
+    <tr><td>toplam</td><td class="num">50</td><td class="num">29</td><td class="num">14</td><td class="num">33</td><td class="num">8</td><td class="num tot">134</td></tr>
+    </table>
+  </div>
+  <div class="foot"><span>toplamlar</span><span>14 / 16</span></div>
+</section>
+<section class="slide">
+  <h2>Bilinen boşluklar ve fikrimi ne değiştirir</h2>
+  <div class="sub">Solda kapanmamış boşluklar ve DECISIONS madde numaraları; altta sonuçlardan ÖNCE yazılmış karar kuralları</div>
+  <table class="cov gaps">
+    <tr><th>boşluk</th><th>kanıt</th><th>DECISIONS</th></tr>
+    <tr><td class="tech">E57 çift sigmoid</td><td>aktivasyon anahtarı olmayan bir CE iki kez sigmoid'leniyor: konfig takası 17 ilişki (10 yanlış, hepsi bayraklı), kalibrasyon fallback; README 181 bge için de uçtan uca doğru değil</td><td>18 (açık; hazır 1.0.3 adayı: activation_fn=Identity, 38 test, çıktılar özdeş)</td></tr>
+    <tr><td class="tech">DİPNOT n başlık konvansiyonu</td><td>S5 ayrıştıramıyor (RE_TOC_LINE ^NOT; başlık regex'i yalnız çıplak sayı / N. / N-); Emlak Konut çıkış 2</td><td>17 (c) tek satırlık regex genişletmesi, denenmedi</td></tr>
+    <tr><td class="tech">Baştaki rakamın sessizce düşmesi</td><td>2013 render'ında 201 hücrenin 11'i baştaki 1'i kaybetti, güven 0,98-1,00, iki motor da aynı; FIN_PARENT_SUM 9'unu yakaladı, p07.t01.r032'nin 2 hücresini hiçbir kontrol görmüyor</td><td>17 (a) varsayılan savunma-only, (b) README paragrafı</td></tr>
+    <tr><td class="tech">Sayfa altı dipnot bölütleme</td><td>sayfa ortasında başlayan not ilk sayfasını kaybediyor (fn13 s.57; Özak 2011 not 10 s.43); 2011 hareket tablosu kayıp, REL_COVERAGE yandı</td><td>17 (README 8'de 1.0.2'den beri kapsam sınırı olarak yazılı)</td></tr>
+    <tr><td class="tech">Tablolar arası özdeşlikler</td><td>varlık = kaynak, dönem kârı bağı, önceki kapanış = açılış kontrol olarak sevk edilmiyor; üçü de basılı sayılarda tutuyor</td><td>14 (varsayılan: beyan edilmiş hedef-değil)</td></tr>
+    <tr><td class="tech">Virgüllü binlik ve çoklu referans hücreleri</td><td>virgüllü tutarlar tablo da bayrak da üretmiyor; 7,26 ve 19-20 hayalet değer sütunu / etiket eki oluyor</td><td>17 (savunma-only)</td></tr>
+    <tr><td class="tech">Kabul edilmiş sınırlar</td><td>fn12 çıkarımı demo seviyesi; onarım katmanı geri çağırma 0,53; N = 33 kontrol</td><td>8</td></tr>
+  </table>
+  <table class="cov rules" style="margin-top:9px">
+    <tr><th>alan</th><th>ön kayıtlı kural / ADR revizyon şartı</th></tr>
+    <tr><td class="tech">S1 OCR, run-08</td><td>201 altın değerde &gt;=199 VE 6 yüzde hücresi VE etiket CER'i tesseract'tan kötü değil VE CPU kurulumu (ya da README'de dürüst GPU şartı). İki gerçek bozulmayı düzelten 201/201 kazanım değil, sessiz düzeltme olarak raporlanır.</td></tr>
+    <tr><td class="tech">S3 yapı, run-06 + ADR-01</td><td>Aynı beş sayfada &gt;=199/201 birebir hücre VE 7/7 tablo (s.54 dahil) VE CPU. ADR-01 şartı GriTS'in s.53/54'te belirgin üstünlüğü; E50 s.54'ün hiç algılanmadığını gösteriyor.</td></tr>
+    <tr><td class="tech">S6/S7 bağlama, run-07 + ADR-02</td><td>Yalnız-etiket AUC +0,05 VE füzyon LOO Brier bozulmasın VE model &lt; 1 GB; replay ancak sevk edilen satır a=10,5259 / b=-3,6973 / 0,0085 verirse geçerli. E57 eki: aktivasyon sözleşmesi + uçtan uca kabul kümesi zorunlu.</td></tr>
+    <tr><td class="tech">S8 güven, ADR-03</td><td>Kalan şart: E17 bağımsızlık argümanıyla bir NLI kanalı ekleyebilir. Ek A7: inceleyici etiketleri sıralamayla çelişirse ağırlıklar yeniden fit. Daha keskin öncül ancak kontrol Brier'i OLMAYAN bir gerekçeyle seçilir.</td></tr>
+    <tr><td class="tech">S5 genellik</td><td>İkinci bir bildirimin zorlayabileceği iki kod değişikliği: DİPNOT n regex genişletmesi (DECISIONS 17c) ve rol sözlüğünün konfigürasyona taşınması (Ek A7).</td></tr>
+    <tr><td class="tech">Sürüm politikası</td><td>Yalnız bir README cümlesini yanlışlayan sonuç gönderim öncesi README-only 1.0.3 tetikler; gerisi savunma malzemesidir.</td></tr>
+  </table>
+  <div class="foot"><span>boşluklar · kararlar</span><span>15 / 16</span></div>
+</section>
+<section class="slide">
+  <h2>Kural ile model nerede birleşir</h2>
+  <div class="sub">Bu tablonun tek cümlelik okunuşu</div>
+  <div class="card" style="max-width:1000px; font-size:19px; line-height:1.62">
+    <p>Bu belgede model ile kuralın işi ölçümle ayrıldı: <span class="k">modeller sıralar, kurallar karar verir ve doğrular</span>. Aday üretiminde dört kanalın üçü metin (char n-gram, token-set, e5-small) ve biri aritmetik (değer çapası); ölçülen iki ilişki fiziğinden kalem-anlam bağlarını metin kanalları taşıyor (tip b R@5 1,00), mutabakat bağlarını yalnız değer çapası taşıyor (tip a'da e5-small rastgeleden kötü, sıralar 14-19). Bağlama aşamasında çapraz kodlayıcı sıralamayı üretiyor, ama kabul kararı değer+rol kuralıyla birlikte veriliyor: sevk edilen yedi ilişkinin beşi <span class="mono">b_only</span>, yani hiçbir metin modelinin tek başına bulamadığı bağlar. Güven katmanında sıra tersine dönüyor: modelin ham skoru güven olarak kullanılmıyor, füzyon skoru belgenin kendi aritmetiğinden türeyen kontrollerle kalibre ediliyor ve bir pozitif kontrol olmanın şartı modelin üretemeyeceği bir imza, mutabakat denkliği. Doğrulama tamamen kuralcı, çünkü ölçüm öyle söylüyor: LLM yargıçları temiz tabloların %95-100'ünü hatalı işaretliyor (FinVerBench), oysa iki gerçek OCR bozulmasının biri ikinci motor uyuşmazlığıyla, öbürü ebeveyn toplamındaki ,224 kalıntısıyla yakalandı. <span class="k">Birleşme noktası şu:</span> model belirsiz olanı öne çıkarır, kural onu doğrular ya da bayraklar, ve hiçbir aşamada değer sessizce değiştirilmez. Değer kanalı sıfırlanınca kontrollerin ayrışması bozuluyor (min pozitif 0,1435 < maks negatif 0,1887, 4 ilişki bayraklı); çapraz kodlayıcı sıfırlanınca ayrışma duruyor ama konsensüs primi gidiyor (0,9785'ten 0,7752'ye). İkisi de yük taşıyor, farklı yerlerde.</p>
+  </div>
+  <div class="foot"><span>kapanış</span><span>16 / 16</span></div>
+</section>
+
+<div class="kbd">← → ile gezinin · F tam ekran · H başa · T toplamlar · G boşluklar · Shift+1..9 aşama</div>
+<script>
+  const slides = [...document.querySelectorAll('.slide')];
+  let i = 0;
+  function show(n) { slides[i].classList.remove('on'); i = Math.max(0, Math.min(slides.length - 1, n)); slides[i].classList.add('on'); }
+  addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') show(i + 1);
+    if (e.key === 'ArrowLeft' || e.key === 'PageUp') show(i - 1);
+    if (e.key.toLowerCase() === 'f') document.documentElement.requestFullscreen();
+    if (e.key.toLowerCase() === 'h') show(0);
+    if (e.key.toLowerCase() === 't') show(slides.length - 3);
+    if (e.key.toLowerCase() === 'g') show(slides.length - 2);
+    if (e.shiftKey && /^Digit[1-9]$/.test(e.code)) show(Number(e.code.slice(5)));
+  });
+</script>
+</body>
+</html>

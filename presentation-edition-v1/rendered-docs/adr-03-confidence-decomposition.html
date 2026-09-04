@@ -1,0 +1,72 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1"><title>ADR-03: Confidence = per-level composition; runtime-fitted Platt on document-derived controls; flag over fix</title>
+<style>
+:root{--navy:#071d49;--blue:#0b3b82;--ink:#17233d;--muted:#5b6b8c;--line:#d9e1ef;--bg:#f5f8fc}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.6 Inter,ui-sans-serif,system-ui,sans-serif}
+header{background:var(--navy);color:#fff;padding:14px 26px;display:flex;align-items:center;gap:14px;flex-wrap:wrap;position:sticky;top:0;z-index:2}
+header .src{color:#a9c5e9;font-size:12px;word-break:break-all}
+header a{color:#bfeaf4;text-decoration:none;font-size:12px;margin-left:auto;white-space:nowrap}
+main{max-width:860px;margin:0 auto;padding:28px 26px 80px;background:#fff;box-shadow:0 0 0 1px var(--line);min-height:100vh}
+h1,h2,h3,h4{color:var(--navy);line-height:1.25}
+h1{font-size:26px;border-bottom:2px solid var(--line);padding-bottom:10px}
+h2{font-size:20px;margin-top:34px;border-bottom:1px solid var(--line);padding-bottom:6px}
+h3{font-size:16px;margin-top:24px}
+code{background:#eef3fb;padding:1px 5px;border-radius:4px;font:13px/1.4 ui-monospace,SFMono-Regular,monospace}
+pre{background:#091a3b;color:#d7e8ff;padding:14px 16px;border-radius:8px;overflow:auto}
+pre code{background:none;padding:0;color:inherit}
+table{border-collapse:collapse;width:100%;margin:14px 0;font-size:13.5px}
+th,td{border:1px solid var(--line);padding:7px 10px;text-align:left;vertical-align:top}
+th{background:#edf3fb}
+blockquote{border-left:4px solid var(--blue);margin:14px 0;padding:2px 16px;color:var(--muted);background:#f2f7ff}
+a{color:var(--blue)}
+img{max-width:100%}
+</style></head><body>
+<header><b>ADR-03: Confidence = per-level composition; runtime-fitted Platt on document-derived controls; flag over fix</b><span class="src">docs/decisions/adr-03-confidence-decomposition.md</span><a href="../docs/decisions/adr-03-confidence-decomposition.md" target="_blank" rel="noopener">View raw source &#8599;</a></header>
+<main><hr />
+<p>slug: adr-03-confidence-decomposition
+created: 2026-08-17T06:30:00+03:00
+status: accepted</p>
+<hr />
+<h1 id="adr-03-confidence-per-level-composition-runtime-fitted-platt-on-document-derived-controls-flag-over-fix">ADR-03: Confidence = per-level composition; runtime-fitted Platt on document-derived controls; flag over fix</h1>
+<h2 id="context">Context</h2>
+<p>Req. 7: calibrated 0-1 confidence at table/row/cell/relation level; raw similarity
+rejected. Grader dialect: threshold tuning and false-alarm control. Measured: at 7
+relation positives any calibrator flattens toward base rate (E19; Collins 2016).</p>
+<h2 id="options-considered">Options considered</h2>
+<p>Platt vs isotonic (ICML05: Platt below ~200-1000 points) vs Venn-ABERS (honesty
+interval) vs conformal (α floor 1/(n+1)); CE-with-values as one fused channel vs
+CE-labels-only + separate value channel (KPI-Check tension); fusion by hand-weights
+vs noisy-OR.</p>
+<h2 id="decision">Decision</h2>
+<p>Cell = OCR conf × parse conf, capped 0.4 on second-engine digit disagreement,
+repairs ≤0.7. Row/table = aggregates with structural penalties. Relation =
+hand-weighted fusion (0.4 CE / 0.4 rules / 0.2 lexical) → 2-parameter Platt fitted
+AT RUNTIME on document-derived controls (accepted+reconciled = positive; rejected by
+all = negative; falls back with an explicit marker), then ×1.15 on passing
+reconciliation, ×0.6 on failing. CE keeps values in its input for RANKING quality
+(measured 0.20→1.00); the value channel stays a separate signal for fusion so the
+double-count is bounded by fixed weights, not claimed independent (noisy-OR variant
+therefore NOT shipped as primary). Flag-over-fix: no silent value substitution
+anywhere.</p>
+<h2 id="consequences">Consequences</h2>
+<p>Every confidence traceable via confidence_components; low-confidence flagging at
+0.5. REVISIT with E27 (cash-flow control expansion) + Venn-ABERS interval reporting
+for the defense deck; Colab E17 may add an NLI channel with an independence argument.</p>
+<h2 id="update-1708-evening-e27-revisit-executed">Update 17.08 evening: E27 revisit executed</h2>
+<ul>
+<li>Control set expanded via <code>confidence.extra_control_pages: [9, 10]</code> (cash-flow
+  rows referencing the footnote, sign-flip aware because anchors/reconciliation
+  compare absolute values): 7 -&gt; <strong>11 positives + 22 negatives, mode=fitted</strong>
+  (was fallback). Counts reported by the STR_CALIBRATION_CONTROLS check.</li>
+<li>Platt fit now uses Platt's own target smoothing (t+ = (n+1)/(n+2)): the controls
+  are perfectly separated at this N and the unsmoothed fit diverged (that was WHY
+  the shipped v0.2 silently ran in fallback mode).</li>
+<li>The x1.15 reconciliation boost SATURATED (three relations clamped at 1.000) -&gt;
+  replaced by gap-shrink 1 - 0.85*(1-p): monotone, never reaches 1.0. Confidences
+  now span 0.816-0.979, all distinct.</li>
+<li>Venn-ABERS [p0,p1] shipped per relation in confidence_components (IVAP: isotonic
+  with test point appended as 0 then 1). Measured: weakest link [0.50,1.00],
+  consensus link [0.90,1.00] - the honesty-interval ordering for the defense.</li>
+</ul></main>
+</body></html>

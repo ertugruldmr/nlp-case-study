@@ -1,0 +1,15 @@
+services:
+  ftlink-app:
+    build:
+      # the build context is the repository root: the image needs v0/ and
+      # presentation-edition-v1/app/ together
+      context: ../..
+      dockerfile: presentation-edition-v1/app/Dockerfile
+    ports:
+      - "8199:8199"
+    volumes:
+      - ./runs:/work/presentation-edition-v1/app/runs
+    environment:
+      # point the LLM tier at a host-side OpenAI-compatible endpoint if desired
+      # FTLINK_LLM_API_KEY: ""
+      HF_HUB_OFFLINE: "1"

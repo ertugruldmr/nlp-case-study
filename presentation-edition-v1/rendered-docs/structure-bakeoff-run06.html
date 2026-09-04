@@ -1,0 +1,194 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1"><title>E71: run-06 structure bake-off, GPU, landed 30.08 (1044s wall, NVIDIA L4)</title>
+<style>
+:root{--navy:#071d49;--blue:#0b3b82;--ink:#17233d;--muted:#5b6b8c;--line:#d9e1ef;--bg:#f5f8fc}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.6 Inter,ui-sans-serif,system-ui,sans-serif}
+header{background:var(--navy);color:#fff;padding:14px 26px;display:flex;align-items:center;gap:14px;flex-wrap:wrap;position:sticky;top:0;z-index:2}
+header .src{color:#a9c5e9;font-size:12px;word-break:break-all}
+header a{color:#bfeaf4;text-decoration:none;font-size:12px;margin-left:auto;white-space:nowrap}
+main{max-width:860px;margin:0 auto;padding:28px 26px 80px;background:#fff;box-shadow:0 0 0 1px var(--line);min-height:100vh}
+h1,h2,h3,h4{color:var(--navy);line-height:1.25}
+h1{font-size:26px;border-bottom:2px solid var(--line);padding-bottom:10px}
+h2{font-size:20px;margin-top:34px;border-bottom:1px solid var(--line);padding-bottom:6px}
+h3{font-size:16px;margin-top:24px}
+code{background:#eef3fb;padding:1px 5px;border-radius:4px;font:13px/1.4 ui-monospace,SFMono-Regular,monospace}
+pre{background:#091a3b;color:#d7e8ff;padding:14px 16px;border-radius:8px;overflow:auto}
+pre code{background:none;padding:0;color:inherit}
+table{border-collapse:collapse;width:100%;margin:14px 0;font-size:13.5px}
+th,td{border:1px solid var(--line);padding:7px 10px;text-align:left;vertical-align:top}
+th{background:#edf3fb}
+blockquote{border-left:4px solid var(--blue);margin:14px 0;padding:2px 16px;color:var(--muted);background:#f2f7ff}
+a{color:var(--blue)}
+img{max-width:100%}
+</style></head><body>
+<header><b>E71: run-06 structure bake-off, GPU, landed 30.08 (1044s wall, NVIDIA L4)</b><span class="src">docs/evidence/structure-bakeoff-run06.md</span><a href="../docs/evidence/structure-bakeoff-run06.md" target="_blank" rel="noopener">View raw source &#8599;</a></header>
+<main><hr />
+<p>slug: structure-bakeoff-run06
+candidate: "E71: run-06 GPU structure engine bake-off (TATR, docling TableFormer, PaddleOCR PP-StructureV3, Qwen2.5-VL-7B) against gold on the same 201 value cells the shipped scorer uses"
+created: 2026-08-30T23:35:00+03:00
+verified: 2026-08-30T23:35:00+03:00
+status: fresh
+claim: "Does any off-the-shelf table-structure engine beat the shipped x-clustering (199/201, 99.0%, CPU-only) on the five gold pages?"
+verdict: works
+sources:
+  - research/assets/experiments/colab/run-06-structure-bakeoff/nb6_structure_results.json
+  - research/assets/experiments/colab/run-06-structure-bakeoff/nb6_structure_bakeoff_ckpt.ipynb (S2 scorer source, read directly)
+  - research/assets/experiments/colab/run-06-structure-bakeoff/README.md
+  - deliverable/README.md (section 9, scorer conventions)
+  - deliverable/eval/score.py (shipped scorer, read directly)
+  - "[[heavy-evidence-run01]] (E47), [[run01-e5-e7-failure-diagnosis]] (E69)"
+  - handoff/RUN0678-FOLDIN-PLAN.md
+tags: [measured, colab, gpu, structure, tatr, docling, paddleocr, vlm, E71]</p>
+<hr />
+<h1 id="e71-run-06-structure-bake-off-gpu-landed-3008-1044s-wall-nvidia-l4">E71: run-06 structure bake-off, GPU, landed 30.08 (1044s wall, NVIDIA L4)</h1>
+<h2 id="test-setup">Test setup</h2>
+<p><code>colab-ops/run.sh run-06-structure-bakeoff all</code>, landed clean (ok, 1044s). Four engines over
+the five gold pages (5, 6, 7, 53, 54; seven gold tables): TATR v1.1-fin at detection thresholds
+0.3/0.5/0.7 + NMS 0.5 + tesseract; docling TableFormer ACCURATE + <code>TesseractCliOcrOptions(tur)</code>;
+PaddleOCR PP-StructureV3 in an isolated venv; Qwen2.5-VL-7B-Instruct bf16 prompted to HTML.
+Result file: <code>research/assets/experiments/colab/run-06-structure-bakeoff/nb6_structure_results.json</code>.</p>
+<h2 id="scoring-methodology-verified-directly-against-the-shipped-scorer-do-not-skip-this-section">Scoring methodology, verified directly against the shipped scorer (do not skip this section)</h2>
+<p>The notebook's own README (this folder) explicitly asks that the 201-cell comparison be checked
+before being read as a clean head-to-head, and it is right to ask: <strong>the two scorers are not the
+same algorithm</strong>, even though both count "exact cells out of 201."</p>
+<ul>
+<li><strong>Shipped scorer</strong> (<code>deliverable/eval/score.py</code>, read directly): maps predicted rows to gold
+  rows by normalized-label matching first (with a fallback for headerless total rows), then per
+  value cell checks <code>state</code> equality (<code>empty</code>/<code>dash</code>/<code>number</code> are distinct outcomes, "wrong_state"
+  is its own bucket) and, for <code>number</code> cells, EITHER float equality of the parsed value OR
+  raw-string equality after stripping parens. It is a <strong>row-identity + numeric-value scorer</strong>.</li>
+<li><strong>run-06's <code>exact_cells()</code></strong> (S2 cell, read directly out of the checkpoint notebook): finds
+  row/column correspondence by maximizing a GriTS-style structural alignment (<code>factored_2dmss</code>
+  over <code>rapidfuzz.distance.Indel.normalized_similarity</code>), then checks <strong>normalized-string
+  equality</strong> of the aligned cell text against gold text (Unicode NFC, dash/İ normalization,
+  lowercase, whitespace-stripped; no numeric parsing). It is an <strong>alignment + text-match scorer</strong>.</li>
+</ul>
+<p>Practical effect: run-06's check is textually stricter on pure formatting drift (it does not
+parse <code>1.234</code> and <code>1234</code> as the same number the way the shipped scorer's float path does) but
+does not need label-matched rows to work, which the shipped scorer requires. On this document the
+gold cell texts are already the shipped pipeline's own canonical formatting (dot-grouped,
+parenthesized negatives), so the two scorers should agree on any engine that reproduces that
+formatting exactly, and the practical gap is small — but it is not zero, and it has not been
+measured directly (no side-by-side rerun of both scorers on the same predicted grid exists yet).
+<strong>Conclusion: the 199/201 vs 187/151/165/201 comparison below is same-denominator and
+same-question, not same-algorithm. Treat the ranking (which engine is closer to gold) as solid;
+treat exact percentage-point gaps between rows as approximate, not certified equal.</strong> This is
+exactly the caveat the run-06 README itself asked for.</p>
+<h2 id="observed-headline-table-s7summary-totals-quoted-verbatim-from-the-json">Observed — headline table (S7:summary <code>totals</code>, quoted verbatim from the JSON)</h2>
+<table>
+<thead>
+<tr>
+<th>engine</th>
+<th>exact cells</th>
+<th>share</th>
+<th>note</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>shipped ftlink x-clustering (deliverable README, not recomputed by this notebook)</td>
+<td>199 / 201</td>
+<td>99.0%</td>
+<td>CPU only</td>
+</tr>
+<tr>
+<td>Qwen2.5-VL-7B-Instruct to HTML</td>
+<td>187 / 201</td>
+<td>93.0%</td>
+<td>bf16, GPU 23.7 GB, 406.9 s total (73-124 s/page)</td>
+</tr>
+<tr>
+<td>docling TableFormer ACCURATE + tesseract-tur</td>
+<td>165 / 201</td>
+<td>82.1%</td>
+<td>CPU+tesseract, 25.1 s total, no threshold tuning</td>
+</tr>
+<tr>
+<td>TATR v1.1-fin best config (det&gt;=0.3, NMS 0.5)</td>
+<td>151 / 201</td>
+<td>75.1%</td>
+<td>page 54 never detected at any threshold</td>
+</tr>
+<tr>
+<td>PaddleOCR PP-StructureV3</td>
+<td>not run</td>
+<td>-</td>
+<td><code>status: failed</code>, <code>"note": "no result from runner"</code> on all 5 pages — reported as "not run (reason)", not as "worse", per the fold-in plan's rule 4</td>
+</tr>
+</tbody>
+</table>
+<p>The shipped baseline row is copied into the JSON from the deliverable README, not independently
+recomputed by this notebook (the JSON's own <code>baseline.source</code> field says so) — it is not a fifth
+engine run through the same code path, it is the number this bake-off is measured against.</p>
+<h2 id="observed-docling-and-the-vlm-are-genuinely-strong-not-failing">Observed — docling and the VLM are genuinely strong, not failing</h2>
+<p>Per-page docling: reaches the gold ceiling class on pages 5 (35/36) and stays close on 6 (52/58)
+and 7 (41/58); its weakest page is 54 (10/16), still 62.5%. Per-page Qwen2.5-VL: recovers every
+value cell on pages 7 (52/58 — wait, verified below), 53 (33/33) and 54 (16/16) exactly, and 56/58
+on page 6. Correction on page 7: the JSON's per-page row shows Qwen2.5-VL at 52/58 on page 7, not
+a clean sweep there; pages 53 and 54 are the two clean sweeps (33/33 and 16/16). Both engines are
+correctly described as strong, off-the-shelf, GPU-requiring challengers that fall short of the
+shipped CPU-only pipeline on this specific document — not as failures.</p>
+<h2 id="observed-tatr-detection-configuration-weakness-not-structural-weakness-and-a-real-threshold-cliff">Observed — TATR: detection-configuration weakness, not structural weakness, and a real threshold cliff</h2>
+<p>Per-page GriTS-top against its own printed-table ceiling (<code>grits_top_ceiling</code> in S2:gold), only
+where TATR detects at all (det&gt;=0.3):
+| page | grits_top | ceiling | ratio |
+|---|---|---|---|
+| 5 | 0.8308 | 0.831 | 1.00 (at ceiling) |
+| 6 | 0.7945 | 0.841 | 0.94 |
+| 7 | 0.7611 | 0.841 | 0.90 |
+| 53 (dipnot11_t1 only, t2 unmatched) | 0.7948 | 0.923 | 0.86 |
+| 54 | 0.0 (never detected) | 0.857 / 0.909 | - |</p>
+<p>Where TATR detects, its structure quality sits close to or at the printed-table ceiling (exactly
+at ceiling on page 5, 86-94% of ceiling elsewhere) — the deficit is concentrated in <em>whether it
+fires at all</em>, not in row/column recognition once it does. <strong>The correct framing is "TATR's
+weakness is detection configuration, not structural quality" (page 54 confirms this: 0 detections
+at every threshold, so 0 structure to evaluate there at all).</strong></p>
+<p>The threshold cliff is stark and reproduces exactly (quoted from S7:summary rows): page 7 gives
+grits_top 0.7611 at det&gt;=0.3 and 0.0 at det&gt;=0.5 and det&gt;=0.7; page 53 gives 0.7948 / 0.3947 / 0.0
+across 0.3 / 0.5 / 0.7. A single hyperparameter moves TATR between usable and nothing on this
+document — a real argument for a deterministic geometry method's re-runnability over a tuned
+detector, independent of the accuracy gap.</p>
+<p><strong>Does not replicate E50 cell-for-cell, and the gap is itself a finding.</strong> [[tatr-local-structure]]
+(E50) pre-downscaled to 1600px and detected 1 of 5 pages at threshold 0.7; this run's own local
+CPU pre-check (logged separately by a peer session against native 2481px renders) found 3 of 5;
+run-06 itself, at 1600px (its own canonical setup, per its README), agrees with E50: <strong>1 of 5
+pages at threshold 0.7 (page 6 only)</strong>. TATR's detector is scale-sensitive at a fixed threshold —
+now confirmed twice at 1600px (E50 and run-06) against once at native resolution (the local
+peer check), so 1600px / 1-of-5 is the reference figure, not the native-resolution 3-of-5.</p>
+<p>TATR is out of domain here regardless of threshold: trained on PubTables-1M / FinTabNet
+(error-corrected, arXiv:2303.00716), both born-digital, against a 300dpi scanned Turkish audit
+report. Worth stating unprompted at the defense — the honest claim is "TATR off the shelf
+underperforms on this document," not "TATR is a bad model" or "TATR is bad at structure."</p>
+<h2 id="adr-01-final-resolution">ADR-01 final resolution</h2>
+<p>Per <code>RUN0678-FOLDIN-PLAN.md</code>'s pre-registered rule ("a structure engine becomes a recommended
+config-gated upgrade only if it implies at least 199/201 exact cells AND detects all 7 gold
+tables AND runs on CPU or states its GPU need honestly"): <strong>no challenger clears the bar.</strong> Best
+challenger (Qwen2.5-VL-7B, 187/201, 93.0%) needs a GPU and still falls 12 cells short; docling
+(165/201) needs no GPU tuning but falls further short; TATR (151/201) additionally misses tables
+outright; PaddleOCR did not run at all. <strong>Verdict: shipped x-clustering is KEPT, no code change
+before the send.</strong> This supersedes the local-only, detection-count-based finding this note's
+predecessor ([[run01-e5-e7-failure-diagnosis]], E69) recorded — the reasoning is now a clean
+201-cell head-to-head (with the scorer-methodology caveat above) rather than a proxy on detection
+counts alone, and the verdict direction is unchanged (x-clustering wins) but for a stronger and
+more specific reason.</p>
+<h2 id="failure-notes">Failure notes</h2>
+<p>PaddleOCR PP-StructureV3 failed on all 5 pages with only <code>"no result from runner"</code> recorded — no
+traceback captured for this candidate (the isolated <code>pp-venv</code> runner script's own error handling
+did not propagate one). This is itself worth a line in <code>ISSUES-AND-STUCK-POINTS.md</code>: a fourth
+candidate for the ≥3 failure-case analysis, distinct from run-01's silent-key class because here
+the failure IS recorded (<code>status: failed</code>), just without a diagnosable cause. Not pursued further
+since PaddleOCR was never going to beat the 199/201 bar even at its best plausible number, and the
+plan's rule 4 ("not run (reason)", never "worse") already covers how to report it.</p>
+<h2 id="decision-matrix-impact">Decision-matrix impact</h2>
+<p><code>decisions/decision-matrix.md</code>: TATR row superseded from the local-only E69 finding to this GPU
+head-to-head (75.1%, detection-configuration framing, threshold cliff); docling row updated from
+"untried" to measured (82.1%, no tuning, genuinely strong); PaddleOCR row (if any) updated to "not
+run, no runner output"; Qwen2.5-VL added as a new row (93.0%, best challenger, GPU-requiring).
+<code>research/94.fact-ledger.md</code> S3/S6 structure rows updated. <code>research/95.defense-qa.md</code>: new
+addition with the scorer-methodology caveat, the detection-vs-structure framing, and the
+threshold-cliff slide material. <code>ISSUES-AND-STUCK-POINTS.md</code> W1 closed (ADR-01 fully resolved).
+No deliverable change. Deck/PPTX "bekliyor" cell regeneration for run-06 deferred to the
+post-campaign batch (shared cells with run-07/08), per the same batching decision already applied
+to run-01's fold-in.</p></main>
+</body></html>

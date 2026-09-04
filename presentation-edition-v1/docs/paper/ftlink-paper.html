@@ -1,0 +1,444 @@
+<title>ftlink Paper</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=Source+Sans+3:wght@400;600&family=Source+Code+Pro:wght@400;500&display=swap">
+<style>
+:root{--ground:#FBFAF7;--surface:#FFFFFF;--line:#DDD8CE;--ink:#1C1A16;--ink2:#3E3A32;--muted:#6E685C;--accent:#7A2E1D}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--ground:#161512;--surface:#1E1C18;--line:#3A362E;--ink:#EDE9E0;--ink2:#CFC9BC;--muted:#9C958A;--accent:#E0846C}}
+:root[data-theme="dark"]{--ground:#161512;--surface:#1E1C18;--line:#3A362E;--ink:#EDE9E0;--ink2:#CFC9BC;--muted:#9C958A;--accent:#E0846C}
+*{box-sizing:border-box}body{margin:0;background:var(--ground);color:var(--ink);font-family:"Source Serif 4",Georgia,serif;font-size:16.5px;line-height:1.6}
+main{max-width:760px;margin:0 auto;padding:44px 22px 90px}
+h1{font-size:clamp(24px,4.2vw,32px);line-height:1.25;letter-spacing:-.01em;text-wrap:balance;margin:0 0 8px}
+h2{font-family:"Source Sans 3",Arial,sans-serif;font-size:21px;margin:38px 0 10px;text-wrap:balance}
+h3{font-family:"Source Sans 3",Arial,sans-serif;font-size:17px;margin:26px 0 6px}
+p,li{color:var(--ink2)}p{margin:0 0 12px}
+code{font-family:"Source Code Pro",Menlo,monospace;font-size:.86em;background:var(--surface);border:1px solid var(--line);padding:0 4px;border-radius:3px}
+pre{background:var(--surface);border:1px solid var(--line);padding:12px 14px;border-radius:6px;overflow-x:auto;font-size:13px;line-height:1.45}pre code{border:0;background:transparent;padding:0}
+table{border-collapse:collapse;width:100%;font-family:"Source Sans 3",Arial,sans-serif;font-size:14px;display:block;overflow-x:auto;margin:10px 0 16px;font-variant-numeric:tabular-nums}
+th,td{text-align:left;padding:6px 9px;border-bottom:1px solid var(--line);vertical-align:top}th{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+a{color:var(--accent)}blockquote{border-left:3px solid var(--accent);margin:0 0 12px;padding:2px 14px;color:var(--muted)}
+.byline{color:var(--muted);font-family:"Source Sans 3",Arial,sans-serif;font-size:14px;margin-bottom:26px}
+@media print{body{background:#fff;color:#000;font-size:11pt}main{max-width:none;padding:0}h2{break-after:avoid}table,pre{break-inside:avoid}a{color:#000;text-decoration:none}}
+@page{size:A4;margin:18mm 16mm}
+</style>
+<main>
+<h1 id="ftlink-staged-extraction-and-footnote-linking-of-a-scanned-turkish-financial-statement-with-run-time-calibrated-confidence-and-self-checking-validation">ftlink: Staged Extraction and Footnote Linking of a Scanned Turkish Financial Statement with Run-Time Calibrated Confidence and Self-Checking Validation</h1>
+<p>Ertuğrul Demir</p>
+<p>Inline tags such as [README 6] or [ledger] name the source of each number; the final version replaces them with the "Reproduce" appendix (Section 8).</p>
+<h2 id="abstract">Abstract</h2>
+<p>We describe ftlink 1.0.2, a staged pipeline that extracts the summary financial statements from a scanned, image-only Turkish KAP audit report, locates a configured footnote, parses its tables and links summary rows to footnote rows with a confidence calibrated at run time on control samples derived from the document itself. On the reference filing (Özak GYO, 31.12.2012) the system reads 199 of 201 hand-transcribed cells exactly (Clopper-Pearson 95 percent interval 0.965 to 0.999), recovers all 7 reference links (precision and recall 1.00, one-sided 95 percent lower bound 0.652), and its validation stage reports 103 passing, 4 failing and 6 not-evaluable checks, every failure being a genuine OCR defect the pipeline caught on its own. The two wrong cells are both flagged: the contract is zero silent errors, not zero errors. Three linking approaches are compared where they diverge, the calibrator scores a leave-one-out Brier of 0.0085 against a 0.2222 base rate, two runs are byte-identical, and Every headline number in Sections 5.1, 5.5 and 5.8 is printed by a shipped command and was reproduced on a second operating system and, for the 1.0.1 zip, by an external blind evaluation (an earlier evaluation graded v0.7); the sensitivity refits of Section 5.7, the GPU study of 5.6 and the channel and reranker comparisons of 5.3 and 5.4 are development measurements and are marked as such.</p>
+<h2 id="1-introduction">1. Introduction</h2>
+<p>The task is a take-home specification of twelve requirements over one public filing, the 95-page audit report of Özak GYO for 31.12.2012 [README 2; coldgrade2 §1]: (1) extract the summary statements on pages 5 to 7 with title, headers, footnote references, periods, values and hierarchy; (2) parse Turkish number grammar with dash, empty and zero as three states; (3) find items referencing footnote 11, locate its pages automatically, parse its tables, link rows to rows; (4) take page range and footnote number from configuration; (5) run a pretrained NLP or ML component in linking, exact string match being insufficient; (6) reject whole-document single-call conversion; (7) emit confidences in [0, 1] at table, row, cell and relation level, neither constant nor raw model similarity, a few document-derived controls being allowed to set thresholds or weights; (8) validate with structural, format and financial groups and flag low-confidence records; (9) justify a JSON or JSONL schema; (10) compare at least two linking approaches including where they diverge and analyse at least three failure cases; (11) document setup, models, input construction, chunking, thresholds, fallbacks and results; (12) be graded on decomposition, model-plus-rules interplay, output verification, uncertainty management and re-runnability, not production completeness.</p>
+<p>Requirement 6 is more than a rule. In the nearest shared task, NTCIR-17 UFO, free-text-to-cell linking topped out at F1 0.2325 and pure-LLM entries lost (0.1635 on linking) [97 3c]; the select formulation we ship as an optional tier degrades as the true match moves down a long list [97 3c]; and a single call over a 95-page scan leaves no intermediate product for validation to arbitrate and no path to byte-reproducible output. The pipeline is staged S0 to S10 (Section 4).</p>
+<p>Linking has two physics on this document [E10]. Reconciliation links bind a balance-sheet carrying amount (Yatırım Amaçlı Gayrimenkuller, 373.992.222 in 2012) to opening, closing, net-book-value and total rows whose labels are dates and roles ("31 Aralık 2012 itibari ile kapanış bakiyesi"): on the 19 footnote rows every text channel fails, the dense embedder ranks the five targets at 14 to 19, and only an exact value anchor recovers them (R@5 1.00). Item-semantic links bind an income-statement item (Yatırım Amaçlı Gayrimenkul Değerleme Farkları) to a named movement row (Makul değer değişikliğinden kaynaklanan kazanç): char n-gram TF-IDF and the dense channel rank the two targets [1, 2] through the shared morpheme "değer", while word-level token-set similarity reaches about 0.40 against a 0.75 bar [E10; README 9]. The pipeline fuses both and records which approach carried each link.</p>
+<p>Contributions, each measured on this filing:</p>
+<ul>
+<li>x-clustering over OCR word geometry, a second engine on every numeric crop and an engine swap on rate rows reach 199/201 exact cells with both misses flagged; the swap alone lifts cells from 96.5 to 99.0 percent [E28; E33].</li>
+<li>Three linking approaches with per-relation agreement classes; the shipped ablation shows labels-only serialization recovers 1 of 7 links at rank 5 against 7 of 7 with values, 6 discordant pairs one way, exact McNemar p = 0.031 [README 3; E45].</li>
+<li>A smoothed Platt map fitted at run time on 33 document-derived controls (11 positives, 22 negatives): leave-one-out Brier 0.0085 against 0.2222 base rate and 0.0579 raw fused score, jackknife worst movement 0.0372, a Venn-ABERS interval per relation; isotonic and unsmoothed logistic fits degenerate on the same controls [E45; E34].</li>
+<li>Three check groups plus not_evaluable catch both real OCR corruptions unaided and are mutation-tested, three injected corruptions against three named catchers [README 7; E35].</li>
+<li>Byte-identical output outside a quarantined run block, determinism as an exit code, identical evaluation numbers on x86_64 Ubuntu 22.04 with tesseract 4.1.1 against 5.5.3 locally, and two external blind evaluations that reproduced every printed figure [linux-drill; coldgrade2].</li>
+<li>Four footnotes (11, 10, 12, 13) run from configuration alone; the page-level scoping limit this exposes is measured and disclosed [ledger; E33; coldgrade2].</li>
+</ul>
+<h2 id="2-related-work">2. Related work</h2>
+<p>Linking. The DocILE line-item benchmark (2023) fixes the evaluation shape we borrow, match items first, then micro precision and recall; it is listed but not card-verified locally, so we take the shape, not the numbers [100]. The closest task with a verified card is NTCIR-17 UFO (Kimura et al., NTCIR-17 2023) over Japanese securities reports: cell-role classification reaches 0.9537 against a rule baseline of 0.7981, phrase-to-cell linking F1 0.2325 formal and 0.2970 late, the pure-LLM entries lost (0.8287 and 0.1635), and the best linker used Multilingual-E5 cosine for name cells [97 3c]. UFO inputs are clean XBRL and HTML with cell identifiers and no confidence or numeric rule, so our 1.00 on seven anchored links and their 0.2325 are not comparable; the lesson is hybrid over single-LLM. The follow-up U4 protocol is listed, not verified.</p>
+<p>Table structure. GriTS (Smock et al. 2022) scores the most similar 2D substructures of predicted and gold grids as an F-score with topology, content and location variants and is row/column symmetric where TEDS is not [97 3c]; our cell metric is binary and position-anchored, and GriTS was not computed (Section 7). TATR v1.1-fin is trained on FinTabNet.c, the error-corrected FinTabNet of Smock et al. (arXiv:2303.00716), this document's table genre although born-digital where our pages are scans; it is planned as a config-gated upgrade behind the extract_tables() seam (no engine key exists yet) pending a GriTS comparison [97 3b; ADR-01].</p>
+<p>Calibration at small N. Platt scaling with target smoothing, t+ = (N+ + 1)/(N+ + 2) and t- = 1/(N- + 2), is Platt 1999 Section 2.2, equations 13 and 14 [97 3b]. Niculescu-Mizil and Caruana (ICML 2005, Section 5, Figure 7) show Platt beating isotonic below "about 200-1000 cases", tested down to 32 [97 3b]; we reproduce the crossover on 33 controls (Section 5.5). Venn-ABERS predictors (Vovk and Petej, arXiv:1211.0025, UAI 2014) give [p0, p1] from two isotonic fits with the test point labelled 0 then 1; ours is the simplified construction (their Section 5, Algorithm 2), named IVAP in the 2015 follow-up (arXiv:1511.00213) [97 3b]. Beta calibration (Kull et al. 2017) reduces to logistic calibration when a = b and warns that isotonic overfits small sets; split conformal certifies coverage of a set, not a probability, with guidance near n = 1000 [97 3c]. Roelofs et al. (AISTATS 2022, arXiv 2012.08668) show equal-width-bin ECE is biased at small samples [97 3d], so we report Brier and quartile reliability, not an ECE scalar. Riley et al. (Stat Med 2021) derive that a calibration slope needs hundreds of events (worked example 9,835 participants, 177 events) and Collins et al. (Stat Med 2016) measure assessment as poor at 10 or fewer events with floors of 100 and 200 [97 3c]; our 11 positives sit in that zone, which fixes every calibration claim below to direction plus disclosed interval, never a certified slope. Threshold selection on a raw score by curve inspection (for example the 0.15 operating point chosen in İşcan, Kumaş, Patlar Akbulut and Akbulut, IEEE Access 11, 2023) answers a different question from calibration: it fixes an operating point, while a calibration stage supplies the probability that the operating point is then applied to; the two compose. ExtractConf 2026 reports document-grounded signals beating model-internal scores (OCR grounding 0.896 AUC against 0.880 for logprobs plus entropy; fusion 0.928) and recalibration on about 165 samples [97 3c], endorsing our cell composition and naming the improvement we did not build: approach disagreement as a calibrator feature.</p>
+<p>Turkish retrieval and reranking. mMARCO (Bonifacio et al., arXiv 2108.13897) machine-translates MS MARCO into 13 languages, 14 with English; Turkish is not among them, and the shipped cross-encoder mmarco-mMiniLMv2-L12-H384-v1 rests on mMiniLMv2-L12-H384 distilled from XLM-R Large, so its Turkish behaviour is zero-shot transfer through the multilingual backbone and the binding evidence is in-document [97 3d]. TR-MTEB (Baysan and Güngör, Findings of EMNLP 2025) puts multilingual-e5-small at 56.53 nDCG@10 on retrieval against 34.82 for bert-base-turkish-uncased, backing the dense channel; it has no reranking track [97 3c]. Cetvel 2025 has no retrieval track either, finds Turkish-centric models underperform multilingual ones, avoids LLM-judge metrics as unreliable in multilingual settings, and documents the kar/kâr diacritic pairs that motivate normalization before lexical matching [97 3c]; the judge point is why validation here is deterministic arithmetic. OCRTurk (Feb 2026) crowns the PaddleOCR family on born-digital Turkish PDFs, the lineage of our second engine, but covers no scans and no CPU engines [97 3c]. RRF is Cormack et al. (SIGIR 2009); their k = 60 "was fixed during a pilot investigation" and shown not critical [97 3b].</p>
+<h2 id="3-data-and-reference-protocol">3. Data and reference protocol</h2>
+<p>The document. All 95 pages are images with no text layer [README top]. Printed folios are offset from PDF pages by 4 (footnote 11 prints at 49-50, PDF pages 53 and 54). Notes pages 55 to 57 (footnote 12) are landscape scans printed sideways that the PDF /Rotate flag does not correct [README 8]. Every negative is printed in parentheses and every absence as a dash; no empty value cell occurs, so the empty state is exercised by tests, not this run [README 10]. Two cells are misread by the primary engine in well-formed ways: Stoklar 2012 (77.543.097 as 77.943.097) and Finansal Yatırımlar 2012 (4.224 as 4,224) [README 8].</p>
+<p>The reference. One person transcribed all 201 value cells of the seven in-scope tables (182 numbers, 11 dashes, 8 empties) from the 300 dpi renders and accepted a value only after 77 arithmetic identities held; the 7 links and the footnote-reference column were built the same way [README 9; gold-audit]. A blind second re-transcription pass on 28.08.2026, seeded (20260828) and stratified 8/8/8/6, read 30 number cells from per-row crops: 30/30 exact matches; 6/6 sampled dash/empty states; a sweep over all 76 summary rows found exactly the two rows carrying reference 11 and 0 mismatches elsewhere; 53/53 identities held on the auditor's own readings plus 6/6 cross-table reconciliations; a secondary full pass agreed on 201/201 [gold-audit]. Zoomed crops confirmed the two disputed cells as OCR errors, not reference errors.</p>
+<p>Scorer conventions [README 9]. Rows align by fuzzy label ratio and, for the two movement tables with identical row labels, split by value overlap. A reference empty cell counts as correct when no cell is emitted there. A predicted relation whose rows map to no reference row is left out of the precision count rather than counted as a false positive; on the shipped run all 7 map, and the mapped count is printed beside the precision. The cell metric has no false-positive term; the scorer prints the count of extracted rows matching no reference row, 0 here [E45].</p>
+<p>Statistical framing [README 9]. 199/201 carries a Clopper-Pearson 95 percent interval of [0.9645, 0.9988]; 7/7 gives an exact one-sided 95 percent lower bound of 0.652 on precision and recall. Seven links show the approach functions on this filing; they cannot estimate an error rate across filings, which would need a stratified corpus, two annotators, document-level resampling and leave-one-document-out calibration scoring [101].</p>
+<h2 id="4-method">4. Method</h2>
+<figure style="margin:18px 0"><svg viewBox="0 0 1000 400" role="img" aria-label="ftlink stages S0 to S10 in three lanes: extraction, linking, verification; each arrow names the data handed to the next stage" xmlns="http://www.w3.org/2000/svg" style="max-width:100%;height:auto;font-family:Source Sans 3,Arial,sans-serif">
+<defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="currentColor"/></marker></defs>
+<text x="20" y="42" font-size="12" letter-spacing="1.5" fill="currentColor" opacity=".7">EXTRACTION</text>
+<rect x="20" y="56" width="108" height="54" rx="6" fill="none" stroke="currentColor" stroke-width="1.2"/>
+<text x="29" y="76" font-size="13" font-weight="600" fill="currentColor">S0</text>
+<text x="29" y="96" font-size="11" fill="currentColor">config</text>
+<line x1="128" y1="83.0" x2="160" y2="83.0" stroke="currentColor" stroke-width="1.2" marker-end="url(#ar)"/>
+<text x="144.0" y="124" font-size="9.5" text-anchor="middle" fill="currentColor" opacity=".75">page images</text>
+<rect x="160" y="56" width="108" height="54" rx="6" fill="none" stroke="currentColor" stroke-width="1.2"/>
+<text x="169" y="76" font-size="13" font-weight="600" fill="currentColor">S1</text>
+<text x="169" y="96" font-size="11" fill="currentColor">render + OCR</text>
+<line x1="268" y1="83.0" x2="300" y2="83.0" stroke="currentColor" stroke-width="1.2" marker-end="url(#ar)"/>
+<text x="284.0" y="124" font-size="9.5" text-anchor="middle" fill="currentColor" opacity=".75">word boxes</text>
+<rect x="300" y="56" width="108" height="54" rx="6" fill="none" stroke="currentColor" stroke-width="1.2"/>
+<text x="309" y="76" font-size="13" font-weight="600" fill="currentColor">S1b</text>
+<text x="309" y="96" font-size="11" fill="currentColor">2nd-engine digits</text>
+<line x1="408" y1="83.0" x2="440" y2="83.0" stroke="currentColor" stroke-width="1.2" marker-end="url(#ar)"/>
+<text x="424.0" y="124" font-size="9.5" text-anchor="middle" fill="currentColor" opacity=".75">verified digits</text>
+<rect x="440" y="56" width="108" height="54" rx="6" fill="none" stroke="currentColor" stroke-width="1.2"/>
+<text x="449" y="76" font-size="13" font-weight="600" fill="currentColor">S2</text>
+<text x="449" y="96" font-size="11" fill="currentColor">page detection</text>
+<line x1="548" y1="83.0" x2="580" y2="83.0" stroke="currentColor" stroke-width="1.2" marker-end="url(#ar)"/>
+<text x="564.0" y="124" font-size="9.5" text-anchor="middle" fill="currentColor" opacity=".75">verified range</text>
+<rect x="580" y="56" width="108" height="54" rx="6" fill="none" stroke="currentColor" stroke-width="1.2"/>
+<text x="589" y="76" font-size="13" font-weight="600" fill="currentColor">S3</text>
+<text x="589" y="96" font-size="11" fill="currentColor">x-cluster structure</text>
+<line x1="688" y1="83.0" x2="720" y2="83.0" stroke="currentColor" stroke-width="1.2" marker-end="url(#ar)"/>
+<text x="704.0" y="124" font-size="9.5" text-anchor="middle" fill="currentColor" opacity=".75">cells</text>
+<rect x="720" y="56" width="108" height="54" rx="6" fill="none" stroke="currentColor" stroke-width="1.2"/>
+<text x="729" y="76" font-size="13" font-weight="600" fill="currentColor">S3b</text>
+<text x="729" y="96" font-size="11" fill="currentColor">percent rescue</text>
+<line x1="828" y1="83.0" x2="860" y2="83.0" stroke="currentColor" stroke-width="1.2" marker-end="url(#ar)"/>
+<text x="844.0" y="124" font-size="9.5" text-anchor="middle" fill="currentColor" opacity=".75">rate cells</text>
+<rect x="860" y="56" width="108" height="54" rx="6" fill="none" stroke="currentColor" stroke-width="1.2"/>
+<text x="869" y="76" font-size="13" font-weight="600" fill="currentColor">S4</text>
+<text x="869" y="96" font-size="11" fill="currentColor">TR number grammar</text>
+<path d="M914.0 110 V140 H74.0 V176" fill="none" stroke="currentColor" stroke-width="1.2" marker-end="url(#ar)"/>
+<text x="494.0" y="136" font-size="9.5" text-anchor="middle" fill="currentColor" opacity=".75">3-state rows</text>
+<text x="20" y="164" font-size="12" letter-spacing="1.5" fill="currentColor" opacity=".7">LINKING</text>
+<rect x="20" y="178" width="108" height="54" rx="6" fill="none" stroke="currentColor" stroke-width="1.2"/>
+<text x="29" y="198" font-size="13" font-weight="600" fill="currentColor">S5</text>
+<text x="29" y="218" font-size="11" fill="currentColor">footnote locate</text>
+<line x1="128" y1="205.0" x2="160" y2="205.0" stroke="currentColor" stroke-width="1.2" marker-end="url(#ar)"/>
+<text x="144.0" y="246" font-size="9.5" text-anchor="middle" fill="currentColor" opacity=".75">footnote pages</text>
+<rect x="160" y="178" width="108" height="54" rx="6" fill="none" stroke="currentColor" stroke-width="1.2"/>
+<text x="169" y="198" font-size="13" font-weight="600" fill="currentColor">S6</text>
+<text x="169" y="218" font-size="11" fill="currentColor">RRF candidates</text>
+<line x1="268" y1="205.0" x2="300" y2="205.0" stroke="currentColor" stroke-width="1.2" marker-end="url(#ar)"/>
+<text x="284.0" y="246" font-size="9.5" text-anchor="middle" fill="currentColor" opacity=".75">top-10 per row</text>
+<rect x="300" y="178" width="108" height="54" rx="6" fill="none" stroke="currentColor" stroke-width="1.2"/>
+<text x="309" y="198" font-size="13" font-weight="600" fill="currentColor">S7</text>
+<text x="309" y="218" font-size="11" fill="currentColor">A / B / C linking</text>
+<line x1="408" y1="205.0" x2="440" y2="205.0" stroke="currentColor" stroke-width="1.2" marker-end="url(#ar)"/>
+<text x="424.0" y="246" font-size="9.5" text-anchor="middle" fill="currentColor" opacity=".75">accepted links</text>
+<rect x="440" y="178" width="108" height="54" rx="6" fill="none" stroke="#7A2E1D" stroke-width="1.8"/>
+<text x="449" y="198" font-size="13" font-weight="600" fill="currentColor">S8</text>
+<text x="449" y="218" font-size="11" fill="currentColor">Platt + Venn-ABERS</text>
+<path d="M494.0 232 V262 H74.0 V298" fill="none" stroke="currentColor" stroke-width="1.2" marker-end="url(#ar)"/>
+<text x="284.0" y="258" font-size="9.5" text-anchor="middle" fill="currentColor" opacity=".75">p per relation</text>
+<text x="20" y="286" font-size="12" letter-spacing="1.5" fill="currentColor" opacity=".7">VERIFICATION</text>
+<rect x="20" y="300" width="108" height="54" rx="6" fill="none" stroke="#7A2E1D" stroke-width="1.8"/>
+<text x="29" y="320" font-size="13" font-weight="600" fill="currentColor">S9</text>
+<text x="29" y="340" font-size="11" fill="currentColor">3 check groups</text>
+<line x1="128" y1="327.0" x2="160" y2="327.0" stroke="currentColor" stroke-width="1.2" marker-end="url(#ar)"/>
+<text x="144.0" y="368" font-size="9.5" text-anchor="middle" fill="currentColor" opacity=".75">flags</text>
+<rect x="160" y="300" width="108" height="54" rx="6" fill="none" stroke="currentColor" stroke-width="1.2"/>
+<text x="169" y="320" font-size="13" font-weight="600" fill="currentColor">S10</text>
+<text x="169" y="340" font-size="11" fill="currentColor">json / jsonl / html</text>
+<text x="308" y="323.0" font-size="11" fill="#7A2E1D">outlined stages assign and audit confidence: 0 to 1 at cell, row, table and relation level;</text>
+<text x="308" y="339.0" font-size="11" fill="#7A2E1D">low-confidence records are flagged in the output, never dropped or silently corrected</text>
+</svg></figure>
+<p><em>Figure 1. The staged pipeline. Each arrow names the artifact handed to the next stage; S8 and S9 (outlined) are where confidence is assigned and audited.</em></p>
+<p>Eleven stages; pages, footnote number, control pages, OCR settings, weights, thresholds and model revisions come from one YAML file [README 2].</p>
+<ol>
+<li>
+<p>S0 configuration. summary_pages [5, 7], footnote_no 11, extra_control_pages [9, 10], dpi 300, psm 4, rrf_k 10, anchor_weight 3.0, top_k 8, accept_threshold 0.5, rank1_min_score 0.2, lexical_threshold 0.75, two Hugging Face snapshot revisions.</p>
+</li>
+<li>
+<p>S1 render and OCR, S1b verification. PyMuPDF renders at 300 dpi grayscale; tesseract (Turkish, psm 4) returns TSV word boxes with confidences. The settings are locked by measurement: 154/156 values verbatim at 300 dpi, 400 dpi worse, and in the full pipeline 400 dpi collapses to 79.6 percent cells and relation recall 0.14 while psm 6 corrupts the contents page and aborts the run [ledger S1; E33]. Orientation recovery re-renders at 90, 180 and 270 degrees and keeps the rotation with the most confident multi-character words; raw word count was falsified as a signal because sideways text still yields junk words. Each tesseract call has a 120 s timeout. Every numeric cell crop is re-read by a second engine (RapidOCR, ONNX): 175 of 176 crops agree, and the one disagreement is the real Stoklar corruption [ledger S1b]. Disagreement caps the cell at 0.4 and never replaces the value: flag over fix.</p>
+</li>
+<li>
+<p>S2 page detection by check. A configured summary page yielding no coherent financial table fails STR_SUMMARY_RANGE; STR_FOOTNOTE_REFS_PRESENT fails when no summary row references the configured footnote. A footnote that cannot be located aborts with exit code 2; a wrong page range ships with failing checks, because partially wrong tables are still inspectable [README 2, 7].</p>
+</li>
+<li>
+<p>S3 table structure, S3b rate-row rescue. Tables are borderless, so structure is geometric: money tokens are right-aligned, so value columns cluster on the right edge of numeric tokens; short dashes are assigned in a second pass by column-centre proximity; the footnote-reference column is a cluster of small integers left of the values; the label is what remains and its x-origin encodes hierarchy depth [README 2]. Text-only body lines follow a measured indent rule: a wrapped label's continuation prints about 18 px further in, a group header's followers stay at its left edge, so a cell-less line merges into the next row only when that row indents past it [E28]. Titles come from the heading block above the table (nearest note-number-prefixed line, else the topmost multi-word uppercase block that is not the company name), 7/7 real titles including the rotated "12. MADDİ DURAN VARLIKLAR", never consumed by matching [ledger S3]. On rate rows the engines swap: tesseract cannot read the percent glyph on this scan class (0/6, producing plausible 486,6 for %86,6) while RapidOCR reads all six verbatim, so RapidOCR reads and tesseract votes by exact-or-suffix digit agreement, both readings shipping in the components [E28].</p>
+</li>
+<li>
+<p>S4 normalization. A custom Turkish grammar (parentheses, dot thousands, comma decimal, percent ranges) parses 182/182 reference tokens exactly and keeps dash, empty and zero as three states in a discriminated union on <code>state</code> [ledger S4; README 10]. A repair tier regroups a lost thousands separator (precision 1.00, recall 0.53), flags the cell <code>repaired</code> and caps it at 0.7 or 0.5. Turkish lower-casing maps İ and I correctly. Row roles come from five deterministic label rules, 11/11 on the movement rows. Leading-minus negatives are not parsed; this filing prints none [README 11].</p>
+</li>
+<li>
+<p>S5 footnote location. Find the İÇİNDEKİLER page, parse note entries, resolve the printed-to-PDF offset from a footer folio, jump, verify the heading. Two measured OCR damages have countermeasures: mangled note numbers ("NOT 11" as "NOT1lI") are renumbered by sequence position; dot leaders eating page digits ("49-50" as "9-50") are distrusted when they break the non-decreasing page order and replaced by a bounded scan over the window implied by neighbours [README 2]. The page set is the contiguous run of pages carrying the heading: footnote 11 resolves to pages 53 and 54 by bounded scan (about 14 s), footnote 12 to 55 to 57 by direct TOC hit (about 17 s). Two page-level scoping limits are stated: a page shared by two notes goes to the note whose heading is on top and the neighbour's table enters the candidate set, and a note starting mid-page loses that page (footnote 13 starts under note 12's tables on page 57 and is located from page 58) [README 8; coldgrade2].</p>
+</li>
+<li>
+<p>S6 candidates. Four channels fused by weighted RRF with k = 10: char_wb 2-4 TF-IDF cosine over normalized labels, rapidfuzz token-set ratio as a second word-level voter, multilingual-e5-small cosine with <code>query:</code> on both sides, and a value anchor (weight 3) on equal absolute amounts between the item's period values and a candidate row's values, period-scoped and later gated by roles [README 4]. The set per item is the RRF top 8 plus every anchor hit; reference recall 7/7. The table title is deliberately not added: it is constant across candidates and sinks the easy pair from [1, 2] to [9, 10] [E10].</p>
+</li>
+<li>
+<p>S7 linking. A, cross-encoder mmarco-mMiniLMv2-L12-H384-v1 (118M, Apache-2.0) over <code>label | value ; value</code> on both sides with Turkish dot grouping, accepting above 0.5 or as rank-1 above a floor of 0.2, because rank ordering is the validated signal and sigmoid scales vary across rerankers [README 5]. B, value-plus-role rules: a period-scoped value match and a role-consistent row (stock values bind to opening/closing/net-book-value/total rows, flow values to movement rows); no ML. C, lexical baseline: token-set ratio over Turkish-lowercased raw labels at 0.75, the deliberately insufficient baseline. D, LLM select (off by default): one call per item to an OpenAI-compatible endpoint under a strict JSON schema, responses cached by prompt hash and replayed byte-identically; a pair accepted by D alone ships as <code>d_only</code>, keeps the fused channels' conservative confidence, always arrives flagged and never enters the control set. Every relation records per-approach scores, decisions and an agreement class (consensus, a_only, b_only, baseline_only, d_only). If the cross-encoder cannot load, A scores zero, B and C carry the run, the run block records it and every relation ships force-flagged (unit-tested).</p>
+</li>
+<li>
+<p>S8 confidence. Cell = OCR word confidence times parse confidence, times 1.05 (capped at 1.0) on second-engine agreement, capped at 0.4 on disagreement, 0.7 or 0.5 when repaired; row = mean cell confidence with a missing-label penalty; table = mean row confidence discounted by header and period completeness; all three are ordinal compositions and declared so [README 6]. Relation = a fusion of the approach scores (0.4 A, 0.4 B, 0.2 C) through a two-parameter logistic fitted at run time on document-derived controls: positives are decisions some approach accepted whose value reconciliation passes; negatives are candidates every approach rejected; accepted-but-unreconciled decisions enter neither pool, so the hard region is never learned from the calibrator's own acceptances. The configured cash-flow pages 9 and 10, whose rows reference the footnote with sign-flipped amounts, feed only the calibrator and raise it to 11 positives and 22 negatives, fitted rather than fallback [E27]. The controls are perfectly separated, so the fit uses Platt's target smoothing (t+ = 12/13, t- = 1/24 here), which keeps it finite where an unsmoothed fit diverged and, in an earlier version, silently ran the fallback [E27; E34]. Stated plainly: approach B's acceptance and the reconciliation signature are the same arithmetic, so every B acceptance is a positive control, the separation is partly structural, and the map certifies value-anchored links; a text-only link (not-evaluable factor 0.9) needs a cross-encoder score above roughly 0.73 to clear 0.5 [README 6; coldgrade2]. Validation feedback is saturation-free: pass shrinks remaining doubt by 15 percent (1 - 0.85 (1 - p)), fail multiplies by 0.6, not-evaluable by 0.9. Below three positives or three negatives, or on a non-finite fit, fixed a = 6, b = -3 apply, <code>calibration_fitted</code> is 0.0 and every relation is flagged regardless of score. Each relation also carries a simplified Venn-ABERS interval from two isotonic fits over the controls with the test point appended as negative and as positive; because the controls are the emitted decisions themselves, the interval is computed with the relation's own label present, and the shipped script reports the leave-self-out variant (Section 5.5). The 0.5 flag is a demonstration operating point: a consumer reviews whenever p &lt; 1 - c_review/c_miss, so review cost 1 against miss cost 20 gives 0.95, and the threshold rises with the miss cost [README 6].</p>
+</li>
+<li>
+<p>S9 validation. Three groups plus not_evaluable: a check that cannot be evaluated never converts a missing operand into a pass or a zero [README 7]. Structural: period columns present and descending (STR_PERIOD_ORDER); references within plausible note range; located heading verified against the configured number; the calibration disclosure (STR_CALIBRATION_CONTROLS with mode, counts, separation, jackknife and Platt parameters); REL_COVERAGE, requiring every summary row referencing the configured footnote to produce at least one relation, so a silent linking loss ships as a failing check. Reference-to-row binding is verified indirectly through REL_COVERAGE plus FIN_RECONCILE. Format: repaired-cell flagging; FMT_THREE_STATE, a type-level guarantee surfaced as a check that passes by construction; sign legality (a "(-)" row must not carry a positive value); percent bounds in [0, 100]; the second-engine agreement summary. Financial: roll-forward (opening plus flows equals closing per column); category sums (Arazi plus Binalar equals Toplam); parent sums over the hierarchy; grand totals against pre-enumerated member-set hypotheses, passing when one evaluable hypothesis reproduces the total and not_evaluable when none is evaluable; an income-statement cascade with value-based deduplication; value reconciliation per accepted relation. The suite is mutation-tested by a shipped script (Section 5.8).</p>
+</li>
+<li>
+<p>S10 output. <code>result.json</code> holds flat, ID-referenced collections (tables, rows, cells, relations, checks) with hierarchy as <code>parent_row_id</code>, deterministic semantic IDs (<code>p05.t00.r003.c01</code>), Decimal money as strings, a discriminated union on <code>state</code>, per-approach evidence and confidence components on every relation, a <code>document</code> block echoing the configured company, period and currency next to <code>source_sha256</code> of the input bytes (prefix 25e4afe4), and a quarantined <code>run</code> block with <code>ftlink_version</code> 1.0.2, the recorded <code>tesseract --version</code> and <code>models_loaded</code> [README 10]. <code>relations.jsonl</code> is a one-line-per-link view, <code>report.html</code> a self-contained visual review. Two runs are byte-identical outside the run block and <code>eval/determinism.py</code> turns that diff into an exit code.</p>
+</li>
+</ol>
+<h2 id="5-experiments-and-results">5. Experiments and results</h2>
+<h3 id="51-headline-numbers">5.1 Headline numbers</h3>
+<table>
+<thead>
+<tr>
+<th>Quantity</th>
+<th>Value</th>
+<th>Source</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Reference cells exact</td>
+<td>199/201 = 99.0 percent, 95 percent interval [0.9645, 0.9988]</td>
+<td>README 9</td>
+</tr>
+<tr>
+<td>Wrong cells</td>
+<td>2, both real OCR corruptions, both flagged</td>
+<td>README 8</td>
+</tr>
+<tr>
+<td>Relations</td>
+<td>7 predicted, 7 reference, P = R = 1.00, lower bound 0.652</td>
+<td>README 9</td>
+</tr>
+<tr>
+<td>Agreement classes</td>
+<td>consensus 2, b_only 5, a_only 0, baseline_only 0</td>
+<td>README 9</td>
+</tr>
+<tr>
+<td>Relation confidences</td>
+<td>0.8164 to 0.9785, all distinct, none flagged</td>
+<td>result.json</td>
+</tr>
+<tr>
+<td>Checks</td>
+<td>113 instances: 103 pass, 4 fail, 6 not_evaluable</td>
+<td>README 7</td>
+</tr>
+<tr>
+<td>Calibration</td>
+<td>fitted, 11/22, separated, loo_max_delta_p 0.0372, platt_a 10.5259, platt_b -3.6973</td>
+<td>result.json</td>
+</tr>
+<tr>
+<td>LOO Brier</td>
+<td>0.0085 (in-sample 0.0067; base 0.2222; raw fused 0.0579)</td>
+<td>E45</td>
+</tr>
+<tr>
+<td>Tests, determinism</td>
+<td>37/37; byte-identical outside run block: True</td>
+<td>ledger; E45</td>
+</tr>
+<tr>
+<td>Wall time</td>
+<td>27 to 32 s warm (development machine); 138 s warm, 165 s cold (x86_64 CPU); 121.7 s cold in the second external evaluation</td>
+<td>ledger; coldgrade2</td>
+</tr>
+</tbody>
+</table>
+<h3 id="52-input-construction-ablation">5.2 Input-construction ablation</h3>
+<p><code>eval/ablation.py</code> ranks every reference link under both serializations [README 3; E45]. Labels-only: R@5 = 1/7, gold at ranks 9, 12, 19, 10, 1, 16, 17. With values: 7/7 at ranks 2, 4, 5, 3, 1, 2, 1. Top-1 margins with values 3.3974 (balance-sheet query) and 0.4824 (income-statement query) against 0.2106 and 0.0402. Paired: 6 discordant links (hit with values, miss without), none the other way, exact McNemar two-sided p = 0.031. Two caveats belong to the result: it is directional evidence on one document, and when two footnote rows print identical labels (the 2012 and 2011 movement tables) the best rank across the twins is credited, a tie labels-only could not break, so the convention favours labels-only.</p>
+<h3 id="53-candidate-channels">5.3 Candidate channels</h3>
+<p>On the 19 footnote rows with the two referencing items as queries (five and two targets) [E10]: value anchor R@5 1.00/1.00; char_wb(2,4) TF-IDF 0.00/1.00; rapidfuzz token-set 0.60/1.00; bm25s with stemming 0.40/0.50; multilingual-e5-small 0.00/1.00 with the reconciliation targets at 14 to 19. Weighted RRF (k 5 to 10, anchor weight 3) places the balance-sheet targets at [1, 3, 4, 7, 8] and the income-statement targets at [1, 2]. Sensitivity re-runs leave the accepted set identical at top_k 8 to 2, anchor_weight 3 to 0 (confidence deltas at most 0.002), rrf_k 10 to 60 (at most 0.0001), and a same-class dense swap to paraphrase-multilingual-MiniLM-L12-v2 (at most 0.0009) [E33]. At top_k 2 the negative pool starves from 22 to 2, the map falls back, all 7 relations ship force-flagged, confidences drop by up to 0.278 and checks read 102/4/7: beam width is a calibration resource, and the system discloses the change.</p>
+<h3 id="54-reranker-parity">5.4 Reranker parity</h3>
+<p>With values in the pair text the task saturates: bge-reranker-v2-m3 (568M) R@5 1.00/1.00 at 11 to 31 ms per pair on CPU, mmarco-mMiniLMv2 (118M) 1.00/1.00 at 11 ms in the first measurement and 3 ms batched or 8 ms single when re-timed, mxbai-rerank-base-v2 (0.5B) 1.00/1.00 at 54 ms [E14; ledger S7]. Labels-only, bge reached 0.20 on the balance-sheet query in a development-era measurement on a different pair set from the shipped 1/7 [100]. Rank-level parity left size, licence and ops to decide: the small model ships, the large one is a config swap, non-commercial rerankers were excluded on paper [README 3].</p>
+<p>A configuration-only swap to a Turkish-trained 149M reranker (ytu-ce-cosmos/modernbert-tr-reranker) exposed a loader contract rather than a ranking result [E57]: the model's config lacks the sentence-transformers activation key, so the library applies a sigmoid and the linker applies a second one; scores compress to 0.51 to 0.73, 17 relations are emitted (7 true, 10 false, all flagged, calibration falls back to the unfitted mode, checks 102 / 14 / 7). With identity activation forced, the same model gives 8 relations (the 7 gold plus 1 flagged false positive), a labels-only AUC of 0.7149 against 0.4504 for the shipped model and a fused leave-one-out Brier of 0.0076 against 0.0085. The pre-registered swap rule fires, but the swap is not shippable by configuration alone in 1.0.2; the one-keyword fix and the README qualification are a versioned change left to the author's decision.</p>
+<h3 id="55-calibration">5.5 Calibration</h3>
+<p><code>eval/calibration_loo.py</code> refits the smoothed Platt map with each of the 33 controls left out [E45]: LOO Brier 0.0085 against 0.0067 in-sample, 0.2222 for the base rate 11/33 and 0.0579 for the raw fused score, 0 degenerate refits. LOO reliability quartiles (n = 8/8/8/9): mean prediction 0.046, 0.053, 0.240, 0.917 against positive fractions 0.000, 0.000, 0.250, 1.000. Jackknife: the largest movement of the fitted map at any control score under leave-one-control-out refits is 0.0372 (the relation confidences additionally carry the bounded feedback, so their movement is at most that). Weight sensitivity: zeroing the lexical channel (0.5/0.5/0.0) leaves the accepted set and ordering identical and moves confidences by at most 0.0196 [ledger S8]. Family comparison on the same controls [E34]: smoothed Platt gives graded pre-feedback values 0.784 to 0.975 at the seven relations with LOO movement 0.0372; isotonic collapses to a two-plateau step with fitted values exactly {0, 1} (every accepted relation pinned at 1.0, LOO movement 0.0449); unsmoothed logistic saturates at 0.997 and above. Venn-ABERS, shipped against leave-self-out [E45]: the weakest reconciliation link rel005 moves from [0.50, 1.00] to [0.00, 1.00], the consensus fair-values total rel008 from [0.90, 1.00] to [0.889, 1.00], and the other five lower bounds from 0.667, 0.75, 0.80, 0.833, 0.875 to 0.50, 0.667, 0.75, 0.80, 0.857 (upper bounds stay 1.00). The upper bound is expected with separated controls; the informative end is p0, and the weakest link's lower bound rests on its own label, so the interval is a review-ordering device and a thinness disclosure, not a coverage guarantee. These are the calibrator's own controls: the map is coherent on this document, which says nothing about transfer.</p>
+<figure style="margin:18px 0"><svg viewBox="0 0 800 400" role="img" aria-label="Smoothed Platt map fitted at run time on 33 document-derived controls (22 negatives, 11 positives) with the seven emitted relations; the negatives end at 0.10 and the positives start at 0.4737" xmlns="http://www.w3.org/2000/svg" style="max-width:100%;height:auto;font-family:Source Sans 3,Arial,sans-serif">
+<line x1="70" y1="330" x2="740" y2="330" stroke="currentColor" stroke-opacity=".15"/><text x="62" y="334" font-size="11" text-anchor="end" fill="currentColor">0</text>
+<text x="70" y="348" font-size="11" text-anchor="middle" fill="currentColor">0</text>
+<line x1="70" y1="255.0" x2="740" y2="255.0" stroke="currentColor" stroke-opacity=".15"/><text x="62" y="259.0" font-size="11" text-anchor="end" fill="currentColor">0.25</text>
+<text x="237.5" y="348" font-size="11" text-anchor="middle" fill="currentColor">0.25</text>
+<line x1="70" y1="180.0" x2="740" y2="180.0" stroke="currentColor" stroke-opacity=".15"/><text x="62" y="184.0" font-size="11" text-anchor="end" fill="currentColor">0.5</text>
+<text x="405.0" y="348" font-size="11" text-anchor="middle" fill="currentColor">0.5</text>
+<line x1="70" y1="105.0" x2="740" y2="105.0" stroke="currentColor" stroke-opacity=".15"/><text x="62" y="109.0" font-size="11" text-anchor="end" fill="currentColor">0.75</text>
+<text x="572.5" y="348" font-size="11" text-anchor="middle" fill="currentColor">0.75</text>
+<line x1="70" y1="30" x2="740" y2="30" stroke="currentColor" stroke-opacity=".15"/><text x="62" y="34" font-size="11" text-anchor="end" fill="currentColor">1</text>
+<text x="740" y="348" font-size="11" text-anchor="middle" fill="currentColor">1</text>
+<text x="405.0" y="368" font-size="12" text-anchor="middle" fill="currentColor">fused score (0.4 cross-encoder + 0.4 value and role rules + 0.2 lexical)</text>
+<text transform="translate(18 180.0) rotate(-90)" font-size="12" text-anchor="middle" fill="currentColor">calibrated probability</text>
+<polyline points="70.0,322.7 73.3,322.4 76.7,322.0 80.0,321.5 83.4,321.1 86.8,320.6 90.1,320.1 93.5,319.6 96.8,319.1 100.2,318.5 103.5,317.9 106.8,317.3 110.2,316.6 113.6,315.9 116.9,315.2 120.2,314.5 123.6,313.7 127.0,312.8 130.3,312.0 133.7,311.1 137.0,310.1 140.3,309.1 143.7,308.1 147.1,307.0 150.4,305.8 153.8,304.6 157.1,303.4 160.4,302.1 163.8,300.7 167.1,299.3 170.5,297.8 173.8,296.3 177.2,294.7 180.6,293.0 183.9,291.2 187.2,289.4 190.6,287.5 193.9,285.6 197.3,283.6 200.7,281.5 204.0,279.3 207.3,277.0 210.7,274.7 214.1,272.3 217.4,269.8 220.8,267.2 224.1,264.5 227.4,261.8 230.8,259.0 234.2,256.1 237.5,253.1 240.8,250.1 244.2,247.0 247.6,243.8 250.9,240.5 254.3,237.2 257.6,233.8 260.9,230.3 264.3,226.8 267.6,223.2 271.0,219.5 274.4,215.8 277.7,212.1 281.1,208.3 284.4,204.5 287.8,200.6 291.1,196.7 294.5,192.8 297.8,188.9 301.1,184.9 304.5,181.0 307.9,177.0 311.2,173.1 314.5,169.2 317.9,165.3 321.2,161.4 324.6,157.5 327.9,153.6 331.3,149.8 334.7,146.1 338.0,142.3 341.4,138.7 344.7,135.1 348.1,131.5 351.4,128.0 354.8,124.5 358.1,121.2 361.4,117.9 364.8,114.6 368.1,111.5 371.5,108.4 374.9,105.4 378.2,102.4 381.6,99.6 384.9,96.8 388.2,94.1 391.6,91.5 394.9,89.0 398.3,86.5 401.6,84.1 405.0,81.9 408.4,79.6 411.7,77.5 415.1,75.4 418.4,73.4 421.8,71.5 425.1,69.7 428.5,67.9 431.8,66.2 435.2,64.5 438.5,63.0 441.9,61.5 445.2,60.0 448.5,58.6 451.9,57.3 455.2,56.0 458.6,54.8 461.9,53.6 465.3,52.5 468.6,51.4 472.0,50.4 475.3,49.4 478.7,48.5 482.1,47.6 485.4,46.7 488.8,45.9 492.1,45.1 495.4,44.4 498.8,43.7 502.2,43.0 505.5,42.4 508.9,41.8 512.2,41.2 515.5,40.6 518.9,40.1 522.2,39.6 525.6,39.1 529.0,38.7 532.3,38.3 535.6,37.8 539.0,37.4 542.3,37.1 545.7,36.7 549.0,36.4 552.4,36.1 555.8,35.8 559.1,35.5 562.5,35.2 565.8,34.9 569.1,34.7 572.5,34.4 575.9,34.2 579.2,34.0 582.5,33.8 585.9,33.6 589.2,33.4 592.6,33.3 596.0,33.1 599.3,32.9 602.6,32.8 606.0,32.6 609.4,32.5 612.7,32.4 616.0,32.3 619.4,32.1 622.8,32.0 626.1,31.9 629.4,31.8 632.8,31.7 636.1,31.7 639.5,31.6 642.9,31.5 646.2,31.4 649.5,31.3 652.9,31.3 656.2,31.2 659.6,31.1 663.0,31.1 666.3,31.0 669.6,31.0 673.0,30.9 676.4,30.9 679.7,30.8 683.1,30.8 686.4,30.8 689.8,30.7 693.1,30.7 696.5,30.6 699.8,30.6 703.1,30.6 706.5,30.5 709.9,30.5 713.2,30.5 716.5,30.5 719.9,30.4 723.2,30.4 726.6,30.4 730.0,30.4 733.3,30.4 736.6,30.3 740.0,30.3" fill="none" stroke="#7A2E1D" stroke-width="2.2"/>
+<rect x="136.99812905174844" y="30" width="250.40203412233535" height="300" fill="#0E5A56" fill-opacity=".08"/>
+<text x="262.1991461129161" y="46" font-size="11" text-anchor="middle" fill="#0E5A56">separation gap 0.10 to 0.4737</text>
+<circle cx="416.3" cy="36" r="4" fill="currentColor"/>
+<circle cx="129.7" cy="324" r="4" fill="none" stroke="currentColor" stroke-width="1.3"/>
+<circle cx="106.5" cy="324" r="4" fill="none" stroke="currentColor" stroke-width="1.3"/>
+<circle cx="114.5" cy="324" r="4" fill="none" stroke="currentColor" stroke-width="1.3"/>
+<circle cx="399.2" cy="36" r="4" fill="currentColor"/>
+<circle cx="387.4" cy="36" r="4" fill="currentColor"/>
+<circle cx="124.0" cy="324" r="4" fill="none" stroke="currentColor" stroke-width="1.3"/>
+<circle cx="407.8" cy="36" r="4" fill="currentColor"/>
+<circle cx="537.8" cy="36" r="4" fill="currentColor"/>
+<circle cx="137.0" cy="324" r="4" fill="none" stroke="currentColor" stroke-width="1.3"/>
+<circle cx="135.5" cy="324" r="4" fill="none" stroke="currentColor" stroke-width="1.3"/>
+<circle cx="440.2" cy="36" r="4" fill="currentColor"/>
+<circle cx="112.5" cy="324" r="4" fill="none" stroke="currentColor" stroke-width="1.3"/>
+<circle cx="128.9" cy="324" r="4" fill="none" stroke="currentColor" stroke-width="1.3"/>
+<circle cx="132.2" cy="324" r="4" fill="none" stroke="currentColor" stroke-width="1.3"/>
+<circle cx="125.4" cy="324" r="4" fill="none" stroke="currentColor" stroke-width="1.3"/>
+<circle cx="462.6" cy="36" r="4" fill="currentColor"/>
+<circle cx="103.5" cy="324" r="4" fill="none" stroke="currentColor" stroke-width="1.3"/>
+<circle cx="130.6" cy="324" r="4" fill="none" stroke="currentColor" stroke-width="1.3"/>
+<circle cx="739.2" cy="36" r="4" fill="currentColor"/>
+<circle cx="120.6" cy="324" r="4" fill="none" stroke="currentColor" stroke-width="1.3"/>
+<circle cx="114.6" cy="324" r="4" fill="none" stroke="currentColor" stroke-width="1.3"/>
+<circle cx="103.5" cy="324" r="4" fill="none" stroke="currentColor" stroke-width="1.3"/>
+<circle cx="736.3" cy="36" r="4" fill="currentColor"/>
+<circle cx="115.2" cy="324" r="4" fill="none" stroke="currentColor" stroke-width="1.3"/>
+<circle cx="110.6" cy="324" r="4" fill="none" stroke="currentColor" stroke-width="1.3"/>
+<circle cx="451.2" cy="36" r="4" fill="currentColor"/>
+<circle cx="118.2" cy="324" r="4" fill="none" stroke="currentColor" stroke-width="1.3"/>
+<circle cx="116.6" cy="324" r="4" fill="none" stroke="currentColor" stroke-width="1.3"/>
+<circle cx="111.6" cy="324" r="4" fill="none" stroke="currentColor" stroke-width="1.3"/>
+<circle cx="503.7" cy="36" r="4" fill="currentColor"/>
+<circle cx="116.9" cy="324" r="4" fill="none" stroke="currentColor" stroke-width="1.3"/>
+<circle cx="118.6" cy="324" r="4" fill="none" stroke="currentColor" stroke-width="1.3"/>
+<path d="M416.3 61.0 l6 7 l-6 7 l-6 -7 z" fill="#7A2E1D" fill-opacity=".9"/>
+<path d="M399.2 70.5 l6 7 l-6 7 l-6 -7 z" fill="#7A2E1D" fill-opacity=".9"/>
+<path d="M387.4 78.1 l6 7 l-6 7 l-6 -7 z" fill="#7A2E1D" fill-opacity=".9"/>
+<path d="M407.7 65.5 l6 7 l-6 7 l-6 -7 z" fill="#7A2E1D" fill-opacity=".9"/>
+<path d="M537.8 29.4 l6 7 l-6 7 l-6 -7 z" fill="#7A2E1D" fill-opacity=".9"/>
+<path d="M440.2 50.4 l6 7 l-6 7 l-6 -7 z" fill="#7A2E1D" fill-opacity=".9"/>
+<path d="M462.6 42.9 l6 7 l-6 7 l-6 -7 z" fill="#7A2E1D" fill-opacity=".9"/>
+<text x="438.50000000000006" y="204.0" font-size="11" fill="#7A2E1D">p = 1 / (1 + exp(-(10.5259 x -3.6973)))</text>
+<circle cx="78" cy="70" r="4" fill="none" stroke="currentColor" stroke-width="1.3"/><text x="88" y="74" font-size="11" fill="currentColor">22 negative controls (label 0)</text>
+<circle cx="78" cy="88" r="4" fill="currentColor"/><text x="88" y="92" font-size="11" fill="currentColor">11 positive controls (label 1, reconciliation-anchored)</text>
+<path d="M78 99 l6 7 l-6 7 l-6 -7 z" fill="#7A2E1D"/><text x="88" y="110" font-size="11" fill="currentColor">7 emitted relations: fused score vs final confidence (after reconciliation feedback and validation factor)</text>
+</svg></figure>
+<p><em>Figure 2. The run-time control set (22 negatives, 11 reconciliation-anchored positives) and the smoothed Platt map fitted on it (a = 10.5259, b = -3.6973). Diamonds are the seven emitted relations at their fused score and final confidence, which includes the reconciliation feedback and the validation factor; the shaded band is the score gap between the highest negative (0.10) and the lowest positive (0.4737) control.</em></p>
+<h3 id="56-gpu-calibration-study-development-measurement">5.6 GPU calibration study (development measurement)</h3>
+<p>On an H100 with larger channel models (multilingual-e5-large, bge-reranker-v2-m3, char TF-IDF, exact anchor; fused 0.25/0.25/0.30/0.20) and leave-one-out over the earlier 38-pair, 7-positive set, an L2-regularized logistic fit scores Brier 0.145 (bootstrap 95 percent 0.080 to 0.226) against 0.235 (0.219 to 0.248) for the raw cross-encoder probability; mean Venn-ABERS width 0.174; ranking perfect [E41]. But the base-rate predictor scores 0.150 on that set and all seven positives land at 0.193 to 0.203: with 7 positives the slope is weakly identified and the default L2 penalty shrinks it further. The shipped design avoids both (smoothed targets without a penalty, 33 controls), which is why it stays graded where the study flattens. N is the bottleneck, not model capacity; 0.145 is never quoted as the shipped Brier because the sets differ.</p>
+<h3 id="57-sensitivity-of-the-run-time-calibration-offline-refits">5.7 Sensitivity of the run-time calibration (offline refits)</h3>
+<p>The calibrator has two free choices that the README states but does not vary: the smoothing prior on both targets, t+ = (n+ + 1)/(n+ + 2) and t- = 1/(n- + 2), and the fusion weights 0.4 / 0.4 / 0.2. Two offline experiments refit the map on the captured 33 controls under alternatives without touching the shipped code [E48/E49, evidence/calibration-sensitivity.md; corrected 29.08 after a first version refit the leave-one-out maps under the shipped prior for every variant]. Prior: with each variant refit under its own prior, leave-one-out stability is the same for every finite fit (largest movement of the map at any control score 0.0372 shipped, 0.0325 half-strength, 0.0286 sklearn default L2, C = 1). The prior decides sharpness, not stability: half-strength smoothing gives emitted confidences 0.88 to 0.99 and a lower Brier (in-sample 0.0022, LOO 0.0030 against 0.0067 and 0.0085), because the controls are perfectly separated (highest negative 0.10, lowest positive 0.4737) and any weaker prior moves toward the unsmoothed maximum-likelihood fit, which has no finite solution; the default L2 fit is under-confident (a = 2.5837, emitted relations 0.53 to 0.65, LOO Brier 0.1151). The shipped prior is kept as Platt's published, parameter-free choice: selecting the prior strength by the control Brier would tune the calibrator on the same 33 points that fit it, and on separated controls a sharper map is the over-confidence the smoothing exists to prevent. Weights: every variant that keeps the value and role channel stays separated (0.5 / 0.5 / 0.0: gap 0.474; equal thirds: 0.298; cross-encoder removed: 0.427), and removing the cross-encoder only lowers the consensus relation from 0.9785 to 0.7752; removing the value channel overlaps the classes (lowest positive 0.1435 below the highest negative 0.1887) and four relations fall under the review threshold. A text-only relation needs a cross-encoder score of 0.9311 to reach the fused threshold when lexical support is zero, 0.7311 at 0.4 and 0.5561 at 0.75. A third refit compares prior families on the same controls (E56): the Jeffreys/Firth penalised fit (a = 14.6406) and the Gelman Cauchy MAP (a = 17.6862) agree with the shipped map at every control and cross it at the gap midpoint (0.335 at fused 0.287); they differ only in steepness inside the 0.10 to 0.4737 gap, where no emitted relation falls, and give 0.886 and 0.932 at the lowest positive control against 0.784 for the shipped map, with jackknife 0.029 and 0.023 against 0.037. Their lower leave-one-out Brier (0.0019 and 0.0006 against 0.0085) is a property of separated controls, where any map closer to the step function scores better (the CORP decomposition gives DSC = UNC = 0.2222 and MCB = BS for every finite map), not evidence that a sharper map is right. Reading: the prior is a conservatism choice defended by argument, the channel the calibration leans on is the one the document itself certifies, and Section 7 returns to what this does and does not show.</p>
+<figure style="margin:18px 0"><svg viewBox="0 0 800 440" role="img" aria-label="Sensitivity of the run-time calibration: per prior variant, the largest leave-one-out movement of the map and the leave-one-out Brier score, each refit under its own prior; per fusion-weight variant, the score separation gap" xmlns="http://www.w3.org/2000/svg" style="max-width:100%;height:auto;font-family:Source Sans 3,Arial,sans-serif">
+<text x="20" y="24" font-size="12" letter-spacing="1.5" fill="currentColor" opacity=".7">A. PRIOR VARIANT, EACH LEAVE-ONE-OUT REFIT UNDER ITS OWN PRIOR (33 REFITS)</text>
+<text x="260" y="44" font-size="11" fill="currentColor" opacity=".8">largest movement of the map at any control score</text><text x="540" y="44" font-size="11" fill="currentColor" opacity=".8">leave-one-out Brier</text>
+<text x="250" y="69" font-size="12" text-anchor="end" fill="currentColor">shipped smoothing, t+ = 12/13</text>
+<rect x="260" y="56" width="178.6" height="18" fill="#7A2E1D" fill-opacity="0.9"/><text x="444.6" y="69" font-size="12" fill="currentColor">0.0372</text>
+<rect x="540" y="56" width="12.5" height="18" fill="#7A2E1D" fill-opacity="0.9"/><text x="558.5" y="69" font-size="12" fill="currentColor">0.0085</text>
+<text x="250" y="99" font-size="12" text-anchor="end" fill="currentColor">half-strength smoothing</text>
+<rect x="260" y="86" width="156.0" height="18" fill="currentColor" fill-opacity="0.35"/><text x="422.0" y="99" font-size="12" fill="currentColor">0.0325</text>
+<rect x="540" y="86" width="4.4" height="18" fill="currentColor" fill-opacity="0.35"/><text x="550.4" y="99" font-size="12" fill="currentColor">0.0030</text>
+<text x="250" y="129" font-size="12" text-anchor="end" fill="currentColor">sklearn default L2 (C = 1)</text>
+<rect x="260" y="116" width="137.3" height="18" fill="currentColor" fill-opacity="0.35"/><text x="403.3" y="129" font-size="12" fill="currentColor">0.0286</text>
+<rect x="540" y="116" width="168.8" height="18" fill="currentColor" fill-opacity="0.35"/><text x="714.8" y="129" font-size="12" fill="currentColor">0.1151</text>
+<text x="250" y="159" font-size="12" text-anchor="end" fill="currentColor">unsmoothed MLE</text>
+<text x="260" y="159" font-size="12" fill="#7A2E1D">diverged: no finite MLE on perfectly separated controls</text>
+<text x="20" y="205" font-size="12" letter-spacing="1.5" fill="currentColor" opacity=".7">B. FUSION WEIGHTS (CE / VALUE+ROLE / LEXICAL): HIGHEST NEGATIVE AND LOWEST POSITIVE FUSED SCORE</text>
+<line x1="260" y1="220" x2="260" y2="380" stroke="currentColor" stroke-opacity=".12"/><text x="260" y="394" font-size="11" text-anchor="middle" fill="currentColor">0</text>
+<line x1="356.0" y1="220" x2="356.0" y2="380" stroke="currentColor" stroke-opacity=".12"/><text x="356.0" y="394" font-size="11" text-anchor="middle" fill="currentColor">0.2</text>
+<line x1="452.0" y1="220" x2="452.0" y2="380" stroke="currentColor" stroke-opacity=".12"/><text x="452.0" y="394" font-size="11" text-anchor="middle" fill="currentColor">0.4</text>
+<line x1="548.0" y1="220" x2="548.0" y2="380" stroke="currentColor" stroke-opacity=".12"/><text x="548.0" y="394" font-size="11" text-anchor="middle" fill="currentColor">0.6</text>
+<line x1="644.0" y1="220" x2="644.0" y2="380" stroke="currentColor" stroke-opacity=".12"/><text x="644.0" y="394" font-size="11" text-anchor="middle" fill="currentColor">0.8</text>
+<line x1="740" y1="220" x2="740" y2="380" stroke="currentColor" stroke-opacity=".12"/><text x="740" y="394" font-size="11" text-anchor="middle" fill="currentColor">1</text>
+<text x="250" y="240" font-size="12" text-anchor="end" fill="currentColor">0.4 / 0.4 / 0.2 (shipped)</text>
+<rect x="308.0" y="227" width="179.4" height="18" fill="#0E5A56" fill-opacity="0.55"/><text x="493.4" y="240" font-size="11" fill="currentColor">gap 0.374, jackknife 0.0372</text>
+<circle cx="308.0" cy="236" r="3" fill="none" stroke="currentColor"/><circle cx="487.4" cy="236" r="3" fill="currentColor"/>
+<text x="250" y="270" font-size="12" text-anchor="end" fill="currentColor">0.5 / 0.5 / 0.0</text>
+<rect x="277.3" y="257" width="227.5" height="18" fill="#0E5A56" fill-opacity="0.3"/><text x="510.8" y="270" font-size="11" fill="currentColor">gap 0.474, jackknife 0.0328</text>
+<circle cx="277.3" cy="266" r="3" fill="none" stroke="currentColor"/><circle cx="504.8" cy="266" r="3" fill="currentColor"/>
+<text x="250" y="300" font-size="12" text-anchor="end" fill="currentColor">equal thirds</text>
+<rect x="332.8" y="287" width="143.0" height="18" fill="#0E5A56" fill-opacity="0.3"/><text x="481.8" y="300" font-size="11" fill="currentColor">gap 0.298, jackknife 0.0403</text>
+<circle cx="332.8" cy="296" r="3" fill="none" stroke="currentColor"/><circle cx="475.8" cy="296" r="3" fill="currentColor"/>
+<text x="250" y="330" font-size="12" text-anchor="end" fill="currentColor">0 / 0.6 / 0.4 (no CE)</text>
+<rect x="343.2" y="317" width="204.8" height="18" fill="#0E5A56" fill-opacity="0.3"/><text x="554.0" y="330" font-size="11" fill="currentColor">gap 0.427, jackknife 0.0459</text>
+<circle cx="343.2" cy="326" r="3" fill="none" stroke="currentColor"/><circle cx="548.0" cy="326" r="3" fill="currentColor"/>
+<text x="250" y="360" font-size="12" text-anchor="end" fill="currentColor">0.6 / 0 / 0.4 (no value channel)</text>
+<rect x="328.9" y="347" width="21.7" height="18" fill="#7A2E1D" fill-opacity=".8"/><text x="356.6" y="360" font-size="11" fill="#7A2E1D">overlap: lowest positive 0.1435 below highest negative 0.1887; 4 relations fall under review</text>
+<circle cx="350.6" cy="356" r="3" fill="none" stroke="currentColor"/><circle cx="328.9" cy="356" r="3" fill="currentColor"/>
+<text x="500.0" y="428" font-size="12" text-anchor="middle" fill="currentColor">fused score; open circle = highest negative control, filled = lowest positive control</text>
+</svg></figure>
+<p><em>Figure 3. Offline refits on the captured controls (E48/E49), each leave-one-out refit under its own prior. Top: the largest movement of the map at any control score is 0.0372 (shipped), 0.0325 (half-strength) and 0.0286 (sklearn default L2), with leave-one-out Brier 0.0085, 0.0030 and 0.1151; the unsmoothed fit has no finite maximum-likelihood solution. Bottom: the value and role channel is what separates the classes; removing the cross-encoder keeps the separation and only lowers the consensus relation from 0.9785 to 0.7752.</em></p>
+<h3 id="58-validation-results-and-mutation-tests">5.8 Validation results and mutation tests</h3>
+<p>Of 113 instances, 103 pass, 6 are not_evaluable and 4 fail [README 7; result.json]. Not evaluable: four FIN_GRAND_TOTAL on the two income-statement milestone rows (p07.t02 r024 and r028, both periods), where a fractional per-share row leaves no evaluable member hypothesis, and two STR_PERIOD_ORDER on the single-period movement tables p53.t03 and p53.t04. Failures: FMT_ENGINE_AGREEMENT at document level (the Stoklar disagreement); FIN_PARENT_SUM on p05.t00.r001 y2012 (children overshoot Dönen Varlıklar by exactly 400.000, localizing the 5-to-9 substitution); FIN_PARENT_SUM on p05.t00.r009 y2012 (the impossible fractional residue .224 from 4,224); FMT_REPAIRED_CELLS on p53.t04 (three regrouped cells, values kept, capped at 0.7). The pass count includes per-scope repeats and the type-level FMT_THREE_STATE, so the signal is in the fail and not_evaluable lines. Mutation tests [E35]: <code>eval/mutations.py</code> runs a clean reference (exactly the 4 known fails) and three corruptions injected between assembly and validation. Adding 1.000.000 to Ticari Alacaklar 2011 and its sub-rows is caught by FIN_PARENT_SUM at two hierarchy levels (r001 and r003); subtracting 500.000 from TOPLAM VARLIKLAR 2012 is caught by FIN_GRAND_TOTAL (r017); adding 7 to both periods of Yatırım Amaçlı Gayrimenkuller kills the value anchor, relations drop from 7 to 2 and REL_COVERAGE fails. Three of three named catchers fire; the clean run raises no new failure.</p>
+<h3 id="59-determinism-and-the-linux-reproduction">5.9 Determinism and the Linux reproduction</h3>
+<p>Two consecutive runs are byte-identical in <code>result.json</code> outside the run block, in <code>relations.jsonl</code> and in <code>report.html</code> [E45]. The submission zip was executed on a fresh x86_64 Ubuntu 22.04 machine (Python 3.13 through uv 0.12.5, tesseract 4.1.1 from apt, empty caches): <code>uv sync --frozen</code> 65 s, 37 passed in 6.84 s, first <code>make run</code> 164.8 s including both model downloads, <code>make eval</code> printing 199/201 with the same two wrong cells, P = R = 1.00 and 103/4/6, and a real double run byte-identical [linux-drill]. The development machine runs tesseract 5.5.3 [result.json]. Byte identity is scoped to the same OCR build; that the evaluation numbers survive a build change from 5.5.3 to 4.1.1 is the strongest available evidence that the pipeline is not tuned to one tesseract build.</p>
+<h3 id="510-scenario-lab-sensitivity">5.10 Scenario-lab sensitivity</h3>
+<p>Seventeen config-diff scenarios were scored with the shipped scorer [E33]. The accepted set is invariant across accept_threshold 0.2 to 0.8 (zero relation diffs, zero confidence deltas). dpi 400 collapses to 79.6 percent cells and recall 0.14: 6 of 7 relations lost, 38 cells missing, 3 wrong values, 12 rows lost, and a new corruption of the same printed number (77.943.097 becomes 71.543.097). psm 6 breaks both locate paths and aborts cleanly. Lowering the lexical bar to 0.4 admits three baseline_only false links at 0.0442, 0.0479 and 0.0458, all flagged, precision 0.70, recall 1.00, FIN_RECONCILE failing on all three [coldgrade2 §3]. Disabling the second engine turns FMT_ENGINE_AGREEMENT not_evaluable and leaves the Stoklar corruption with only its arithmetic catcher. Removing the extra control pages keeps a fitted map at 7 positives and 10 negatives but moves confidences by up to 0.022. Disabling the percent rescue drops cells to 96.5 percent with 486,6 live in the output.</p>
+<h3 id="511-generality-across-footnotes">5.11 Generality across footnotes</h3>
+<p>Footnote 10 (page 52; a 24-cell hand-labelled reference with identities): the movement table extracts perfectly; 21/24 values (87.5 percent) after a scorer tie-break artefact is corrected (54.2 percent by the footnote-11-shaped scorer); the single true link is unreachable because the same printed 77.543.097 is corrupted differently on page 5 (77.943.097) and page 52 (71.543.097), both caught by the second engine, and every produced link ships flagged [ledger S5]. Footnote 12 (pages 55 to 57, rotated 270 degrees): 8 tables, 104 rows, 251 cells, one cross-note relation at 0.5274 under fallback calibration (1 positive, 7 negatives), flagged, checks 102/11/11; extraction is demo-grade and the roll-forward failures are reported [README 8; coldgrade2 §2]. Footnote 13: located from page 58 only; one relation (2011 net book value 14.526.075, exact anchor, reconciliation 1.0, cross-encoder 0.135 on a zero-overlap pair, b_only, 0.5871, flagged under fallback); 5 tables, 87 rows, 168 cells, checks 68/7/8; the 2012 link (14.557.878 on page 57) is absent because note 13 starts mid-page under note 12's tables, note 14's table enters the pool, and FIN_ROW_SUM correctly fails on a real misread (14.957 + 62.841 printed as 77.398) [ledger; coldgrade2 §3]. Four footnote families with zero code changes; the scoping limit is the price of page-level assignment and is disclosed.</p>
+<h3 id="512-external-blind-evaluations-of-the-artifact">5.12 External blind evaluations of the artifact</h3>
+<p>Two evaluations were run by an evaluator who saw only the submission zip and the specification, in an isolated environment. The first, on version 0.7 (23.08.2026), returned a positive overall assessment; it refuted one of its own findings on evidence, and its three confirmed findings (label OCR junk, raw-traceback exit, calibration mode typed as a float) were folded into version 0.8 with no headline change [ledger]. The second, on version 1.0.1 (29.08.2026), returned a positive overall assessment and reproduced every printed number digit for digit: 37 tests, cold run 121.7 s with 941 MB downloaded, 103/4/6, <code>result.json</code> byte-identical to the shipped file produced on another machine, 199/201 with the interval, P = R = 1.00, LOO Brier 0.0085 with the quartiles, ablation 1/7 against 7/7 with p = 0.031, all mutations caught, the footnote-12 relation 0.5274 flagged; its adversarial probes (footnote 99 exits 2; pages [20, 22] fail STR_SUMMARY_RANGE three times; threshold 0.8 unchanged; lexical 0.4 gives the three flagged false links; top_k 2 falls back) behaved as documented [coldgrade2 §2, §3]. It found four high-severity defects: a "numeric round-trip re-parse" check described in the README that did not exist in code; the mid-page footnote start losing its first page silently; adjacent-note tables leaking into the candidate pool; FMT_THREE_STATE being unfailable. It also named the structural circularity between approach B's acceptance and the calibrator's positive label, the absent reference-to-row and currency checks, cell confidence being close to the raw OCR probability, and constant 0.3/0.2 values for cell-less rows and tables [coldgrade2 §5]. Version 1.0.2 is a README-only release that removes the phantom check, declares FMT_THREE_STATE type-level, states both scoping limits, discloses the structural separation and the indirect reference binding, and documents the 1.05 boost and the 0.5 repair tier; no number changed.</p>
+<h3 id="513-generality-on-three-other-filings-development-measurement-no-gold">5.13 Generality on three other filings (development measurement, no gold)</h3>
+<p>The sealed code was run unchanged on three other public audit reports with only the configuration changed (pdf path, summary pages, footnote number, control pages) [second-document-generality]. Özak GYO 31.12.2013 (born-digital, 91 pages): 6 tables, 220 cells, footnote pages 52 and 53 located from the table of contents, 4 relations, all correct by eyeball against the page images, none flagged, checks 80 pass / 8 fail / 3 not evaluable, 22 s. Özak GYO 31.12.2011 (scanned and rotated, the case document's class, 83 pages): 5 tables, 159 cells, the scan fallback located page 44 only, 1 relation, correct and flagged because a single positive control cannot fit the map, checks 67 / 2 / 4, 60 s; the note-10 movement table that begins mid-page under the heading of note 9 was not extracted and the referencing row was flagged by REL_COVERAGE. Emlak Konut GYO 31.12.2012 (born-digital, a different auditor): loud failure with exit code 2 after 62 s, because the footnote locator anchors on the heading form "NOT n" and this report prints "DİPNOT n". One silent failure mode appeared: on the 2013 render 12 of 201 numeric cells were misread, 11 of them a dropped leading digit (157.000.000 read as 57.000.000) at cell confidence about 1.0, both engines agreeing on the same crop; the financial group caught 9 of them through FIN_PARENT_SUM. Reading: the staged design and the reconciliation links transfer within the document family; two auditor conventions do not; the OCR-confidence layer cannot see a crop that excludes a digit, which is the strongest argument in this study for keeping the arithmetic checks in the confidence story rather than trusting engine agreement.</p>
+<h2 id="6-error-analysis">6. Error analysis</h2>
+<p>Six cases on this filing [README 8].</p>
+<ol>
+<li>Silent digit substitution. Expected Stoklar 2012 = 77.543.097, produced 77.943.097; stage OCR recognition; cause 5 read as 9 with the number staying well-formed. Caught twice: the second engine disagrees and caps the cell at 0.40 (rank 4 of 193 by cell confidence), and FIN_PARENT_SUM localizes a +400.000 overshoot. The value is not replaced.</li>
+<li>Separator read as decimal. Expected Finansal Yatırımlar 2012 = 4.224, produced 4,224 (four); stage OCR glyph plus grammar. Both engines read 4224, so the digit check passes by nature (cell 0.8528, rank 17 of 193) and only the financial group catches it through the impossible .224 residue. Improvement: column-type inference.</li>
+<li>Percent glyph destruction. Expected %9, %10,5, %86,6, %80,8, %3, %2-%4; the primary engine yields 49, 710,5, 486,6, dropped cells and a dropped row, and "49" masqueraded as a footnote reference. Fix: the S3b engine swap (6/6) with both readings in the components and FMT_PERCENT_BOUNDS guarding the class.</li>
+<li>TOC dot leaders eat page digits. Expected NOT 11 at printed 49-50, produced "9-50"; stage contents-page OCR. Caught by the monotonicity rule (9 cannot follow 48), repaired by the bounded scan to page 53, verified by re-reading the heading.</li>
+<li>Wrapped label versus group header. Expected one row "Özkaynak Yöntemiyle Değerlenen Yatırımların Kar/Zararlarındaki Paylar" and the Dağılımı headers kept; produced a truncated label and lost headers; stage structure segmentation. Fix: the indent rule.</li>
+<li>Rotated landscape pages (footnote 12). Expected readable tables on 55 to 57, produced near-zero words upright; stage render orientation. Fix: orientation recovery by confident-word maximum; extraction stays demo-grade and its check failures are reported.</li>
+</ol>
+<p>Disclosed limits visible in the output: footnote pages are scoped by the top-of-page heading (Section 5.11); the sign check keys on the printed "(-)" marker, and one such marker is OCR-read as "(&lt;9)" (Pazarlama, Satış ve Dağıtım Giderleri), so that row is unchecked although its values are negative anyway; the 2011 movement table's first column header carries OCR junk ("harcamalar Arazi ve Arsalar"), columns still map positionally and every value under it scores correct, but header text has no check of its own [README 7, 8; E45].</p>
+<h2 id="7-threats-to-validity-and-limitations">7. Threats to validity and limitations</h2>
+<p>One filing. Seven links bound precision and recall only at 0.652 from below and 201 cells bound accuracy at 0.9645 [README 9]; nothing here estimates an error rate across filings, and the protocol that would (30 to 50 stratified filings, two annotators, document-level bootstrap, leave-one-document-out calibration) is written but not executed [101].</p>
+<p>N = 33, 11 positives. A calibration slope needs hundreds of events and assessment is poor at 10 or fewer [97 3c]; the claim is direction plus disclosed interval, never a certified probability, and ECE is withheld because at this N a binned estimate is a statement about the bins [97 3d].</p>
+<p>Same renders. The reference was transcribed from the 300 dpi renders the pipeline consumes; a defect common to both would be invisible, although the identities make an undetected digit error in any total-bearing row very unlikely [gold-audit]. Hierarchy fields, labels and the 7 relations were audited only incidentally.</p>
+<p>Twin rule. Scorer and ablation disambiguate the two movement tables with identical labels by value overlap or by crediting the best rank across twins; the second favours labels-only and is disclosed with the p-value.</p>
+<p>In-sample Venn-ABERS. Intervals are computed with the relation's own control label present; leave-self-out widens the weakest link to [0.00, 1.00] [E45].</p>
+<p>Structural separation. Approach B's acceptance and the reconciliation signature are one arithmetic, so the controls' separation is partly structural and the map certifies value-anchored links; confidence ordering inside the reconciliation family tracks cross-encoder and lexical noise on date-labelled rows, not semantics [coldgrade2 finding 6].</p>
+<p>No GriTS. The cell metric is binary and position-anchored; GriTS would grade partial credit and header errors and was not computed [100].</p>
+<p>Scope. Leading-minus negatives are not parsed; roles rest on the five Turkish phrases this filing uses; cross-statement identities (assets equal liabilities plus equity, the net-profit tie, prior closing equals current opening) are not shipped; footnote scoping is page-level; currency is echoed from config, not verified against the printed header [README 11; coldgrade2].</p>
+<p>What would change the design. A material GriTS gain for TATR v1.1-fin over x-clustering on pages 53 and 54 makes TATR a configurable primary behind the existing extraction interface [ADR-01]; the local pre-check (E50) already shows that this test presupposes a detection fix, since the detector misses page 54 at both thresholds. Hard-negative margins favouring the 568M reranker, or an NLI channel with an independence argument, move fusion from fixed weights toward a noisy-OR variant [ADR-02; ADR-03]. Sub-page footnote segmentation removes both scoping limits; approach disagreement as a calibrator feature and type-conditional thresholds are the named next step [97 3c]; cell-level isotonic calibration becomes viable only above about 200 certified cells [matrix].</p>
+<h2 id="8-reproducibility-appendix">8. Reproducibility appendix</h2>
+<p>Prerequisites: Python 3.11 or newer, uv, tesseract with Turkish data (<code>brew install tesseract tesseract-lang</code> or <code>apt install tesseract-ocr tesseract-ocr-tur</code>), the source PDF at <code>data/ozak_gyo_2012.pdf</code>. Commands and the lines they print on the reference filing [README 1; coldgrade2 §2]:</p>
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Expected printed lines</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>uv sync --frozen</code> (or <code>make setup</code>)</td>
+<td>clean resolve from <code>uv.lock</code></td>
+</tr>
+<tr>
+<td><code>uv run pytest -q</code> (<code>make test</code>)</td>
+<td><code>37 passed</code></td>
+</tr>
+<tr>
+<td><code>uv run ftlink run --config configs/default.yaml</code> (<code>make run</code>)</td>
+<td><code>tables=7 rows=95 cells=193 relations=7 (low_conf=0)</code>, <code>checks 103 pass / 4 fail / 6 not_evaluable</code>, <code>done in N s</code>; first run downloads about 950 MB of weights</td>
+</tr>
+<tr>
+<td><code>uv run python eval/score.py</code> (<code>make eval</code>)</td>
+<td><code>CELLS: total=201 correct=199 (99.0%) wrong_val=2 wrong_state=0</code>, <code>CI [0.9645, 0.9988]</code>, <code>RELATIONS: gold=7 predicted=7 tp=7 fp=0 fn=0 P=1.00 R=1.00</code>, lower bounds <code>0.652 / 0.652</code>, unmatched extracted rows <code>0</code>, <code>CHECKS: 103 pass / 4 fail / 6 not_evaluable</code></td>
+</tr>
+<tr>
+<td><code>uv run python eval/determinism.py</code> (<code>make determinism</code>)</td>
+<td><code>DETERMINISM: byte-identical outside the run block: True</code>, exit 0</td>
+</tr>
+<tr>
+<td><code>uv run python eval/calibration_loo.py</code> (<code>make calibration</code>)</td>
+<td><code>n=33 pos=11 neg=22 fitted platt_a=10.5259 platt_b=-3.6973 separated=true</code>; Brier <code>base 0.2222, raw fused 0.0579, in-sample 0.0067, LOO 0.0085</code>; LOO quartiles <code>0.046/0.053/0.240/0.917</code> with positive fractions <code>0.000/0.000/0.250/1.000</code>; Venn-ABERS rel005 <code>(0.5, 1.0)</code> to leave-self-out <code>(0.0, 1.0)</code>, rel008 <code>(0.9, 1.0)</code> to <code>(0.8889, 1.0)</code></td>
+</tr>
+<tr>
+<td><code>uv run python eval/ablation.py</code></td>
+<td><code>labels-only R@5 = 1/7</code> (ranks 9, 12, 19, 10, 1, 16, 17); <code>labels+values R@5 = 7/7</code> (ranks 2, 4, 5, 3, 1, 2, 1); <code>PAIRED: values-only hits 6, labels-only hits 0, exact McNemar p = 0.031</code></td>
+</tr>
+<tr>
+<td><code>uv run python eval/mutations.py</code></td>
+<td><code>member_digit caught by FIN_PARENT_SUM at r001 and r003</code>; <code>grand_total caught by FIN_GRAND_TOTAL at r017</code>; <code>link_row_values caught by REL_COVERAGE (relations 7 to 2)</code>; <code>MUTATIONS: all caught</code></td>
+</tr>
+<tr>
+<td><code>uv run ftlink run --config configs/alt_footnote.yaml</code> (<code>make run-alt</code>)</td>
+<td><code>tables=8 rows=104 cells=251 relations=1 (low_conf=1)</code>, <code>checks 102/11/11</code>; the relation at 0.5274 flagged, <code>mode=fallback positives=1 negatives=7</code></td>
+</tr>
+</tbody>
+</table>
+<p>Pins. Package versions are pinned by <code>uv.lock</code> (89 packages; torch on the CPU index on Linux). Model weights are pinned to Hugging Face snapshot revisions in <code>configs/default.yaml</code>: <code>intfloat/multilingual-e5-small</code> at 614241f622f53c4eeff9890bdc4f31cfecc418b3 and <code>cross-encoder/mmarco-mMiniLMv2-L12-H384-v1</code> at 1427fd652930e4ba29e8149678df786c240d8825, passed to every loader; <code>HF_HUB_OFFLINE=1</code> after the first run gives an assertable offline property. The OCR engine is a system dependency, so byte identity is scoped to the same tesseract build; the <code>run</code> block records <code>tesseract --version</code> (5.5.3 on the development machine, 4.1.1 in the Linux reproduction), <code>ftlink_version</code> 1.0.2, <code>models_loaded</code> and a config echo. <code>document.source_sha256</code> fingerprints the input (prefix 25e4afe4). Inference is CPU, fp32, no sampling; the optional LLM tier replays a prompt-hash cache byte-identically.</p>
+<h2 id="9-references">9. References</h2>
+<p>Only papers with a verified claim card in the local library are listed; where the card gives no arXiv identifier, DOI or venue, the entry says so.</p>
+<ol>
+<li>Platt, J. (1999). Probabilistic outputs for support vector machines. Section 2.2, equations 13 and 14. (no identifier in the local library)</li>
+<li>Vovk, V., Petej, I. (2014). Venn-Abers predictors. arXiv:1211.0025, UAI 2014; simplified construction Section 5, Algorithm 2. IVAP naming: 2015 follow-up, arXiv:1511.00213.</li>
+<li>Niculescu-Mizil, A., Caruana, R. (2005). Predicting good probabilities with supervised learning. ICML 2005, Section 5, pp. 6-7, Figure 7.</li>
+<li>Cormack, G. V., Clarke, C. L. A., Buettcher, S. (2009). Reciprocal rank fusion. SIGIR 2009, Section 1, Table 1.</li>
+<li>Smock, B., et al. Aligning benchmark datasets for table structure recognition (FinTabNet.c). arXiv:2303.00716. PubTables-1M: CVPR 2022, pp. 4634-4642.</li>
+<li>Smock, B., et al. (2022). GriTS: grid table similarity. Local PDF smock2022-grits.pdf, Equation 6 p. 7. (no identifier in the local library)</li>
+<li>Select versus match formulations for LLM entity matching. COLING 2025, local PDF select-vs-match-coling2025.pdf, pp. 2, 6-8. (no identifier in the local library)</li>
+<li>Cetvel: a Turkish LLM benchmark (2025). Local PDF cetvel2025.pdf, pp. 1, 3-6. (no identifier in the local library)</li>
+<li>ExtractConf (2026). Document-grounded confidence for extraction. Local PDF extractconf2026.pdf, Table 1 p. 7, pp. 6-9. (no identifier in the local library)</li>
+<li>OCRTurk (2026). Turkish document-parsing benchmark. Local PDF ocrturk2026.pdf, pp. 6-7, 10-11. (no identifier in the local library)</li>
+<li>Kull, M., et al. (2017). Beta calibration. Local PDF beta-calibration2017.pdf, Proposition 1 p. 5. (no identifier in the local library)</li>
+<li>Introduction to conformal prediction (2021). Local PDF conformal-intro2021.pdf, Theorem 1 p. 6, p. 14, Table 1 p. 15. (no identifier in the local library)</li>
+<li>Docling technical report (2024). Local PDF docling2024-techreport.pdf, pp. 3-4. (no identifier in the local library)</li>
+<li>İşcan, C., Kumaş, O., Patlar Akbulut, F., Akbulut, A. (2023). Wallet-Based Transaction Fraud Prevention Through LightGBM With the Focus on Minimizing False Alarms. IEEE Access 11, pp. 131465-131474. DOI 10.1109/ACCESS.2023.3321666 (operating point 0.15 chosen by curve inspection, Table 1 p. 6).</li>
+<li>Baysan, M. S., Güngör, T. (2025). TR-MTEB: a Turkish embedding benchmark. Findings of EMNLP 2025, Table 2 p. 8, Table 9 p. 19.</li>
+<li>Kimura, Y., et al. (2023). Overview of the NTCIR-17 UFO task. NTCIR-17, Tables 5-7 pp. 5-6, Table 14 p. 8.</li>
+<li>Riley, R. D., et al. (2021). Minimum sample size for external validation of a clinical prediction model. Statistics in Medicine, pp. 1, 6, 11, 16, Table 1 p. 18.</li>
+<li>Collins, G. S., et al. (2016). Sample size considerations for the external validation of a multivariable prognostic model. Statistics in Medicine, pp. 1, 2, 7-9, 11.</li>
+<li>Roelofs, R., Cain, N., Shlens, J., Mozer, M. C. (2022). Mitigating bias in calibration error estimation. AISTATS 2022, arXiv 2012.08668.</li>
+<li>Bonifacio, L., et al. mMARCO: a multilingual version of the MS MARCO passage ranking dataset. arXiv 2108.13897. Model card: cross-encoder/mmarco-mMiniLMv2-L12-H384-v1 (base nreimers/mMiniLMv2-L12-H384-distilled-from-XLMR-Large).</li>
+</ol>
+<p>Mentioned without a verified card: the DocILE line-item benchmark (2023) and the NTCIR-18 U4 protocol, listed in the reading list only; no identifier is given for them here.</p>
+</main>

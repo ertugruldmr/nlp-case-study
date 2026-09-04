@@ -1,0 +1,38 @@
+<svg viewBox="0 0 800 440" role="img" aria-label="Sensitivity of the run-time calibration: per prior variant, the largest leave-one-out movement of the map and the leave-one-out Brier score, each refit under its own prior; per fusion-weight variant, the score separation gap" xmlns="http://www.w3.org/2000/svg" style="max-width:100%;height:auto;font-family:Source Sans 3,Arial,sans-serif">
+<text x="20" y="24" font-size="12" letter-spacing="1.5" fill="currentColor" opacity=".7">A. PRIOR VARIANT, EACH LEAVE-ONE-OUT REFIT UNDER ITS OWN PRIOR (33 REFITS)</text>
+<text x="260" y="44" font-size="11" fill="currentColor" opacity=".8">largest movement of the map at any control score</text><text x="540" y="44" font-size="11" fill="currentColor" opacity=".8">leave-one-out Brier</text>
+<text x="250" y="69" font-size="12" text-anchor="end" fill="currentColor">shipped smoothing, t+ = 12/13</text>
+<rect x="260" y="56" width="178.6" height="18" fill="#7A2E1D" fill-opacity="0.9"/><text x="444.6" y="69" font-size="12" fill="currentColor">0.0372</text>
+<rect x="540" y="56" width="12.5" height="18" fill="#7A2E1D" fill-opacity="0.9"/><text x="558.5" y="69" font-size="12" fill="currentColor">0.0085</text>
+<text x="250" y="99" font-size="12" text-anchor="end" fill="currentColor">half-strength smoothing</text>
+<rect x="260" y="86" width="156.0" height="18" fill="currentColor" fill-opacity="0.35"/><text x="422.0" y="99" font-size="12" fill="currentColor">0.0325</text>
+<rect x="540" y="86" width="4.4" height="18" fill="currentColor" fill-opacity="0.35"/><text x="550.4" y="99" font-size="12" fill="currentColor">0.0030</text>
+<text x="250" y="129" font-size="12" text-anchor="end" fill="currentColor">sklearn default L2 (C = 1)</text>
+<rect x="260" y="116" width="137.3" height="18" fill="currentColor" fill-opacity="0.35"/><text x="403.3" y="129" font-size="12" fill="currentColor">0.0286</text>
+<rect x="540" y="116" width="168.8" height="18" fill="currentColor" fill-opacity="0.35"/><text x="714.8" y="129" font-size="12" fill="currentColor">0.1151</text>
+<text x="250" y="159" font-size="12" text-anchor="end" fill="currentColor">unsmoothed MLE</text>
+<text x="260" y="159" font-size="12" fill="#7A2E1D">diverged: no finite MLE on perfectly separated controls</text>
+<text x="20" y="205" font-size="12" letter-spacing="1.5" fill="currentColor" opacity=".7">B. FUSION WEIGHTS (CE / VALUE+ROLE / LEXICAL): HIGHEST NEGATIVE AND LOWEST POSITIVE FUSED SCORE</text>
+<line x1="260" y1="220" x2="260" y2="380" stroke="currentColor" stroke-opacity=".12"/><text x="260" y="394" font-size="11" text-anchor="middle" fill="currentColor">0</text>
+<line x1="356.0" y1="220" x2="356.0" y2="380" stroke="currentColor" stroke-opacity=".12"/><text x="356.0" y="394" font-size="11" text-anchor="middle" fill="currentColor">0.2</text>
+<line x1="452.0" y1="220" x2="452.0" y2="380" stroke="currentColor" stroke-opacity=".12"/><text x="452.0" y="394" font-size="11" text-anchor="middle" fill="currentColor">0.4</text>
+<line x1="548.0" y1="220" x2="548.0" y2="380" stroke="currentColor" stroke-opacity=".12"/><text x="548.0" y="394" font-size="11" text-anchor="middle" fill="currentColor">0.6</text>
+<line x1="644.0" y1="220" x2="644.0" y2="380" stroke="currentColor" stroke-opacity=".12"/><text x="644.0" y="394" font-size="11" text-anchor="middle" fill="currentColor">0.8</text>
+<line x1="740" y1="220" x2="740" y2="380" stroke="currentColor" stroke-opacity=".12"/><text x="740" y="394" font-size="11" text-anchor="middle" fill="currentColor">1</text>
+<text x="250" y="240" font-size="12" text-anchor="end" fill="currentColor">0.4 / 0.4 / 0.2 (shipped)</text>
+<rect x="308.0" y="227" width="179.4" height="18" fill="#0E5A56" fill-opacity="0.55"/><text x="493.4" y="240" font-size="11" fill="currentColor">gap 0.374, jackknife 0.0372</text>
+<circle cx="308.0" cy="236" r="3" fill="none" stroke="currentColor"/><circle cx="487.4" cy="236" r="3" fill="currentColor"/>
+<text x="250" y="270" font-size="12" text-anchor="end" fill="currentColor">0.5 / 0.5 / 0.0</text>
+<rect x="277.3" y="257" width="227.5" height="18" fill="#0E5A56" fill-opacity="0.3"/><text x="510.8" y="270" font-size="11" fill="currentColor">gap 0.474, jackknife 0.0328</text>
+<circle cx="277.3" cy="266" r="3" fill="none" stroke="currentColor"/><circle cx="504.8" cy="266" r="3" fill="currentColor"/>
+<text x="250" y="300" font-size="12" text-anchor="end" fill="currentColor">equal thirds</text>
+<rect x="332.8" y="287" width="143.0" height="18" fill="#0E5A56" fill-opacity="0.3"/><text x="481.8" y="300" font-size="11" fill="currentColor">gap 0.298, jackknife 0.0403</text>
+<circle cx="332.8" cy="296" r="3" fill="none" stroke="currentColor"/><circle cx="475.8" cy="296" r="3" fill="currentColor"/>
+<text x="250" y="330" font-size="12" text-anchor="end" fill="currentColor">0 / 0.6 / 0.4 (no CE)</text>
+<rect x="343.2" y="317" width="204.8" height="18" fill="#0E5A56" fill-opacity="0.3"/><text x="554.0" y="330" font-size="11" fill="currentColor">gap 0.427, jackknife 0.0459</text>
+<circle cx="343.2" cy="326" r="3" fill="none" stroke="currentColor"/><circle cx="548.0" cy="326" r="3" fill="currentColor"/>
+<text x="250" y="360" font-size="12" text-anchor="end" fill="currentColor">0.6 / 0 / 0.4 (no value channel)</text>
+<rect x="328.9" y="347" width="21.7" height="18" fill="#7A2E1D" fill-opacity=".8"/><text x="356.6" y="360" font-size="11" fill="#7A2E1D">overlap: lowest positive 0.1435 below highest negative 0.1887; 4 relations fall under review</text>
+<circle cx="350.6" cy="356" r="3" fill="none" stroke="currentColor"/><circle cx="328.9" cy="356" r="3" fill="currentColor"/>
+<text x="500.0" y="428" font-size="12" text-anchor="middle" fill="currentColor">fused score; open circle = highest negative control, filled = lowest positive control</text>
+</svg>

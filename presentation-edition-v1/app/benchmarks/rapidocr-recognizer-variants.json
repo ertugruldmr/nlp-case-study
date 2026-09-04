@@ -1,0 +1,199 @@
+{
+  "id": "rapidocr-recognizer-variants",
+  "title_tr": "İkinci OCR motoru: RapidOCR tanıyıcı varyantları",
+  "title_en": "Second OCR engine: RapidOCR recognizer variants on the case document",
+  "measured_at": "2026-08-29T18:16:42",
+  "source": "research/assets/experiments/rapidocr-v6-local/score*.log, run*.log, diff-*-vs-shipped.log",
+  "scope": "this document",
+  "baseline": "shipped",
+  "columns": [
+    {
+      "key": "setting",
+      "label_tr": "ayar",
+      "kind": "text"
+    },
+    {
+      "key": "recognizer",
+      "label_tr": "tanıyıcı modeli",
+      "kind": "text"
+    },
+    {
+      "key": "cells_correct",
+      "label_tr": "doğru hücre",
+      "kind": "number"
+    },
+    {
+      "key": "cells_total",
+      "label_tr": "hücre",
+      "kind": "number"
+    },
+    {
+      "key": "cells_pct",
+      "label_tr": "hücre doğruluğu",
+      "kind": "pct"
+    },
+    {
+      "key": "precision",
+      "label_tr": "ilişki P",
+      "kind": "number"
+    },
+    {
+      "key": "recall",
+      "label_tr": "ilişki R",
+      "kind": "number"
+    },
+    {
+      "key": "checks",
+      "label_tr": "kontrol geçti / kaldı / değerlendirilemez",
+      "kind": "text"
+    },
+    {
+      "key": "pipeline_s",
+      "label_tr": "boru hattı süresi",
+      "kind": "seconds"
+    },
+    {
+      "key": "wall_s",
+      "label_tr": "duvar saati",
+      "kind": "seconds"
+    },
+    {
+      "key": "value_diffs",
+      "label_tr": "değer farkı vs teslimat",
+      "kind": "number"
+    },
+    {
+      "key": "conf_only_diffs",
+      "label_tr": "yalnız güven farkı vs teslimat",
+      "kind": "number"
+    },
+    {
+      "key": "exit",
+      "label_tr": "çıkış kodu",
+      "kind": "number"
+    }
+  ],
+  "rows": [
+    {
+      "id": "shipped",
+      "label": "Teslimat çalıştırması (taban çizgisi)",
+      "role": "shipped",
+      "source": "app/runs/baseline/meta.json",
+      "setting": "teslim edilen konfigürasyon",
+      "recognizer": null,
+      "cells_correct": 199,
+      "cells_total": 201,
+      "cells_pct": 99.0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "checks": "103 / 4 / 6",
+      "pipeline_s": null,
+      "wall_s": 28.8,
+      "value_diffs": 0,
+      "conf_only_diffs": 0,
+      "exit": 0
+    },
+    {
+      "id": "default",
+      "label": "RapidOCR default",
+      "role": "measured",
+      "source": "research/assets/experiments/rapidocr-v6-local/score.log",
+      "cells_total": 201,
+      "cells_correct": 199,
+      "cells_pct": 99.0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "checks": "103 / 4 / 6",
+      "setting": "kütüphane varsayılanı",
+      "recognizer": "PP-OCRv6_rec_small.onnx",
+      "pipeline_s": 46.3,
+      "wall_s": 61.75,
+      "exit": 0,
+      "value_diffs": 0,
+      "conf_only_diffs": 0
+    },
+    {
+      "id": "default-warm",
+      "label": "RapidOCR default-warm",
+      "role": "measured",
+      "source": "research/assets/experiments/rapidocr-v6-local/score-default-warm.log",
+      "cells_total": 201,
+      "cells_correct": 199,
+      "cells_pct": 99.0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "checks": "103 / 4 / 6",
+      "setting": "(default, warm, env unset)",
+      "recognizer": "PP-OCRv6_rec_small.onnx",
+      "pipeline_s": 27.7,
+      "wall_s": 28.97,
+      "exit": 0,
+      "value_diffs": 0,
+      "conf_only_diffs": 0
+    },
+    {
+      "id": "v5-ch",
+      "label": "RapidOCR v5-ch",
+      "role": "measured",
+      "source": "research/assets/experiments/rapidocr-v6-local/score-v5-ch.log",
+      "cells_total": 201,
+      "cells_correct": 199,
+      "cells_pct": 99.0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "checks": "103 / 4 / 6",
+      "setting": "FTLINK_RAPIDOCR_REC=PP-OCRv5:mobile:ch",
+      "recognizer": "ch_PP-OCRv5_rec_mobile.onnx",
+      "pipeline_s": 30.2,
+      "wall_s": 31.47,
+      "exit": 0,
+      "value_diffs": 0,
+      "conf_only_diffs": 3
+    },
+    {
+      "id": "v5-latin",
+      "label": "RapidOCR v5-latin",
+      "role": "measured",
+      "source": "research/assets/experiments/rapidocr-v6-local/score-v5-latin.log",
+      "cells_total": 201,
+      "cells_correct": 199,
+      "cells_pct": 99.0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "checks": "103 / 4 / 6",
+      "setting": "FTLINK_RAPIDOCR_REC=PP-OCRv5:mobile:latin",
+      "recognizer": "latin_PP-OCRv5_rec_mobile.onnx",
+      "pipeline_s": 29.9,
+      "wall_s": 31.17,
+      "exit": 0,
+      "value_diffs": 0,
+      "conf_only_diffs": 3
+    },
+    {
+      "id": "v6-medium",
+      "label": "RapidOCR v6-medium",
+      "role": "measured",
+      "source": "research/assets/experiments/rapidocr-v6-local/score-v6-medium.log",
+      "cells_total": 201,
+      "cells_correct": 199,
+      "cells_pct": 99.0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "checks": "103 / 4 / 6",
+      "setting": "FTLINK_RAPIDOCR_REC=PP-OCRv6:medium:ch",
+      "recognizer": "PP-OCRv6_rec_medium.onnx",
+      "pipeline_s": 38.1,
+      "wall_s": 39.4,
+      "exit": 0,
+      "value_diffs": 0,
+      "conf_only_diffs": 0
+    }
+  ],
+  "notes_tr": [
+    "default: result.json run bloğu dışında teslimatla bit bit aynı (diff-default-vs-shipped.log).",
+    "default-warm: result.json run bloğu dışında teslimatla bit bit aynı (diff-default-warm-vs-shipped.log).",
+    "v6-medium: result.json run bloğu dışında teslimatla bit bit aynı (diff-v6-medium-vs-shipped.log).",
+    "wall_s = `time` real; pipeline_s = boru hattının kendi 'done in' süresi. Teslimat satırında yalnız meta.json süresi vardır."
+  ],
+  "decision_rule": "Tanıyıcı katmanı veya nesli değiştirildiğinde hücre değeri, ilişki ve kontrol değişmiyorsa fark yalnız yüzde hücrelerinin güvenindedir (yalnız güven farkı sütunu); bu durumda kütüphane varsayılanı kalır ve sürüm sabitlemesi değişmez."
+}

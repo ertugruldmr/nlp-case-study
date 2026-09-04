@@ -1,0 +1,52 @@
+# CI for the scenario lab. NOT part of the graded submission: the submitted artifact
+# deliberately omits CI (see v0/README.md section 11).
+#
+# This file is deliberately parked here rather than at the repository root, because
+# GitHub Actions only reads `.github/workflows/` at the root of a repository. It is an
+# authored artifact that has never been executed on a runner, and installing it at the
+# root would put an untested workflow in front of anyone opening the repository. To
+# actually run it, copy it to `.github/workflows/ci.yml` at the repository root; the
+# paths below already assume that location.
+#
+# Same honesty policy as the Dockerfile: treat the first green run as the validation.
+name: ci
+on:
+  push:
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: install tesseract (Turkish)
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq tesseract-ocr tesseract-ocr-tur
+      - name: install uv
+        uses: astral-sh/setup-uv@v5
+
+      - name: sealed pipeline unit tests
+        working-directory: v0
+        run: uv sync --frozen && uv run pytest -q
+
+      - name: scenario lab sync (resolves the pipeline from ../../v0)
+        working-directory: presentation-edition-v1/app
+        run: uv sync
+
+      - name: scenario lab unit tests (no pipeline execution)
+        working-directory: presentation-edition-v1/app
+        run: uv run pytest -q
+
+      - name: baseline scenario end-to-end, with the eval assertion
+        working-directory: presentation-edition-v1/app
+        run: |
+          uv run ftlink-precompute --force baseline
+          python3 - <<'PY'
+          import json
+          ev = json.load(open('runs/baseline/meta.json'))['eval']
+          assert ev['cells']['pct'] == 99.0, ev['cells']
+          assert ev['relations']['precision'] == 1.0 and ev['relations']['recall'] == 1.0, ev['relations']
+          print('baseline numbers reproduced on the CI runner')
+          PY
+
+      - name: static verification of the presentation edition
+        run: ./presentation-edition-v1/verify.sh

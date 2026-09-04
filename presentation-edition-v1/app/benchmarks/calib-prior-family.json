@@ -1,0 +1,165 @@
+{
+  "id": "calib-prior-family",
+  "title_tr": "Kalibrasyon: öncül ailesi yeniden fitleri (E56)",
+  "title_en": "Calibration: prior-family refits on the 33 captured controls (E56)",
+  "measured_at": "2026-08-29T18:11:04",
+  "source": "research/assets/experiments/calibration-sensitivity/prior_family.json",
+  "scope": "offline refit",
+  "baseline": "shipped_platt",
+  "columns": [
+    {
+      "key": "a",
+      "label_tr": "a (eğim)",
+      "kind": "number"
+    },
+    {
+      "key": "b",
+      "label_tr": "b (kesişim)",
+      "kind": "number"
+    },
+    {
+      "key": "brier_in",
+      "label_tr": "Brier (örneklem içi)",
+      "kind": "number"
+    },
+    {
+      "key": "brier_loo",
+      "label_tr": "Brier (LOO, kendi öncülü)",
+      "kind": "number"
+    },
+    {
+      "key": "jackknife",
+      "label_tr": "jackknife maks Δp",
+      "kind": "number"
+    },
+    {
+      "key": "p_max_neg",
+      "label_tr": "p(en yüksek negatif)",
+      "kind": "number"
+    },
+    {
+      "key": "p_min_pos",
+      "label_tr": "p(en düşük pozitif)",
+      "kind": "number"
+    },
+    {
+      "key": "p_gap_mid",
+      "label_tr": "p(boşluk ortası)",
+      "kind": "number"
+    },
+    {
+      "key": "corp_mcb",
+      "label_tr": "CORP MCB (LOO)",
+      "kind": "number"
+    },
+    {
+      "key": "corp_dsc",
+      "label_tr": "CORP DSC (LOO)",
+      "kind": "number"
+    },
+    {
+      "key": "rel_min",
+      "label_tr": "ilişki p min (geri besleme öncesi)",
+      "kind": "number"
+    },
+    {
+      "key": "rel_max",
+      "label_tr": "ilişki p maks (geri besleme öncesi)",
+      "kind": "number"
+    },
+    {
+      "key": "note",
+      "label_tr": "not",
+      "kind": "text"
+    }
+  ],
+  "rows": [
+    {
+      "id": "shipped_platt",
+      "label": "shipped_platt",
+      "role": "shipped",
+      "source": "research/assets/experiments/calibration-sensitivity/prior_family.json",
+      "a": 10.5259,
+      "b": -3.6973,
+      "brier_in": 0.0067,
+      "brier_loo": 0.0085,
+      "jackknife": 0.0372,
+      "p_max_neg": 0.0663,
+      "p_min_pos": 0.784,
+      "p_gap_mid": 0.3368,
+      "corp_mcb": 0.0085,
+      "corp_dsc": 0.2222,
+      "rel_min": 0.7839,
+      "rel_max": 0.9747,
+      "note": null
+    },
+    {
+      "id": "jeffreys_firth",
+      "label": "jeffreys_firth",
+      "role": "measured",
+      "source": "research/assets/experiments/calibration-sensitivity/prior_family.json",
+      "a": 14.6406,
+      "b": -4.882,
+      "brier_in": 0.0014,
+      "brier_loo": 0.0019,
+      "jackknife": 0.0292,
+      "p_max_neg": 0.0317,
+      "p_min_pos": 0.8863,
+      "p_gap_mid": 0.3358,
+      "corp_mcb": 0.0019,
+      "corp_dsc": 0.2222,
+      "rel_min": 0.8863,
+      "rel_max": 0.9952,
+      "note": null
+    },
+    {
+      "id": "cauchy_gelman",
+      "label": "cauchy_gelman",
+      "role": "measured",
+      "source": "research/assets/experiments/calibration-sensitivity/prior_family.json",
+      "a": 17.6862,
+      "b": -5.7603,
+      "brier_in": 0.0004,
+      "brier_loo": 0.0006,
+      "jackknife": 0.0227,
+      "p_max_neg": 0.0181,
+      "p_min_pos": 0.932,
+      "p_gap_mid": 0.3347,
+      "corp_mcb": 0.0006,
+      "corp_dsc": 0.2222,
+      "rel_min": 0.932,
+      "rel_max": 0.9986,
+      "note": null
+    },
+    {
+      "id": "l2_C1",
+      "label": "l2_C1",
+      "role": "measured",
+      "source": "research/assets/experiments/calibration-sensitivity/prior_family.json",
+      "a": 2.5837,
+      "b": -1.4291,
+      "brier_in": 0.1048,
+      "brier_loo": 0.1151,
+      "jackknife": 0.0286,
+      "p_max_neg": 0.2367,
+      "p_min_pos": 0.4489,
+      "p_gap_mid": 0.3345,
+      "corp_mcb": 0.1151,
+      "corp_dsc": 0.2222,
+      "rel_min": 0.4489,
+      "rel_max": 0.5926,
+      "note": null
+    },
+    {
+      "id": "unsmoothed_mle",
+      "label": "unsmoothed_mle",
+      "role": "rejected",
+      "source": "research/assets/experiments/calibration-sensitivity/prior_family.json",
+      "note": "no finite solution (perfectly separated controls)"
+    }
+  ],
+  "notes_tr": [
+    "E56 prior-family refits on the 33 captured controls (29.08.2026); each LOO refit under its own prior; relations = 7 emitted relations at their fused scores, before reconciliation feedback and validation factor"
+  ],
+  "decision_rule": "Tüm sonlu iki parametreli haritalar kontrol noktalarında uyuşur ve yalnız skor boşluğunda ayrışır (p sütunları); N=33 ayrık kontrolde en muhafazakar sonlu harita yumuşatılmış Platt'tır ve birincil kalır. CORP ayrışımında DSC tüm fitlerde aynıdır: fark yalnız kalibrasyon hatasındadır (MCB)."
+}

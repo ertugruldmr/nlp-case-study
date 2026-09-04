@@ -1,0 +1,113 @@
+{
+  "id": "second-document-generality",
+  "title_tr": "Başka belgelerde genellik: mühürlü boru hattı, yalnız konfigürasyon (E51)",
+  "title_en": "Second-document generality: sealed pipeline on documents it never saw, config only (E51)",
+  "measured_at": "2026-08-29T18:17:19+03:00",
+  "source": "evidence/second-document-generality.md",
+  "scope": "other documents",
+  "baseline": "case-document-shipped",
+  "columns": [
+    {
+      "key": "exit",
+      "label_tr": "çıkış kodu",
+      "kind": "number"
+    },
+    {
+      "key": "wall_s",
+      "label_tr": "duvar saati",
+      "kind": "seconds"
+    },
+    {
+      "key": "pipeline_s",
+      "label_tr": "boru hattı süresi",
+      "kind": "seconds"
+    },
+    {
+      "key": "tables",
+      "label_tr": "tablo (özet + dipnot)",
+      "kind": "text"
+    },
+    {
+      "key": "rows_cells",
+      "label_tr": "satır / hücre",
+      "kind": "text"
+    },
+    {
+      "key": "footnote_pages",
+      "label_tr": "bulunan dipnot sayfaları",
+      "kind": "text"
+    },
+    {
+      "key": "relations",
+      "label_tr": "ilişki (düşük güvenli)",
+      "kind": "text"
+    },
+    {
+      "key": "checks",
+      "label_tr": "kontrol geçti / kaldı / değerlendirilemez",
+      "kind": "text"
+    }
+  ],
+  "rows": [
+    {
+      "id": "case-document-shipped",
+      "label": "Vaka belgesi, teslimat çalıştırması (taban çizgisi)",
+      "role": "shipped",
+      "source": "app/runs/baseline/outputs/result.json",
+      "exit": 0,
+      "wall_s": 28.8,
+      "pipeline_s": null,
+      "tables": "3 + 4",
+      "rows_cells": "95 / 193",
+      "footnote_pages": "53, 54",
+      "relations": "7 (0)",
+      "checks": "103 / 4 / 6"
+    },
+    {
+      "id": "ozak-gyo-2013",
+      "label": "ozak-gyo-2013",
+      "role": "measured",
+      "source": "evidence/second-document-generality.md (Run outcomes)",
+      "exit": 0,
+      "wall_s": 22.0,
+      "pipeline_s": 20.7,
+      "tables": "3 + 3",
+      "rows_cells": "111 / 220",
+      "footnote_pages": "52, 53 (TOC path, page_offset 5)",
+      "relations": "4 (0)",
+      "checks": "80 / 8 / 3"
+    },
+    {
+      "id": "ozak-gyo-2011",
+      "label": "ozak-gyo-2011",
+      "role": "measured",
+      "source": "evidence/second-document-generality.md (Run outcomes)",
+      "exit": 0,
+      "wall_s": 59.8,
+      "pipeline_s": 58.5,
+      "tables": "3 + 2",
+      "rows_cells": "83 / 159",
+      "footnote_pages": "44 only (scan fallback, page_offset null)",
+      "relations": "1 (1)",
+      "checks": "67 / 2 / 4"
+    },
+    {
+      "id": "emlak-konut-gyo-2012",
+      "label": "emlak-konut-gyo-2012",
+      "role": "measured",
+      "source": "evidence/second-document-generality.md (Run outcomes)",
+      "exit": 2,
+      "wall_s": 62.3,
+      "pipeline_s": null,
+      "tables": "none",
+      "rows_cells": "none",
+      "footnote_pages": "not found",
+      "relations": "none",
+      "checks": "none (aborted at S5)"
+    }
+  ],
+  "notes_tr": [
+    "Bu belgeler için gold küme yoktur; doğruluk ifadeleri kanıt notundaki göz kontrolleridir. Teslimat satırında tablo sayısı 'özet + dipnot', ilişki sayısı '(düşük güvenli)' biçimindedir."
+  ],
+  "decision_rule": "Sıfır kod değişikliğiyle başka belgelerde davranış: ilişki üreten satırlar konfigürasyon genelliğini, çıkış kodu sıfırdan farklı satır ise S5 dipnot bulma sınırını gösterir (başarısızlık analizi girdisi)."
+}

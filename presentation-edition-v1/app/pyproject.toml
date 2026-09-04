@@ -1,0 +1,43 @@
+[project]
+name = "ftlink-app"
+version = "1.0.1"
+description = "Switchable-scenario demo app over the ftlink pipeline (presentation edition)"
+requires-python = ">=3.11"
+dependencies = [
+    "ftlink",
+    "fastapi>=0.111",
+    "uvicorn>=0.30",
+    "pydantic>=2.7",
+    "pyyaml>=6.0",
+    "python-multipart>=0.0.9",
+    "pymupdf>=1.24",
+]
+
+[dependency-groups]
+dev = ["pytest>=8.0", "httpx>=0.27"]
+
+[tool.uv.sources]
+ftlink = { path = "../../v0" }
+
+[tool.uv]
+[[tool.uv.index]]
+name = "pytorch-cpu"
+url = "https://download.pytorch.org/whl/cpu"
+explicit = true
+
+# CPU-only torch on linux, same as the deliverable, keeps the image small
+[tool.uv.sources.torch]
+index = "pytorch-cpu"
+marker = "sys_platform == 'linux'"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/ftlink_app"]
+
+[project.scripts]
+ftlink-app = "ftlink_app.api:serve"
+ftlink-precompute = "ftlink_app.precompute:main"
+ftlink-benchmarks-sync = "ftlink_app.benchmarks_sync:main"

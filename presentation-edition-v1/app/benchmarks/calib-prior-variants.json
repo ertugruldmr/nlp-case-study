@@ -1,0 +1,114 @@
+{
+  "id": "calib-prior-variants",
+  "title_tr": "Kalibrasyon: Platt öncül varyantları (E48)",
+  "title_en": "Calibration: Platt prior variants on the 33 captured controls (E48)",
+  "measured_at": "2026-08-29T07:07:28",
+  "source": "research/assets/experiments/calibration-sensitivity/results.json",
+  "scope": "offline refit",
+  "baseline": "shipped",
+  "columns": [
+    {
+      "key": "a",
+      "label_tr": "a (eğim)",
+      "kind": "number"
+    },
+    {
+      "key": "b",
+      "label_tr": "b (kesişim)",
+      "kind": "number"
+    },
+    {
+      "key": "brier_in",
+      "label_tr": "Brier (örneklem içi)",
+      "kind": "number"
+    },
+    {
+      "key": "brier_loo",
+      "label_tr": "Brier (LOO, aynı öncül)",
+      "kind": "number"
+    },
+    {
+      "key": "jackknife",
+      "label_tr": "jackknife maks Δp",
+      "kind": "number"
+    },
+    {
+      "key": "rel_min",
+      "label_tr": "ilişki güveni min",
+      "kind": "number"
+    },
+    {
+      "key": "rel_max",
+      "label_tr": "ilişki güveni maks",
+      "kind": "number"
+    },
+    {
+      "key": "flagged",
+      "label_tr": "bayraklı (0,5)",
+      "kind": "number"
+    },
+    {
+      "key": "note",
+      "label_tr": "not",
+      "kind": "text"
+    }
+  ],
+  "rows": [
+    {
+      "id": "shipped",
+      "label": "shipped",
+      "role": "shipped",
+      "source": "research/assets/experiments/calibration-sensitivity/results.json",
+      "a": 10.5259,
+      "b": -3.6973,
+      "brier_in": 0.0067,
+      "brier_loo": 0.0085,
+      "jackknife": 0.0372,
+      "rel_min": 0.8164,
+      "rel_max": 0.9991,
+      "flagged": 0,
+      "note": null
+    },
+    {
+      "id": "half",
+      "label": "half",
+      "role": "measured",
+      "source": "research/assets/experiments/calibration-sensitivity/results.json",
+      "a": 13.4824,
+      "b": -4.571,
+      "brier_in": 0.0022,
+      "brier_loo": 0.003,
+      "jackknife": 0.0325,
+      "rel_min": 0.8811,
+      "rel_max": 0.9999,
+      "flagged": 0,
+      "note": null
+    },
+    {
+      "id": "unsmoothed",
+      "label": "unsmoothed",
+      "role": "rejected",
+      "source": "research/assets/experiments/calibration-sensitivity/results.json",
+      "note": "Newton diverged: no finite MLE on perfectly separated controls"
+    },
+    {
+      "id": "sklearn_l2",
+      "label": "sklearn_l2",
+      "role": "measured",
+      "source": "research/assets/experiments/calibration-sensitivity/results.json",
+      "a": 2.5837,
+      "b": -1.4291,
+      "brier_in": 0.1048,
+      "brier_loo": 0.1151,
+      "jackknife": 0.0286,
+      "rel_min": 0.5316,
+      "rel_max": 0.7958,
+      "flagged": 0,
+      "note": null
+    }
+  ],
+  "notes_tr": [
+    "Yakalama: 33 bağlantı kararı, 11 kabul; teslimat ağırlıkları {'cross_encoder': 0.4, 'value_rules': 0.4, 'lexical': 0.2}. Tüm varyantlar bu yakalama üzerinde çevrimdışı aritmetiktir."
+  ],
+  "decision_rule": "Öncül kararlılığı değil keskinliği belirler: sonlu her fit tek kontrol çıkarıldığında benzer miktarda oynar (jackknife sütunu); düzeltilmemiş MLE ayrık kontrollerde sonlu çözüm bulamaz. Teslimat yumuşatılmış Platt (en muhafazakar sonlu harita) kalır; yarım güçte yumuşatma daha keskindir."
+}

@@ -1,0 +1,59 @@
+{
+  "id": "calib-text-only-threshold",
+  "title_tr": "Kalibrasyon: yalnız-metin kabul eşiği (E49)",
+  "title_en": "Calibration: cross-encoder score needed for a text-only acceptance (E49)",
+  "measured_at": "2026-08-29T07:07:28",
+  "source": "research/assets/experiments/calibration-sensitivity/results.json",
+  "scope": "offline refit",
+  "baseline": null,
+  "columns": [
+    {
+      "key": "lexical",
+      "label_tr": "sözcüksel skor",
+      "kind": "number"
+    },
+    {
+      "key": "fused_needed",
+      "label_tr": "gereken birleşik skor",
+      "kind": "number"
+    },
+    {
+      "key": "cross_encoder_needed",
+      "label_tr": "gereken CE skoru",
+      "kind": "number"
+    }
+  ],
+  "rows": [
+    {
+      "id": "lexical_0.0",
+      "label": "sözcüksel skor 0.0",
+      "role": "measured",
+      "source": "research/assets/experiments/calibration-sensitivity/results.json",
+      "lexical": 0.0,
+      "fused_needed": 0.3725,
+      "cross_encoder_needed": 0.9311
+    },
+    {
+      "id": "lexical_0.4",
+      "label": "sözcüksel skor 0.4",
+      "role": "measured",
+      "source": "research/assets/experiments/calibration-sensitivity/results.json",
+      "lexical": 0.4,
+      "fused_needed": 0.3725,
+      "cross_encoder_needed": 0.7311
+    },
+    {
+      "id": "lexical_0.75",
+      "label": "sözcüksel skor 0.75",
+      "role": "measured",
+      "source": "research/assets/experiments/calibration-sensitivity/results.json",
+      "lexical": 0.75,
+      "fused_needed": 0.3725,
+      "cross_encoder_needed": 0.5561
+    }
+  ],
+  "notes_tr": [
+    "Değer kuralları kanalı 0 iken (yalnız metin) kabul eşiğine ulaşmak için gereken çapraz-kodlayıcı skoru."
+  ],
+  "decision_rule": "Kabul için gereken birleşik skor sabittir; sözcüksel katkı arttıkça yalnız metinle kabul için gereken çapraz-kodlayıcı skoru düşer. Tablo, eşiğe değer kanalı olmadan neden zor ulaşıldığını gösterir: metin eşleşmesi tek başına tasarım gereği yeterli değildir."
+}

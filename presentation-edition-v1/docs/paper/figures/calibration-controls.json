@@ -1,0 +1,296 @@
+{
+ "n": 33,
+ "controls": [
+  [
+   0.5168783291958381,
+   1
+  ],
+  [
+   0.08904928075770538,
+   0
+  ],
+  [
+   0.05451007840534052,
+   0
+  ],
+  [
+   0.06648260907897231,
+   0
+  ],
+  [
+   0.4913040177689659,
+   1
+  ],
+  [
+   0.47373158682699074,
+   1
+  ],
+  [
+   0.08059178197549449,
+   0
+  ],
+  [
+   0.5041291253434288,
+   1
+  ],
+  [
+   0.6982338190078736,
+   1
+  ],
+  [
+   0.09999720753992306,
+   0
+  ],
+  [
+   0.0977601790114453,
+   0
+  ],
+  [
+   0.5525758552027273,
+   1
+  ],
+  [
+   0.06348625304607246,
+   0
+  ],
+  [
+   0.0879758887670257,
+   0
+  ],
+  [
+   0.09284622544485534,
+   0
+  ],
+  [
+   0.08262881063497984,
+   0
+  ],
+  [
+   0.5859527158213186,
+   1
+  ],
+  [
+   0.0500084850872899,
+   0
+  ],
+  [
+   0.09039844665296225,
+   0
+  ],
+  [
+   0.9987794160842896,
+   1
+  ],
+  [
+   0.0754959624358698,
+   0
+  ],
+  [
+   0.06659716529252588,
+   0
+  ],
+  [
+   0.049960214599967,
+   0
+  ],
+  [
+   0.9944869995117188,
+   1
+  ],
+  [
+   0.06742808794083655,
+   0
+  ],
+  [
+   0.06054896893071348,
+   0
+  ],
+  [
+   0.5689277708530427,
+   1
+  ],
+  [
+   0.07199975700680612,
+   0
+  ],
+  [
+   0.06955108068111102,
+   0
+  ],
+  [
+   0.062034116674644445,
+   0
+  ],
+  [
+   0.6472694499152047,
+   1
+  ],
+  [
+   0.06993197619529634,
+   0
+  ],
+  [
+   0.07256320220515577,
+   0
+  ]
+ ],
+ "platt_a": 10.525909422604663,
+ "platt_b": -3.6973194221231505,
+ "separated": true,
+ "relations": [
+  {
+   "id": null,
+   "confidence": 0.8734,
+   "fused": null,
+   "venn": [
+    null,
+    null
+   ],
+   "keys": [
+    "relation_id",
+    "summary_row_id",
+    "footnote_row_id",
+    "period_scope",
+    "relation_type",
+    "approaches",
+    "agreement",
+    "confidence",
+    "confidence_components",
+    "low_confidence",
+    "evidence"
+   ]
+  },
+  {
+   "id": null,
+   "confidence": 0.8416,
+   "fused": null,
+   "venn": [
+    null,
+    null
+   ],
+   "keys": [
+    "relation_id",
+    "summary_row_id",
+    "footnote_row_id",
+    "period_scope",
+    "relation_type",
+    "approaches",
+    "agreement",
+    "confidence",
+    "confidence_components",
+    "low_confidence",
+    "evidence"
+   ]
+  },
+  {
+   "id": null,
+   "confidence": 0.8164,
+   "fused": null,
+   "venn": [
+    null,
+    null
+   ],
+   "keys": [
+    "relation_id",
+    "summary_row_id",
+    "footnote_row_id",
+    "period_scope",
+    "relation_type",
+    "approaches",
+    "agreement",
+    "confidence",
+    "confidence_components",
+    "low_confidence",
+    "evidence"
+   ]
+  },
+  {
+   "id": null,
+   "confidence": 0.8583,
+   "fused": null,
+   "venn": [
+    null,
+    null
+   ],
+   "keys": [
+    "relation_id",
+    "summary_row_id",
+    "footnote_row_id",
+    "period_scope",
+    "relation_type",
+    "approaches",
+    "agreement",
+    "confidence",
+    "confidence_components",
+    "low_confidence",
+    "evidence"
+   ]
+  },
+  {
+   "id": null,
+   "confidence": 0.9785,
+   "fused": null,
+   "venn": [
+    null,
+    null
+   ],
+   "keys": [
+    "relation_id",
+    "summary_row_id",
+    "footnote_row_id",
+    "period_scope",
+    "relation_type",
+    "approaches",
+    "agreement",
+    "confidence",
+    "confidence_components",
+    "low_confidence",
+    "evidence"
+   ]
+  },
+  {
+   "id": null,
+   "confidence": 0.9088,
+   "fused": null,
+   "venn": [
+    null,
+    null
+   ],
+   "keys": [
+    "relation_id",
+    "summary_row_id",
+    "footnote_row_id",
+    "period_scope",
+    "relation_type",
+    "approaches",
+    "agreement",
+    "confidence",
+    "confidence_components",
+    "low_confidence",
+    "evidence"
+   ]
+  },
+  {
+   "id": null,
+   "confidence": 0.9337,
+   "fused": null,
+   "venn": [
+    null,
+    null
+   ],
+   "keys": [
+    "relation_id",
+    "summary_row_id",
+    "footnote_row_id",
+    "period_scope",
+    "relation_type",
+    "approaches",
+    "agreement",
+    "confidence",
+    "confidence_components",
+    "low_confidence",
+    "evidence"
+   ]
+  }
+ ]
+}

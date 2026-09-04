@@ -1,0 +1,251 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1"><title>E54: OCR bake-off, run-08 (GPU, L4), shipped pipeline stays ahead</title>
+<style>
+:root{--navy:#071d49;--blue:#0b3b82;--ink:#17233d;--muted:#5b6b8c;--line:#d9e1ef;--bg:#f5f8fc}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.6 Inter,ui-sans-serif,system-ui,sans-serif}
+header{background:var(--navy);color:#fff;padding:14px 26px;display:flex;align-items:center;gap:14px;flex-wrap:wrap;position:sticky;top:0;z-index:2}
+header .src{color:#a9c5e9;font-size:12px;word-break:break-all}
+header a{color:#bfeaf4;text-decoration:none;font-size:12px;margin-left:auto;white-space:nowrap}
+main{max-width:860px;margin:0 auto;padding:28px 26px 80px;background:#fff;box-shadow:0 0 0 1px var(--line);min-height:100vh}
+h1,h2,h3,h4{color:var(--navy);line-height:1.25}
+h1{font-size:26px;border-bottom:2px solid var(--line);padding-bottom:10px}
+h2{font-size:20px;margin-top:34px;border-bottom:1px solid var(--line);padding-bottom:6px}
+h3{font-size:16px;margin-top:24px}
+code{background:#eef3fb;padding:1px 5px;border-radius:4px;font:13px/1.4 ui-monospace,SFMono-Regular,monospace}
+pre{background:#091a3b;color:#d7e8ff;padding:14px 16px;border-radius:8px;overflow:auto}
+pre code{background:none;padding:0;color:inherit}
+table{border-collapse:collapse;width:100%;margin:14px 0;font-size:13.5px}
+th,td{border:1px solid var(--line);padding:7px 10px;text-align:left;vertical-align:top}
+th{background:#edf3fb}
+blockquote{border-left:4px solid var(--blue);margin:14px 0;padding:2px 16px;color:var(--muted);background:#f2f7ff}
+a{color:var(--blue)}
+img{max-width:100%}
+</style></head><body>
+<header><b>E54: OCR bake-off, run-08 (GPU, L4), shipped pipeline stays ahead</b><span class="src">docs/evidence/ocr-bakeoff-run08.md</span><a href="../docs/evidence/ocr-bakeoff-run08.md" target="_blank" rel="noopener">View raw source &#8599;</a></header>
+<main><hr />
+<p>slug: ocr-bakeoff-run08
+candidate: "E54: 16 OCR engine variants (tesseract x6, RapidOCR x3, EasyOCR, docTR x2, PaddleOCR, Qwen2.5-VL-7B x2, olmOCR-2) bake-off on the deliverable's 201 gold cells, GPU"
+created: 2026-08-30T23:05:00+03:00
+verified: 2026-08-30T23:05:00+03:00
+status: fresh
+verdict: partial
+claim: "Does any alternative OCR engine beat the shipped tesseract+RapidOCR two-engine pipeline on this scan class?"
+sources:
+  - research/assets/experiments/colab/run-08-ocr-bakeoff/nb8_ocr_results.json
+  - research/assets/experiments/colab/run-08-ocr-bakeoff/README.md
+  - handoff/RUN0678-FOLDIN-PLAN.md
+tags: [measured, colab, gpu, ocr, E54]</p>
+<hr />
+<h1 id="e54-ocr-bake-off-run-08-gpu-l4-shipped-pipeline-stays-ahead">E54: OCR bake-off, run-08 (GPU, L4), shipped pipeline stays ahead</h1>
+<h2 id="test-setup">Test setup</h2>
+<p>Colab L4, <code>colab-ops/run.sh run-08-ocr-bakeoff all</code>, 1265s notebook-internal elapsed (1336s wall
+at the campaign level). 16 of 16 planned engine variants attempted (per the notebook's own try/
+except contract, predating this session's harness hardening): 15 completed <code>ok</code>, 1 recorded
+<code>failed</code> with a traceback (PaddleOCR — its isolated venv could not install pip inside itself,
+both GPU and CPU wheel paths; this is an environment failure, not a modelling result). No
+silent gaps: every planned key is present in the result file with an explicit status.</p>
+<p>Two scoring levels, not directly comparable to each other or naively to the shipped number:
+level (a) = does the engine's full-page text contain the gold value string at all (denominator
+182 numeric cells); level (b) = cell-exact match using row/column geometry derived from the
+tesseract TSV (denominator 201, mixing number/dash/empty states). The notebook's own comparison
+line is explicit about this: "Level (a) recall is looser ... and is not comparable to the
+199/201 figure."</p>
+<h2 id="observed-level-b-cell-exact-the-comparable-number">Observed — level (b), cell-exact (the comparable number)</h2>
+<table>
+<thead>
+<tr>
+<th>engine</th>
+<th>cell exact /201</th>
+<th>percent /6</th>
+<th>label CER (folded)</th>
+<th>s/page</th>
+<th>GPU MB</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>shipped (tesseract TSV + RapidOCR swap, README)</strong></td>
+<td><strong>199</strong></td>
+<td>6/6</td>
+<td>—</td>
+<td>—</td>
+<td>0 (CPU)</td>
+</tr>
+<tr>
+<td>tesseract apt psm4 1x</td>
+<td>193</td>
+<td>0/6</td>
+<td>0.0498</td>
+<td>1.66</td>
+<td>0</td>
+</tr>
+<tr>
+<td>tesseract apt psm6 1x</td>
+<td>193</td>
+<td>0/6</td>
+<td>0.0524</td>
+<td>1.41</td>
+<td>0</td>
+</tr>
+<tr>
+<td>rapidocr_onnxruntime 1x</td>
+<td>190</td>
+<td>6/6</td>
+<td>0.0604</td>
+<td>3.40</td>
+<td>0</td>
+</tr>
+<tr>
+<td>rapidocr&gt;=2.0, 1x</td>
+<td>190</td>
+<td>6/6</td>
+<td>0.0422</td>
+<td>2.23</td>
+<td>0</td>
+</tr>
+<tr>
+<td>doctr db_resnet50+crnn_vgg16_bn</td>
+<td>190</td>
+<td>6/6</td>
+<td>0.0566</td>
+<td>0.38</td>
+<td>568</td>
+</tr>
+<tr>
+<td>doctr db_resnet50+parseq</td>
+<td>190</td>
+<td>6/6</td>
+<td>0.0570</td>
+<td>0.72</td>
+<td>580</td>
+</tr>
+<tr>
+<td>easyocr tr</td>
+<td>185</td>
+<td>6/6</td>
+<td>0.0511</td>
+<td>3.43</td>
+<td>3580</td>
+</tr>
+<tr>
+<td>tesseract apt psm4 2x (upscale)</td>
+<td>183</td>
+<td>0/6</td>
+<td>0.0494</td>
+<td>2.92</td>
+<td>0</td>
+</tr>
+<tr>
+<td>tesseract apt psm6 2x (upscale)</td>
+<td>181</td>
+<td>0/6</td>
+<td>0.0528</td>
+<td>2.57</td>
+<td>0</td>
+</tr>
+<tr>
+<td>tesseract tessdata_best psm4/psm6 1x</td>
+<td>8</td>
+<td>0/6</td>
+<td>1.0</td>
+<td>2.5-2.7</td>
+<td>0</td>
+</tr>
+<tr>
+<td>PaddleOCR PP-OCRv5</td>
+<td>FAILED (venv pip install broken, both GPU and CPU wheel)</td>
+<td>—</td>
+<td>—</td>
+<td>—</td>
+<td>—</td>
+</tr>
+</tbody>
+</table>
+<p>Qwen2.5-VL-7B and olmOCR-2 are page-transcription VLMs scored only at level (a)/(a-row), not
+directly in this table (see below).</p>
+<p><strong>No single engine beats the shipped two-engine pipeline's 199/201.</strong> The best single-engine
+result at level (b) is the shipped primary itself (tesseract apt psm6, 193/201) before RapidOCR's
+percent-row rescue is applied; every alternative engine that DOES read percent glyphs correctly
+(RapidOCR variants, docTR, EasyOCR) trades that gain for worse digit/label fidelity elsewhere,
+landing at 185-190/201, all below the shipped combination.</p>
+<h2 id="anomaly-tessdata_best-returns-literally-empty-strings-not-bad-recognition">Anomaly: tessdata_best returns literally empty strings, not bad recognition</h2>
+<p>Both <code>tessdata_best</code> variants (psm4 and psm6) score 8/201 exact — but inspecting the raw records
+shows every non-empty gold cell was read as <code>''</code> (empty string), not a garbled digit. This is a
+total output failure, not a language-model-quality finding: <code>settings.tessdata_dir</code> is recorded
+as <code>/content/tessdata_best</code>, and level_a/level_b mismatch lists confirm <code>read=''</code> uniformly. The
+engine's own <code>status</code> field says <code>ok</code> because tesseract exited 0 and produced a (empty) file —
+this is exactly the class of failure that looks like a result but isn't, one level short of the
+notebook's own try/except contract (which catches exceptions, not empty-but-successful output).
+Root cause not chased further here (out of scope for this fold-in); flagged so nobody reads
+"tessdata_best is unusably poor at Turkish digits" from this number — the correct reading is "this
+notebook's tessdata_best invocation produced no output," a configuration bug, not a model result.</p>
+<h2 id="observed-level-a-page-level-recall-and-the-vlm-tier">Observed — level (a), page-level recall, and the VLM tier</h2>
+<table>
+<thead>
+<tr>
+<th>engine</th>
+<th>recall /182</th>
+<th>percent /6 (a)</th>
+<th>notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>rapidocr_onnxruntime 1x / rapidocr&gt;=2.0 1x</td>
+<td>182/182</td>
+<td>6/6</td>
+<td>full recall at page level</td>
+</tr>
+<tr>
+<td>doctr (both variants)</td>
+<td>182/182</td>
+<td>6/6</td>
+<td>full recall at page level</td>
+</tr>
+<tr>
+<td>easyocr tr</td>
+<td>177/182</td>
+<td>6/6</td>
+<td></td>
+</tr>
+<tr>
+<td>olmocr2 (allenai/olmOCR-2-7B-1025)</td>
+<td>174/182</td>
+<td>6/6 (a)</td>
+<td>HTML tables stripped to tokens; (a-row) only 21/193, structure not usable as-is</td>
+</tr>
+<tr>
+<td>qwen2.5-vl-7b pages</td>
+<td>169/182</td>
+<td>6/6 (a)</td>
+<td>(a-row) approximate row-exact 167/193; percent crops 5/6 (one miss)</td>
+</tr>
+<tr>
+<td>tesseract apt (both psm)</td>
+<td>175/182</td>
+<td>0/6</td>
+<td>matches the local CPU smoke exactly (175/182, 0/6)</td>
+</tr>
+</tbody>
+</table>
+<p>The best two-engine union at level (a) is <code>rapidocr_onnxruntime:2x</code> + any tesseract variant at
+182/182 (full recall), which is the same combination logic the shipped pipeline already uses
+(RapidOCR for percent, tesseract for the rest) — this is a confirmation of the shipped
+architecture's shape, not a new finding.</p>
+<p>Qwen2.5-VL-7B and olmOCR-2 (both 7B GPU VLMs, 71-107 s/page, 16+ GB peak) underperform the
+free CPU engines on this document even at the loose level-(a) metric. Neither is a viable OCR
+replacement here.</p>
+<h2 id="decision-matrix-impact">Decision-matrix impact</h2>
+<p><code>decisions/decision-matrix.md</code> S1 OCR stage: no row changes to the shipped choice (tesseract TSV
+primary + RapidOCR percent rescue stays the best-measured combination); added a comparison line
+citing this run so the "why not PaddleOCR/EasyOCR/a VLM" question at the defense now has GPU
+numbers on this exact document instead of README claims alone. <code>research/94.fact-ledger.md</code> S1
+row gets this run's citation.</p>
+<h2 id="what-is-still-open">What is still open</h2>
+<p>PaddleOCR PP-OCRv5 never actually ran (venv/pip environment failure) — this run answers "how does
+PaddleOCR compare" with "not measured, not by design," same honesty standard as run-07's partial
+coverage. Re-running just the PaddleOCR cell in an isolated environment would close this, but is
+not blocking since PaddleOCR was already a REJECTED candidate on an independent basis (no TR
+diacritics, per <code>research/10.ocr-engines.md</code> candidate 3 / decision-matrix S1).</p></main>
+</body></html>

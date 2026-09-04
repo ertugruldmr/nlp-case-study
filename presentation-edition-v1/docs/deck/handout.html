@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<title>ftlink 1.0.2 savunma özeti</title>
+<style>
+  @page { size: A4; margin: 16mm 16mm; }
+  :root { --ink:#172120; --muted:#5B6B67; --line:#C9D3CF; --acc:#0E5A56; }
+  * { box-sizing:border-box; }
+  body { margin:0; color:var(--ink); background:#fff; font:11.2pt/1.45 "IBM Plex Sans","Helvetica Neue",Arial,sans-serif; }
+  main { max-width:190mm; margin:0 auto; padding:10mm 0; }
+  h1 { font:600 20pt/1.15 Georgia,"Times New Roman",serif; margin:0 0 4px; }
+  h2 { font-size:11.5pt; letter-spacing:.06em; text-transform:uppercase; color:var(--acc); margin:16px 0 6px; border-bottom:1px solid var(--line); padding-bottom:3px; }
+  p { margin:0 0 6px; }
+  .sub { color:var(--muted); font-size:10.5pt; }
+  .kpi { display:grid; grid-template-columns:repeat(4,1fr); gap:8px; margin:10px 0 4px; }
+  .kpi div { border:1px solid var(--line); border-radius:6px; padding:7px 9px; }
+  .kpi b { display:block; font:600 15pt/1.1 Georgia,serif; color:var(--acc); }
+  .kpi span { font-size:9.5pt; color:var(--muted); }
+  table { width:100%; border-collapse:collapse; font-size:9.8pt; margin:4px 0; }
+  th,td { border-bottom:1px solid var(--line); padding:4px 6px; text-align:left; vertical-align:top; }
+  th { color:var(--muted); font-weight:600; font-size:9pt; text-transform:uppercase; letter-spacing:.04em; }
+  code { font-family:"IBM Plex Mono",Menlo,monospace; font-size:9.6pt; }
+  ul { margin:2px 0 6px 18px; padding:0; } li { margin:2px 0; }
+  .two { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+  .foot { margin-top:14px; color:var(--muted); font-size:9pt; border-top:1px solid var(--line); padding-top:6px; display:flex; justify-content:space-between; }
+  .break { break-before:page; }
+</style>
+</head>
+<body>
+<main>
+  <h1>ftlink 1.0.2: taranmış KAP raporunda satır seviyesinde tablo-dipnot ilişkilendirme</h1>
+  <p class="sub">Savunma özeti · Ertuğrul Demir · Özak GYO 31.12.2012 konsolide bağımsız denetim raporu (95 sayfa tarama, metin katmanı yok) · özet tablolar s. 5-7, dipnot 11 s. 53-54</p>
+
+  <div class="kpi">
+    <div><b>199 / 201</b><span>referans hücre birebir (%99,0); 2 yanlış = 2 işaretli OCR bozulması; CI [0,965, 0,999]</span></div>
+    <div><b>P = R = 1,00</b><span>7/7 referans ilişki; tek yanlı %95 alt sınır 0,652</span></div>
+    <div><b>103 / 4 / 6</b><span>kontrol geçer / kalır / değerlendirilemez; kalanların hepsi gerçek kusur</span></div>
+    <div><b>bayt-özdeş</b><span>iki çalıştırma, macOS ve x86_64 Linux; <code>make determinism</code></span></div>
+  </div>
+
+  <h2>1. Ne yapılır, hangi sırayla (tek LLM çağrısı yok)</h2>
+  <p>S0 YAML konfig (sayfa aralığı, dipnot no) → S1 render + tesseract TSV → S1b RapidOCR ikinci motor → S2 sayfa doğrulama → S3 x-kümeleme tablo yapısı (S3b oran satırlarında motor rol değişimi) → S4 Türkçe sayı grameri (parantez negatif, nokta binlik; tire / boş / sıfır üç ayrı durum) → S5 dipnot bulma (İçindekiler + ofset + başlık doğrulama + "devamı" yürüyüşü) → S6 aday üretimi (4 kanal: char TF-IDF + token-set fuzzy + e5-small + değer çapası, ağırlıklı RRF k=10) → S7 ilişkilendirme (A çapraz kodlayıcı, B değer+rol kuralları, C sözcüksel taban, D LLM seçici kapalı) → S8 çalışma anında kalibre güven → S9 üç grup doğrulama → S10 JSON / JSONL / HTML rapor.</p>
+
+  <h2>2. Nerede ayrışıyorlar (gereksinim 10)</h2>
+  <table>
+    <tr><th>Yaklaşım</th><th>Ne görür</th><th>Bu dokümanda</th></tr>
+    <tr><td>A çapraz kodlayıcı (mmarco-mMiniLMv2, 118M)</td><td>etiket | değerler çifti</td><td>anlamsal çiftleri taşır; yalnız etiketle R@5 1/7, değerlerle 7/7 (exact McNemar p = 0,031)</td></tr>
+    <tr><td>B değer + rol kuralları</td><td>dönem kapsamlı değer eşitliği × rol tutarlılığı</td><td>mutabakat ilişkilerinin tamamı (b_only ×5); ML yok</td></tr>
+    <tr><td>C sözcüksel taban (rapidfuzz, 0,75)</td><td>yalnız etiket</td><td>hiçbir şey kabul etmez; 0,4 eşikte 3 yanlış bağ, hepsi bayraklı (P 0,70)</td></tr>
+    <tr><td>D LLM seçici</td><td>tüm adaylar, JSON seçim</td><td>varsayılan kapalı; d_only ilişkiler hep bayraklı; kalibratöre girmez</td></tr>
+  </table>
+  <p class="sub">Uzlaşma deseni sistematik: consensus ×2 (anlamsal), b_only ×5 (4 bilanço mutabakatı + 1 ikiz-tablo akış), lexical ×0.</p>
+
+  <h2>3. Güven: ham benzerlik değil, dokümanın kendi aritmetiği</h2>
+  <ul>
+    <li>Dört seviye: hücre (OCR × ayrıştırma × motor uyuşması), satır, tablo (sıralı bileşimler) ve ilişki (kalibre olasılık).</li>
+    <li>Kontrol seti dokümandan: pozitif = bir yaklaşımın kabul ettiği VE değer mutabakatı geçen karar; negatif = herkesin reddettiği. 11 pozitif / 22 negatif (nakit akış sayfaları 9-10 konfigle eklenir). Kabul edilip mutabakat geçmeyen kararlar hiçbir havuza girmez.</li>
+    <li>Yumuşatılmış Platt (a = 10,53, b = -3,70, çıktıda); ayrışan kontrollerde izotonik basamağa çöker, yumuşatmasız lojistik doyar. Jackknife: hiçbir güven 0,037'den fazla oynamaz.</li>
+    <li>Leave-one-out Brier 0,0085 (taban oranı 0,2222; ham füzyon 0,0579), <code>make calibration</code>. Kendi kontrolleri: "bu dokümanda tutarlı", "genelde kalibre" değil.</li>
+    <li>Venn-ABERS aralığı [p0, p1] her ilişkide; en zayıf bağ [0,50, 1,00], konsensüs [0,90, 1,00]. Dürüstlük kaydı: aralık ilişkinin kendi kontrol etiketiyle hesaplanır; etiket çıkarılınca en zayıf [0,00, 1,00]. Aralık bir sıralama aracıdır, kapsama garantisi değil.</li>
+    <li>Eşik: incele ⇔ p &lt; 1 − c<sub>inceleme</sub>/c<sub>kaçırma</sub>; 1/20 → 0,95 (7 ilişkinin 6'sı kuyruğa), 1/5 → 0,80 (kuyruk boş). Eşik kaçırma maliyetiyle yükselir; yedek kalibrasyon modu her ilişkiyi kuyruğa gönderir.</li>
+  </ul>
+
+  <div class="break"></div>
+  <h2>4. Doğrulama ve iki gerçek hata</h2>
+  <ul>
+    <li>Yapısal (dönem sırası, referans aralığı, bulunan başlık, kapsama), biçimsel (gidiş-dönüş ayrıştırma, üç durum, işaret, motor uyuşması, yüzde sınırı), finansal (roll-forward, kategori ve ebeveyn toplamları, genel toplam hipotez oyu, gelir tablosu kaskadı, mutabakat). Değerlendirilemeyen kontrol <code>not_evaluable</code> der.</li>
+    <li>Stoklar 2012: 77.543.097 → 77.943.097 (5 → 9): ikinci motor uyuşmazlığı güveni 0,4'e çeker VE ebeveyn toplamı +400.000 sapar. Finansal Yatırımlar 2012: 4.224 → 4,224: rakamlar aynı, motor kontrolü doğası gereği geçer; ,224 kalıntısını ebeveyn toplamı yakalar. İkisi de düzeltilmez, işaretlenir: sıfır sessiz hata.</li>
+    <li>Mutasyon testli (<code>eval/mutations.py</code>, pakette): alt kalem rakamı, genel toplam, bağlantı satırı bozulmaları 3/3 adlı yakalayıcıyla yakalanır.</li>
+  </ul>
+
+  <h2>5. Değerlendirme yöntemi ve sınırlar</h2>
+  <div class="two">
+    <div>
+      <ul>
+        <li>Referans: 201 hücre + 7 ilişki, sayfa görüntülerinden; 77 aritmetik özdeşlik tutunca kabul; kör ikinci yeniden-yazım geçişi 30/30, 6/6, dipnot-11 işaretleri birebir.</li>
+        <li>Puanlayıcı kuralları README 9'da; referans dışı çıkarılmış satır sayısı yazdırılır (0).</li>
+        <li>Yedi bağ bu bildirimde işlevi kanıtlar, hata oranını tahmin etmez. Ölçekli protokol yazılı: korpus, iki yazıcı + kappa, bildirim düzeyi bootstrap, leave-one-document-out kalibrasyon.</li>
+      </ul>
+    </div>
+    <div>
+      <ul>
+        <li>Sınırlar: tek bildirim; N = 33 kontrol; yatık sayfa ekstraksiyonu demo seviyesinde (dipnot 12: bayraklı 0,5274); onarım kesinlik öncelikli (R 0,53); baştaki eksi ayrıştırılmaz; rol sözlüğü 5 ifade; çapraz-tablo özdeşlikleri sevk edilmedi.</li>
+        <li>Bekleyen kanıt: TATR GriTS karşılaştırması, büyük reranker marjları, NLI (Colab run-01); sevk edilen yığın bunlardan bağımsız.</li>
+      </ul>
+    </div>
+  </div>
+
+  <h2>6. Yeniden üretme (grader için)</h2>
+  <table>
+    <tr><th>Komut</th><th>Ne yapar</th><th>Beklenen</th></tr>
+    <tr><td><code>uv sync --frozen</code></td><td>kilitli paketler; ağırlıklar snapshot hash ile sabit</td><td>89 paket</td></tr>
+    <tr><td><code>make run</code></td><td>tam boru hattı, dipnot 11</td><td>tables=7 rows=95 cells=193 relations=7 · 103/4/6</td></tr>
+    <tr><td><code>make eval</code></td><td>referansa karşı puan</td><td>199/201 · P=R=1,00 · CI ve alt sınırlar</td></tr>
+    <tr><td><code>make determinism</code></td><td>iki çalıştırma, run bloğu dışında diff</td><td>True, çıkış 0</td></tr>
+    <tr><td><code>make calibration</code></td><td>LOO Brier + Venn-ABERS kendi-dışı</td><td>0,0085; en zayıf [0,00, 1,00]</td></tr>
+    <tr><td><code>uv run python eval/ablation.py</code></td><td>etiket vs etiket+değer</td><td>1/7 → 7/7, p = 0,031</td></tr>
+    <tr><td><code>uv run python eval/mutations.py</code></td><td>üç enjekte bozulma</td><td>MUTATIONS: all caught</td></tr>
+    <tr><td><code>make run-alt</code></td><td>dipnot 12, döndürülmüş sayfalar, konfig değişikliğiyle</td><td>1 ilişki, 0,5274, bayraklı</td></tr>
+  </table>
+  <div class="foot"><span>ftlink 1.0.2 · Apache-2.0 / MIT modeller · CPU, GPU yok · Python 3.11+ · tesseract tur</span><span>Ertuğrul Demir</span></div>
+</main>
+</body>
+</html>

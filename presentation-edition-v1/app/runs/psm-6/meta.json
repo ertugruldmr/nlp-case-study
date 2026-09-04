@@ -1,0 +1,12 @@
+{
+  "state": "error",
+  "scenario": "psm-6",
+  "error": "RuntimeError: footnote 11 not found (toc and scan both failed)",
+  "trace": "Traceback (most recent call last):\n  File \"<checkout>/src/ftlink_app/runner.py\", line 85, in execute\n    out = ftlink_run(settings)\n          ^^^^^^^^^^^^^^^^^^^^\n  File \"<checkout>/ftlink/pipeline.py\", line 181, in run\n    loc: LocateResult = locate_footnote(pdf, cfg.document.footnote_no, notes_start_guess=hi + 4,\n                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"<checkout>/ftlink/locate.py\", line 179, in locate_footnote\n    raise RuntimeError(f\"footnote {footnote_no} not found (toc and scan both failed)\")\nRuntimeError: footnote 11 not found (toc and scan both failed)\n",
+  "duration_s": 98.4,
+  "platform": {
+    "platform": "macOS-15.4-arm64-arm-64bit",
+    "tesseract": "5.5.3",
+    "note": "backfilled 29.08 after the run from the run block; same host"
+  }
+}
