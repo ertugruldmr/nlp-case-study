@@ -6,7 +6,7 @@ services:
       context: ../..
       dockerfile: presentation-edition-v1/app/Dockerfile
     ports:
-      - "8199:8199"
+      - "127.0.0.1:8199:8199"
     volumes:
       - ./runs:/work/presentation-edition-v1/app/runs
     environment:

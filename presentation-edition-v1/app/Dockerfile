@@ -30,4 +30,7 @@ RUN uv sync --no-dev
 RUN uv run ftlink-precompute
 
 EXPOSE 8199
-CMD ["uv", "run", "uvicorn", "ftlink_app.api:app", "--host", "0.0.0.0", "--port", "8199"]
+# Loopback only: this API has no authentication by design. Binding 0.0.0.0 would
+# expose unauthenticated upload and run endpoints to every interface on the host
+# network. Publish the port as 127.0.0.1:8199:8199 if you need it from the host.
+CMD ["uv", "run", "uvicorn", "ftlink_app.api:app", "--host", "127.0.0.1", "--port", "8199"]
